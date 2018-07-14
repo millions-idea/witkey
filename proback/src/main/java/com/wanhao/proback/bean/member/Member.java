@@ -4,6 +4,8 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import javax.persistence.Table;
+
 /**
  * Created by LiuLiHao on 2018/7/14 17:43.
  * 描述： 会员
@@ -12,6 +14,7 @@ import lombok.ToString;
 @Setter
 @Getter
 @ToString
+@Table(name = "tb_member") //表明
 public class Member {
     private Integer uid;
     private String username;
