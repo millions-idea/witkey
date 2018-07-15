@@ -1,13 +1,13 @@
 package com.wanhao.proback.security;
 
+import com.wanhao.proback.bean.admin.Admin;
+import com.wanhao.proback.service.admin.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.UserDetailsService;
 
 /**
  * Created by LiuLiHao on 2018/7/15 9:17.
@@ -18,25 +18,29 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 @EnableWebSecurity
 public class AccessSecurityConfig extends WebSecurityConfigurerAdapter {
 
+    @Autowired
+    AdminService adminService;
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests().antMatchers("/").permitAll();
-                //.loginPage("/myAdmin/login")                 //  自定义登录页面
-
-        //自动表单登录
-        http.formLogin()
-                .loginPage("/myAdmin/login")
-                .loginProcessingUrl("/myAdmin/login").and().csrf().disable();
-
-
+        http.authorizeRequests()
+                .antMatchers("/login").permitAll()
+                .and()
+                .formLogin()
+                .loginPage("/myAdmin/toLogin")
+                .and()
+                .logout()
+                .permitAll()
+                .and()
+                .csrf().disable();
     }
 
 
-    @Autowired
-    UserDetailsService userDetailsService;
-
-    @Autowired
-    AuthenticationProvider authenticationProvider;
+//    @Autowired
+//    UserDetailsService userDetailsService;
+//
+//    @Autowired
+//    AuthenticationProvider authenticationProvider;
 
 //    @Override
 //    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -50,8 +54,9 @@ public class AccessSecurityConfig extends WebSecurityConfigurerAdapter {
      * */
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        Admin admin = adminService.findAll().get(0);
         auth.inMemoryAuthentication()
-                .withUser("admin").password("admin").roles("ADMIN")
+                .withUser(admin.getUsername()).password(admin.getPassword()).roles("ADMIN")
                 .and()
                 .withUser("terry").password("terry").roles("USER")
                 .and()

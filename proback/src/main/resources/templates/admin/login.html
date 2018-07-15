@@ -34,7 +34,7 @@
             </div>
             <div class="form_row">
                 <label for="password">请输入密码</label>
-                <input name="password" type="password" placeholder="请输入密码" id="password" value="123">
+                <input name="password" type="password" placeholder="请输入密码" id="password" value="admin">
             </div>
 
         </div>
@@ -72,7 +72,7 @@
         encrypt.setPublicKey(strPubKey);
         //加密完成
         var encrypted = encrypt.encrypt(Dd('password').value);
-        Dd('password').value = encrypted;
+        //Dd('password').value = encrypted;
 
         console.log(encrypted);
 

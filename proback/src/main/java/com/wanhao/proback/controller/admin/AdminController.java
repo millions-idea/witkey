@@ -20,7 +20,7 @@ public class AdminController {
      * 跳转到登录页
      * @return
      */
-    @RequestMapping(value = "login",method = RequestMethod.GET)
+    @RequestMapping(value = "toLogin",method = RequestMethod.GET)
     public String toLogin(){
         return "admin/login";
     }
@@ -32,10 +32,11 @@ public class AdminController {
     @RequestMapping(value = "login",method = RequestMethod.POST)
     public String login(@RequestParam Map<String,Object> map){
         if (map.get("error")!=null){
-            map.put("","密码错误");
+            map.put("msg","密码错误");
+            return "forward:/admin/login";
         }
-        System.out.println(map.get("username"));
-        System.out.println(map.get("password"));
-        return "admin/login";
+//        System.out.println(map.get("username"));
+//        System.out.println(map.get("password"));
+        return "admin/index";
     }
 }
