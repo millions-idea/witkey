@@ -1,10 +1,22 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" >
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <script  th:src="@{/dist/jquery-2.0.0.min.js}"></script>
+    <script th:src="@{/dist/bootstrap.js}"></script>
+
+    <link rel="stylesheet" th:href="@{/dist/JQuery_zTree_v3.5.15/css/zTreeStyle/zTreeStyle.css}">
+
+    <script th:src="@{/dist/JQuery_zTree_v3.5.15/js/jquery.ztree.all-3.5.js}"></script>
+    <script th:src="@{/dist/JQuery_zTree_v3.5.15/js/jquery.ztree.core-3.5.js}"></script>
+
 </head>
+
 <body>
-登录成功了，后台主页
+
+<!--左侧菜单-->
+<div th:replace="~{admin/commons::#left_menu}"></div>
+
 </body>
 </html>

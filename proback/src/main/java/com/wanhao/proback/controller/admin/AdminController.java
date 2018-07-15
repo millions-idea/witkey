@@ -33,10 +33,17 @@ public class AdminController {
     public String login(@RequestParam Map<String,Object> map){
         if (map.get("error")!=null){
             map.put("msg","密码错误");
-            return "forward:/admin/login";
+            return "admin/login";
         }
-//        System.out.println(map.get("username"));
-//        System.out.println(map.get("password"));
         return "admin/index";
     }
+
+
+
+    ///////////////////frame部分////////////////
+    @RequestMapping(value = "left")
+    public String left(){
+        return "admin/frame/left";
+    }
+
 }

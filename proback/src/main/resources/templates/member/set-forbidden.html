@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <meta charset="UTF-8">
+    <title>设置禁用名称</title>
+    <link rel="stylesheet" th:href="@{/dist/bootstrap.css}">
+    <script  th:src="@{/dist/jquery-2.0.0.min.js}"></script>
+    <script th:src="@{/dist/bootstrap.js}"></script>
+
+    <link rel="stylesheet" th:href="@{/dist/JQuery_zTree_v3.5.15/css/zTreeStyle/zTreeStyle.css}">
+
+    <script th:src="@{/dist/JQuery_zTree_v3.5.15/js/jquery.ztree.all-3.5.js}"></script>
+    <script th:src="@{/dist/JQuery_zTree_v3.5.15/js/jquery.ztree.core-3.5.js}"></script>
+</head>
+<body>
+<!--左侧菜单-->
+<div th:replace="~{admin/commons::#left_menu}"></div>
+
+<form>
+    <div class="form-group">
+        <label for="exampleInputEmail1">Email address</label>
+        <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
+    </div>
+    <div class="form-group">
+        <label for="exampleInputPassword1">Password</label>
+        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+    </div>
+    <div class="form-group">
+        <label for="exampleInputFile">File input</label>
+        <input type="file" id="exampleInputFile">
+        <p class="help-block">Example block-level help text here.</p>
+    </div>
+    <div class="checkbox">
+        <label>
+            <input type="checkbox"> Check me out
+        </label>
+    </div>
+    <button type="submit" class="btn btn-default">Submit</button>
+</form>
+
+</body>
+</html>

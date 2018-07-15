@@ -1,0 +1,269 @@
+/*
+	Copyright (c) xllm
+*/
+body {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #676a6c;
+    background: #f3f3f4;
+}
+
+a:link, a:visited, a:active {
+    text-decoration: none;
+    color: #676a6c;
+}
+
+a.t:link, a.t:visited, a.t:active {
+    text-decoration: none;
+    color: #197cfd;
+}
+
+.bar {
+    width: 35px;
+    background: #181d20;
+    border-right: #5b7995 solid 1px;
+    cursor: pointer;
+}
+
+.bar img {
+    border-bottom: #5b7995 solid 1px;
+}
+
+.bartop {
+    height: 40px;
+    line-height: 40px;
+    color: #293846;
+    background: #fafafa;
+    margin: 0;
+}
+
+.bartop td {
+    font-size: 16px;
+    letter-spacing: 1px;
+    height: 40px;
+    line-height: 40px;
+}
+
+.barmain {
+    background: #2f4050;
+}
+
+.barmain a:link, .barmain a:visited, .barmain a:active {
+    font-size: 14px;
+    letter-spacing: 1px;
+    font-weight: 600;
+    color: #a7b1c2;
+}
+
+.barmain a:hover {
+    color: #fff;
+    text-decoration-line: none;
+}
+
+dt {
+    font-size: 14px;
+    letter-spacing: 1px;
+    font-weight: 600;
+    color: #fff;
+    height: 40px;
+    line-height: 40px;
+    padding-left: 70px;
+    border-top: #5b7995 solid 1px;
+    margin-top: -1px;
+    border-bottom: #5b7995 solid 1px;
+    background: #293846 url('/static/img/admin/frame/folder.png') no-repeat 30px center;
+}
+
+.dt_on {
+    height: 40px;
+    line-height: 40px;
+    padding-left: 70px;
+    border-top: #5b7995 solid 1px;
+    margin-top: -1px;
+    border-bottom: #5b7995 solid 1px;
+    background: #293846 url('/static/img/admin/frame/folder.png') no-repeat 30px center;
+}
+
+dd {
+    height: 32px;
+    line-height: 32px;
+    padding-left: 70px;
+    background: url('/static/img/admin/frame/file.png') no-repeat 35px center;
+}
+
+.dd_on {
+    height: 32px;
+    line-height: 32px;
+    padding-left: 70px;
+    background: url('/static/img/admin/frame/file.png') no-repeat 35px center #455c71;
+}
+
+.barmain .dd_on a {
+    color: #fff;
+}
+
+dl {
+    margin-bottom: 0px;
+}
+
+/*右侧*/
+.tt {
+    height: 40px;
+    line-height: 40px;
+    color: #676A6C;
+    font-size: 14px;
+    border-bottom: solid 1px #e7eaec;
+    padding-left: 20px;
+    margin-top: 15px;
+    background: #fff;
+    border-top: 4px solid #e7eaec;
+}
+
+.tl {
+    color: #676a6c
+}
+
+.menu {
+    height: 40px;
+    line-height: 40px;
+    background: #fafafa;
+    border-bottom: #2f4050 solid 2px;
+}
+
+.menu a {
+    font-size: 14px;
+}
+
+.tab {
+    background: #fafafa;
+    border-right: solid 1px #eee;
+}
+
+.tab a:link, .tab a:visited, .tab a:active {
+    background: none;
+    color: #666;
+}
+
+.tab_on {
+    background: #2f4050;
+}
+.tab_on .f_red{
+    color: yellow;
+}
+.tab_on a:link, .tab_on a:visited, .tab_on a:active, .tab_on a:hover {
+    background: none;
+}
+
+#ypcontent {
+    margin: 15px;
+    background: #f3f3f4;
+}
+
+.tb {
+    background: #FFFFFF;
+    width: 100%;
+    padding: 20px;
+}
+
+.tb th {
+    padding: 5px;
+    background: #fff;
+    border-top: solid 1px #e7eaec;
+    border-bottom: solid 1px #e7eaec;
+    border-right: solid 1px #e7eaec;
+}
+
+.tb th:first-child {
+    border-left: solid 1px #e7eaec;
+}
+
+.tb td {
+    padding: 5px 5px;
+    background: #fff;
+    border-bottom: solid 1px #e7eaec;
+    border-right: solid 1px #e7eaec;
+}
+
+.tb tr:first-child>td {
+    border-top: solid 1px #e7eaec;
+}
+
+.tb td:first-child {
+    border-left: solid 1px #e7eaec;
+}
+
+.on td {
+    background: #f9f9f9;
+}
+
+/*对话框*/
+#Dtop .dbody {
+    border: #455c71 1px solid;
+    background: #f3f3f4;
+}
+
+#Dtop .dhead {
+    height: 30px;
+    line-height: 30px;
+    background: #455c71;
+    border-bottom: 1px solid #455c71;
+}
+
+.btn {
+    display: inline-block;
+    width: auto;
+    height: 25px;
+    line-height: 22px;
+    background: #455c71;
+    font-size: 12px;
+    color: #fff;
+    border-radius: 3px;
+}
+
+.btn:hover {
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1) 0s;
+    background: #2f4050;
+}
+
+.btns {
+    background: #fff
+}
+
+.sbt {
+    background: #fff
+}
+
+.msg .mr, .msg .ml {
+    background: #2f4050
+}
+
+.msg .content {
+    border: #2f4050 1px solid;
+    color: #197cfd;
+}
+
+/*分页*/
+.pages {
+    background: #fff
+}
+
+.pages a:link, .pages a:visited, .pages a:active {
+    color: #455c71;
+    border: 1px solid #455c71;
+}
+
+.pages strong {
+    background: #455c71;
+    border: #455c71 1px solid;
+}
+
+.pages_inp {
+    border: #455c71 1px solid;
+}
+
+.pages_btn {
+    width: auto;
+    border: #455c71 1px solid;
+    color: #455c71;
+}

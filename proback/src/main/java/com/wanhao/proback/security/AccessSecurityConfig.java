@@ -27,12 +27,15 @@ public class AccessSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/login").permitAll()
                 .and()
                 .formLogin()
+                .and().authorizeRequests().anyRequest().permitAll()
+                .and().formLogin()
                 .loginPage("/myAdmin/toLogin")
                 .and()
                 .logout()
                 .permitAll()
                 .and()
                 .csrf().disable();
+       // http.authorizeRequests().anyRequest();
     }
 
 
