@@ -9,6 +9,11 @@
         <result column="password" jdbcType="VARCHAR" property="password" />
         <result column="mobile" jdbcType="VARCHAR" property="mobile" />
         <result column="email" jdbcType="VARCHAR" property="email" />
+        <result column="ip" jdbcType="VARCHAR" property="ip" />
+        <result column="login_count" jdbcType="INTEGER" property="login_count" />
+        <result column="money" jdbcType="DOUBLE" property="money" />
+        <result column="login_time" jdbcType="DATE" property="login_time" />
+
     </resultMap>
 
 </mapper>
