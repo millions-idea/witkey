@@ -1,10 +1,87 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>管理员登录 - Powered By TP</title>
+    <link rel="stylesheet" th:href="@{/css/admin/login/login.css}" type="text/css">
+    <script th:src="@{https://cdn.bootcss.com/jquery/1.9.0/jquery.js}"></script>
+    <script type="text/javascript" th:src="@{/js/admin/config.js}"></script>
+    <script type="text/javascript" th:src="@{/js/admin/common.js}"></script>
+    <script type="text/javascript" th:src="@{/js/jsencrypt.min.js}"></script>
+
 </head>
 <body>
-登录
+<noscript><br/><br/><br/>
+    <center><h1>您的浏览器不支持JavaScript,请更换支持JavaScript的浏览器</h1></center>
+</noscript>
+<noframes><br/><br/><br/>
+    <center><h1>您的浏览器不支持框架,请更换支持框架的浏览器</h1></center>
+</noframes>
+
+
+<div class="signup_container">
+
+    <h1 class="signup_title">管理员登录</h1>
+    <img th:src="@{/img/people.png}" id="admin">
+    <form method="post" th:action="@{/myAdmin/login}" onsubmit="return Dcheck();">
+
+        <div id="signup_forms" class="signup_forms clearfix">
+            <input type="hidden" name="file" value="login">
+            <input name="forward" type="hidden" value="http://admin.topaaa.com/am.php">
+            <div class="form_row first_row">
+                <label for="username">请输入用户名</label>
+                <input name="username" type="text" id="username" placeholder="请输入用户名" value="admin">
+            </div>
+            <div class="form_row">
+                <label for="password">请输入密码</label>
+                <input name="password" type="password" placeholder="请输入密码" id="password" value="123">
+            </div>
+
+        </div>
+        <div class="login-btn-set">
+            <input type="submit" name="submit" value="登 录" class="btn" tabindex="4">
+            <input style="float: right" type="button" value="退 出" class="btn" onclick="">
+        </div>
+    </form>
+    <p class="copyright">版权所有 TP</p>
+</div>
 </body>
+
+<script type="text/javascript">
+    if (Dd('password') == null) alert('看不到密码输入框？ 请检查file/cache目录是否可写');
+    if (Dd('username').value == '') {
+        Dd('username').focus();
+    } else {
+        Dd('password').focus();
+    }
+    function Dcheck() {
+        if (Dd('username').value == '') {
+            confirm('请填写会员名');
+            Dd('username').focus();
+            return false;
+        }
+        if (Dd('password').value == '') {
+            confirm('请填写密码');
+            Dd('password').focus();
+            return false;
+        }
+        //rsa加密密码
+        var strPubKey = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCSOALmVvE5bVFfvZASgLz1J4lvUH0SddzerZeQw6UiTZAfC+wDYizMn40IeGkX7Ypvs0FG9757iG3kmW0lad2wWWJRs4Ch8BDOr8EwYFG3glfGMlDJdkvXkq3KRHKXZ+sSo+zD9iiYW5Zbl9sGSmVgl2gMRmH0MX7/q4tIoyCfNwIDAQAB";
+        var encrypt = new JSEncrypt();
+
+        encrypt.setPublicKey(strPubKey);
+        //加密完成
+        var encrypted = encrypt.encrypt(Dd('password').value);
+        Dd('password').value = encrypted;
+
+        console.log(encrypted);
+
+        return true;
+    }
+</script>
+
+
+
+
+
 </html>
