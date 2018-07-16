@@ -59,6 +59,15 @@ public class AdminController {
     }
 
 
+    /**
+     * 到后台首页
+     * @return
+     */
+    @RequestMapping(value = "systemIndex")
+    public String systemIndex(){
+
+        return "admin/index";
+    }
 
     ///////////////////frame部分////////////////
     @RequestMapping(value = "left")

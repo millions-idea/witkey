@@ -1,7 +1,11 @@
 package com.wanhao.proback;
 
+import com.wanhao.proback.bean.Area;
 import com.wanhao.proback.bean.admin.Admin;
+import com.wanhao.proback.bean.member.Member;
+import com.wanhao.proback.service.AreaService;
 import com.wanhao.proback.service.admin.AdminService;
+import com.wanhao.proback.service.member.MemberService;
 import com.wanhao.proback.service.member.NameForbiddenService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,14 +26,32 @@ public class ProbackApplicationTests {
     @Autowired
     AdminService adminService;
 
+    @Autowired
+    MemberService memberService;
+
     @Test
     public void testLoadAdmin(){
         List<Admin> list = adminService.findAll();
         System.out.println(list);
+    }
 
+    @Test
+    public void testMember(){
+        Member member = new Member();
+        member.setUsername("张");
+        List<Member> members = memberService.getMembers(member);
+        System.out.println(members);
     }
 
     @Autowired
     NameForbiddenService nameForbiddenService;
 
+    @Autowired
+    AreaService areaService;
+
+    @Test
+    public void testArea(){
+        List<Area> allProvince = areaService.getAllProvince();
+        System.out.println(allProvince);
+    }
 }

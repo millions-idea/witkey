@@ -48,6 +48,10 @@
 </body>
 
 <script type="text/javascript">
+    function Dd(i) {
+        return document.getElementById(i);
+    }
+
     if (Dd('password') == null) alert('看不到密码输入框？ 请检查file/cache目录是否可写');
     if (Dd('username').value == '') {
         Dd('username').focus();
@@ -72,8 +76,7 @@
         encrypt.setPublicKey(strPubKey);
         //加密完成
         var encrypted = encrypt.encrypt(Dd('password').value);
-        //Dd('password').value = encrypted;
-
+        Dd('password').value = encrypted;
         console.log(encrypted);
 
         return true;

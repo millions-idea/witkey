@@ -63,6 +63,18 @@ public class MemberServiceImpl implements MemberService {
         if (member.getVipmodel() != null && member.getVipmodel().length() > 0) {
             criteria.andEqualTo("real_name",member.getVipmodel());
         }
+        //是否已实名
+        if (member.getIs_real_name() != null && member.getIs_real_name() > 0) {
+            criteria.andEqualTo("is_real_name",member.getIs_real_name());
+        }
+        //性别
+        if (member.getGender() != null && member.getGender().length() > 0 && !member.getGender().equals("0")) {
+            criteria.andEqualTo("gender",member.getGender());
+        }
+        //所在地区
+        if (member.getSheng() != null && member.getSheng().length() > 0) {
+            criteria.andEqualTo("sheng",member.getSheng());
+        }
         return memberMapper.selectByExample(example);
 
     }
