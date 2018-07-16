@@ -1,11 +1,863 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>会员列表</title>
+    <link rel="stylesheet" th:href="@{/css/admin/frame/left.css}">
+    <link rel="stylesheet" th:href="@{/css/admin/frame/yp.css}">
+
+    <link rel="stylesheet" th:href="@{/dist/bootstrap.css}">
+    <script  th:src="@{/dist/jquery-2.0.0.min.js}"></script>
+    <script th:src="@{/dist/bootstrap.js}"></script>
+
+    <link rel="stylesheet" th:href="@{/dist/JQuery_zTree_v3.5.15/css/zTreeStyle/zTreeStyle.css}">
+
+    <script th:src="@{/dist/JQuery_zTree_v3.5.15/js/jquery.ztree.all-3.5.js}"></script>
+    <script th:src="@{/dist/JQuery_zTree_v3.5.15/js/jquery.ztree.core-3.5.js}"></script>
+
+    <style>
+
+    </style>
 </head>
 <body>
 
 </body>
+
+
+<!--左侧菜单-->
+<div style="display: flex;">
+    <div th:replace="~{admin/commons::#left_menu}"></div>
+
+
+    <div style="flex: 1; padding: 20px; margin-left:185px;">
+        <div id="ypmsgbox"></div>
+        <div class="menu" onselectstart="return false" id="destoon_menu">
+            <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                <tr>
+                    <td valign="bottom">
+                        <table cellpadding="0" cellspacing="0">
+                            <tr>
+                                <td width="10">&nbsp;</td>
+                                <td id="Tab0" class="tab"><a href="?moduleid=2&action=add" >添加会员</a></td><td class="tab_nav">&nbsp;</td><td id="Tab1" class="tab"><a href="?moduleid=2" >会员列表</a></td><td class="tab_nav">&nbsp;</td><td id="Tab2" class="tab"><a href="?moduleid=2&action=check" >审核会员</a></td><td class="tab_nav">&nbsp;</td><td id="Tab3" class="tab"><a href="?moduleid=2&file=contact" >联系会员</a></td><td class="tab_nav">&nbsp;</td></tr>
+                        </table>
+                    </td>
+                    <td width="110"><div><img src="admin/image/spacer.gif" width="40" height="24" title="刷新" onclick="window.location.reload();" style="cursor:pointer;" alt=""/><img src="admin/image/spacer.gif" width="20" height="24" title="后退" onclick="history.back(-1);" style="cursor:pointer;" alt=""/><img src="admin/image/spacer.gif" width="20" height="24" title="前进" onclick="history.go(1);" style="cursor:pointer;" alt=""/><img src="admin/image/spacer.gif" width="20" height="24" title="帮助" onclick="Go('http://www.destoon.com/client.php?action=help&product=b2b&mfa=member-index-');" style="cursor:help;" alt=""/></div></td>
+                </tr>
+            </table>
+        </div>
+        <div id="ypcontent">    <form action="?">
+            <div class="tt">会员搜索</div>
+            <input type="hidden" name="moduleid" value="2"/>
+            <input type="hidden" name="action" value=""/>
+            <table cellpadding="2" cellspacing="1" class="tb">
+                <tr>
+                    <td>&nbsp;
+                        <select name="fields" ><option value="0" selected=selected>按条件</option><option value="1">代理商</option><option value="2">会员名</option><option value="3">通行证名</option><option value="4">姓名</option><option value="5">手机号码</option><option value="6">Email</option><option value="7">QQ</option><option value="8">注册IP</option><option value="9">登录IP</option><option value="10">开户银行</option><option value="11">银行帐号</option><option value="12">支付宝</option><option value="13">推荐人</option><option value="14">身份账号</option></select>&nbsp;
+                        <input type="text" size="20" name="kw" value="" title="关键词"/>&nbsp;
+                        <select name="groupid" ><option value="0">会员组</option><option value="1">管理员</option><option value="2">禁止访问</option><option value="3">游客</option><option value="4">待审核会员</option><option value="5">试客会员</option><option value="6">商家会员</option><option value="7">VIP会员</option><option value="8">荣誉试客会员</option><option value="9">银牌试客会员</option><option value="10">金牌试客会员</option><option value="11">荣誉商家会员</option></select>&nbsp;
+                        <select name="gender" ><option value="0" selected=selected>性别</option><option value="1">先生</option><option value="2">女士</option></select>&nbsp;
+                        <input area="1" name="areaid" id="areaid_1" type="hidden" value="0"/><span id="load_area_1"><select onchange="load_area(this.value, 1);" ><option value="0">所在地区</option><option value="1">北京</option><option value="2">上海</option><option value="3">天津</option><option value="4">重庆</option><option value="5">河北</option><option value="6">山西</option><option value="7">内蒙古</option><option value="8">辽宁</option><option value="9">吉林</option><option value="10">黑龙江</option><option value="11">江苏</option><option value="12">浙江</option><option value="13">安徽</option><option value="14">福建</option><option value="15">江西</option><option value="16">山东</option><option value="17">河南</option><option value="18">湖北</option><option value="19">湖南</option><option value="20">广东</option><option value="21">广西</option><option value="22">海南</option><option value="23">四川</option><option value="24">贵州</option><option value="25">云南</option><option value="26">西藏</option><option value="27">陕西</option><option value="28">甘肃</option><option value="29">青海</option><option value="30">宁夏</option><option value="31">新疆</option><option value="32">台湾</option><option value="33">香港</option><option value="34">澳门</option></select> </span><script type="text/javascript">var area_title = new Array;area_title[1]='所在地区';var area_extend = new Array;area_extend[1]='';var area_areaid = new Array;area_areaid[1]='0';var area_deep = new Array;area_deep[1]='0';</script><script type="text/javascript" src="http://admin.topaaa.com/file/script/area.js"></script>&nbsp;
+                        <select name="order" ><option value="0" selected=selected>结果排序方式</option><option value="1">注册时间降序</option><option value="2">注册时间升序</option><option value="3">登录时间降序</option><option value="4">登录时间升序</option><option value="5">登录次数降序</option><option value="6">登录次数升序</option><option value="7">账户资金降序</option><option value="8">账户资金升序</option><option value="9">会员联盟币降序</option><option value="10">会员联盟币升序</option><option value="11">短信余额降序</option><option value="12">短信余额升序</option></select>                    &nbsp;
+                        <input type="text" name="psize" value="20" size="2" class="t_c" title="条/页"/>
+                        <input type="submit" value="搜 索" class="btn"/>&nbsp;
+                        <input type="button" value="重 置" class="btn" onclick="Go('?moduleid=2&action=');"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>&nbsp;
+                        <select name="timetype">
+                            <option value="regtime" selected>注册时间</option>
+                            <option value="logintime" >登录时间</option>
+                        </select>&nbsp;
+                        <script type="text/javascript" src="http://admin.topaaa.com/file/script/calendar.js"></script><input type="text" name="fromtime" id="fromtime" value="" size="10" onfocus="ca_show('fromtime', this, '-');" readonly ondblclick="this.value='';"/> <img src="http://admin.topaaa.com/file/image/calendar.gif" align="absmiddle" onclick="ca_show('fromtime', this, '-');" style="cursor:pointer;"/> 至 <input type="text" name="totime" id="totime" value="" size="10" onfocus="ca_show('totime', this, '-');" readonly ondblclick="this.value='';"/> <img src="http://admin.topaaa.com/file/image/calendar.gif" align="absmiddle" onclick="ca_show('totime', this, '-');" style="cursor:pointer;"/>&nbsp;
+                        资金：<input type="text" size="3" name="minmoney" value=""/> ~ <input type="text" size="3" name="maxmoney" value=""/>&nbsp;
+                        联盟币：<input type="text" size="3" name="mincredit" value=""/> ~ <input type="text" size="3" name="maxcredit" value=""/>&nbsp;
+                        短信：<input type="text" size="3" name="minsms" value=""/> ~ <input type="text" size="3" name="maxsms" value=""/>&nbsp;
+                    </td>
+                </tr>
+                <tr>
+                    <td>&nbsp;
+                        <select name="vprofile" ><option value="0" selected=selected>资料</option><option value="1">已完善</option><option value="2">未完善</option></select>                    <select name="vemail" ><option value="0" selected=selected>邮件</option><option value="1">已认证</option><option value="2">未认证</option></select>                    <select name="vmobile" ><option value="0" selected=selected>手机</option><option value="1">已认证</option><option value="2">未认证</option></select>                    <select name="vtruename" ><option value="0" selected=selected>实名</option><option value="1">已认证</option><option value="2">未认证</option></select>                    <select name="vbank" ><option value="0" selected=selected>银行</option><option value="1">已认证</option><option value="2">未认证</option></select>                    <select name="vtrade" ><option value="0" selected=selected>支付宝</option><option value="1">已认证</option><option value="2">未认证</option></select>                    <select name="avatar" ><option value="0" selected=selected>头像</option><option value="1">已上传</option><option value="2">未上传</option></select>                    会员名：<input type="text" name="username" value="" size="8"/>&nbsp;
+                        会员ID：<input type="text" name="uid" value="" size="4"/>
+                    </td>
+                </tr>
+            </table>
+        </form>
+            <form method="post">
+                <div class="tt">会员管理</div>
+                <table cellpadding="2" cellspacing="1" class="tb">
+                    <tr>
+                        <th width="25"><input type="checkbox" onclick="checkall(this.form);"/></th>
+                        <th>会员ID</th>
+                        <th>代理商</th>
+                        <th>会员名称</th>
+                        <th>推荐人</th>
+                        <th>姓名</th>
+                        <th>资金</th>
+                        <th>联盟币</th>
+                        <th>短信</th>
+                        <th>性别</th>
+                        <th>会员组</th>
+                        <th>注册时间</th>
+                        <th>最后登录</th>
+                        <th>登录次数</th>
+                        <th width="100">操作</th>
+                    </tr>
+                    <tr onmouseover="this.className='on';" onmouseout="this.className='';" align="center">
+                        <td><input type="checkbox" name="userid[]" value="209"/></td>
+                        <td class="px11">209</td>
+                        <td align="left">&nbsp;<a href="javascript:_user('');"></a></td>
+                        <td align="left">&nbsp;
+                            <a href="javascript:_user('37150219830720873X');">37150219830720873X</a>
+                        </td>
+                        <td align="left"></td>
+                        <td align="left">&nbsp;啊啊啊</td>
+                        <td class="px11">
+                            <a href="javascript:Dwidget('?moduleid=2&file=record&username=37150219830720873X', '[37150219830720873X] 资金记录');">0.00</a>
+                        </td>
+                        <td class="px11">
+                            <a href="javascript:Dwidget('?moduleid=2&file=credit&username=37150219830720873X', '[37150219830720873X] 联盟币记录');">0.00</a>
+                        </td>
+                        <td class="px11">
+                            <a href="javascript:Dwidget('?moduleid=2&file=sms&username=37150219830720873X&action=record', '[37150219830720873X] 短信记录');">3</a>
+                        </td>
+                        <td>先生</td>
+                        <td>
+                            <a href="?moduleid=2&groupid=2">禁止访问</a>
+                        </td>
+                        <td class="px11">2016-09-02 18:01</td>
+                        <td class="px11">2016-09-02 18:01</td>
+                        <td class="px11">
+                            <a href="javascript:Dwidget('?moduleid=2&file=loginlog&username=37150219830720873X&action=record', '[37150219830720873X] 登录记录');">2</a>
+                        </td>
+                        <td>
+                            <a href="?moduleid=2&action=edit&userid=209"><img src="admin/image/edit.png" width="16" height="16" title="修改" alt=""/></a>&nbsp;
+                            <a href="?moduleid=2&action=show&userid=209"><img src="admin/image/view.png" width="16" height="16" title="会员[37150219830720873X]详细资料" alt=""/></a>&nbsp;
+                            <a href="?moduleid=2&action=login&userid=209" target="_blank"><img src="admin/image/set.png" width="16" height="16" title="进入会员商务中心" alt=""/></a>&nbsp;
+                            <a href="?moduleid=2&file=index&action=delete&userid=209" onclick="if(!confirm('确定危险！！要删除此会员吗？系统将删除选中用户所有信息，此操作将不可撤销')) return false;"><img src="admin/image/delete.png" width="16" height="16" title="删除" alt=""/></a>
+                        </td>
+                    </tr>
+                    <tr onmouseover="this.className='on';" onmouseout="this.className='';" align="center">
+                        <td><input type="checkbox" name="userid[]" value="204"/></td>
+                        <td class="px11">204</td>
+                        <td align="left">&nbsp;<a href="javascript:_user('');"></a></td>
+                        <td align="left">&nbsp;
+                            <a href="javascript:_user('33082219930427705X');">33082219930427705X</a>
+                        </td>
+                        <td align="left"></td>
+                        <td align="left">&nbsp;啊啊啊</td>
+                        <td class="px11">
+                            <a href="javascript:Dwidget('?moduleid=2&file=record&username=33082219930427705X', '[33082219930427705X] 资金记录');">0.00</a>
+                        </td>
+                        <td class="px11">
+                            <a href="javascript:Dwidget('?moduleid=2&file=credit&username=33082219930427705X', '[33082219930427705X] 联盟币记录');">0.00</a>
+                        </td>
+                        <td class="px11">
+                            <a href="javascript:Dwidget('?moduleid=2&file=sms&username=33082219930427705X&action=record', '[33082219930427705X] 短信记录');">3</a>
+                        </td>
+                        <td>先生</td>
+                        <td>
+                            <a href="?moduleid=2&groupid=5">试客会员</a>
+                        </td>
+                        <td class="px11">2016-09-02 17:53</td>
+                        <td class="px11">2016-09-02 17:53</td>
+                        <td class="px11">
+                            <a href="javascript:Dwidget('?moduleid=2&file=loginlog&username=33082219930427705X&action=record', '[33082219930427705X] 登录记录');">1</a>
+                        </td>
+                        <td>
+                            <a href="?moduleid=2&action=edit&userid=204"><img src="admin/image/edit.png" width="16" height="16" title="修改" alt=""/></a>&nbsp;
+                            <a href="?moduleid=2&action=show&userid=204"><img src="admin/image/view.png" width="16" height="16" title="会员[33082219930427705X]详细资料" alt=""/></a>&nbsp;
+                            <a href="?moduleid=2&action=login&userid=204" target="_blank"><img src="admin/image/set.png" width="16" height="16" title="进入会员商务中心" alt=""/></a>&nbsp;
+                            <a href="?moduleid=2&file=index&action=delete&userid=204" onclick="if(!confirm('确定危险！！要删除此会员吗？系统将删除选中用户所有信息，此操作将不可撤销')) return false;"><img src="admin/image/delete.png" width="16" height="16" title="删除" alt=""/></a>
+                        </td>
+                    </tr>
+                    <tr onmouseover="this.className='on';" onmouseout="this.className='';" align="center">
+                        <td><input type="checkbox" name="userid[]" value="203"/></td>
+                        <td class="px11">203</td>
+                        <td align="left">&nbsp;<a href="javascript:_user('');"></a></td>
+                        <td align="left">&nbsp;
+                            <a href="javascript:_user('43243wew12eew');">43243wew12eew</a>
+                        </td>
+                        <td align="left">&nbsp;<a href="javascript:_user('1111');">1111</a></td>
+                        <td align="left">&nbsp;啊啊啊</td>
+                        <td class="px11">
+                            <a href="javascript:Dwidget('?moduleid=2&file=record&username=43243wew12eew', '[43243wew12eew] 资金记录');">0.00</a>
+                        </td>
+                        <td class="px11">
+                            <a href="javascript:Dwidget('?moduleid=2&file=credit&username=43243wew12eew', '[43243wew12eew] 联盟币记录');">0.00</a>
+                        </td>
+                        <td class="px11">
+                            <a href="javascript:Dwidget('?moduleid=2&file=sms&username=43243wew12eew&action=record', '[43243wew12eew] 短信记录');">3</a>
+                        </td>
+                        <td>先生</td>
+                        <td>
+                            <a href="?moduleid=2&groupid=5">试客会员</a>
+                        </td>
+                        <td class="px11">2016-09-01 19:51</td>
+                        <td class="px11">2016-09-01 19:51</td>
+                        <td class="px11">
+                            <a href="javascript:Dwidget('?moduleid=2&file=loginlog&username=43243wew12eew&action=record', '[43243wew12eew] 登录记录');">2</a>
+                        </td>
+                        <td>
+                            <a href="?moduleid=2&action=edit&userid=203"><img src="admin/image/edit.png" width="16" height="16" title="修改" alt=""/></a>&nbsp;
+                            <a href="?moduleid=2&action=show&userid=203"><img src="admin/image/view.png" width="16" height="16" title="会员[43243wew12eew]详细资料" alt=""/></a>&nbsp;
+                            <a href="?moduleid=2&action=login&userid=203" target="_blank"><img src="admin/image/set.png" width="16" height="16" title="进入会员商务中心" alt=""/></a>&nbsp;
+                            <a href="?moduleid=2&file=index&action=delete&userid=203" onclick="if(!confirm('确定危险！！要删除此会员吗？系统将删除选中用户所有信息，此操作将不可撤销')) return false;"><img src="admin/image/delete.png" width="16" height="16" title="删除" alt=""/></a>
+                        </td>
+                    </tr>
+                    <tr onmouseover="this.className='on';" onmouseout="this.className='';" align="center">
+                        <td><input type="checkbox" name="userid[]" value="202"/></td>
+                        <td class="px11">202</td>
+                        <td align="left">&nbsp;<a href="javascript:_user('');"></a></td>
+                        <td align="left">&nbsp;
+                            <a href="javascript:_user('阿萨德撒');">阿萨德撒</a>
+                        </td>
+                        <td align="left">&nbsp;<a href="javascript:_user('1111');">1111</a></td>
+                        <td align="left">&nbsp;啊啊啊</td>
+                        <td class="px11">
+                            <a href="javascript:Dwidget('?moduleid=2&file=record&username=阿萨德撒', '[阿萨德撒] 资金记录');">0.00</a>
+                        </td>
+                        <td class="px11">
+                            <a href="javascript:Dwidget('?moduleid=2&file=credit&username=阿萨德撒', '[阿萨德撒] 联盟币记录');">0.00</a>
+                        </td>
+                        <td class="px11">
+                            <a href="javascript:Dwidget('?moduleid=2&file=sms&username=阿萨德撒&action=record', '[阿萨德撒] 短信记录');">3</a>
+                        </td>
+                        <td>先生</td>
+                        <td>
+                            <a href="?moduleid=2&groupid=5">试客会员</a>
+                        </td>
+                        <td class="px11">2016-09-01 19:50</td>
+                        <td class="px11">2016-09-01 19:50</td>
+                        <td class="px11">
+                            <a href="javascript:Dwidget('?moduleid=2&file=loginlog&username=阿萨德撒&action=record', '[阿萨德撒] 登录记录');">1</a>
+                        </td>
+                        <td>
+                            <a href="?moduleid=2&action=edit&userid=202"><img src="admin/image/edit.png" width="16" height="16" title="修改" alt=""/></a>&nbsp;
+                            <a href="?moduleid=2&action=show&userid=202"><img src="admin/image/view.png" width="16" height="16" title="会员[阿萨德撒]详细资料" alt=""/></a>&nbsp;
+                            <a href="?moduleid=2&action=login&userid=202" target="_blank"><img src="admin/image/set.png" width="16" height="16" title="进入会员商务中心" alt=""/></a>&nbsp;
+                            <a href="?moduleid=2&file=index&action=delete&userid=202" onclick="if(!confirm('确定危险！！要删除此会员吗？系统将删除选中用户所有信息，此操作将不可撤销')) return false;"><img src="admin/image/delete.png" width="16" height="16" title="删除" alt=""/></a>
+                        </td>
+                    </tr>
+                    <tr onmouseover="this.className='on';" onmouseout="this.className='';" align="center">
+                        <td><input type="checkbox" name="userid[]" value="201"/></td>
+                        <td class="px11">201</td>
+                        <td align="left">&nbsp;<a href="javascript:_user('');"></a></td>
+                        <td align="left">&nbsp;
+                            <a href="javascript:_user('阿萨是多少的55');">阿萨是多少的55</a>
+                        </td>
+                        <td align="left"></td>
+                        <td align="left">&nbsp;sss </td>
+                        <td class="px11">
+                            <a href="javascript:Dwidget('?moduleid=2&file=record&username=阿萨是多少的55', '[阿萨是多少的55] 资金记录');">3470.90</a>
+                        </td>
+                        <td class="px11">
+                            <a href="javascript:Dwidget('?moduleid=2&file=credit&username=阿萨是多少的55', '[阿萨是多少的55] 联盟币记录');">100.00</a>
+                        </td>
+                        <td class="px11">
+                            <a href="javascript:Dwidget('?moduleid=2&file=sms&username=阿萨是多少的55&action=record', '[阿萨是多少的55] 短信记录');">0</a>
+                        </td>
+                        <td>先生</td>
+                        <td>
+                            <a href="?moduleid=2&groupid=6">商家会员</a>
+                        </td>
+                        <td class="px11">2016-06-08 18:48</td>
+                        <td class="px11">2016-06-08 18:51</td>
+                        <td class="px11">
+                            <a href="javascript:Dwidget('?moduleid=2&file=loginlog&username=阿萨是多少的55&action=record', '[阿萨是多少的55] 登录记录');">3</a>
+                        </td>
+                        <td>
+                            <a href="?moduleid=2&action=edit&userid=201"><img src="admin/image/edit.png" width="16" height="16" title="修改" alt=""/></a>&nbsp;
+                            <a href="?moduleid=2&action=show&userid=201"><img src="admin/image/view.png" width="16" height="16" title="会员[阿萨是多少的55]详细资料" alt=""/></a>&nbsp;
+                            <a href="?moduleid=2&action=login&userid=201" target="_blank"><img src="admin/image/set.png" width="16" height="16" title="进入会员商务中心" alt=""/></a>&nbsp;
+                            <a href="?moduleid=2&file=index&action=delete&userid=201" onclick="if(!confirm('确定危险！！要删除此会员吗？系统将删除选中用户所有信息，此操作将不可撤销')) return false;"><img src="admin/image/delete.png" width="16" height="16" title="删除" alt=""/></a>
+                        </td>
+                    </tr>
+                    <tr onmouseover="this.className='on';" onmouseout="this.className='';" align="center">
+                        <td><input type="checkbox" name="userid[]" value="149"/></td>
+                        <td class="px11">149</td>
+                        <td align="left">&nbsp;<a href="javascript:_user('');"></a></td>
+                        <td align="left">&nbsp;
+                            <a href="javascript:_user('5345345');">5345345</a>
+                        </td>
+                        <td align="left"></td>
+                        <td align="left">&nbsp;啊啊</td>
+                        <td class="px11">
+                            <a href="javascript:Dwidget('?moduleid=2&file=record&username=5345345', '[5345345] 资金记录');">989.70</a>
+                        </td>
+                        <td class="px11">
+                            <a href="javascript:Dwidget('?moduleid=2&file=credit&username=5345345', '[5345345] 联盟币记录');">0.00</a>
+                        </td>
+                        <td class="px11">
+                            <a href="javascript:Dwidget('?moduleid=2&file=sms&username=5345345&action=record', '[5345345] 短信记录');">0</a>
+                        </td>
+                        <td>先生</td>
+                        <td>
+                            <a href="?moduleid=2&groupid=5">试客会员</a>
+                        </td>
+                        <td class="px11">2016-02-09 21:50</td>
+                        <td class="px11">2016-02-09 21:50</td>
+                        <td class="px11">
+                            <a href="javascript:Dwidget('?moduleid=2&file=loginlog&username=5345345&action=record', '[5345345] 登录记录');">2</a>
+                        </td>
+                        <td>
+                            <a href="?moduleid=2&action=edit&userid=149"><img src="admin/image/edit.png" width="16" height="16" title="修改" alt=""/></a>&nbsp;
+                            <a href="?moduleid=2&action=show&userid=149"><img src="admin/image/view.png" width="16" height="16" title="会员[5345345]详细资料" alt=""/></a>&nbsp;
+                            <a href="?moduleid=2&action=login&userid=149" target="_blank"><img src="admin/image/set.png" width="16" height="16" title="进入会员商务中心" alt=""/></a>&nbsp;
+                            <a href="?moduleid=2&file=index&action=delete&userid=149" onclick="if(!confirm('确定危险！！要删除此会员吗？系统将删除选中用户所有信息，此操作将不可撤销')) return false;"><img src="admin/image/delete.png" width="16" height="16" title="删除" alt=""/></a>
+                        </td>
+                    </tr>
+                    <tr onmouseover="this.className='on';" onmouseout="this.className='';" align="center">
+                        <td><input type="checkbox" name="userid[]" value="148"/></td>
+                        <td class="px11">148</td>
+                        <td align="left">&nbsp;<a href="javascript:_user('yp1234567');">yp1234567</a></td>
+                        <td align="left">&nbsp;
+                            <a href="javascript:_user('gghhhhh4h332');">gghhhhh4h332</a>
+                        </td>
+                        <td align="left">&nbsp;<a href="javascript:_user('yyyyyyy');">yyyyyyy</a>&nbsp;@&nbsp;
+                            <a href="javascript:_user('eeeeeee');">eeeeeee</a></td>
+                        <td align="left">&nbsp;sd 5</td>
+                        <td class="px11">
+                            <a href="javascript:Dwidget('?moduleid=2&file=record&username=gghhhhh4h332', '[gghhhhh4h332] 资金记录');">800.00</a>
+                        </td>
+                        <td class="px11">
+                            <a href="javascript:Dwidget('?moduleid=2&file=credit&username=gghhhhh4h332', '[gghhhhh4h332] 联盟币记录');">2.00</a>
+                        </td>
+                        <td class="px11">
+                            <a href="javascript:Dwidget('?moduleid=2&file=sms&username=gghhhhh4h332&action=record', '[gghhhhh4h332] 短信记录');">0</a>
+                        </td>
+                        <td>女士</td>
+                        <td>
+                            <a href="?moduleid=2&groupid=5">试客会员</a>
+                        </td>
+                        <td class="px11">2016-02-07 18:36</td>
+                        <td class="px11">2016-03-17 20:07</td>
+                        <td class="px11">
+                            <a href="javascript:Dwidget('?moduleid=2&file=loginlog&username=gghhhhh4h332&action=record', '[gghhhhh4h332] 登录记录');">4</a>
+                        </td>
+                        <td>
+                            <a href="?moduleid=2&action=edit&userid=148"><img src="admin/image/edit.png" width="16" height="16" title="修改" alt=""/></a>&nbsp;
+                            <a href="?moduleid=2&action=show&userid=148"><img src="admin/image/view.png" width="16" height="16" title="会员[gghhhhh4h332]详细资料" alt=""/></a>&nbsp;
+                            <a href="?moduleid=2&action=login&userid=148" target="_blank"><img src="admin/image/set.png" width="16" height="16" title="进入会员商务中心" alt=""/></a>&nbsp;
+                            <a href="?moduleid=2&file=index&action=delete&userid=148" onclick="if(!confirm('确定危险！！要删除此会员吗？系统将删除选中用户所有信息，此操作将不可撤销')) return false;"><img src="admin/image/delete.png" width="16" height="16" title="删除" alt=""/></a>
+                        </td>
+                    </tr>
+                    <tr onmouseover="this.className='on';" onmouseout="this.className='';" align="center">
+                        <td><input type="checkbox" name="userid[]" value="147"/></td>
+                        <td class="px11">147</td>
+                        <td align="left">&nbsp;<a href="javascript:_user('yp1234567');">yp1234567</a></td>
+                        <td align="left">&nbsp;
+                            <a href="javascript:_user('gghhhhh4h3');">gghhhhh4h3</a>
+                        </td>
+                        <td align="left">&nbsp;<a href="javascript:_user('yyyyyyy');">yyyyyyy</a>&nbsp;@&nbsp;
+                            <a href="javascript:_user('eeeeeee');">eeeeeee</a></td>
+                        <td align="left">&nbsp;sd </td>
+                        <td class="px11">
+                            <a href="javascript:Dwidget('?moduleid=2&file=record&username=gghhhhh4h3', '[gghhhhh4h3] 资金记录');">0.00</a>
+                        </td>
+                        <td class="px11">
+                            <a href="javascript:Dwidget('?moduleid=2&file=credit&username=gghhhhh4h3', '[gghhhhh4h3] 联盟币记录');">0.00</a>
+                        </td>
+                        <td class="px11">
+                            <a href="javascript:Dwidget('?moduleid=2&file=sms&username=gghhhhh4h3&action=record', '[gghhhhh4h3] 短信记录');">0</a>
+                        </td>
+                        <td>先生</td>
+                        <td>
+                            <a href="?moduleid=2&groupid=5">试客会员</a>
+                        </td>
+                        <td class="px11">2016-02-07 18:35</td>
+                        <td class="px11">2016-02-07 18:35</td>
+                        <td class="px11">
+                            <a href="javascript:Dwidget('?moduleid=2&file=loginlog&username=gghhhhh4h3&action=record', '[gghhhhh4h3] 登录记录');">1</a>
+                        </td>
+                        <td>
+                            <a href="?moduleid=2&action=edit&userid=147"><img src="admin/image/edit.png" width="16" height="16" title="修改" alt=""/></a>&nbsp;
+                            <a href="?moduleid=2&action=show&userid=147"><img src="admin/image/view.png" width="16" height="16" title="会员[gghhhhh4h3]详细资料" alt=""/></a>&nbsp;
+                            <a href="?moduleid=2&action=login&userid=147" target="_blank"><img src="admin/image/set.png" width="16" height="16" title="进入会员商务中心" alt=""/></a>&nbsp;
+                            <a href="?moduleid=2&file=index&action=delete&userid=147" onclick="if(!confirm('确定危险！！要删除此会员吗？系统将删除选中用户所有信息，此操作将不可撤销')) return false;"><img src="admin/image/delete.png" width="16" height="16" title="删除" alt=""/></a>
+                        </td>
+                    </tr>
+                    <tr onmouseover="this.className='on';" onmouseout="this.className='';" align="center">
+                        <td><input type="checkbox" name="userid[]" value="146"/></td>
+                        <td class="px11">146</td>
+                        <td align="left">&nbsp;<a href="javascript:_user('yp1234567');">yp1234567</a></td>
+                        <td align="left">&nbsp;
+                            <a href="javascript:_user('gghhhhhh3');">gghhhhhh3</a>
+                        </td>
+                        <td align="left">&nbsp;<a href="javascript:_user('yyyyyyy');">yyyyyyy</a>&nbsp;@&nbsp;
+                            <a href="javascript:_user('eeeeeee');">eeeeeee</a></td>
+                        <td align="left">&nbsp;sd </td>
+                        <td class="px11">
+                            <a href="javascript:Dwidget('?moduleid=2&file=record&username=gghhhhhh3', '[gghhhhhh3] 资金记录');">0.00</a>
+                        </td>
+                        <td class="px11">
+                            <a href="javascript:Dwidget('?moduleid=2&file=credit&username=gghhhhhh3', '[gghhhhhh3] 联盟币记录');">100.00</a>
+                        </td>
+                        <td class="px11">
+                            <a href="javascript:Dwidget('?moduleid=2&file=sms&username=gghhhhhh3&action=record', '[gghhhhhh3] 短信记录');">0</a>
+                        </td>
+                        <td>先生</td>
+                        <td>
+                            <a href="?moduleid=2&groupid=2">禁止访问</a>
+                        </td>
+                        <td class="px11">2016-02-07 18:35</td>
+                        <td class="px11">2016-02-07 18:35</td>
+                        <td class="px11">
+                            <a href="javascript:Dwidget('?moduleid=2&file=loginlog&username=gghhhhhh3&action=record', '[gghhhhhh3] 登录记录');">1</a>
+                        </td>
+                        <td>
+                            <a href="?moduleid=2&action=edit&userid=146"><img src="admin/image/edit.png" width="16" height="16" title="修改" alt=""/></a>&nbsp;
+                            <a href="?moduleid=2&action=show&userid=146"><img src="admin/image/view.png" width="16" height="16" title="会员[gghhhhhh3]详细资料" alt=""/></a>&nbsp;
+                            <a href="?moduleid=2&action=login&userid=146" target="_blank"><img src="admin/image/set.png" width="16" height="16" title="进入会员商务中心" alt=""/></a>&nbsp;
+                            <a href="?moduleid=2&file=index&action=delete&userid=146" onclick="if(!confirm('确定危险！！要删除此会员吗？系统将删除选中用户所有信息，此操作将不可撤销')) return false;"><img src="admin/image/delete.png" width="16" height="16" title="删除" alt=""/></a>
+                        </td>
+                    </tr>
+                    <tr onmouseover="this.className='on';" onmouseout="this.className='';" align="center">
+                        <td><input type="checkbox" name="userid[]" value="145"/></td>
+                        <td class="px11">145</td>
+                        <td align="left">&nbsp;<a href="javascript:_user('yp1234567');">yp1234567</a></td>
+                        <td align="left">&nbsp;
+                            <a href="javascript:_user('gghhhhhh');">gghhhhhh</a>
+                        </td>
+                        <td align="left">&nbsp;<a href="javascript:_user('yyyyyyy');">yyyyyyy</a>&nbsp;@&nbsp;
+                            <a href="javascript:_user('eeeeeee');">eeeeeee</a></td>
+                        <td align="left">&nbsp;sd </td>
+                        <td class="px11">
+                            <a href="javascript:Dwidget('?moduleid=2&file=record&username=gghhhhhh', '[gghhhhhh] 资金记录');">0.00</a>
+                        </td>
+                        <td class="px11">
+                            <a href="javascript:Dwidget('?moduleid=2&file=credit&username=gghhhhhh', '[gghhhhhh] 联盟币记录');">0.00</a>
+                        </td>
+                        <td class="px11">
+                            <a href="javascript:Dwidget('?moduleid=2&file=sms&username=gghhhhhh&action=record', '[gghhhhhh] 短信记录');">0</a>
+                        </td>
+                        <td>先生</td>
+                        <td>
+                            <a href="?moduleid=2&groupid=5">试客会员</a>
+                        </td>
+                        <td class="px11">2016-02-07 18:33</td>
+                        <td class="px11">2016-02-07 18:33</td>
+                        <td class="px11">
+                            <a href="javascript:Dwidget('?moduleid=2&file=loginlog&username=gghhhhhh&action=record', '[gghhhhhh] 登录记录');">1</a>
+                        </td>
+                        <td>
+                            <a href="?moduleid=2&action=edit&userid=145"><img src="admin/image/edit.png" width="16" height="16" title="修改" alt=""/></a>&nbsp;
+                            <a href="?moduleid=2&action=show&userid=145"><img src="admin/image/view.png" width="16" height="16" title="会员[gghhhhhh]详细资料" alt=""/></a>&nbsp;
+                            <a href="?moduleid=2&action=login&userid=145" target="_blank"><img src="admin/image/set.png" width="16" height="16" title="进入会员商务中心" alt=""/></a>&nbsp;
+                            <a href="?moduleid=2&file=index&action=delete&userid=145" onclick="if(!confirm('确定危险！！要删除此会员吗？系统将删除选中用户所有信息，此操作将不可撤销')) return false;"><img src="admin/image/delete.png" width="16" height="16" title="删除" alt=""/></a>
+                        </td>
+                    </tr>
+                    <tr onmouseover="this.className='on';" onmouseout="this.className='';" align="center">
+                        <td><input type="checkbox" name="userid[]" value="144"/></td>
+                        <td class="px11">144</td>
+                        <td align="left">&nbsp;<a href="javascript:_user('yp1234567');">yp1234567</a></td>
+                        <td align="left">&nbsp;
+                            <a href="javascript:_user('ttttttttt2d');">ttttttttt2d</a>
+                        </td>
+                        <td align="left">&nbsp;<a href="javascript:_user('yyyyyyy');">yyyyyyy</a>&nbsp;@&nbsp;
+                            <a href="javascript:_user('eeeeeee');">eeeeeee</a></td>
+                        <td align="left">&nbsp;sd </td>
+                        <td class="px11">
+                            <a href="javascript:Dwidget('?moduleid=2&file=record&username=ttttttttt2d', '[ttttttttt2d] 资金记录');">0.00</a>
+                        </td>
+                        <td class="px11">
+                            <a href="javascript:Dwidget('?moduleid=2&file=credit&username=ttttttttt2d', '[ttttttttt2d] 联盟币记录');">960.00</a>
+                        </td>
+                        <td class="px11">
+                            <a href="javascript:Dwidget('?moduleid=2&file=sms&username=ttttttttt2d&action=record', '[ttttttttt2d] 短信记录');">0</a>
+                        </td>
+                        <td>先生</td>
+                        <td>
+                            <a href="?moduleid=2&groupid=8">荣誉试客会员</a>
+                            <br>剩余-669天到期
+                        </td>
+                        <td class="px11">2016-02-07 18:28</td>
+                        <td class="px11">2016-02-07 18:28</td>
+                        <td class="px11">
+                            <a href="javascript:Dwidget('?moduleid=2&file=loginlog&username=ttttttttt2d&action=record', '[ttttttttt2d] 登录记录');">1</a>
+                        </td>
+                        <td>
+                            <a href="?moduleid=2&action=edit&userid=144"><img src="admin/image/edit.png" width="16" height="16" title="修改" alt=""/></a>&nbsp;
+                            <a href="?moduleid=2&action=show&userid=144"><img src="admin/image/view.png" width="16" height="16" title="会员[ttttttttt2d]详细资料" alt=""/></a>&nbsp;
+                            <a href="?moduleid=2&action=login&userid=144" target="_blank"><img src="admin/image/set.png" width="16" height="16" title="进入会员商务中心" alt=""/></a>&nbsp;
+                            <a href="?moduleid=2&file=index&action=delete&userid=144" onclick="if(!confirm('确定危险！！要删除此会员吗？系统将删除选中用户所有信息，此操作将不可撤销')) return false;"><img src="admin/image/delete.png" width="16" height="16" title="删除" alt=""/></a>
+                        </td>
+                    </tr>
+                    <tr onmouseover="this.className='on';" onmouseout="this.className='';" align="center">
+                        <td><input type="checkbox" name="userid[]" value="143"/></td>
+                        <td class="px11">143</td>
+                        <td align="left">&nbsp;<a href="javascript:_user('yp1234567');">yp1234567</a></td>
+                        <td align="left">&nbsp;
+                            <a href="javascript:_user('ttttttttt2');">ttttttttt2</a>
+                        </td>
+                        <td align="left">&nbsp;<a href="javascript:_user('eeeeeee');">eeeeeee</a></td>
+                        <td align="left">&nbsp;sd </td>
+                        <td class="px11">
+                            <a href="javascript:Dwidget('?moduleid=2&file=record&username=ttttttttt2', '[ttttttttt2] 资金记录');">0.00</a>
+                        </td>
+                        <td class="px11">
+                            <a href="javascript:Dwidget('?moduleid=2&file=credit&username=ttttttttt2', '[ttttttttt2] 联盟币记录');">0.00</a>
+                        </td>
+                        <td class="px11">
+                            <a href="javascript:Dwidget('?moduleid=2&file=sms&username=ttttttttt2&action=record', '[ttttttttt2] 短信记录');">0</a>
+                        </td>
+                        <td>先生</td>
+                        <td>
+                            <a href="?moduleid=2&groupid=5">试客会员</a>
+                        </td>
+                        <td class="px11">2016-02-07 18:27</td>
+                        <td class="px11">2016-02-07 18:27</td>
+                        <td class="px11">
+                            <a href="javascript:Dwidget('?moduleid=2&file=loginlog&username=ttttttttt2&action=record', '[ttttttttt2] 登录记录');">1</a>
+                        </td>
+                        <td>
+                            <a href="?moduleid=2&action=edit&userid=143"><img src="admin/image/edit.png" width="16" height="16" title="修改" alt=""/></a>&nbsp;
+                            <a href="?moduleid=2&action=show&userid=143"><img src="admin/image/view.png" width="16" height="16" title="会员[ttttttttt2]详细资料" alt=""/></a>&nbsp;
+                            <a href="?moduleid=2&action=login&userid=143" target="_blank"><img src="admin/image/set.png" width="16" height="16" title="进入会员商务中心" alt=""/></a>&nbsp;
+                            <a href="?moduleid=2&file=index&action=delete&userid=143" onclick="if(!confirm('确定危险！！要删除此会员吗？系统将删除选中用户所有信息，此操作将不可撤销')) return false;"><img src="admin/image/delete.png" width="16" height="16" title="删除" alt=""/></a>
+                        </td>
+                    </tr>
+                    <tr onmouseover="this.className='on';" onmouseout="this.className='';" align="center">
+                        <td><input type="checkbox" name="userid[]" value="142"/></td>
+                        <td class="px11">142</td>
+                        <td align="left">&nbsp;<a href="javascript:_user('yp1234567');">yp1234567</a></td>
+                        <td align="left">&nbsp;
+                            <a href="javascript:_user('ttttttttt');">ttttttttt</a>
+                        </td>
+                        <td align="left">&nbsp;<a href="javascript:_user('eeeeeee');">eeeeeee</a></td>
+                        <td align="left">&nbsp;sd </td>
+                        <td class="px11">
+                            <a href="javascript:Dwidget('?moduleid=2&file=record&username=ttttttttt', '[ttttttttt] 资金记录');">0.00</a>
+                        </td>
+                        <td class="px11">
+                            <a href="javascript:Dwidget('?moduleid=2&file=credit&username=ttttttttt', '[ttttttttt] 联盟币记录');">0.00</a>
+                        </td>
+                        <td class="px11">
+                            <a href="javascript:Dwidget('?moduleid=2&file=sms&username=ttttttttt&action=record', '[ttttttttt] 短信记录');">0</a>
+                        </td>
+                        <td>先生</td>
+                        <td>
+                            <a href="?moduleid=2&groupid=5">试客会员</a>
+                        </td>
+                        <td class="px11">2016-02-07 18:26</td>
+                        <td class="px11">2016-02-07 18:26</td>
+                        <td class="px11">
+                            <a href="javascript:Dwidget('?moduleid=2&file=loginlog&username=ttttttttt&action=record', '[ttttttttt] 登录记录');">1</a>
+                        </td>
+                        <td>
+                            <a href="?moduleid=2&action=edit&userid=142"><img src="admin/image/edit.png" width="16" height="16" title="修改" alt=""/></a>&nbsp;
+                            <a href="?moduleid=2&action=show&userid=142"><img src="admin/image/view.png" width="16" height="16" title="会员[ttttttttt]详细资料" alt=""/></a>&nbsp;
+                            <a href="?moduleid=2&action=login&userid=142" target="_blank"><img src="admin/image/set.png" width="16" height="16" title="进入会员商务中心" alt=""/></a>&nbsp;
+                            <a href="?moduleid=2&file=index&action=delete&userid=142" onclick="if(!confirm('确定危险！！要删除此会员吗？系统将删除选中用户所有信息，此操作将不可撤销')) return false;"><img src="admin/image/delete.png" width="16" height="16" title="删除" alt=""/></a>
+                        </td>
+                    </tr>
+                    <tr onmouseover="this.className='on';" onmouseout="this.className='';" align="center">
+                        <td><input type="checkbox" name="userid[]" value="141"/></td>
+                        <td class="px11">141</td>
+                        <td align="left">&nbsp;<a href="javascript:_user('yp1234567');">yp1234567</a></td>
+                        <td align="left">&nbsp;
+                            <a href="javascript:_user('tttttttt');">tttttttt</a>
+                        </td>
+                        <td align="left">&nbsp;<a href="javascript:_user('eeeeeee');">eeeeeee</a></td>
+                        <td align="left">&nbsp;sd </td>
+                        <td class="px11">
+                            <a href="javascript:Dwidget('?moduleid=2&file=record&username=tttttttt', '[tttttttt] 资金记录');">0.00</a>
+                        </td>
+                        <td class="px11">
+                            <a href="javascript:Dwidget('?moduleid=2&file=credit&username=tttttttt', '[tttttttt] 联盟币记录');">0.00</a>
+                        </td>
+                        <td class="px11">
+                            <a href="javascript:Dwidget('?moduleid=2&file=sms&username=tttttttt&action=record', '[tttttttt] 短信记录');">0</a>
+                        </td>
+                        <td>先生</td>
+                        <td>
+                            <a href="?moduleid=2&groupid=5">试客会员</a>
+                        </td>
+                        <td class="px11">2016-02-07 18:25</td>
+                        <td class="px11">2016-02-07 18:25</td>
+                        <td class="px11">
+                            <a href="javascript:Dwidget('?moduleid=2&file=loginlog&username=tttttttt&action=record', '[tttttttt] 登录记录');">1</a>
+                        </td>
+                        <td>
+                            <a href="?moduleid=2&action=edit&userid=141"><img src="admin/image/edit.png" width="16" height="16" title="修改" alt=""/></a>&nbsp;
+                            <a href="?moduleid=2&action=show&userid=141"><img src="admin/image/view.png" width="16" height="16" title="会员[tttttttt]详细资料" alt=""/></a>&nbsp;
+                            <a href="?moduleid=2&action=login&userid=141" target="_blank"><img src="admin/image/set.png" width="16" height="16" title="进入会员商务中心" alt=""/></a>&nbsp;
+                            <a href="?moduleid=2&file=index&action=delete&userid=141" onclick="if(!confirm('确定危险！！要删除此会员吗？系统将删除选中用户所有信息，此操作将不可撤销')) return false;"><img src="admin/image/delete.png" width="16" height="16" title="删除" alt=""/></a>
+                        </td>
+                    </tr>
+                    <tr onmouseover="this.className='on';" onmouseout="this.className='';" align="center">
+                        <td><input type="checkbox" name="userid[]" value="139"/></td>
+                        <td class="px11">139</td>
+                        <td align="left">&nbsp;<a href="javascript:_user('');"></a></td>
+                        <td align="left">&nbsp;
+                            <a href="javascript:_user('销量联盟');">销量联盟</a>
+                        </td>
+                        <td align="left"></td>
+                        <td align="left">&nbsp;管理员</td>
+                        <td class="px11">
+                            <a href="javascript:Dwidget('?moduleid=2&file=record&username=销量联盟', '[销量联盟] 资金记录');">0.00</a>
+                        </td>
+                        <td class="px11">
+                            <a href="javascript:Dwidget('?moduleid=2&file=credit&username=销量联盟', '[销量联盟] 联盟币记录');">0.00</a>
+                        </td>
+                        <td class="px11">
+                            <a href="javascript:Dwidget('?moduleid=2&file=sms&username=销量联盟&action=record', '[销量联盟] 短信记录');">0</a>
+                        </td>
+                        <td>先生</td>
+                        <td>
+                            <a href="?moduleid=2&groupid=5">试客会员</a>
+                        </td>
+                        <td class="px11">2015-12-15 13:57</td>
+                        <td class="px11">2015-12-15 13:57</td>
+                        <td class="px11">
+                            <a href="javascript:Dwidget('?moduleid=2&file=loginlog&username=销量联盟&action=record', '[销量联盟] 登录记录');">2</a>
+                        </td>
+                        <td>
+                            <a href="?moduleid=2&action=edit&userid=139"><img src="admin/image/edit.png" width="16" height="16" title="修改" alt=""/></a>&nbsp;
+                            <a href="?moduleid=2&action=show&userid=139"><img src="admin/image/view.png" width="16" height="16" title="会员[销量联盟]详细资料" alt=""/></a>&nbsp;
+                            <a href="?moduleid=2&action=login&userid=139" target="_blank"><img src="admin/image/set.png" width="16" height="16" title="进入会员商务中心" alt=""/></a>&nbsp;
+                            <a href="?moduleid=2&file=index&action=delete&userid=139" onclick="if(!confirm('确定危险！！要删除此会员吗？系统将删除选中用户所有信息，此操作将不可撤销')) return false;"><img src="admin/image/delete.png" width="16" height="16" title="删除" alt=""/></a>
+                        </td>
+                    </tr>
+                    <tr onmouseover="this.className='on';" onmouseout="this.className='';" align="center">
+                        <td><input type="checkbox" name="userid[]" value="137"/></td>
+                        <td class="px11">137</td>
+                        <td align="left">&nbsp;<a href="javascript:_user('yp1234567');">yp1234567</a></td>
+                        <td align="left">&nbsp;
+                            <a href="javascript:_user('dddddd');">dddddd</a>
+                        </td>
+                        <td align="left">&nbsp;<a href="javascript:_user('yyyyyyy');">yyyyyyy</a>&nbsp;@&nbsp;
+                            <a href="javascript:_user('yp1234567');">yp1234567</a></td>
+                        <td align="left">&nbsp;撒旦</td>
+                        <td class="px11">
+                            <a href="javascript:Dwidget('?moduleid=2&file=record&username=dddddd', '[dddddd] 资金记录');">960.00</a>
+                        </td>
+                        <td class="px11">
+                            <a href="javascript:Dwidget('?moduleid=2&file=credit&username=dddddd', '[dddddd] 联盟币记录');">2.92</a>
+                        </td>
+                        <td class="px11">
+                            <a href="javascript:Dwidget('?moduleid=2&file=sms&username=dddddd&action=record', '[dddddd] 短信记录');">0</a>
+                        </td>
+                        <td>先生</td>
+                        <td>
+                            <a href="?moduleid=2&groupid=5">试客会员</a>
+                        </td>
+                        <td class="px11">2015-12-14 14:53</td>
+                        <td class="px11">2015-12-20 17:40</td>
+                        <td class="px11">
+                            <a href="javascript:Dwidget('?moduleid=2&file=loginlog&username=dddddd&action=record', '[dddddd] 登录记录');">4</a>
+                        </td>
+                        <td>
+                            <a href="?moduleid=2&action=edit&userid=137"><img src="admin/image/edit.png" width="16" height="16" title="修改" alt=""/></a>&nbsp;
+                            <a href="?moduleid=2&action=show&userid=137"><img src="admin/image/view.png" width="16" height="16" title="会员[dddddd]详细资料" alt=""/></a>&nbsp;
+                            <a href="?moduleid=2&action=login&userid=137" target="_blank"><img src="admin/image/set.png" width="16" height="16" title="进入会员商务中心" alt=""/></a>&nbsp;
+                            <a href="?moduleid=2&file=index&action=delete&userid=137" onclick="if(!confirm('确定危险！！要删除此会员吗？系统将删除选中用户所有信息，此操作将不可撤销')) return false;"><img src="admin/image/delete.png" width="16" height="16" title="删除" alt=""/></a>
+                        </td>
+                    </tr>
+                    <tr onmouseover="this.className='on';" onmouseout="this.className='';" align="center">
+                        <td><input type="checkbox" name="userid[]" value="136"/></td>
+                        <td class="px11">136</td>
+                        <td align="left">&nbsp;<a href="javascript:_user('yp1234567');">yp1234567</a></td>
+                        <td align="left">&nbsp;
+                            <a href="javascript:_user('yyyyyyy');">yyyyyyy</a>
+                        </td>
+                        <td align="left">&nbsp;<a href="javascript:_user('eeeeeee');">eeeeeee</a>&nbsp;@&nbsp;
+                            <a href="javascript:_user('yp1234567');">yp1234567</a></td>
+                        <td align="left">&nbsp;撒旦</td>
+                        <td class="px11">
+                            <a href="javascript:Dwidget('?moduleid=2&file=record&username=yyyyyyy', '[yyyyyyy] 资金记录');">2100.00</a>
+                        </td>
+                        <td class="px11">
+                            <a href="javascript:Dwidget('?moduleid=2&file=credit&username=yyyyyyy', '[yyyyyyy] 联盟币记录');">12.80</a>
+                        </td>
+                        <td class="px11">
+                            <a href="javascript:Dwidget('?moduleid=2&file=sms&username=yyyyyyy&action=record', '[yyyyyyy] 短信记录');">0</a>
+                        </td>
+                        <td>先生</td>
+                        <td>
+                            <a href="?moduleid=2&groupid=5">试客会员</a>
+                        </td>
+                        <td class="px11">2015-12-14 14:47</td>
+                        <td class="px11">2015-12-14 14:47</td>
+                        <td class="px11">
+                            <a href="javascript:Dwidget('?moduleid=2&file=loginlog&username=yyyyyyy&action=record', '[yyyyyyy] 登录记录');">2</a>
+                        </td>
+                        <td>
+                            <a href="?moduleid=2&action=edit&userid=136"><img src="admin/image/edit.png" width="16" height="16" title="修改" alt=""/></a>&nbsp;
+                            <a href="?moduleid=2&action=show&userid=136"><img src="admin/image/view.png" width="16" height="16" title="会员[yyyyyyy]详细资料" alt=""/></a>&nbsp;
+                            <a href="?moduleid=2&action=login&userid=136" target="_blank"><img src="admin/image/set.png" width="16" height="16" title="进入会员商务中心" alt=""/></a>&nbsp;
+                            <a href="?moduleid=2&file=index&action=delete&userid=136" onclick="if(!confirm('确定危险！！要删除此会员吗？系统将删除选中用户所有信息，此操作将不可撤销')) return false;"><img src="admin/image/delete.png" width="16" height="16" title="删除" alt=""/></a>
+                        </td>
+                    </tr>
+                    <tr onmouseover="this.className='on';" onmouseout="this.className='';" align="center">
+                        <td><input type="checkbox" name="userid[]" value="99"/></td>
+                        <td class="px11">99</td>
+                        <td align="left">&nbsp;<a href="javascript:_user('');"></a></td>
+                        <td align="left">&nbsp;
+                            <a href="javascript:_user('eeeeeee4');">eeeeeee4</a>
+                        </td>
+                        <td align="left">&nbsp;@&nbsp;
+                            <a href="javascript:_user('yp1234567');">yp1234567</a></td>
+                        <td align="left">&nbsp;杀到</td>
+                        <td class="px11">
+                            <a href="javascript:Dwidget('?moduleid=2&file=record&username=eeeeeee4', '[eeeeeee4] 资金记录');">0.00</a>
+                        </td>
+                        <td class="px11">
+                            <a href="javascript:Dwidget('?moduleid=2&file=credit&username=eeeeeee4', '[eeeeeee4] 联盟币记录');">0.00</a>
+                        </td>
+                        <td class="px11">
+                            <a href="javascript:Dwidget('?moduleid=2&file=sms&username=eeeeeee4&action=record', '[eeeeeee4] 短信记录');">0</a>
+                        </td>
+                        <td>先生</td>
+                        <td>
+                            <a href="?moduleid=2&groupid=5">试客会员</a>
+                        </td>
+                        <td class="px11">2015-12-09 14:34</td>
+                        <td class="px11">2015-12-09 14:34</td>
+                        <td class="px11">
+                            <a href="javascript:Dwidget('?moduleid=2&file=loginlog&username=eeeeeee4&action=record', '[eeeeeee4] 登录记录');">2</a>
+                        </td>
+                        <td>
+                            <a href="?moduleid=2&action=edit&userid=99"><img src="admin/image/edit.png" width="16" height="16" title="修改" alt=""/></a>&nbsp;
+                            <a href="?moduleid=2&action=show&userid=99"><img src="admin/image/view.png" width="16" height="16" title="会员[eeeeeee4]详细资料" alt=""/></a>&nbsp;
+                            <a href="?moduleid=2&action=login&userid=99" target="_blank"><img src="admin/image/set.png" width="16" height="16" title="进入会员商务中心" alt=""/></a>&nbsp;
+                            <a href="?moduleid=2&file=index&action=delete&userid=99" onclick="if(!confirm('确定危险！！要删除此会员吗？系统将删除选中用户所有信息，此操作将不可撤销')) return false;"><img src="admin/image/delete.png" width="16" height="16" title="删除" alt=""/></a>
+                        </td>
+                    </tr>
+                    <tr onmouseover="this.className='on';" onmouseout="this.className='';" align="center">
+                        <td><input type="checkbox" name="userid[]" value="98"/></td>
+                        <td class="px11">98</td>
+                        <td align="left">&nbsp;<a href="javascript:_user('');"></a></td>
+                        <td align="left">&nbsp;
+                            <a href="javascript:_user('eeeeeee3');">eeeeeee3</a>
+                        </td>
+                        <td align="left">&nbsp;@&nbsp;
+                            <a href="javascript:_user('yp1234567');">yp1234567</a></td>
+                        <td align="left">&nbsp;杀到</td>
+                        <td class="px11">
+                            <a href="javascript:Dwidget('?moduleid=2&file=record&username=eeeeeee3', '[eeeeeee3] 资金记录');">0.00</a>
+                        </td>
+                        <td class="px11">
+                            <a href="javascript:Dwidget('?moduleid=2&file=credit&username=eeeeeee3', '[eeeeeee3] 联盟币记录');">0.00</a>
+                        </td>
+                        <td class="px11">
+                            <a href="javascript:Dwidget('?moduleid=2&file=sms&username=eeeeeee3&action=record', '[eeeeeee3] 短信记录');">0</a>
+                        </td>
+                        <td>先生</td>
+                        <td>
+                            <a href="?moduleid=2&groupid=5">试客会员</a>
+                        </td>
+                        <td class="px11">2015-12-09 14:33</td>
+                        <td class="px11">2015-12-09 14:33</td>
+                        <td class="px11">
+                            <a href="javascript:Dwidget('?moduleid=2&file=loginlog&username=eeeeeee3&action=record', '[eeeeeee3] 登录记录');">2</a>
+                        </td>
+                        <td>
+                            <a href="?moduleid=2&action=edit&userid=98"><img src="admin/image/edit.png" width="16" height="16" title="修改" alt=""/></a>&nbsp;
+                            <a href="?moduleid=2&action=show&userid=98"><img src="admin/image/view.png" width="16" height="16" title="会员[eeeeeee3]详细资料" alt=""/></a>&nbsp;
+                            <a href="?moduleid=2&action=login&userid=98" target="_blank"><img src="admin/image/set.png" width="16" height="16" title="进入会员商务中心" alt=""/></a>&nbsp;
+                            <a href="?moduleid=2&file=index&action=delete&userid=98" onclick="if(!confirm('确定危险！！要删除此会员吗？系统将删除选中用户所有信息，此操作将不可撤销')) return false;"><img src="admin/image/delete.png" width="16" height="16" title="删除" alt=""/></a>
+                        </td>
+                    </tr>
+                    <tr onmouseover="this.className='on';" onmouseout="this.className='';" align="center">
+                        <td><input type="checkbox" name="userid[]" value="97"/></td>
+                        <td class="px11">97</td>
+                        <td align="left">&nbsp;<a href="javascript:_user('yp1234567');">yp1234567</a></td>
+                        <td align="left">&nbsp;
+                            <a href="javascript:_user('eeeeeee');">eeeeeee</a>
+                        </td>
+                        <td align="left">&nbsp;@&nbsp;
+                            <a href="javascript:_user('yp1234567');">yp1234567</a></td>
+                        <td align="left">&nbsp;是的撒</td>
+                        <td class="px11">
+                            <a href="javascript:Dwidget('?moduleid=2&file=record&username=eeeeeee', '[eeeeeee] 资金记录');">1080.00</a>
+                        </td>
+                        <td class="px11">
+                            <a href="javascript:Dwidget('?moduleid=2&file=credit&username=eeeeeee', '[eeeeeee] 联盟币记录');">9736.90</a>
+                        </td>
+                        <td class="px11">
+                            <a href="javascript:Dwidget('?moduleid=2&file=sms&username=eeeeeee&action=record', '[eeeeeee] 短信记录');">0</a>
+                        </td>
+                        <td>先生</td>
+                        <td>
+                            <a href="?moduleid=2&groupid=7">VIP会员</a>
+                            <br>剩余-151天到期
+                        </td>
+                        <td class="px11">2015-11-30 17:33</td>
+                        <td class="px11">2015-12-13 17:58</td>
+                        <td class="px11">
+                            <a href="javascript:Dwidget('?moduleid=2&file=loginlog&username=eeeeeee&action=record', '[eeeeeee] 登录记录');">15</a>
+                        </td>
+                        <td>
+                            <a href="?moduleid=2&action=edit&userid=97"><img src="admin/image/edit.png" width="16" height="16" title="修改" alt=""/></a>&nbsp;
+                            <a href="?moduleid=2&action=show&userid=97"><img src="admin/image/view.png" width="16" height="16" title="会员[eeeeeee]详细资料" alt=""/></a>&nbsp;
+                            <a href="?moduleid=2&action=login&userid=97" target="_blank"><img src="admin/image/set.png" width="16" height="16" title="进入会员商务中心" alt=""/></a>&nbsp;
+                            <a href="?moduleid=2&file=index&action=delete&userid=97" onclick="if(!confirm('确定危险！！要删除此会员吗？系统将删除选中用户所有信息，此操作将不可撤销')) return false;"><img src="admin/image/delete.png" width="16" height="16" title="删除" alt=""/></a>
+                        </td>
+                    </tr>
+                </table>
+                <div class="btns">
+                    <input type="submit" value=" 删除会员 " class="btn" onclick="if(confirm('确定要删除选中会员吗？系统将删除选中用户所有信息，此操作将不可撤销')){this.form.action='?moduleid=2&action=delete'}else{return false;}"/>&nbsp;
+                    <input type="submit" value=" 禁止访问 " class="btn" onclick="if(confirm('确定要禁止选中会员访问吗？')){this.form.action='?moduleid=2&action=move&groupids=2'}else{return false;}"/>&nbsp;
+                    <input type="submit" value=" 资金增减 " class="btn" onclick="this.form.action='?moduleid=2&file=record&action=add';"/>&nbsp;
+                    <input type="submit" value=" 联盟币奖惩 " class="btn" onclick="this.form.action='?moduleid=2&file=credit&action=add';"/>&nbsp;
+                    <input type="submit" value=" 信用积分奖惩 " class="btn" onclick="this.form.action='?moduleid=2&file=price&action=add';"/>&nbsp;
+                    <input type="submit" value=" 发送短信 " class="btn" onclick="this.form.action='?moduleid=2&file=sendsms';"/>&nbsp;
+                    <input type="submit" value=" 发送邮件 " class="btn" onclick="this.form.action='?moduleid=2&file=sendmail';"/>&nbsp;
+                    <input type="submit" value=" 发送消息 " class="btn" onclick="this.form.action='?moduleid=2&file=message&action=send';"/>&nbsp;
+                    <input type="submit" value=" 移动至 " class="btn" onclick="if(Dd('mgroupid').value==0){alert('请选择会员组');Dd('mgroupid').focus();return false;}this.form.action='?moduleid=2&action=move';"/> <select name="groupid" id="mgroupid"><option value="0">会员组</option><option value="1">管理员</option><option value="2">禁止访问</option><option value="3">游客</option><option value="4">待审核会员</option><option value="5">试客会员</option><option value="6">商家会员</option><option value="7">VIP会员</option><option value="8">荣誉试客会员</option><option value="9">银牌试客会员</option><option value="10">金牌试客会员</option><option value="11">荣誉商家会员</option></select>        </div>
+            </form>
+            <div class="pages"><input type="hidden" id="destoon_previous" value="http://admin.topaaa.com/am.php?moduleid=2&sum=25&page=2"/><a href="http://admin.topaaa.com/am.php?moduleid=2&sum=25&page=2">&nbsp;&#171;上一页&nbsp;</a> <strong>&nbsp;1&nbsp;</strong>  <a href="http://admin.topaaa.com/am.php?moduleid=2&sum=25&page=2">&nbsp;2&nbsp;</a>  <a href="http://admin.topaaa.com/am.php?moduleid=2&sum=25&page=2">&nbsp;下一页&#187;&nbsp;</a> <input type="hidden" id="destoon_next" value="http://admin.topaaa.com/am.php?moduleid=2&sum=25&page=2"/> <cite>共25条/2页</cite> <input type="text" class="pages_inp" id="destoon_pageno" value="1" onkeydown="if(event.keyCode==13 && this.value) {window.location.href='http://admin.topaaa.com/am.php?moduleid=2&sum=25&page={destoon_page}'.replace(/\{destoon_page\}/, this.value);return false;}"> <input type="button" class="pages_btn" value="GO" onclick="if(Dd('destoon_pageno').value>0)window.location.href='http://admin.topaaa.com/am.php?moduleid=2&sum=25&page={destoon_page}'.replace(/\{destoon_page\}/, Dd('destoon_pageno').value);"/></div>
+            <div class="tt">修改会员名</div>
+            <form method="post" action="?">
+                <input type="hidden" name="moduleid" value="2"/>
+                <input type="hidden" name="file" value="index"/>
+                <input type="hidden" name="action" value="rename"/>
+                <a name="#editusername"></a>
+                <table cellpadding="2" cellspacing="1" class="tb">
+                    <tr>
+                        <td>&nbsp;当前会员名： <input type="text" name="cusername" size="20" value=""/> &nbsp; 新会员名：
+                            <input type="text" name="nusername" size="20"/> &nbsp;
+                            <input type="submit" name="submit" value=" 确 定 " class="btn"/>&nbsp;&nbsp;<span class="f_gray">如无特殊情况，建议不要频繁修改会员名</span>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+            <div class="tt">手机查询</div>
+            <table cellpadding="2" cellspacing="1" class="tb">
+                <tr>
+                    <td>&nbsp;手机号： <input type="text" name="mob" size="30" id="mob"/> &nbsp;
+                        <input type="button" value=" 查 询 " class="btn" onclick="if(Dd('mob').value){_mobile(Dd('mob').value);}"/>&nbsp;&nbsp;<span class="f_gray">可查询手机所在地区</span>
+                    </td>
+                </tr>
+            </table>
+            <div class="tt">IP查询</div>
+            <table cellpadding="2" cellspacing="1" class="tb">
+                <tr>
+                    <td>&nbsp;IP地址： <input type="text" name="ip" size="30" id="ip"/> &nbsp; <input type="button" value=" 查 询 " class="btn" onclick="if(Dd('ip').value){_ip(Dd('ip').value);}"/>&nbsp;&nbsp;<span class="f_gray">可查询IP所在地区</span>
+                    </td>
+                </tr>
+            </table>
+            <div class="tt">IP解锁</div>
+            <form method="post" action="?">
+                <input type="hidden" name="moduleid" value="2"/>
+                <input type="hidden" name="file" value="index"/>
+                <input type="hidden" name="action" value="unlock"/>
+                <table cellpadding="2" cellspacing="1" class="tb">
+                    <tr>
+                        <td>&nbsp;IP地址： <input type="text" name="ip" size="30"/> &nbsp; <input type="submit" name="submit" value=" 解 锁 " class="btn"/>&nbsp;&nbsp;<span class="f_gray">可解除因登录失败次数过多而被锁定登录的IP</span>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+            <br/><br/><br/>
+            <script type="text/javascript">Menuon(1);</script>
+        </div>
+
+
+
+    </div>
+</div>
+
 
 </html>

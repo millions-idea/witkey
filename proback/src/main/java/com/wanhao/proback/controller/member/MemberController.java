@@ -29,7 +29,7 @@ public class MemberController {
     }
 
     /**
-     * 设置禁用
+     * 设置禁用用户名
      * @param map
      * @return
      */
@@ -46,5 +46,14 @@ public class MemberController {
         //查询出来
         map.put("forbidden",name_forbidden);
         return "member/set-forbidden";
+    }
+
+    /**
+     * 会员列表
+     * @return
+     */
+    @RequestMapping(value = "memberList")
+    public String memberList(){
+        return "member/member-list";
     }
 }

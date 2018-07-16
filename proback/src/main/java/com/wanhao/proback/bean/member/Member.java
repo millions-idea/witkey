@@ -84,5 +84,6 @@ public class Member extends BaseBean {
     private String bank_addr;
     //是否实名认证
     private Integer is_real_name;
-
+    //用户类型
+    private String vipmodel;
 }

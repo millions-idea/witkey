@@ -40,10 +40,10 @@ ul, form {
     padding: 0px;
 }
 
-a:link, a:visited, a:active {
-    text-decoration: none;
-    color: #000000;
-}
+/*a:link, a:visited, a:active {*/
+    /*text-decoration: none;*/
+    /*color: #000000;*/
+/*}*/
 
 a:hover {
     color: #006699;
