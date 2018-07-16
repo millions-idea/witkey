@@ -44,7 +44,6 @@ public class MemberController {
         nameForbiddenService.update(nameForbidden);
 
         //查询出来
-        NameForbidden forbidden = nameForbiddenService.query();
         map.put("forbidden",name_forbidden);
         return "member/set-forbidden";
     }

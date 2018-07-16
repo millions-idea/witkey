@@ -24,8 +24,12 @@
         <form method="post" th:action="@{/member/forbidden}">
             <div class="form-group">
                 <label for="name_forbidden">设置禁用用户名(按照,隔开)：</label>
-                <textarea rows="8" cols="15" th:text="${forbidden}" class="form-control" name="name_forbidden" id="name_forbidden" placeholder="输入禁用名，按照,隔开">
-                </textarea>
+                <input
+                          th:value="${forbidden}"
+                          class="form-control"
+                          name="name_forbidden"
+                          id="name_forbidden"
+                          placeholder="输入禁用名，按照,隔开"/>
             </div>
 
             <button type="submit" class="btn btn-default">提交</button>
