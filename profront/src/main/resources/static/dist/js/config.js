@@ -1,0 +1,1 @@
+var DTPath = "http://001.topaaa.com/";var SKPath = "http://001.topaaa.com/skin/ypmili/";var MEPath = "http://001.topaaa.com/member/";var EXPath = "http://001.topaaa.com/extend/";var CKDomain = "";var CKPath = "/";var CKPrex = "cde_";
