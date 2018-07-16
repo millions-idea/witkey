@@ -1,11 +1,11 @@
 package com.wanhao.proback.bean.admin;
 
+import com.wanhao.proback.bean.BaseBean;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.Table;
-import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -17,8 +17,7 @@ import java.util.Date;
 @Getter
 @ToString
 @Table(name = "tb_admin")//表明
-public class Admin implements Serializable {
-    private Integer id ;
+public class Admin extends BaseBean {
     private String username;
     private String password;
     private String email;

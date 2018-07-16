@@ -1,5 +1,6 @@
 package com.wanhao.proback.bean.member;
 
+import com.wanhao.proback.bean.BaseBean;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -16,8 +17,7 @@ import java.util.Date;
 @Getter
 @ToString
 @Table(name = "tb_member") //表明
-public class Member {
-    private Integer uid;
+public class Member extends BaseBean {
     private String username;
     private String password;
     private String login_ip;

@@ -1,12 +1,10 @@
 package com.wanhao.proback.bean.member;
 
+import com.wanhao.proback.bean.BaseBean;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Id;
 import javax.persistence.Table;
-import java.io.Serializable;
 
 /**
  * Created by LiuLiHao on 2018/7/15 22:05.
@@ -16,10 +14,7 @@ import java.io.Serializable;
 @Table(name = "tb_name_forbidden")
 @Setter
 @Getter
-public class NameForbidden implements Serializable {
-    @Id
-    @Column(name = "id")
-    private Integer id;
+public class NameForbidden extends BaseBean {
     private String name;
     
 }
