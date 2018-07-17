@@ -26,8 +26,8 @@
     <form method="post" th:action="@{/myAdmin/login}" onsubmit="return Dcheck();">
 
         <div id="signup_forms" class="signup_forms clearfix">
-            <input type="hidden" name="file" value="login">
-            <input name="forward" type="hidden" value="http://admin.topaaa.com/am.php">
+            <!--<input type="hidden" name="file" value="login">-->
+            <!--<input name="forward" type="hidden" value="http://admin.topaaa.com/am.php">-->
             <div class="form_row first_row">
                 <label for="username">请输入用户名</label>
                 <input name="username" type="text" id="username" placeholder="请输入用户名" value="admin">
@@ -35,6 +35,11 @@
             <div class="form_row">
                 <label for="password">请输入密码</label>
                 <input name="password" type="password" placeholder="请输入密码" id="password" value="admin">
+            </div>
+
+            <!--th:text="${session.SPRING_SECURITY_LAST_EXCEPTION.message}-->
+            <div class="form_row">
+                <span style="color: red" th:if="${error}" th:text="${error}">用户名密码错误</span>
             </div>
 
         </div>

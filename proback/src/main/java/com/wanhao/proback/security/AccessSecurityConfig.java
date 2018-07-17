@@ -1,6 +1,5 @@
 package com.wanhao.proback.security;
 
-import com.wanhao.proback.service.admin.AdminService;
 import com.wanhao.proback.utils.Base64Utils;
 import com.wanhao.proback.utils.Constants;
 import com.wanhao.proback.utils.RSAUtil;
@@ -23,14 +22,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableWebSecurity
 public class AccessSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Autowired
-    AdminService adminService;
-
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.formLogin()                    //  定义当需要用户登录时候，转到的登录页面。
                 .loginPage("/myAdmin/toLogin")           // 设置登录页面
                 .successForwardUrl("/myAdmin/systemIndex")
+                .failureUrl("/myAdmin/toLogin?error=true") //登录失败跳转到的页面
                 .loginProcessingUrl("/myAdmin/login")  // 自定义的登录接口
                 .and()
                 .authorizeRequests()        // 定义哪些URL需要被保护、哪些不需要被保护

@@ -4,7 +4,10 @@ import com.wanhao.proback.bean.admin.Admin;
 import com.wanhao.proback.service.admin.AdminService;
 import com.wanhao.proback.utils.IpUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.LockedException;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -30,7 +33,16 @@ public class AdminController {
      * @return
      */
     @RequestMapping(value = "toLogin",method = RequestMethod.GET)
-    public String toLogin(){
+    public String toLogin( @RequestParam(value = "error", required = false) String error,
+                           @RequestParam(value = "logout", required = false) String logout,
+                           HttpServletRequest request,Model model
+    ){
+        if (error != null) {
+            model.addAttribute("error", getErrorMessage(request, "SPRING_SECURITY_LAST_EXCEPTION"));
+        }
+        if (logout != null) {
+            model.addAttribute("msg", "你已经成功退出");
+        }
         return "admin/login";
     }
 
@@ -58,6 +70,21 @@ public class AdminController {
         return "admin/index";
     }
 
+
+    //自定义错误类型
+    private String getErrorMessage(HttpServletRequest request, String key){
+        Exception exception =
+                (Exception) request.getSession().getAttribute(key);
+        String error;
+        if (exception instanceof BadCredentialsException) {
+            error = "不正确的用户名或密码";
+        }else if(exception instanceof LockedException) {
+            error = exception.getMessage();
+        }else{
+            error = "不正确的用户名或密码";
+        }
+        return error;
+    }
 
     /**
      * 到后台首页
