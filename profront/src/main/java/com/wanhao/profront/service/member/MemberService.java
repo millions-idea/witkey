@@ -11,5 +11,6 @@ public interface MemberService {
 
     void addMember(Member member);
 
+    Member findByName(String name);
 
 }

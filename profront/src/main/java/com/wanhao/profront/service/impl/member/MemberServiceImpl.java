@@ -6,6 +6,7 @@ import com.wanhao.profront.service.member.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import tk.mybatis.mapper.entity.Example;
 
 /**
  * Created by LiuLiHao on 2018/7/16 18:41.
@@ -22,5 +23,16 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public void addMember(Member member) {
         memberMapper.insert(member);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Member findByName(String name) {
+        Example example = new Example(Member.class);
+
+        Example.Criteria criteria = example.createCriteria();
+        //会员名
+        criteria.andEqualTo("username", name);
+        return memberMapper.selectOneByExample(example);
     }
 }
