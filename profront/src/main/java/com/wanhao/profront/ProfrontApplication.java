@@ -34,9 +34,9 @@ public class ProfrontApplication {
     public MultipartConfigElement multipartConfigElement(){
         MultipartConfigFactory factory = new MultipartConfigFactory();
         //设置上传文件大小限制
-        factory.setMaxFileSize("10MB");
+        factory.setMaxFileSize("5MB");
         //设置上传总数据大小
-        factory.setMaxRequestSize("15MB");
+        factory.setMaxRequestSize("5MB");
         return factory.createMultipartConfig();
     }
 

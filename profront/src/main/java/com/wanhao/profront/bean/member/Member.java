@@ -86,4 +86,9 @@ public class Member extends BaseBean {
     private Integer is_real_name;
     //用户类型
     private String vipmodel;
+
+    private String zheng;
+    private String fan;
+    private String shou_chi;
+
 }

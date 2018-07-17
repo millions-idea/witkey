@@ -35,14 +35,18 @@ public class SecConfig extends WebSecurityConfigurerAdapter {
 //                    .and()
 //                    .csrf().disable().rememberMe();          // 关闭csrf防护
 
+//        http.authorizeRequests().
+//                antMatchers("/**","/fileup/**")
+//                .permitAll();
+
         http.formLogin()                    //  定义当需要用户登录时候，转到的登录页面。
-                .loginPage("/member/login")           // 设置登录页面
+                .loginPage("/member/toLogin")           // 设置登录页面
                 .successForwardUrl("/member/systemIndex")
-                .failureUrl("/member/login?error=true") //登录失败跳转到的页面
+                .failureUrl("/member/toLogin?error=true") //登录失败跳转到的页面
                 .loginProcessingUrl("/member/login")  // 自定义的登录接口
                 .and()
                 .authorizeRequests()        // 定义哪些URL需要被保护、哪些不需要被保护
-                .antMatchers("/member/login").permitAll()     // 设置所有人都可以访问登录页面
+                .antMatchers("/member/toLogin").permitAll()     // 设置所有人都可以访问登录页面
                 .anyRequest()               // 任何请求,登录后可以访问
                 .authenticated()
                 .and()

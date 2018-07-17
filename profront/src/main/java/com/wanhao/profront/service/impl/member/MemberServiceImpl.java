@@ -33,6 +33,18 @@ public class MemberServiceImpl implements MemberService {
         Example.Criteria criteria = example.createCriteria();
         //会员名
         criteria.andEqualTo("username", name);
+
         return memberMapper.selectOneByExample(example);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Member findByKey(Member member) {
+        return memberMapper.selectOne(member);
+    }
+
+    @Override
+    public void updateMember(Member member) {
+        memberMapper.updateByPrimaryKey(member);
     }
 }

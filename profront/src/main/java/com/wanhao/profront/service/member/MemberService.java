@@ -13,4 +13,7 @@ public interface MemberService {
 
     Member findByName(String name);
 
+    Member findByKey(Member member);
+
+    void updateMember(Member member);
 }

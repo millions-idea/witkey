@@ -249,7 +249,7 @@
             </tr>
         </table>
     </div>
-    <form method="post" enctype="multipart/form-data" action="validate.php" onsubmit="return check();" id="dform">
+    <form method="post" enctype="multipart/form-data" th:action="@{/member/realName}" onsubmit="return check();" id="dform">
         <input type="hidden" name="action" value="truename"/>
         <table cellpadding="6" cellspacing="1" class="tb">
             <thead><tr><th colspan="2"></th></tr></thead>
@@ -273,21 +273,25 @@
                 <td class="tr">
                     <div class="thumb_upload">
                         <div class="thumb_upload_item">
-                            <input id="lefile" type="file" style="display:none">
-                            <!--<input type="file" name="post[thumb1]" id="thumbthumb1">-->
+                            <!--存放文件-->
+                            <input id="lefile1" type="file" name="file" style="display:none">
+
+                            <!--记录图片路径-->
+                            <input type="hidden" id="path1" name="url1"/>
+
                             <div class="thumb">
-
-                                <!--<input id="photoCover" class="input-large" type="text" style="height:30px;">-->
-                                <!--<a class="btn" onclick="$('input[id=lefile]').click();">Browse</a>-->
-
-                                <img th:src="@{/dist/index/img/waitpic.png}" id="showthumbthumb1" title="预览图片"
-                                     onclick="$('#lefile').click();">
-
+                                <img th:src="@{/dist/index/img/waitpic.png}"
+                                     id="file1" title="预览图片"
+                                     width="100"
+                                     height="100"
+                                     onclick="makeForm(1)">
                             </div>
+
                             <div class="buttons">
-                                <img th:src="@{/dist/index/img/img_upload.gif}" title="上传" onclick="Dalbum('thumb1',2,100,100, Dd('thumbthumb1').value, true, 'vname');">
+                                <img th:src="@{/dist/index/img/img_upload.gif}"
+                                     title="上传" onclick="makeForm(1)">
+
                                 <img th:src="@{/dist/index/img/img_select.gif}" title="预览" onclick="_preview(Dd('showthumbthumb1').src, 1);">
-                                <img th:src="@{/dist/index/img/img_delete.gif}" title="删除" onclick="img_delete(Dd('thumbthumb1').value);delAlbum('thumb1','wait');">
                             </div>
                         </div>
                         <div class="eg">
@@ -300,20 +304,26 @@
                 <td class="tr">
                     <div class="thumb_upload">
                         <div class="thumb_upload_item">
-                            <input type="file" style="display: none;" name="post[thumb2]" id="thumbthumb2">
+
+                            <!--存放文件-->
+                            <input id="lefile2" type="file" name="file" style="display:none">
+                            <!--记录图片路径-->
+                            <input type="hidden" id="path2" name="url2"/>
+
                             <div class="thumb">
                                 <img th:src="@{/dist/index/img/waitpic.png}"
-                                     id="showthumbthumb2"
-                                     title="预览图片"
-                                     onclick="if(this.src.indexOf('waitpic.png') == -1)
-                                     {_preview(Dd('showthumbthumb2').src, 1);}else{Dalbum('thumb2',2,100,100, Dd('thumbthumb2').value,
-                                      true, 'vname');}">
+                                     id="file2" title="预览图片"
+                                     width="100"
+                                     height="100"
+                                     onclick="makeForm(2)">
                             </div>
+
                             <div class="buttons">
                                 <img th:src="@{/dist/index/img/img_upload.gif}" title="上传"
-                                     onclick="Dalbum('thumb2',2,100,100, Dd('thumbthumb2').value, true, 'vname');">
-                                <img th:src="@{/dist/index/img/img_select.gif}" title="预览" onclick="_preview(Dd('showthumbthumb2').src, 1);">
-                                <img th:src="@{/dist/index/img/img_delete.gif}" title="删除" onclick="img_delete(Dd('thumbthumb2').value);delAlbum('thumb2','wait');">
+                                     onclick="makeForm(2)">
+                                <img th:src="@{/dist/index/img/img_select.gif}"
+                                     title="预览" onclick="_preview(Dd('showthumbthumb2').src, 1);">
+
                             </div>
                         </div>
                         <div class="eg"><img th:src="@{/dist/index/img/v2.jpg}"/></div>
@@ -325,17 +335,26 @@
                 <td class="tr">
                     <div class="thumb_upload">
                         <div class="thumb_upload_item">
-                            <input type="file"  style="display: none;"  name="post[thumb3]" id="thumbthumb3">
+
+                            <!--存放文件-->
+                            <input onchange="changeImg(this);" id="lefile3" type="file" name="file" style="display:none">
+                            <!--记录图片路径-->
+                            <input type="hidden" id="path3" name="url3"/>
+
                             <div class="thumb">
                                 <img th:src="@{/dist/index/img/waitpic.png}"
-                                     id="showthumbthumb3" title="预览图片"
-                                     onclick="if(this.src.indexOf('waitpic.png') == -1){_preview(Dd('showthumbthumb3').src, 1);}
-                                     else{Dalbum('thumb3',2,100,100, Dd('thumbthumb3').value, true, 'vname');}">
+                                     id="file3" title="预览图片"
+                                     width="100"
+                                     height="100"
+                                     onclick="makeForm(3)">
                             </div>
+
                             <div class="buttons">
-                                <img th:src="@{/dist/index/img/img_upload.gif}" title="上传" onclick="Dalbum('thumb3',2,100,100, Dd('thumbthumb3').value, true, 'vname');">
-                                <img th:src="@{/dist/index/img/img_select.gif}" title="预览" onclick="_preview(Dd('showthumbthumb3').src, 1);">
-                                <img th:src="@{/dist/index/img/img_delete.gif}" title="删除" onclick="img_delete(Dd('thumbthumb3').value);delAlbum('thumb3','wait');">
+                                <img th:src="@{/dist/index/img/img_upload.gif}" title="上传"
+                                     onclick="makeForm(3)">
+                                <img th:src="@{/dist/index/img/img_select.gif}" title="预览"
+                                     onclick="_preview(Dd('showthumbthumb3').src, 1);">
+
                             </div>
                         </div>
                         <div class="eg"><img th:src="@{/dist/index/img/v3.jpg}"/></div>
@@ -357,17 +376,45 @@
             </tbody>
         </table>
     </form>
-    <script type="text/javascript" th:src="@{http://001.topaaa.com/file/script/clear.js}"></script>                <script type="text/javascript">
+    <script type="text/javascript" th:src="@{http://001.topaaa.com/file/script/clear.js}"></script>
+    <script type="text/javascript">
+    //检查填写完毕
+
+    function isnull(val) {
+        var str = val.replace(/(^\s*)|(\s*$)/g, '');//去除空格;
+        if (str == '' || str == undefined || str == null) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    function Dd(i) {
+        return document.getElementById(i);
+    }
     function check() {
-        var r_false = 0;
-        $('.thumb_upload input').each(function () {
-            if ($(this).val() == '') {
-                layer.alert('请上传证件图片');
-                r_false = 1;
-                return false;
-            }
-        });
-        if (r_false) return false;
+        if (isnull( Dd('realname').value )){
+            alert('请填写姓名')
+            return false;
+        }
+
+        if (isnull( Dd('idcard').value )){
+            alert('请填写姓名')
+            return false;
+        }
+
+        if (isnull( Dd('path1').value )){
+            alert('请上传图片')
+            return false;
+        }
+        if (isnull( Dd('path2').value )){
+            alert('请上传图片')
+            return false;
+        }
+        if (isnull( Dd('path3').value )){
+            alert('请上传图片')
+            return false;
+        }
         return true;
     }
     $(function () {
@@ -411,78 +458,70 @@
 <script th:src="@{http://001.topaaa.com/file/script/layim/func.js}"></script>
 <script>
 
-    //文件改变
-    $('#lefile').change(function() {
-        console.log('绑定事件')
+    //动态创建表单提交图片
+    function makeForm(number){
+        var turnForm = document.createElement("form");
+        //一定要加入到body中！！
+        document.body.appendChild(turnForm);
+        turnForm.method = 'post';
+        turnForm.enctype = 'multipart/form-data';
+        turnForm.action = '/fileup/fileUpload';
+        turnForm.target = '_blank';
+        //创建隐藏表单
+        var id = Math.random();
 
-        //这里唯一需要注意的就是这个form-add的id
-        var formData = new FormData($("#dform"));
-        $.ajax({
-            //接口地址
-            url: '/submit' ,
-            type: 'POST',
-            data: formData,
-            async: false,
-            cache: false,
-            contentType: false,
-            processData: false,
-            success: function (data) {
-                //成功的回调
-                if(data.code == 300){
+        var newElement = document.createElement("input");
+        newElement.setAttribute("name","file");
+        newElement.setAttribute("type","file");
+        newElement.setAttribute("id",id);
+        turnForm.appendChild(newElement);
+        //触发点击
+        newElement.click();
 
+        newElement.onchange = function (ev) {
+            //这里唯一需要注意的就是这个form-add的id
+            var formData = new FormData(turnForm);
+            $.ajax({
+                //接口地址
+                url: '/fileup/fileUpload' ,
+                type: 'POST',
+                data: formData,
+                async: false,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function (data) {
+                    //成功的回调
+                    if(data.error == '1'){
+                        //alert("上传失败")
+                    }else {
+                        //显示上传成功的图片
+                        switch (number) {
+                            case 1:
+                                $("#file1").attr("src",data.url);
+                                $("#path1").val(data.path);
+                                break;
+                            case 2:
+                                $("#file2").attr("src",data.url);
+                                $("#path2").val(data.path);
+                                break;
+                            case 3:
+                                $("#file3").attr("src",data.url);
+                                $("#path3").val(data.path);
+                                break;
+                        }
+                        //移除表单
+                        document.body.removeChild(turnForm);
+                    }
+                },
+                error: function (returndata) {
+                    //请求异常的回调
+                    // modals.warn("网络访问失败，请稍后重试!");
                 }
+            });
+        };
 
-            },
-            error: function (returndata) {
-                //请求异常的回调
-                // modals.warn("网络访问失败，请稍后重试!");
-            }
-        });//这里唯一需要注意的就是这个form-add的id
-        var formData = new FormData($("#form-add")[0]);
-
-        $.ajax({
-            //接口地址
-            url: '/fileup/fileUpload' ,
-            type: 'POST',
-            data: formData,
-            async: false,
-            cache: false,
-            contentType: false,
-            processData: false,
-            success: function (data) {
-                //成功的回调
-                if(data.code == 300){
-
-                }
-
-            },
-            error: function (returndata) {
-                //请求异常的回调
-                // modals.warn("网络访问失败，请稍后重试!");
-            }
-        });
-
-        // $('#lefile').ajaxfileupload({
-        //     action: '/fileup/fileUpload',
-        //     valid_extensions : ['jpg','png','gif'],
-        //     params: {
-        //         extra: 'info'
-        //     },
-        //     onComplete: function(response) {
-        //         console.log('custom handler for file:');
-        //         alert('上传完毕!')
-        //         //alert(JSON.stringify(response));
-        //     },
-        //     onStart: function() {
-        //         //if(weWantedTo) return false; // cancels upload
-        //     },
-        //     onCancel: function() {
-        //         //console.log('no file selected');
-        //     }
-        // });
-    });
-
-
+    }
 
 
     var IM = {};

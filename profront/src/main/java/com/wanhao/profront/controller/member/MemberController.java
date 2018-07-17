@@ -4,6 +4,7 @@ import com.wanhao.profront.bean.member.Member;
 import com.wanhao.profront.bean.member.NameForbidden;
 import com.wanhao.profront.service.member.MemberService;
 import com.wanhao.profront.service.member.NameForbiddenService;
+import com.wanhao.profront.utils.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.LockedException;
@@ -15,6 +16,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 /**
  * Created by LiuLiHao on 2018/7/16 16:50.
@@ -46,7 +48,7 @@ public class MemberController {
      * 到登录
      * @return
      */
-    @GetMapping(value = "login")
+    @GetMapping(value = "toLogin")
     public String toLogin(@RequestParam(value = "error", required = false) String error,
                           @RequestParam(value = "logout", required = false) String logout,
                           HttpServletRequest request, Model model){
@@ -64,15 +66,18 @@ public class MemberController {
      * @return
      */
     @RequestMapping(value = "memberIndex")
-    public String memberIndex(Model model){
+    public String memberIndex(Model model,HttpSession session){
 
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext()
                 .getAuthentication()
                 .getPrincipal();
         String username = userDetails.getUsername();
-        Member member = memberService.findByName(username);
-        model.addAttribute("member",member);
 
+        Member member = memberService.findByName(username);
+
+        //暂时放入session
+        session.setAttribute("member",member);
+        session.setAttribute(Constants.USER,username);
         return PREFIX+"index";
     }
 
@@ -137,10 +142,10 @@ public class MemberController {
      * @return
      */
     @RequestMapping(value = "login",method = RequestMethod.POST)
-    public String login(@RequestParam(value = "error", required = false) String error,Model model){
+    public String login(@RequestParam(value = "error", required = false)
+                                    String error,Model model){
         if (error != null) {
-
-            return "member/login";
+            return "member/index";
         }
         return "forward:/member/memberIndex";
     }
@@ -153,5 +158,29 @@ public class MemberController {
     public String goRealName(){
 
         return PREFIX+"auth/realname";
+    }
+
+    /**
+     * 实名
+     * @return
+     */
+    @PostMapping(value = "realName")
+    public String realName(String realname, String idcard,
+                           String url1, String url2,
+                           String url3, HttpSession session ,Model model){
+        String mName = (String) session.getAttribute(Constants.USER);
+        Member member = memberService.findByName(mName);
+
+        //到后台审核
+        member.setReal_name(realname);
+        member.setId_card(idcard);
+        member.setZheng(url1);
+        member.setFan(url2);
+        member.setShou_chi(url3);
+        memberService.updateMember(member);
+
+        model.addAttribute("temp_real_name",realname);
+        //更新
+        return PREFIX+ "auth/submit-success";
     }
 }
