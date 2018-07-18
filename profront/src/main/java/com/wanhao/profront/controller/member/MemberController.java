@@ -183,4 +183,14 @@ public class MemberController {
         //更新
         return PREFIX+ "auth/submit-success";
     }
+
+
+    /**
+     * 到添加淘宝买号页面
+     * @return
+     */
+    @GetMapping(value = "bindByTaoBao")
+    public String toBindBuy(){
+        return PREFIX +"bind/bind-buy-taobao";
+    }
 }

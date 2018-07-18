@@ -1,30 +1,9 @@
 <!DOCTYPE html>
 <html lang="en"  xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <link rel="stylesheet" type="text/css" th:href="@{/dist/css/index-skin.css}">
-    <link rel="stylesheet" type="text/css" th:href="@{/dist/css/index-tp.css}">
 
-    <script type="text/javascript" th:src="@{/dist/js/lang.js}"></script>
-    <script type="text/javascript" th:src="@{/dist/js/config.js}"></script>
-    <script type="text/javascript" th:src="@{/dist/js/jquery-2.0.0.min.js}"></script>
-    <script type="text/javascript" th:src="@{/dist/js/common.js}"></script>
-
-    <script type="text/javascript" th:src="@{/dist/js/admin.js}"></script>
-    <script type="text/javascript" th:src="@{/dist/js/page.js}"></script>
-
-    <link rel="stylesheet" type="text/css" th:href="@{/dist/css/jq-tip.css}">
-    <script type="text/javascript" th:src="@{/dist/js/jq-tip.js}"></script>
-    <script type="text/javascript" th:src="@{/dist/js/layer.js}"></script>
-
-    <script type="text/javascript" th:src="@{/dist/js/jquery.form.js}"></script>
-    <script type="text/javascript" th:src="@{/dist/js/template7.min.js}"></script>
-    <script type="text/javascript" th:src="@{/dist/js/cm.js}"></script>
-    <script type="text/javascript" th:src="@{/dist/js/ypfunction.js}"></script>
-
-
+<head th:include="/common/commons-head::commonHeader('系统首页_销量联盟')">
 </head>
+
 <body class="rwdt_bg">
 <div id="body">
     <div id="top_yc"></div>
@@ -150,7 +129,7 @@
                 <a href="/"><img th:src="@{/dist/img/logo.png}" alt="销量联盟"></a>
             </div>
             <div class="header_right">
-                <div class="avatar"><img src="/api/avatar/show.php?username=temp2018size=large"></div>
+                <div class="avatar"><img th:src="@{/img/defaultx48.png}"></div>
                 <div class="username">
                     <p>[[${session.member.username}]]</p>
                     <p>[[${session.member.vipmodel}]]</p>
@@ -215,7 +194,7 @@
                                     <a href="/member/taobaohao.php">买号管理</a>
                                 </li>
                                 <li>
-                                    <a href="/member/taobaohao.php?action=add">绑定买号</a>
+                                    <a th:href="@{/member/bindByTaoBao}">绑定买号</a>
                                 </li>
                             </ul>
                         </div>
@@ -282,7 +261,12 @@
                             <!--试客认证-->
                             <li><a href="/member/exam.php" class="b" target="_blank">新手考试<em class="error" title="请先通过新手考试"></em></a></li>
                             <!--允许申请试用-->
-                            <li><a href="/member/taobaohao.php?action=add" class="b" target="_blank">绑定买号<em class="error" title="请先绑定买号"></em></a></li>
+                            <li>
+                                <a href="/member/taobaohao.php?action=add"
+                                   class="b" target="_blank">绑定买号<em class="error"
+                                                                     title="请先绑定买号">
+
+                                </em></a></li>
                         </ul>
                     </div>
                 </div>
@@ -380,8 +364,8 @@
     var mineId;
     var mineUsername;
     //登录
-    mineId = [[${member.id}]];
-    mineUsername = [[${member.username}]];
+    mineId = [[${session.member.id}]];
+    mineUsername = [[${session.member.username}]];
     layui.use('layim', function (layim) {
         IM = layim;
         var init_data = {

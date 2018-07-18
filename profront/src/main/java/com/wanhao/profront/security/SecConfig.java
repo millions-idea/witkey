@@ -52,6 +52,14 @@ public class SecConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .csrf().disable();
 
+        //保证一个用户在线, 第二个用户登录不进去
+        http.sessionManagement().maximumSessions(1).
+                maxSessionsPreventsLogin(true).
+                expiredUrl("/login_error.html");
+
+        //退出删除cookie
+        http.logout().deleteCookies("JESSIONID");
+
     }
 
     @Autowired
@@ -110,6 +118,7 @@ public class SecConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/dist/**")
                 .antMatchers("/js/**")
                 .antMatchers("/img/**")
+                .antMatchers("/images/**")
 
         ;
     }

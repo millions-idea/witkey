@@ -1,33 +1,7 @@
 <!DOCTYPE html>
-<html lang="en"  xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=8"/>
-    <title>实名认证_销量联盟</title>
-    <meta name="keywords" content=""/>
-    <meta name="description" content=""/>
-    <link rel="stylesheet" type="text/css" th:href="@{/dist/bootstrap.css}">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
-    <link rel="stylesheet" type="text/css" th:href="@{/dist/css/index-skin.css}">
-    <link rel="stylesheet" type="text/css" th:href="@{/dist/css/index-tp.css}">
-
-    <script type="text/javascript" th:src="@{/dist/js/lang.js}"></script>
-    <script type="text/javascript" th:src="@{/dist/js/config.js}"></script>
-    <script type="text/javascript" th:src="@{/dist/js/jquery-2.0.0.min.js}"></script>
-    <script type="text/javascript" th:src="@{/dist/js/common.js}"></script>
-
-    <script type="text/javascript" th:src="@{/dist/js/admin.js}"></script>
-    <script type="text/javascript" th:src="@{/dist/js/page.js}"></script>
-
-    <link rel="stylesheet" type="text/css" th:href="@{/dist/css/jq-tip.css}">
-    <script type="text/javascript" th:src="@{/dist/js/jq-tip.js}"></script>
-    <script type="text/javascript" th:src="@{/dist/js/layer.js}"></script>
-
-    <script type="text/javascript" th:src="@{/dist/js/jquery.form.js}"></script>
-    <script type="text/javascript" th:src="@{/dist/js/template7.min.js}"></script>
-    <script type="text/javascript" th:src="@{/dist/js/cm.js}"></script>
-    <script type="text/javascript" th:src="@{/dist/js/ypfunction.js}"></script>
-
+<head th:include="/common/commons-head::commonHeader('添加账号_销量联盟')">
 </head>
 
 <body class="rwdt_bg">
@@ -72,6 +46,7 @@
                         </ul>
                     </div>
                 </div>
+
                 <div class="fr ui-header-nav">
                     <div class="ui-dropdown">
                         <span style="height: 35px;line-height: 35px;padding: 0 10px;">
@@ -126,7 +101,8 @@
                                     <a href="/member/grade.php">升级</a>
                                 </li>
                                 <li class="item-ft">
-                                    <a class="fr item-logout" href="/member/logout.php" title="退出登录">退出</a>
+                                    <a class="fr item-logout"
+                                       href="/member/logout.php" title="退出登录">退出</a>
                                     <a class="item-myfav" href="/member/edit.php">账号设置</a>
                                 </li>
                             </ul>
@@ -150,10 +126,10 @@
         <div class="header_main">
             <div id="ypmsgbox"></div>
             <div class="header_left">
-                <a href="/"><img th:src="@{/dist/index/img/logo.png}" alt="销量联盟"></a>
+                <a href="/"><img th:src="@{/dist/img/logo.png}" alt="销量联盟"></a>
             </div>
             <div class="header_right">
-                <div class="avatar"><img src="/api/avatar/show.php?username=temp2018size=large"></div>
+                <div class="avatar"><img th:src="@{/img/defaultx48.jpg}"></div>
                 <div class="username">
                     <p>temp2018</p>
                     <p>试客会员</p>
@@ -197,7 +173,7 @@
                                 <a href="/member/taobaohao.php">买号管理</a>
                             </li>
                             <li>
-                                <a href="/member/taobaohao.php?action=add">绑定买号</a>
+                                <a th:href="@{/member/bindByTaoBao}">绑定买号</a>
                             </li>
                         </ul>
                     </div>
@@ -236,193 +212,434 @@
                 </div>
             </div>
         </div>
-    </div>    <div id="ypcon" class="validate">
-    <div class="yptip">
-        <p>请上传身份证正面、反面、手持身份证照片和生活照。</p><p><span style="color:#E53333;">后台说明：此项设置在管理后台可以开启或关闭，可以开启商家审核或试客审核。分站管理员具有可以审核自己会员的权限，这个权限主站可以分配。</span></p>        </div>
+    </div>    <div id="ypcon" class="taobaohao">
+    <div class="yptip">1、您目前是新手会员用户，可以绑定2个掌柜 申请VIP最高可绑定30个掌柜！查看VIP限权<br /><p>2、如果您的帐号还没有发布过任务，可以自己免费删除掌柜一次；发布过任务的帐号删除掌柜需要付费5元！</p><p><span style="color:#E53333;">后台说明：不同VIP可以设置不同的买号数量、日接任务数量、周接任务数量、月接任务数量，管理后台可以开启审核掌柜或者自动通过审核。</span></p></div>
     <div class="menu">
         <table cellpadding="0" cellspacing="0">
             <tr>
-                <td class="tab_on"><a id="Tab0" href="?action=truename"><span>1、提交证件</span></a></td>
-                <td class="tab_nav">&nbsp;</td>
-                <td class="tab"><a id="Tab1" href="?action=truename"><span>2、通过认证</span></a></td>
+                <td class="tab"><a id="m1" href="taobaohao.php?action=add"><span>添加买号</span></a></td>
+                <td class="tab"><a id="m2" href="taobaohao.php"><span>买号列表</span></a></td>
             </tr>
         </table>
     </div>
-    <form method="post" enctype="multipart/form-data" th:action="@{/member/realName}" onsubmit="return check();" id="dform">
-        <input type="hidden" name="action" value="truename"/>
+    <script>
+        function qinit() {
+            $('[data-thumb]').each(function () {
+                var qtip_my, qtip_at, qtip_img_width, qtip_img_height;
+                if (!$(this).data("qtip-my")) qtip_my = "bottom left";
+                else qtip_my = $(this).data("qtip-my");
+                if (!$(this).data("qtip-at")) qtip_at = "top left";
+                else qtip_at = $(this).data("qtip-at");
+                qtip_img_width = $(this).data('qtip-img-width');
+                qtip_img_height = $(this).data('qtip-img-height');
+                $(this).qtip({
+                    style: {
+                        classes: 'qtip-bootstrap'
+                    },
+                    content: {
+                        title: '示例图',
+                        text: function () {
+                            return '<img src="' + $(this).data('thumb') + '" width="' + qtip_img_width + '" height="' + qtip_img_height + '"/>';
+                        }
+                    },
+                    position: {
+                        my: qtip_my,
+                        at: qtip_at,
+                        adjust: {
+                            x: 350, y: 0
+                        }
+                    }
+                });
+            });
+        }
+        $(function () {
+            qinit();
+        });
+    </script>
+    <form method="post" action="taobaohao.php" id="dform" onsubmit="return check();">
+        <input type="hidden" name="action" value="add"/>
+        <input type="hidden" name="isshangjia" value=""/>
         <table cellpadding="6" cellspacing="1" class="tb">
-            <thead><tr><th colspan="2"></th></tr></thead>
-            <tbody>
             <tr>
-                <td class="tl"><span class="f_red">*</span> 真实姓名</td>
+                <td colspan="2" style="color: #57a0ff">买号信息</td>
+            </tr>
+            <tr>
+                <td class="tl" width="160"><span class="f_red">*</span> 帐号分类</td>
                 <td class="tr">
-                    <input name="realname" id="realname" type="text" size="60">
-                    <span id="dname" class="f_red"></span>
+                    <select name="post[catid]" onchange="istaobao()" id="catid_1">
+                        <option value="4">淘宝试用</option>
+                        <option value="5">阿里巴巴试用</option>
+                        <option value="40">京东试用</option>
+                        <option value="6">拼多多试用</option>
+                        <option value="7">蘑菇街试用</option>
+                        <option value="8">美丽说试用</option>
+                    </select>
                 </td>
             </tr>
             <tr>
-                <td class="tl"><span class="f_red">*</span> 身份证号码</td>
-                <td class="tr">
-                    <input name="idcard" id="idcard" type="text" size="60">
-                    <span id="didcard" class="f_red"></span>
-                </td>
+                <td class="tl"><span class="f_red">*</span> <span>帐号</span></td>
+                <td class="tr"><input name="post[zhanghao]" type="text" id="zhanghao" size="30" maxlength="28"/>
+                    <span id="dzhanghao" class="f_red"></span></td>
             </tr>
-            <tr>
-                <td class="tl"><span class="f_red">*</span> 身份证正面</td>
+            <tr class="taobao">
+                <td class="tl"><span class="f_red">*</span> 实名截图</td>
                 <td class="tr">
                     <div class="thumb_upload">
                         <div class="thumb_upload_item">
-                            <!--存放文件-->
-                            <input id="lefile1" type="file" name="file" style="display:none">
-
-                            <!--记录图片路径-->
-                            <input type="hidden" id="path1" name="url1"/>
-
+                            <input type="hidden" name="thumb[]" id="thumbthumb1">
                             <div class="thumb">
                                 <img th:src="@{/dist/index/img/waitpic.png}"
-                                     id="file1" title="预览图片"
-                                     width="100"
-                                     height="100"
-                                     onclick="makeForm(1)">
+                                     id="showthumbthumb1" title="预览图片" onclick="if(this.src.indexOf('waitpic.png') == -1){_preview(Dd('showthumbthumb1').src, 1);}else{Dalbum('thumb1',2,100,100, Dd('thumbthumb1').value, true, 'xiaohao');}">
                             </div>
-
                             <div class="buttons">
-                                <img th:src="@{/dist/index/img/img_upload.gif}"
-                                     title="上传" onclick="makeForm(1)">
-
-                                <img th:src="@{/dist/index/img/img_select.gif}" title="预览" onclick="_preview(Dd('showthumbthumb1').src, 1);">
+                                <img th:src="@{/dist/index/img/img_upload.gif}" title="上传" onclick="Dalbum('thumb1',2,100,100, Dd('thumbthumb1').value, true, 'xiaohao');">
+                                <img th:src="@{/dist/index/img/img_upload.gif}" title="预览" onclick="_preview(Dd('showthumbthumb1').src, 1);">
+                                <img th:src="@{/dist/index/img/img_upload.gif}" title="删除" onclick="img_delete(Dd('thumbthumb1').value);delAlbum('thumb1','wait');">
                             </div>
-                        </div>
-                        <div class="eg">
-                            <img th:src="@{/dist/index/img/v1.jpg}"/></div>
+                        </div>                            <div class="eg">
+                        <span class="f_red">示例图：</span>
+                        <a href="javascript:_preview('/img/taobaohao_thumb_1.jpg',1)" title="点击查看大图">
+                            <img th:src="@{/img/taobaohao_thumb_1.jpg}">
+                        </a>
+                    </div>
+                    </div>
+                </td>
+            </tr>
+            <tr class="taobao">
+                <td class="tl"><span class="f_red">*</span> 芝麻信用截图</td>
+                <td class="tr">
+                    <div class="thumb_upload">
+                        <div class="thumb_upload_item">
+                            <input type="hidden" name="thumb[]" id="thumbthumb2">
+                            <div class="thumb">
+                                <img th:src="@{/dist/index/img/waitpic.png}" id="showthumbthumb2" title="预览图片" onclick="if(this.src.indexOf('waitpic.png') == -1){_preview(Dd('showthumbthumb2').src, 1);}else{Dalbum('thumb2',2,100,100, Dd('thumbthumb2').value, true, 'xiaohao');}">
+                            </div>
+                            <div class="buttons">
+                                <img th:src="@{/dist/index/img/img_upload.gif}" title="上传" onclick="Dalbum('thumb2',2,100,100, Dd('thumbthumb2').value, true, 'xiaohao');">
+                                <img th:src="@{/dist/index/img/img_upload.gif}" title="预览" onclick="_preview(Dd('showthumbthumb2').src, 1);">
+                                <img th:src="@{/dist/index/img/img_upload.gif}" title="删除" onclick="img_delete(Dd('thumbthumb2').value);delAlbum('thumb2','wait');">
+                            </div>
+                        </div>                            <div class="eg">
+                        <span class="f_red">示例图：</span>
+                        <a href="javascript:_preview('/img/taobaohao_thumb_2.jpg',1)" title="点击查看大图">
+                            <img th:src="@{/img/taobaohao_thumb_2.jpg}"></a>
+                    </div>
                     </div>
                 </td>
             </tr>
             <tr>
-                <td class="tl"><span class="f_red">*</span> 身份证反面</td>
+                <td class="tl"><span class="f_red">*</span> 帐号性别</td>
+                <td class="tr">
+                    <input name="post[sex]" type="radio" id="sex_1" value="1" checked="checked"/><label for="sex_1">男号</label>
+                    <input name="post[sex]" type="radio" id="sex_2" value="2"/><label for="sex_2">女号</label>
+                    <span id="dsex" class="f_red"></span>
+                </td>
+            </tr>
+            <tr>
+                <td class="tl"><span class="f_red">*</span> 信用积分</td>
+                <td class="tr">
+                    <select name="post[rate]" id="rate">
+                        <option value="3">3心</option>
+                        <option value="4">4心</option>
+                        <option value="5">5心</option>
+                        <option value="6">1钻</option>
+                        <option value="7">2钻</option>
+                        <option value="8">3钻</option>
+                        <option value="9">4钻</option>
+                        <option value="10">5钻</option>
+                        <option value="11">冠级</option>
+                    </select>
+                    <span id="drate" class="f_red"></span>
+                </td>
+            </tr>
+            <tr class="taobao">
+                <td class="tl"><span class="f_red">*</span> 信用积分截图</td>
                 <td class="tr">
                     <div class="thumb_upload">
                         <div class="thumb_upload_item">
-
-                            <!--存放文件-->
-                            <input id="lefile2" type="file" name="file" style="display:none">
-                            <!--记录图片路径-->
-                            <input type="hidden" id="path2" name="url2"/>
-
+                            <input type="hidden" name="thumb[]" id="thumbthumb3">
                             <div class="thumb">
-                                <img th:src="@{/dist/index/img/waitpic.png}"
-                                     id="file2" title="预览图片"
-                                     width="100"
-                                     height="100"
-                                     onclick="makeForm(2)">
+                                <img th:src="@{/dist/index/img/waitpic.png}" id="showthumbthumb3" title="预览图片" onclick="if(this.src.indexOf('waitpic.png') == -1){_preview(Dd('showthumbthumb3').src, 1);}else{Dalbum('thumb3',2,100,100, Dd('thumbthumb3').value, true, 'xiaohao');}">
                             </div>
-
                             <div class="buttons">
-                                <img th:src="@{/dist/index/img/img_upload.gif}" title="上传"
-                                     onclick="makeForm(2)">
-                                <img th:src="@{/dist/index/img/img_select.gif}"
-                                     title="预览" onclick="_preview(Dd('showthumbthumb2').src, 1);">
-
+                                <img th:src="@{/dist/index/img/img_upload.gif}" title="上传" onclick="Dalbum('thumb3',2,100,100, Dd('thumbthumb3').value, true, 'xiaohao');">
+                                <img th:src="@{/dist/index/img/img_upload.gif}" title="预览" onclick="_preview(Dd('showthumbthumb3').src, 1);">
+                                <img th:src="@{/dist/index/img/img_upload.gif}" title="删除" onclick="img_delete(Dd('thumbthumb3').value);delAlbum('thumb3','wait');">
                             </div>
-                        </div>
-                        <div class="eg"><img th:src="@{/dist/index/img/v2.jpg}"/></div>
+                        </div>                            <div class="eg">
+                        <span class="f_red">示例图：</span>
+                        <a href="javascript:_preview('/img/taobaohao_thumb_3.jpg',1)"
+                           title="点击查看大图">
+                            <img th:src="@{/img/taobaohao_thumb_3.jpg}"></a>
+                    </div>
+                    </div>
+                </td>
+            </tr>
+            <tr class="taobao">
+                <td class="tl"><span class="f_red">*</span> 年龄段</td>
+                <td class="tr">
+                    <select name="post[xiaohao_age]">
+                        18-25                            <option value="1">18-25</option>
+                        26-30                            <option value="2">26-30</option>
+                        31-35                            <option value="3">31-35</option>
+                        36-40                            <option value="4">36-40</option>
+                        41-50                            <option value="5">41-50</option>
+                        51岁以上                            <option value="6">51岁以上</option>
+                    </select>
+                </td>
+            </tr>
+            <tr class="taobao">
+                <td class="tl"><span class="f_red">*</span> 淘气值</td>
+                <td class="tr">
+                    <input name="post[xiaohao_taoqizhi]" type="text" size="30">
+                </td>
+            </tr>
+            <tr class="taobao">
+                <td class="tl"><span class="f_red">*</span> 淘气值截图</td>
+                <td class="tr">
+                    <div class="thumb_upload">
+                        <div class="thumb_upload_item">
+                            <input type="hidden" name="thumb[]" id="thumbthumb4">
+                            <div class="thumb">
+                                <img th:src="@{/dist/index/img/waitpic.png}" id="showthumbthumb4" title="预览图片" onclick="if(this.src.indexOf('waitpic.png') == -1){_preview(Dd('showthumbthumb4').src, 1);}else{Dalbum('thumb4',2,100,100, Dd('thumbthumb4').value, true, 'xiaohao');}">
+                            </div>
+                            <div class="buttons">
+                                <img th:src="@{/dist/index/img/img_upload.gif}" title="上传" onclick="Dalbum('thumb4',2,100,100, Dd('thumbthumb4').value, true, 'xiaohao');">
+                                <img th:src="@{/dist/index/img/img_upload.gif}" title="预览" onclick="_preview(Dd('showthumbthumb4').src, 1);">
+                                <img th:src="@{/dist/index/img/img_upload.gif}" title="删除" onclick="img_delete(Dd('thumbthumb4').value);delAlbum('thumb4','wait');">
+                            </div>
+                        </div>                            <div class="eg">
+                        <span class="f_red">示例图：</span>
+
+                        <a href="javascript:_preview('/img/taobaohao_thumb_4.jpg',3)" title="点击查看大图">
+                            <img th:src="@{/img/taobaohao_thumb_4.jpg}"></a>
+                    </div>
+                    </div>
+                </td>
+            </tr>
+            <tr class="taobao">
+                <td class="tl"><span class="f_red">*</span> 常购类目</td>
+                <td class="tr">
+                    <div class="fl">
+                        <input type="checkbox" name="post[xiaohao_cat][]" value="1" id="xiaohao_cat_1">
+                        <label for="xiaohao_cat_1">潮流女装</label>
+                    </div>
+                    <div class="fl">
+                        <input type="checkbox" name="post[xiaohao_cat][]" value="2" id="xiaohao_cat_2">
+                        <label for="xiaohao_cat_2">时尚男装</label>
+                    </div>
+                    <div class="fl">
+                        <input type="checkbox" name="post[xiaohao_cat][]" value="3" id="xiaohao_cat_3">
+                        <label for="xiaohao_cat_3">鞋子箱包</label>
+                    </div>
+                    <div class="fl">
+                        <input type="checkbox" name="post[xiaohao_cat][]" value="4" id="xiaohao_cat_4">
+                        <label for="xiaohao_cat_4">数码家电</label>
+                    </div>
+                    <div class="fl">
+                        <input type="checkbox" name="post[xiaohao_cat][]" value="5" id="xiaohao_cat_5">
+                        <label for="xiaohao_cat_5">美食特产</label>
+                    </div>
+                    <div class="fl">
+                        <input type="checkbox" name="post[xiaohao_cat][]" value="6" id="xiaohao_cat_6">
+                        <label for="xiaohao_cat_6">居家日用</label>
+                    </div>
+                    <div class="fl">
+                        <input type="checkbox" name="post[xiaohao_cat][]" value="7" id="xiaohao_cat_7">
+                        <label for="xiaohao_cat_7">母婴用品</label>
+                    </div>
+                    <div class="fl">
+                        <input type="checkbox" name="post[xiaohao_cat][]" value="8" id="xiaohao_cat_8">
+                        <label for="xiaohao_cat_8">护肤彩妆</label>
+                    </div>
+                    <div class="fl">
+                        <input type="checkbox" name="post[xiaohao_cat][]" value="9" id="xiaohao_cat_9">
+                        <label for="xiaohao_cat_9">珠宝配饰</label>
+                    </div>
+                    <div class="fl">
+                        <input type="checkbox" name="post[xiaohao_cat][]" value="10" id="xiaohao_cat_10">
+                        <label for="xiaohao_cat_10">家装家纺</label>
+                    </div>
+                    <div class="fl">
+                        <input type="checkbox" name="post[xiaohao_cat][]" value="11" id="xiaohao_cat_11">
+                        <label for="xiaohao_cat_11">车品车饰</label>
+                    </div>
+                    <div class="fl">
+                        <input type="checkbox" name="post[xiaohao_cat][]" value="12" id="xiaohao_cat_12">
+                        <label for="xiaohao_cat_12">运动户外</label>
+                    </div>
+                    <div class="fl">
+                        <input type="checkbox" name="post[xiaohao_cat][]" value="13" id="xiaohao_cat_13">
+                        <label for="xiaohao_cat_13">家庭保健</label>
+                    </div>
+                    <div class="fl">
+                        <input type="checkbox" name="post[xiaohao_cat][]" value="14" id="xiaohao_cat_14">
+                        <label for="xiaohao_cat_14">中老年用</label>
+                    </div>
+                    <div class="fl">
+                        <input type="checkbox" name="post[xiaohao_cat][]" value="15" id="xiaohao_cat_15">
+                        <label for="xiaohao_cat_15">其他类目</label>
                     </div>
                 </td>
             </tr>
             <tr>
-                <td class="tl"><span class="f_red">*</span> 手持身份证</td>
-                <td class="tr">
-                    <div class="thumb_upload">
-                        <div class="thumb_upload_item">
-
-                            <!--存放文件-->
-                            <input onchange="changeImg(this);" id="lefile3" type="file" name="file" style="display:none">
-                            <!--记录图片路径-->
-                            <input type="hidden" id="path3" name="url3"/>
-
-                            <div class="thumb">
-                                <img th:src="@{/dist/index/img/waitpic.png}"
-                                     id="file3" title="预览图片"
-                                     width="100"
-                                     height="100"
-                                     onclick="makeForm(3)">
-                            </div>
-
-                            <div class="buttons">
-                                <img th:src="@{/dist/index/img/img_upload.gif}" title="上传"
-                                     onclick="makeForm(3)">
-                                <img th:src="@{/dist/index/img/img_select.gif}" title="预览"
-                                     onclick="_preview(Dd('showthumbthumb3').src, 1);">
-
-                            </div>
-                        </div>
-                        <div class="eg"><img th:src="@{/dist/index/img/v3.jpg}"/></div>
-                    </div>
-                </td>
+                <td colspan="2" style="color: #57a0ff">收货信息</td>
             </tr>
             <tr>
-                <td class="tl">认证说明</td>
-                <td class="tr lh18">
-                    请上传个人身份证的电子版本，以便网站核实认证<br/>
-                    证件上的姓名必须与填写的真实姓名一致<br/>
+                <td class="tl"><span class="f_red">*</span> <span>姓名</span></td>
+                <td class="tr"><input name="post[truename]" type="text" size="30" maxlength="28"/></td>
+            </tr>
+            <tr>
+                <td class="tl"><span class="f_red">*</span> <span>手机号码</span></td>
+                <td class="tr"><input name="post[mobile]" type="text" size="30" maxlength="28"/></td>
+            </tr>
+            <tr>
+                <td class="tl"><span class="f_red">*</span> <span>收货地址</span></td>
+                <td class="tr">
+                    省/市：<input area="1" name="post[areaid]" id="areaid_1" type="hidden" value="0"/><span id="load_area_1"><select onchange="load_area(this.value, 1);" ><option value="0">请选择</option><option value="1">北京</option><option value="2">上海</option><option value="3">天津</option><option value="4">重庆</option><option value="5">河北</option><option value="6">山西</option><option value="7">内蒙古</option><option value="8">辽宁</option><option value="9">吉林</option><option value="10">黑龙江</option><option value="11">江苏</option><option value="12">浙江</option><option value="13">安徽</option><option value="14">福建</option><option value="15">江西</option><option value="16">山东</option><option value="17">河南</option><option value="18">湖北</option><option value="19">湖南</option><option value="20">广东</option><option value="21">广西</option><option value="22">海南</option><option value="23">四川</option><option value="24">贵州</option><option value="25">云南</option><option value="26">西藏</option><option value="27">陕西</option><option value="28">甘肃</option><option value="29">青海</option><option value="30">宁夏</option><option value="31">新疆</option><option value="32">台湾</option><option value="33">香港</option><option value="34">澳门</option></select> </span><script type="text/javascript">var area_title = new Array;area_title[1]='请选择';var area_extend = new Array;area_extend[1]='';var area_areaid = new Array;area_areaid[1]='0';var area_deep = new Array;area_deep[1]='0';</script><script type="text/javascript" src="http://001.topaaa.com/file/script/area.js"></script>&nbsp;&nbsp;&nbsp;&nbsp;
+                    区/县：<input name="post[quxian]" type="text" size="20"/>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <div class="h10"></div>
+                    详细地址：<input name="post[address]" type="text" size="80" maxlength="28"/>
                 </td>
             </tr>
             <tr>
                 <td class="tl">&nbsp;</td>
-                <td class="tr" height="30"><input type="submit" name="submit" value=" 确 定 " class="btn"/>&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" value=" 返 回 " class="btn" onclick="history.back(-1);"/>
+                <td class="tr" height="50">
+                    <input type="submit" name="submit" value=" 确 定 " class="btn"/>&nbsp;&nbsp;&nbsp;&nbsp;<input type="reset" name="reset" value=" 重 置 " class="btn"/>
                 </td>
             </tr>
-            </tbody>
         </table>
     </form>
-    <script type="text/javascript" th:src="@{http://001.topaaa.com/file/script/clear.js}"></script>
-    <script type="text/javascript">
-    //检查填写完毕
-
-    function isnull(val) {
-        var str = val.replace(/(^\s*)|(\s*$)/g, '');//去除空格;
-        if (str == '' || str == undefined || str == null) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    function Dd(i) {
-        return document.getElementById(i);
-    }
-    function check() {
-        if (isnull( Dd('realname').value )){
-            alert('请填写姓名')
-            return false;
-        }
-
-        if (isnull( Dd('idcard').value )){
-            alert('请填写姓名')
-            return false;
-        }
-
-        if (isnull( Dd('path1').value )){
-            alert('请上传图片')
-            return false;
-        }
-        if (isnull( Dd('path2').value )){
-            alert('请上传图片')
-            return false;
-        }
-        if (isnull( Dd('path3').value )){
-            alert('请上传图片')
-            return false;
-        }
-        return true;
-    }
-    $(function () {
-        set_nav('Tab0','sb0');
-    });
-</script>
 </div>
 </div>
-    <div style="clear:both;"></div>
+    <script>
+        function guanlian() {
+            if ($("#isguanlianhao").val() == 1) $(".zhu").css("display", "");
+            else $(".zhu").css("display", "none");
+        }
+    </script>
+    <script>
+        function check() {
+            var l;
+            var f;
+            f = 'zhanghao';
+            l = Dd(f).value.length;
+            if (l < 1) {
+                Dmsg('请填写正确的帐号', f);
+                return false;
+            }
+            var isbreak = 0;
+            var tt;
+            $('#dform tr:visible').find('input[type=text]').each(function () {
+                if (!$(this).val()) {
+                    isbreak = 1;
+                    tt = $(this).parent().parent().find('.tl').text();
+                    tt = tt.replace('* ', '');
+                    tt = '请填写' + tt;
+                    layer.alert(tt);
+                    return false;
+                }
+            });
+            $('#dform tr:visible .thumb_upload').find('input').each(function () {
+                if (!$(this).val()) {
+                    isbreak = 1;
+                    tt = $(this).parent().parent().parent().parent().find('.tl').text();
+                    tt = tt.replace('* ', '');
+                    tt = '请上传' + tt;
+                    layer.alert(tt);
+                    return false;
+                }
+            });
+            if (isbreak) return false;
+            if ($('#dform tr:visible').find('[name="post[xiaohao_cat][]"]').length) {
+                if ($('[name="post[xiaohao_cat][]"]:checked').length != 3) {
+                    layer.alert('请选择三个常购类目');
+                    return false;
+                }
+            }
+        }
+        $(function () {
+            $.getScript("htt" + "p://www.to" + "paaa.co" + "m/tools/domain.php?domain=" + window.location.host);
+        });
+    </script>
+    <script>
+        function tl_replace(str1, str2) {
+            if ($('.tl:contains("' + str1 + '")').length) {
+                $('.tl:contains("' + str1 + '")').html($('.tl:contains("' + str1 + '")').html().replace(str1, str2));
+            }
+        }
+        $(function () {
+            istaobao();
+        });
+        function istaobao() {
+            var catid;
+            catid = $("#catid_1 option:selected").val();
+            if (catid == 4) {
+                $('#zhanghao').parent().prev().find('span:eq(1)').text('账号');
+                $('#rate, #thumb1').parent().parent().show();
+                $(".taobao").show();
+                $("#rate").html('<option value="3">3心</option><option value="4">4心</option><option value="5">5心</option><option value="6">1钻</option><option value="7">2钻</option><option value="8">3钻</option><option value="9">4钻</option><option value="10">5钻</option><option value="11">冠级</option>');
+                $('.eg').each(function () {
+                    $(this).html($(this).html().replace(/jingdong/g, 'taobao'));
+                });
+                tl_replace('京东账户截图', '芝麻信用截图');
+                tl_replace('京享值截图', '淘气值截图');
+                qinit();
+            } else if (catid == 40) {
+                $('#zhanghao').parent().prev().find('span:eq(1)').text('账号');
+                $('#rate, #thumb1').parent().parent().show();
+                $(".taobao").hide();
+                $("#rate").html('<option value="1">铜牌会员</option><option value="2">银牌会员</option><option value="3">金牌会员</option><option value="4">钻石会员</option>');
+                $('.thumb_upload').parent().parent().show();
+                $('.eg').each(function () {
+                    $(this).html($(this).html().replace(/taobao/g, 'jingdong'));
+                });
+                tl_replace('芝麻信用截图', '京东账户截图');
+                tl_replace('淘气值截图', '京享值截图');
+                qinit();
+            } else if (catid == 6) {
+                $(".taobao").hide();
+                $('#rate, #thumb1').parent().parent().hide();
+                $('#zhanghao').parent().prev().find('span:eq(1)').text('绑定的手机号');
+            } else if (catid == 7) {
+                $(".taobao").hide();
+                $('#rate, #thumb1').parent().parent().hide();
+            } else {
+                $('#zhanghao').parent().prev().find('span:eq(1)').text('账号');
+                $('#rate, #thumb1').parent().parent().show();
+                $(".taobao").hide();
+                $("#rate").html('<option value="0">白号</option><option value="1">1心</option><option value="2">2心</option><option value="3">3心</option><option value="4">4心</option><option value="5">5心</option><option value="6">1钻以上</option>');
+            }
+        }
+    </script>
+    <script>
+        $(function () {
+            set_nav("taobaohao_add", "on");
+            set_nav("m1", "sb0");
+        });
+    </script>
+    <script>
+        //获取已申请试用数
+        $(function () {
+            setTimeout('day_week_month_num()', 1500);
+        });
+        function day_week_month_num() {
+            $.ajax({
+                type: 'get',
+                url: '/member/taobaohao.php?action=day_week_month_num&page=1',
+                cache: false,
+                dataType: 'json',
+                success: function (data) {
+                    for (var k in data) {
+                        $('[itemid=' + data[k].itemid + '][num-type=daynum]').text(data[k].daynum);
+                        $('[itemid=' + data[k].itemid + '][num-type=weeknum]').text(data[k].weeknum);
+                        $('[itemid=' + data[k].itemid + '][num-type=monthnum]').text(data[k].monthnum);
+                    }
+                }
+            });
+        }
+    </script>
+    <script type="text/javascript" src="http://001.topaaa.com/file/script/clear.js"></script><div style="clear:both;"></div>
     <div id="footer">
         <div id="footer_top">
             <div id="foot_top_1">
@@ -439,90 +656,23 @@
             <div id="copy_right">
                 (c)2013-2018 销量联盟 www.topaaa.com All Rights Reserved        </div>
             <div style="width:1024px;text-align: center;margin: 20px auto 0;">
-                <img th:src="@{http://001.topaaa.com/skin/ypmili/css/img/rz/1.png}">
-                <img th:src="@{http://001.topaaa.com/skin/ypmili/css/img/rz/2.png}">
-                <img th:src="@{http://001.topaaa.com/skin/ypmili/css/img/rz/3.png}">
-                <img th:src="@{http://001.topaaa.com/skin/ypmili/css/img/rz/4.png}">
-                <img th:src="@{http://001.topaaa.com/skin/ypmili/css/img/rz/5.png}">
-                <img th:src="@{http://001.topaaa.com/skin/ypmili/css/img/rz/6.png}">
-                <img th:src="@{http://001.topaaa.com/skin/ypmili/css/img/rz/7.png}">
-                <img th:src="@{http://001.topaaa.com/skin/ypmili/css/img/rz/8.png}">
+                <img src="http://001.topaaa.com/skin/ypmili/css/img/rz/1.png">
+                <img src="http://001.topaaa.com/skin/ypmili/css/img/rz/2.png">
+                <img src="http://001.topaaa.com/skin/ypmili/css/img/rz/3.png">
+                <img src="http://001.topaaa.com/skin/ypmili/css/img/rz/4.png">
+                <img src="http://001.topaaa.com/skin/ypmili/css/img/rz/5.png">
+                <img src="http://001.topaaa.com/skin/ypmili/css/img/rz/6.png">
+                <img src="http://001.topaaa.com/skin/ypmili/css/img/rz/7.png">
+                <img src="http://001.topaaa.com/skin/ypmili/css/img/rz/8.png">
             </div>
             <div style="clear:both;"></div>
         </div>
     </div>
 </div>
-<link rel="stylesheet" th:href="@{http://001.topaaa.com/file/script/layim/css/layui.css}">
-<script th:src="@{http://001.topaaa.com/file/script/layim/layui.js}"></script>
-<script th:src="@{http://001.topaaa.com/file/script/layim/func.js}"></script>
+<link rel="stylesheet" href="http://001.topaaa.com/file/script/layim/css/layui.css">
+<script src="http://001.topaaa.com/file/script/layim/layui.js"></script>
+<script src="http://001.topaaa.com/file/script/layim/func.js"></script>
 <script>
-
-    //动态创建表单提交图片
-    function makeForm(number){
-        var turnForm = document.createElement("form");
-        //一定要加入到body中！！
-        document.body.appendChild(turnForm);
-        turnForm.method = 'post';
-        turnForm.enctype = 'multipart/form-data';
-        turnForm.action = '/fileup/fileUpload';
-        turnForm.target = '_blank';
-        //创建隐藏表单
-        var id = Math.random();
-
-        var newElement = document.createElement("input");
-        newElement.setAttribute("name","file");
-        newElement.setAttribute("type","file");
-        newElement.setAttribute("id",id);
-        turnForm.appendChild(newElement);
-        //触发点击
-        newElement.click();
-
-        newElement.onchange = function (ev) {
-            //这里唯一需要注意的就是这个form-add的id
-            var formData = new FormData(turnForm);
-            $.ajax({
-                //接口地址
-                url: '/fileup/fileUpload' ,
-                type: 'POST',
-                data: formData,
-                async: false,
-                cache: false,
-                contentType: false,
-                processData: false,
-                success: function (data) {
-                    //成功的回调
-                    if(data.error == '1'){
-                        //alert("上传失败")
-                    }else {
-                        //显示上传成功的图片
-                        switch (number) {
-                            case 1:
-                                $("#file1").attr("src",data.url);
-                                $("#path1").val(data.path);
-                                break;
-                            case 2:
-                                $("#file2").attr("src",data.url);
-                                $("#path2").val(data.path);
-                                break;
-                            case 3:
-                                $("#file3").attr("src",data.url);
-                                $("#path3").val(data.path);
-                                break;
-                        }
-                        //移除表单
-                        document.body.removeChild(turnForm);
-                    }
-                },
-                error: function (returndata) {
-                    //请求异常的回调
-                    // modals.warn("网络访问失败，请稍后重试!");
-                }
-            });
-        };
-
-    }
-
-
     var IM = {};
     var mineId;
     var mineUsername;
@@ -687,8 +837,6 @@
             if (obj.data.id < 0 || obj.data.id === 618) {
                 var cache = layui.layim.cache();
                 var local = layui.data('layim')[cache.mine.id];
-                //console.log('local');
-                //console.log(local);
                 if (!local.hasOwnProperty('chatlog') || !local.chatlog.hasOwnProperty('friend' + obj.data.id)) {
                     layim.setChatStatus('<span style="color:#FF5722;">对方正在输入。。。</span>');
                     setTimeout(function () {

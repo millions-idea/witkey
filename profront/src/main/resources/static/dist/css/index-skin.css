@@ -4850,7 +4850,7 @@ a.sb0 {
     display: block;
     width: 26px;
     height: 26px;
-    background: transparent url("/dist/index/img/close.gif") no-repeat scroll center center;
+    background: transparent url("/img/close.gif") no-repeat scroll center center;
 }
 
 span.jt {
