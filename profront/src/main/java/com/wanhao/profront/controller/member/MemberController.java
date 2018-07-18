@@ -1,8 +1,10 @@
 package com.wanhao.profront.controller.member;
 
 import com.wanhao.profront.bean.member.Member;
+import com.wanhao.profront.bean.member.MemberTaoBao;
 import com.wanhao.profront.bean.member.NameForbidden;
 import com.wanhao.profront.service.member.MemberService;
+import com.wanhao.profront.service.member.MemberTaoBaoService;
 import com.wanhao.profront.service.member.NameForbiddenService;
 import com.wanhao.profront.utils.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -32,6 +35,9 @@ public class MemberController {
 
     @Autowired
     MemberService memberService;
+
+    @Autowired
+    MemberTaoBaoService taoBaoService;
 
     private static final String PREFIX = "member/";
 
@@ -192,5 +198,76 @@ public class MemberController {
     @GetMapping(value = "bindByTaoBao")
     public String toBindBuy(){
         return PREFIX +"bind/bind-buy-taobao";
+    }
+
+    /**
+     * 买号添加
+     * @return
+     */
+    @PostMapping(value = "buyAccountAdd")
+    public String buyAccountAdd(MemberTaoBao taoBao,String account, BindingResult result,String url1,
+                                String url2, String url3,
+                                String url4, String[] buy_class,
+                                Model model,HttpSession session){
+        String username  = (String) session.getAttribute(Constants.USER);
+
+        //判断类型
+        if (org.apache.commons.lang.StringUtils.isNotBlank(taoBao.getCatid())){
+            switch (taoBao.getCatid()){
+                case "4"://淘宝
+                    taoBao.setTb_account(account);
+                    //拼接类别
+                    StringBuilder sb = new StringBuilder();
+                    if (buy_class!=null && buy_class.length>0){
+                        for (int i=0;i<buy_class.length;i++){
+                            if (i==buy_class.length-1){
+                                sb.append(buy_class[i]);
+                            }else {
+                                sb.append(buy_class[i]).append(",");
+                            }
+                        }
+                    }
+                    break;
+                case "5"://阿里巴巴
+                    taoBao.setAlibaba_account(account);
+                    break;
+                case "40"://京东
+                    taoBao.setJd_account(account);
+                    break;
+                case "6"://拼多多
+                    taoBao.setPinduoduo_account(account);
+                    break;
+                case "7"://蘑菇街试用
+                    taoBao.setMogujie_account(account);
+                    break;
+                case "8"://美丽说试用
+                    taoBao.setMeilishuo_account(account);
+                    break;
+            }
+        }
+        //关联
+        Member member = memberService.findByName(username);
+        taoBao.setShoot_real_name(url1);
+        taoBao.setShoot_zhi_ma(url2);
+        taoBao.setShoot_honor(url3);
+        taoBao.setShoot_taoqi(url4);
+        taoBao.setMem_id(member.getId());
+
+
+        //保存
+        taoBaoService.addMemberTaoBao(taoBao);
+        return PREFIX+"bind/bind-success";
+    }
+
+
+    /**
+     *
+     *买号列表
+     * @return
+     */
+    @GetMapping(value = "accountList")
+    public String accountList(){
+
+        return PREFIX+"bind/bind-success";
     }
 }

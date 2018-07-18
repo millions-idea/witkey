@@ -3028,7 +3028,7 @@ a.accurl span {
 
 .xin1, .xin2, .xin3, .xin4, .xin5, .xin6, .xin7, .xin8, .xin9, .xin10, .xin11 {
     display: inline-block;
-    background: transparent url("img/rank_bg.gif") repeat-x scroll 0% 0%;
+    background: transparent url("/img/rank_bg.gif") repeat-x scroll 0% 0%;
     vertical-align: middle;
     width: 17px;
     height: 17px;
