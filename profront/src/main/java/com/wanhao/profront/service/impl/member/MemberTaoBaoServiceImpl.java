@@ -6,6 +6,7 @@ import com.wanhao.profront.service.member.MemberTaoBaoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import tk.mybatis.mapper.entity.Example;
 
 import java.util.List;
 
@@ -30,7 +31,13 @@ public class MemberTaoBaoServiceImpl implements MemberTaoBaoService {
     @Override
     @Transactional
     public List<MemberTaoBao> queryMemberBuyList(MemberTaoBao taoBao) {
-        return null;
+        Example example = new Example(MemberTaoBao.class);
+
+        Example.Criteria criteria = example.createCriteria();
+        //会员名
+        criteria.andEqualTo("mem_id", taoBao.getMem_id());
+
+        return taoBaoMapper.selectByExample(example);
     }
 }
 

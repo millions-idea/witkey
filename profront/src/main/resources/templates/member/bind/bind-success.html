@@ -272,14 +272,27 @@
                 <th>操作</th>
                 <th width="60">删除</th>
             </tr>
-            <tr onmouseover="this.className='on';" onmouseout="this.className='';" align="center">
-                <td height="30" align="left">&nbsp;&nbsp;淘宝试用</td>
-                <td height="30" align="left">&nbsp;&nbsp;
-                    <span class="f_blue">男号</span>
-                    asdfasfd                    </td>
-                <td height="30">
-                    <span class="xin5"></span>
+
+            <!--遍历内容-->
+            <tr onmouseover="this.className='on';" onmouseout="this.className='';"
+                align="center"  th:each="account:${taoBaos}" >
+                <td height="30" align="left" th:text="${account.account_type}">&nbsp;&nbsp;
+                    淘宝试用
                 </td>
+                <td height="30" align="left">
+                    &nbsp;&nbsp;
+                    <span class="f_blue">
+                        [[${account.account_gender}]]
+                    </span>
+                    [[${account.account}]]
+                </td>
+
+                <!--显示信用-->
+                <td height="30">
+                    <span class="xin5" th:class="${account.honor}"></span>
+                </td>
+
+
                 <td height="30" itemid="451" num-type="daynum"><img src="/member/image/count.gif" width="10" height="10"/></td>
                 <td height="30" itemid="451" num-type="weeknum"><img src="/member/image/count.gif" width="10" height="10"/></td>
                 <td height="30" itemid="451" num-type="monthnum"><img src="/member/image/count.gif" width="10" height="10"/></td>
@@ -292,6 +305,7 @@
                     <a href="taobaohao.php?action=delete&itemid=451" onclick="if(!confirm('确定要删除吗？此操作将不可撤销')) return false;"><img width="16" height="16" src="http://001.topaaa.com/member/image/delete.png" title="删除" alt=""/></a>
                 </td>
             </tr>
+
         </table>
     </div>
     <div id="page" class="pages"></div>
@@ -390,6 +404,7 @@
             });
             return false;
         }
+
         $(function () {
             $('.set_xzs_mark').click(function () {
                 var zhanghao = $(this).data('zhanghao');

@@ -218,7 +218,7 @@
         <table cellpadding="0" cellspacing="0">
             <tr>
                 <td class="tab"><a id="m1" th:href="@{/member/bindByTaoBao}"><span>添加买号</span></a></td>
-                <td class="tab"><a id="m2" href="taobaohao.php"><span>买号列表</span></a></td>
+                <td class="tab"><a id="m2" th:href="@{/member/accountList}"><span>买号列表</span></a></td>
             </tr>
         </table>
     </div>
@@ -366,17 +366,17 @@
                 <td class="tl"><span class="f_red">*</span> 信用积分</td>
                 <td class="tr">
                     <select name="honor" id="rate">
-                        <option value="1">1心</option>
-                        <option value="2">2心</option>
-                        <option value="3">3心</option>
-                        <option value="4">4心</option>
-                        <option value="5">5心</option>
-                        <option value="6">1钻</option>
-                        <option value="7">2钻</option>
-                        <option value="8">3钻</option>
-                        <option value="9">4钻</option>
-                        <option value="10">5钻</option>
-                        <option value="11">冠级</option>
+                        <option value="xin1">1心</option>
+                        <option value="xin2">2心</option>
+                        <option value="xin3">3心</option>
+                        <option value="xin4">4心</option>
+                        <option value="xin5">5心</option>
+                        <option value="xin6">1钻</option>
+                        <option value="xin7">2钻</option>
+                        <option value="xin8">3钻</option>
+                        <option value="xin9">4钻</option>
+                        <option value="xin10">5钻</option>
+                        <option value="xin11">冠级</option>
                     </select>
                     <span id="drate" class="f_red"></span>
                 </td>
@@ -714,7 +714,7 @@
                 $('#zhanghao').parent().prev().find('span:eq(1)').text('账号');
                 $('#rate, #thumb1').parent().parent().show();
                 $(".taobao").show();
-                $("#rate").html('<option value="1">1心</option><option value="2">2心</option><option value="3">3心</option><option value="4">4心</option><option value="5">5心</option><option value="6">1钻</option><option value="7">2钻</option><option value="8">3钻</option><option value="9">4钻</option><option value="10">5钻</option><option value="11">冠级</option>');
+                $("#rate").html('<option value="xin1">1心</option><option value="xin2">2心</option><option value="xin3">3心</option><option value="xin4">4心</option><option value="xin5">5心</option><option value="xin6">1钻</option><option value="xin7">2钻</option><option value="xin8">3钻</option><option value="xin9">4钻</option><option value="xin10">5钻</option><option value="xin11">冠级</option>');
                 $('.eg').each(function () {
                     $(this).html($(this).html().replace(/jingdong/g, 'taobao'));
                 });
@@ -725,7 +725,7 @@
                 $('#zhanghao').parent().prev().find('span:eq(1)').text('账号');
                 $('#rate, #thumb1').parent().parent().show();
                 $(".taobao").hide();
-                $("#rate").html('<option value="1">铜牌会员</option><option value="2">银牌会员</option><option value="3">金牌会员</option><option value="4">钻石会员</option>');
+                $("#rate").html('<option value="rank1">铜牌会员</option><option value="rank2">银牌会员</option><option value="rank3">金牌会员</option><option value="rank4">钻石会员</option>');
                 $('.thumb_upload').parent().parent().show();
                 $('.eg').each(function () {
                     $(this).html($(this).html().replace(/taobao/g, 'jingdong'));

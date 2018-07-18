@@ -44,5 +44,7 @@ public class MemberTaoBao extends BaseBean {
     private String mogujie_account;
     private String meilishuo_account;
     private String catid;
+    private String account_type;
+    private String account;
 
 }

@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 /**
  * Created by LiuLiHao on 2018/7/16 16:50.
@@ -205,7 +206,7 @@ public class MemberController {
      * @return
      */
     @PostMapping(value = "buyAccountAdd")
-    public String buyAccountAdd(MemberTaoBao taoBao,String account, BindingResult result,String url1,
+    public String buyAccountAdd(MemberTaoBao taoBao, BindingResult result,String url1,
                                 String url2, String url3,
                                 String url4, String[] buy_class,
                                 Model model,HttpSession session){
@@ -215,7 +216,7 @@ public class MemberController {
         if (org.apache.commons.lang.StringUtils.isNotBlank(taoBao.getCatid())){
             switch (taoBao.getCatid()){
                 case "4"://淘宝
-                    taoBao.setTb_account(account);
+                    taoBao.setAccount_type("淘宝试用");
                     //拼接类别
                     StringBuilder sb = new StringBuilder();
                     if (buy_class!=null && buy_class.length>0){
@@ -229,19 +230,19 @@ public class MemberController {
                     }
                     break;
                 case "5"://阿里巴巴
-                    taoBao.setAlibaba_account(account);
+                    taoBao.setAccount_type("阿里巴巴试用");
                     break;
                 case "40"://京东
-                    taoBao.setJd_account(account);
+                    taoBao.setAccount_type("京东试用");
                     break;
                 case "6"://拼多多
-                    taoBao.setPinduoduo_account(account);
+                    taoBao.setAccount_type("拼多多试用");
                     break;
                 case "7"://蘑菇街试用
-                    taoBao.setMogujie_account(account);
+                    taoBao.setAccount_type("蘑菇街试用");
                     break;
                 case "8"://美丽说试用
-                    taoBao.setMeilishuo_account(account);
+                    taoBao.setAccount_type("美丽说试用");
                     break;
             }
         }
@@ -266,7 +267,14 @@ public class MemberController {
      * @return
      */
     @GetMapping(value = "accountList")
-    public String accountList(){
+    public String accountList(Model model,HttpSession session){
+        String username  = (String) session.getAttribute(Constants.USER);
+        Member member = memberService.findByName(username);
+        MemberTaoBao memberTaoBao = new MemberTaoBao();
+        memberTaoBao.setMem_id(member.getId());
+        //查询会员的买号列表
+        List<MemberTaoBao> taoBaos = taoBaoService.queryMemberBuyList(memberTaoBao);
+        model.addAttribute("taoBaos",taoBaos);
 
         return PREFIX+"bind/bind-success";
     }
