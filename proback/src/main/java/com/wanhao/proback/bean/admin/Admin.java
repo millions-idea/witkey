@@ -29,5 +29,6 @@ public class Admin extends BaseBean {
     private Date login_time;
     //可用余额
     private Double money;
+    private Integer version;
 
 }
