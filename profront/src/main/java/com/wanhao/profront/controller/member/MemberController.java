@@ -22,6 +22,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
+import static com.wanhao.profront.controller.MobileCodeController.MOBILE_CODE;
+
 /**
  * Created by LiuLiHao on 2018/7/16 16:50.
  * 描述：
@@ -157,6 +159,7 @@ public class MemberController {
         return "forward:/member/memberIndex";
     }
 
+    ///////////////////////认证  auth 部分开始//////////////////////////
     /**
      * 去实名认证
      * @return
@@ -191,6 +194,56 @@ public class MemberController {
         return PREFIX+ "auth/submit-success";
     }
 
+    /**
+     * 去认证手机号
+     * @return
+     */
+    @GetMapping(value = "realMobile")
+    public String goRealMobile( Model model,HttpSession session){
+        //放入手机号到前台
+        String mName = (String) session.getAttribute(Constants.USER);
+        Member member = memberService.findByName(mName);
+        model.addAttribute("mobile",member.getMobile());
+        return PREFIX + "auth/realmobile";
+    }
+
+    /**
+     * 去认证手机号
+     * @return
+     */
+    @GetMapping(value = "inputRealMobile")
+    public String inputMobile(){
+        //放入手机号到前台
+        return PREFIX + "auth/inputmobile";
+    }
+
+    /**
+     * 认证手机号
+     * @return
+     */
+    @PostMapping(value = "realMobile")
+    public String realMobile(String auth_code,Model model,HttpSession session){
+        //获取手机号
+        String validateCode= (String) session.getAttribute(MOBILE_CODE);
+        if (org.apache.commons.lang.StringUtils.isNotBlank(auth_code)){
+            if (auth_code.equals(validateCode)){
+                String name = (String) session.getAttribute(Constants.USER);
+                Member member = memberService.findByName(name);
+                member.setIs_real_mobile(1);
+                //保存
+                memberService.updateMember(member);
+                model.addAttribute("err_msg","恭喜认证成功");
+            }else {
+                model.addAttribute("err_msg","短信验证码错误");
+            }
+        }
+
+        return PREFIX + "auth/successmobile";
+    }
+
+
+
+    ///////////////////////认证  auth 部分结束/////////////////////////
 
     /**
      * 到添加淘宝买号页面
@@ -259,7 +312,6 @@ public class MemberController {
         taoBaoService.addMemberTaoBao(taoBao);
         return PREFIX+"bind/bind-success";
     }
-
 
     /**
      *

@@ -55,13 +55,6 @@ public class KaptchaController {
         session.setAttribute(VALIDATECODE, capText);
         System.out.println("capText: " + capText);
 
-        try {
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-
         BufferedImage bi = captchaProducer.createImage(capText);
         ServletOutputStream out = response.getOutputStream();
         ImageIO.write(bi, "jpg", out);

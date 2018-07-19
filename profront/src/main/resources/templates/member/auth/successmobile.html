@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:include="/common/commons-head::commonHeader('手机认证_销量联盟')">
 
-<head th:include="/common/commons-head::commonHeader('系统首页_销量联盟')">
 </head>
+
 
 <body class="rwdt_bg">
 <div id="body">
@@ -69,9 +70,7 @@
                     </div>
                     <div class="ui-dropdown">
                     <span href="#none" class="ui-dropdown-hd">
-                        <a class="login-after username" href="/member/" style="display: inline;">
-                            [[${session.member.username}]]
-                            <b></b>
+                        <a class="login-after username" href="/member/" style="display: inline;">temp2018<b></b>
                         </a>
                     </span>
                         <div class="ui-dropdown-menu nouserinfo">
@@ -131,212 +130,131 @@
             <div class="header_right">
                 <div class="avatar"><img th:src="@{/img/defaultx48.jpg}"></div>
                 <div class="username">
-                    <p>[[${session.member.username}]]</p>
-                    <p>[[${session.member.vipmodel}]]</p>
+                    <p>temp2018</p>
+                    <p>试客会员</p>
                 </div>
                 <div class="logout">
                     <a href="/member/logout.php">退出</a>                </div>
             </div>
         </div>
-    </div><script id="yplayer" type="text/template7">
-    <div class="yplayer"><p><span style="font-size:18px;color:red;"><strong>申请试用六大注意事项<br /></strong></span></p><p><strong><span style="font-size:14px;">一、严禁通过旺旺联系商家或旺旺聊天中带有平台、销量等忌讳字眼 ；</span></strong></p><p><strong><span style="font-size:14px;">二：禁止在任务过程中，辱骂任务一方，出言不逊；</span></strong></p><p><strong><span style="font-size:14px;">三、禁止使用花呗、淘金币、天猫积分、返利网、淘宝客、信用卡支付；</span></strong></p><p><strong><span style="font-size:14px;">四、必须物流信息签收后才能在淘宝确认收货！（无法获取物流信息的联系商家）；</span></strong></p><p><strong><span style="font-size:14px;">五、禁止以任何理由给对方差评及非五星好评等行为；</span></strong></p><p><strong><span style="font-size:14px;">六、严禁好评乱写评语，广告评语或恶意乱写评语。</span></strong></p><p><span style="font-size:18px;color:red;"><strong>发布试用三大注意事项</strong></span></p><p><strong><span style="font-size:14px;">一、禁止商家发布不实任务，骗取流量！</span></strong></p><p><strong><span style="font-size:14px;">二、禁止发布一个任务却以各种理由让试客拍淘宝多个商品/链接；</span></strong></p><p><strong><span style="font-size:14px;">三、禁止商家不勾选对应要求却在留言中要求试客完成，如"货比三家"。</span></strong></p><p align="center"><span style="font-size:14px;"><span style="color:red;">说明：以上信息 完成任务 &gt; 10 将不再显示</span></span></p><p align="center"><span style="font-size:14px;"><span style="color:red;"><span style="color:#e53333;">管理后台可设置窗口大小和任务完成多少不显示。此内容管理员可以编辑或删除。</span></span><br /></span></p></div>
-</script>
-    <script>
-        $(function () {
-            if ($('em.error').length) {
-                var title = $('em.error').attr('title');
-                var url = $('em.error').eq(0).parent().attr('href');
-                layer.alert(title, {title: '提醒'}, function () {
-                    location.href = url;
-                })
-            } else {
-                layer.open({
-                    type: 1,
-                    area: ['600px', '480px'], //宽高
-                    title: '新手必知（情节严重直接封号）',
-                    content: tpl('#yplayer')
-                });
-            }
-        });
-    </script>
-    <div id="content_wrapper">
-        <div class="hyzx">
-            <div class="hyzx_dh">
-                <div class="hyzx_nav">
-                    <div class="menu persoanal_0">
-                        <div class="personal"><a href="/">首 页</a></div>
-                        <div class="personal nav">
-                            <a id="yptask">免费试用</a>
-                            <ul class="sub">
-                                <a id="yptask234" title="淘宝试用" href="/yptask/?catid=4">淘宝试用</a>
-                                <a id="yptask235" title="阿里巴巴试用" href="/yptask/?catid=5">阿里巴巴试用</a>
-                                <a id="yptask2340" title="京东试用" href="/yptask/?catid=40">京东试用</a>
-                                <a id="yptask236" title="拼多多试用" href="/yptask/?catid=6">拼多多试用</a>
-                                <a id="yptask237" title="蘑菇街试用" href="/yptask/?catid=7">蘑菇街试用</a>
-                                <a id="yptask238" title="美丽说试用" href="/yptask/?catid=8">美丽说试用</a>
-                                <a id="yptask2341" title="淘宝访问" href="/yptask/?catid=41">淘宝访问</a>
-                                <a id="yptask2351" title="阿里巴巴访问" href="/yptask/?catid=51">阿里巴巴访问</a>
-                                <a id="yptask23401" title="京东访问" href="/yptask/?catid=401">京东访问</a>
-                            </ul>
-                        </div>
-                        <div class="personal nav">
-                            <a id="record" href="/member/record.php">资金管理</a>
-                            <ul class="sub">
-                                <li><a href="/member/charge.php?action=pay">资金充值</a></li>
-                                <li><a href="/member/cash.php">资金提现</a></li>
-                                <li><a href="/member/record.php">资金流水</a></li>
-                            </ul>
-                        </div>
-                        <div class="personal nav">
-                            <a id="taobaohao" href="/member/taobaohao.php">买号管理</a>
-                            <ul class="sub">
-                                <li>
-                                    <a href="/member/taobaohao.php">买号管理</a>
-                                </li>
-                                <li>
-                                    <a th:href="@{/member/bindByTaoBao}">绑定买号</a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="personal"><a id="fuzhu" href="/member/fuzhu.php">流量套餐</a></div>
-                        <div class="personal"><a id="kuaidi" href="/member/kuaidi.php?action=add">代发快递</a></div>
-                        <div class="personal"><a id="inviter" href="/member/inviter.php">推广奖励</a></div>
-                        <div class="personal nav">
-                            <a id="agent" href="/member/agent.php">加盟分站</a>
-                            <ul class="sub">
-                                <li>
-                                    <a href="/member/agent.php">加盟分站</a>
-                                </li>
-                                <li>
-                                    <a href="/about/index.php?itemid=10">加盟政策</a>
-                                </li>
-                                <li>
-                                    <a href="/extend/joinus.php">加入我们</a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="personal nav">
-                            <a id="yptask_my">试用中心</a>
-                            <ul class="sub">
-                                <li><a href="/member/yptaskview.php?pro=2">已申请试用</a></li>
-                            </ul>
-                        </div>
-                        <div class="personal nav">
-                            <a>会员中心</a>
-                            <ul class="sub">
-                                <li><a href="/member/">会员中心</a></li>
-                                <li><a href="/member/edit.php">修改资料</a></li>
-                                <li><a href="/member/blacklist.php">黑名单</a></li>
-                                <li><a href="/member/grade.php">会员升级</a></li>
-                            </ul>
-                        </div>
+    </div><div id="content_wrapper">
+    <div class="hyzx">
+        <div class="hyzx_dh">
+            <div class="hyzx_nav">
+                <div class="menu persoanal_0">
+                    <div class="personal"><a href="/">首 页</a></div>
+                    <div class="personal nav">
+                        <a id="yptask">免费试用</a>
+                        <ul class="sub">
+                            <a id="yptask234" title="淘宝试用" href="/yptask/?catid=4">淘宝试用</a>
+                            <a id="yptask235" title="阿里巴巴试用" href="/yptask/?catid=5">阿里巴巴试用</a>
+                            <a id="yptask2340" title="京东试用" href="/yptask/?catid=40">京东试用</a>
+                            <a id="yptask236" title="拼多多试用" href="/yptask/?catid=6">拼多多试用</a>
+                            <a id="yptask237" title="蘑菇街试用" href="/yptask/?catid=7">蘑菇街试用</a>
+                            <a id="yptask238" title="美丽说试用" href="/yptask/?catid=8">美丽说试用</a>
+                            <a id="yptask2341" title="淘宝访问" href="/yptask/?catid=41">淘宝访问</a>
+                            <a id="yptask2351" title="阿里巴巴访问" href="/yptask/?catid=51">阿里巴巴访问</a>
+                            <a id="yptask23401" title="京东访问" href="/yptask/?catid=401">京东访问</a>
+                        </ul>
                     </div>
-                </div>
-            </div>
-        </div>    <div class="personal1">
-        <div class="personal2">
-            <div class="personal3">
-                <div class="per32 ez-fl"><a href="/member/avatar.php"><img src="http://001.topaaa.com/api/avatar/show.php?username=temp2018&amp;size=large" height="100" width="100"></a>
-                </div>
-                <div class="per31 ez-fl">
-                    <div class="per_nav">
-                        <ul>
-                            <li class="yhm">[[${session.member.username}]] ([[${session.member.vipmodel}]])
+                    <div class="personal nav">
+                        <a id="record" href="/member/record.php">资金管理</a>
+                        <ul class="sub">
+                            <li><a href="/member/charge.php?action=pay">资金充值</a></li>
+                            <li><a href="/member/cash.php">资金提现</a></li>
+                            <li><a href="/member/record.php">资金流水</a></li>
+                        </ul>
+                    </div>
+                    <div class="personal nav">
+                        <a id="taobaohao" href="/member/taobaohao.php">买号管理</a>
+                        <ul class="sub">
+                            <li>
+                                <a href="/member/taobaohao.php">买号管理</a>
+                            </li>
+                            <li>
+                                <a href="/member/taobaohao.php?action=add">绑定买号</a>
                             </li>
                         </ul>
                     </div>
-                    <div class="per311">
-                        <ul>
-                            <!--买号各种认证开始-->
-                            <!--判断认证-->
-                            <li th:if="${session.member.is_real_name} ne '1'">
-                                <a th:href="@{/member/goRealName}" class="b" target="_blank">实名认证
-                                    <em class="error" title="请先通过实名认证"></em>
-                                </a>
-                            </li>
-
-
-
-                            <li th:if="${session.member.is_real_mobile} ne '1'">
-                                <a th:href="@{/member/realMobile}"
-                                   class="b" target="_blank">手机认证 <em class="error" title="请先通过手机认证"></em>
-                                </a>
-                            </li>
-
-                            <li th:if="${session.member.is_real_bank} ne '1'">
-                                <a href="/member/validate.php?action=bank" class="b" target="_blank">银行卡认证 <em class="error" title="请先通过银行卡认证"></em>
-                                </a>
-                            </li>
-
-                            <!--各种认证结束-->
-
-                            <!--商家认证-->
-                            <!--试客认证-->
+                    <div class="personal"><a id="fuzhu" href="/member/fuzhu.php">流量套餐</a></div>
+                    <div class="personal"><a id="kuaidi" href="/member/kuaidi.php?action=add">代发快递</a></div>
+                    <div class="personal"><a id="inviter" href="/member/inviter.php">推广奖励</a></div>
+                    <div class="personal nav">
+                        <a id="agent" href="/member/agent.php">加盟分站</a>
+                        <ul class="sub">
                             <li>
-                                <a href="/member/exam.php" class="b" target="_blank">新手考试<em class="error" title="请先通过新手考试"></em></a>
+                                <a href="/member/agent.php">加盟分站</a>
                             </li>
-                            <!--允许申请试用-->
                             <li>
-                                <a href="/member/taobaohao.php?action=add"
-                                   class="b" target="_blank">绑定买号<em class="error"
-                                                                     title="请先绑定买号">
-
-                                </em></a></li>
+                                <a href="/about/index.php?itemid=10">加盟政策</a>
+                            </li>
+                            <li>
+                                <a href="/extend/joinus.php">加入我们</a>
+                            </li>
                         </ul>
                     </div>
-                </div>
-                <div class="per321 ez-fl">
-                    <div class="per322">
-                        <a href="/member/yptaskview.php?pro=2"><img th:src="@{/dist/index/img/per6.jpg}" alt="" class="ez-mc ez-db"></a><br>
-                        <span>&nbsp;可处理试用&nbsp;<span class="per312">
-                        </span></span>
+                    <div class="personal nav">
+                        <a id="yptask_my">试用中心</a>
+                        <ul class="sub">
+                            <li><a href="/member/yptaskview.php?pro=2">已申请试用</a></li>
+                        </ul>
                     </div>
-                    <div class="per322">
-                        <a href="/member/yptaskview.php?tousu=1"><img th:src="@{/dist/index/img/per7.jpg}" alt="" class="ez-mc ez-db"></a><br>
-                        <span>&nbsp;可处理投诉&nbsp;<span class="per312">
-                        </span></span>
+                    <div class="personal nav">
+                        <a>会员中心</a>
+                        <ul class="sub">
+                            <li><a href="/member/">会员中心</a></li>
+                            <li><a href="/member/edit.php">修改资料</a></li>
+                            <li><a href="/member/blacklist.php">黑名单</a></li>
+                            <li><a href="/member/grade.php">会员升级</a></li>
+                        </ul>
                     </div>
-                </div>
-            </div>
-
-            <div class="per4">
-                <div class="per41">
-                    <div class="per411 ez-fl">
-                        <span class="per412">
-                            &nbsp;&nbsp;&nbsp;&nbsp;资金</span>
-                        <span class="per414">[[${session.member.money}]]<span class="per415">元</span></span>
-                        <span class="per416">（0.00元锁定）</span>
-                        <span class="per417"><a href="/member/charge.php?action=pay">充值</a>
-                            &nbsp;&nbsp;&nbsp;&nbsp;  |   &nbsp;&nbsp;&nbsp;&nbsp;
-                            <a href="/member/cash.php">提现</a> &nbsp;&nbsp;&nbsp;&nbsp; |     &nbsp;&nbsp;&nbsp;&nbsp;  <a href="/member/record.php">明细</a></span>
-                    </div>
-                    <div class="per421 ">
-                        <span class="per412">&nbsp;&nbsp;&nbsp;&nbsp;联盟币</span>
-                        <span class="per414">0.00<span class="per415">个</span></span>
-                        <span class="per417"><a href="/member/credit.php?action=buy">购买</a>    &nbsp;&nbsp;&nbsp;&nbsp;  |   &nbsp;&nbsp;&nbsp;&nbsp;    <a href="/member/credit.php?action=sell">回收</a>  &nbsp;&nbsp;&nbsp;&nbsp; |     &nbsp;&nbsp;&nbsp;&nbsp;  <a href="/member/credit.php">明细</a></span>
-                    </div>
-                </div>
-                <div class="per42">
-                    <div class="per43">
-                        <a href="/member/baozhengjin.php" class="per431" title="保证金管理"></a><a href="/member/agent.php" class="per432" title="成为分站站长，获得更多收益"></a><a href="/member/grade.php" class="per433" title="升级VIP，享受更多权限"></a><a href="javascript:renwu_cat('请选择要发布的试用类别','/member/my.php?mid=23&action=add&catid=4|淘宝试用,/member/my.php?mid=23&action=add&catid=5|阿里巴巴试用,/member/my.php?mid=23&action=add&catid=40|京东试用,/member/my.php?mid=23&action=add&catid=6|拼多多试用,/member/my.php?mid=23&action=add&catid=7|蘑菇街试用,/member/my.php?mid=23&action=add&catid=8|美丽说试用,/member/my.php?mid=23&action=add&catid=41|淘宝访问,/member/my.php?mid=23&action=add&catid=51|阿里巴巴访问,/member/my.php?mid=23&action=add&catid=401|京东访问')" class="per434" title="网店没销量，发布试用提升信誉"></a><a href="/member/credit.php?action=invite" class="per435" title="我要推广赚钱"></a>
-                    </div>
-                    <ul class="per44">
-                        <li><a href="/member/baozhengjin.php" title="保证金管理">保证金</a></li>
-                        <li><a href="/member/agent.php" title="成为分站站长，获得更多收益">成为分站站长</a></li>
-                        <li><a href="/member/grade.php" title="升级VIP，享受更多权限">升级VIP</a></li>
-                        <li><a href="javascript:renwu_cat('请选择要发布的试用类别','/member/my.php?mid=23&action=add&catid=4|淘宝试用,/member/my.php?mid=23&action=add&catid=5|阿里巴巴试用,/member/my.php?mid=23&action=add&catid=40|京东试用,/member/my.php?mid=23&action=add&catid=6|拼多多试用,/member/my.php?mid=23&action=add&catid=7|蘑菇街试用,/member/my.php?mid=23&action=add&catid=8|美丽说试用,/member/my.php?mid=23&action=add&catid=41|淘宝访问,/member/my.php?mid=23&action=add&catid=51|阿里巴巴访问,/member/my.php?mid=23&action=add&catid=401|京东访问')" title="网店没销量，发布试用提升信誉">我要提升信誉</a></li>
-                        <li><a href="/member/credit.php?action=invite" title="我要推广赚钱">我要推广赚钱</a></li>
-                    </ul>
                 </div>
             </div>
         </div>
+    </div>    <div id="ypcon" class="validate">
+    <script type="text/javascript">s('sms');</script>
+    <div class="menu">
+        <table cellpadding="0" cellspacing="0">
+            <tr>
+                <td class="tab"><a id="m1" th:href="@{/member/realMobile}"><span>1、发送认证码</span></a></td>
+                <td class="tab"><a id="m2" th:href="@{/member/inputRealMobile}"><span>2、接收认证码</span></a></td>
+                <td class="tab_on"><a id="m3" onclick="javascript:;"><span>3、通过验证</span></a></td>
+            </tr>
+        </table>
     </div>
-    </div>
-    <script>
+    <form method="post" th:action="@{/member/realMobile}" onsubmit="return check();" id="dform">
+        <table cellpadding="6" cellspacing="1" class="tb">
+            <tr>
+                <td class="tl">提示信息</td>
+                <td class="tr" style="color: red;" th:text="${err_msg}">
+                    恭喜认证手机完成!
+                </td>
+            </tr>
+            <tr>
+                <td class="tl">&nbsp;</td>
+                <td class="tr" height="30">
+                    <button type="button"
+                            onclick="javascript:window.location.href='/member/memberIndex'" class="btn">
+                        回首页
+                    </button>
+                </td>
+            </tr>
+        </table>
+    </form>
+    <script type="text/javascript">
+        function check() {
+            if (Dd('auth').value.length < 6) {
+                Dmsg('请填写认证码', 'auth');
+                return false;
+            }
+            return true;
+        }
         $(function () {
-            set_nav("member", "on");
+            set_nav("m3", "sb0");
         });
     </script>
+</div>
+</div>
     <div style="clear:both;"></div>
     <div id="footer">
         <div id="footer_top">
@@ -354,33 +272,26 @@
             <div id="copy_right">
                 (c)2013-2018 销量联盟 www.topaaa.com All Rights Reserved        </div>
             <div style="width:1024px;text-align: center;margin: 20px auto 0;">
-                <img th:src="@{http://001.topaaa.com/skin/ypmili/css/img/rz/1.png}">
-                <img th:src="@{http://001.topaaa.com/skin/ypmili/css/img/rz/2.png}">
-                <img th:src="@{http://001.topaaa.com/skin/ypmili/css/img/rz/3.png}">
-                <img th:src="@{http://001.topaaa.com/skin/ypmili/css/img/rz/4.png}">
-                <img th:src="@{http://001.topaaa.com/skin/ypmili/css/img/rz/5.png}">
-                <img th:src="@{http://001.topaaa.com/skin/ypmili/css/img/rz/6.png}">
-                <img th:src="@{http://001.topaaa.com/skin/ypmili/css/img/rz/7.png}">
-                <img th:src="@{http://001.topaaa.com/skin/ypmili/css/img/rz/8.png}">
+                <img src="http://001.topaaa.com/skin/ypmili/css/img/rz/1.png">
+                <img src="http://001.topaaa.com/skin/ypmili/css/img/rz/2.png">
+                <img src="http://001.topaaa.com/skin/ypmili/css/img/rz/3.png">
+                <img src="http://001.topaaa.com/skin/ypmili/css/img/rz/4.png">
+                <img src="http://001.topaaa.com/skin/ypmili/css/img/rz/5.png">
+                <img src="http://001.topaaa.com/skin/ypmili/css/img/rz/6.png">
+                <img src="http://001.topaaa.com/skin/ypmili/css/img/rz/7.png">
+                <img src="http://001.topaaa.com/skin/ypmili/css/img/rz/8.png">
             </div>
             <div style="clear:both;"></div>
         </div>
     </div>
-
-    <input id="member_id" type="hidden" th:value="${session.member.id}" />
-    <input id="member_username" type="hidden" th:value="${session.member.username}" />
-
 </div>
-<link rel="stylesheet" href="http://001.topaaa.com/file/script/layim/css/layui.css">
-<script th:src="@{http://001.topaaa.com/file/script/layim/layui.js}"></script>
-<script th:src="@{http://001.topaaa.com/file/script/layim/func.js}"></script>
 <script>
     var IM = {};
     var mineId;
     var mineUsername;
     //登录
-    mineId = [[${session.member.id}]];
-    mineUsername = [[${session.member.username}]];
+    mineId = 'temp2018_济南';
+    mineUsername = 'temp2018 济南';
     layui.use('layim', function (layim) {
         IM = layim;
         var init_data = {
@@ -401,7 +312,7 @@
                         {
                             "username": "销量联盟 - 售前咨询",
                             "id": 618,
-                            "avatar": "/dist/index/img/kefu.png",
+                            "avatar": "/member/image/kefu.png",
                             "sign": '有问题，随时咨询我'
                         }
                     ]
@@ -414,25 +325,25 @@
                         {
                             "username": "客服 - 潇潇",
                             "id": -1,
-                            "avatar": "/dist/index/img/kefu1.png",
+                            "avatar": "/member/image/kefu1.png",
                             "sign": '销量联盟智能机器人'
                         },
                         {
                             "username": "客服 - 靓靓 ",
                             "id": -2,
-                            "avatar": "/dist/index/img/kefu2.png",
+                            "avatar": "/member/image/kefu2.png",
                             "sign": '销量联盟智能机器人'
                         },
                         {
                             "username": "客服 - 恋恋",
                             "id": -3,
-                            "avatar": "/dist/index/img/kefu3.jpg",
+                            "avatar": "/member/image/kefu3.jpg",
                             "sign": '销量联盟智能机器人'
                         },
                         {
                             "username": "客服 - 萌萌",
                             "id": -4,
-                            "avatar": "/dist/index/img/kefu4.jpg",
+                            "avatar": "/member/image/kefu4.jpg",
                             "sign": '销量联盟智能机器人'
                         }
                     ]
@@ -479,7 +390,7 @@
                     , content: {
                         uid: mineId,
                         username: mineUsername,
-                        area: '山东省 移动'
+                        area: '山东省济南市 移动'
                     }
                 });
             }
