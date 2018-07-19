@@ -15,5 +15,5 @@ public interface MemberService {
 
     Member findByKey(Member member);
 
-    void updateMember(Member member);
+    void updateMember(Member member,Integer version);
 }

@@ -27,4 +27,9 @@ public interface Constants {
      * user标记
      */
     String USER = "CURRENT_USER";
+
+    /**
+     * 信息提示 在message里使用
+     */
+    String MESSAGE = "message";
 }

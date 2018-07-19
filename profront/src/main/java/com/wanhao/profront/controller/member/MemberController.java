@@ -173,7 +173,13 @@ public class MemberController {
      * @return
      */
     @RequestMapping(value = "goRealName",method = RequestMethod.GET)
-    public String goRealName(){
+    public String goRealName(HttpSession session,Model model){
+        //放入version到前台
+        String mName = (String) session.getAttribute(Constants.USER);
+        Member member = memberService.findByName(mName);
+        session.setAttribute("member",member);
+        model.addAttribute("member",member);
+
         return PREFIX+"auth/auth-realname";
     }
 
@@ -194,7 +200,7 @@ public class MemberController {
         member.setZheng(url1);
         member.setFan(url2);
         member.setShou_chi(url3);
-        memberService.updateMember(member);
+        memberService.updateMember(member,member.getVersion());
 
         model.addAttribute("temp_real_name",realname);
         //更新
@@ -211,6 +217,8 @@ public class MemberController {
         String mName = (String) session.getAttribute(Constants.USER);
         Member member = memberService.findByName(mName);
         model.addAttribute("mobile",member.getMobile());
+        session.setAttribute("member",member);
+        model.addAttribute("member",member);
         return PREFIX + "auth/auth-mobile-start";
     }
 
@@ -219,8 +227,12 @@ public class MemberController {
      * @return
      */
     @GetMapping(value = "inputRealMobile")
-    public String inputMobile(){
+    public String inputMobile(Model model,HttpSession session){
         //放入手机号到前台
+        String mName = (String) session.getAttribute(Constants.USER);
+        Member member = memberService.findByName(mName);
+        session.setAttribute("member",member);
+        model.addAttribute("member",member);
         return PREFIX + "auth/auth-mobile-input";
     }
 
@@ -238,7 +250,7 @@ public class MemberController {
                 Member member = memberService.findByName(name);
                 member.setIs_real_mobile(1);
                 //保存
-                memberService.updateMember(member);
+                memberService.updateMember(member,member.getVersion());
                 model.addAttribute("err_msg","恭喜认证成功");
             }else {
                 model.addAttribute("err_msg","短信验证码错误");
@@ -319,6 +331,19 @@ public class MemberController {
                     break;
             }
         }
+
+        //判断账号是否已经绑定过
+        MemberTaoBao search = new MemberTaoBao();
+        search.setAccount(taoBao.getAccount());
+        search.setAccount_type(taoBao.getAccount_type());
+        //查询
+        List<MemberTaoBao> baos = taoBaoService.queryMemberBuyList(search);
+        if (baos!=null && baos.size()>0){
+            //已经绑定过了 不能再绑定
+            model.addAttribute(Constants.MESSAGE,"该账号已经绑定过了,不能重复绑定!");
+            return "message";
+
+        }
         //关联
         Member member = memberService.findByName(username);
         taoBao.setShoot_real_name(url1);
@@ -330,7 +355,7 @@ public class MemberController {
 
         //保存
         taoBaoService.addMemberTaoBao(taoBao);
-        return PREFIX+"bind/bind-success";
+        return PREFIX+"bind/bind-result";
     }
 
     /**

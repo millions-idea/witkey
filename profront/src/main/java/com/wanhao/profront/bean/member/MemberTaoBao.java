@@ -19,7 +19,6 @@ import java.util.Date;
 @ToString
 public class MemberTaoBao extends BaseBean {
     private Integer mem_id;
-    private String tb_account;
     private String age_range;
     private String shoot_real_name;
     private String shoot_zhi_ma;
@@ -39,11 +38,6 @@ public class MemberTaoBao extends BaseBean {
     private String pro_name;
     private String city_name;
     private String address;
-    private String jd_account;
-    private String alibaba_account;
-    private String pinduoduo_account;
-    private String mogujie_account;
-    private String meilishuo_account;
     private String catid;
     private String account_type;
     private String account;
@@ -51,5 +45,7 @@ public class MemberTaoBao extends BaseBean {
     private Integer is_pass;
     private Date create_time;
     private Date pass_time;
+    private String remark;
 
+    private Integer version;
 }

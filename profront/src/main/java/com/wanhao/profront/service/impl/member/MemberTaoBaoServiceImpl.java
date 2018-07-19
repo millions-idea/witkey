@@ -3,6 +3,7 @@ package com.wanhao.profront.service.impl.member;
 import com.wanhao.profront.bean.member.MemberTaoBao;
 import com.wanhao.profront.dao.member.MemberTaoBaoMapper;
 import com.wanhao.profront.service.member.MemberTaoBaoService;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -34,8 +35,19 @@ public class MemberTaoBaoServiceImpl implements MemberTaoBaoService {
         Example example = new Example(MemberTaoBao.class);
 
         Example.Criteria criteria = example.createCriteria();
-        //会员名
-        criteria.andEqualTo("mem_id", taoBao.getMem_id());
+        if (taoBao.getMem_id()!=null){
+            //会员名
+            criteria.andEqualTo("mem_id", taoBao.getMem_id());
+        }
+        //账号类型
+        if (StringUtils.isNotBlank(taoBao.getAccount_type())){
+            criteria.andEqualTo("account_type", taoBao.getAccount_type());
+        }
+
+        //账号类型
+        if (StringUtils.isNotBlank(taoBao.getAccount())){
+            criteria.andEqualTo("account", taoBao.getAccount());
+        }
 
         return taoBaoMapper.selectByExample(example);
     }

@@ -44,7 +44,11 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public void updateMember(Member member) {
-        memberMapper.updateByPrimaryKey(member);
+    public void updateMember(Member member,Integer version) {
+        //判断幂等性
+        if (version.equals(member.getVersion())){
+            member.setVersion(member.getVersion()+1);
+            memberMapper.updateByPrimaryKey(member);
+        }
     }
 }

@@ -98,4 +98,6 @@ public class Member extends BaseBean {
     //实名认证提交时间
     private Date real_name_time;
 
+    private Integer version;
+
 }

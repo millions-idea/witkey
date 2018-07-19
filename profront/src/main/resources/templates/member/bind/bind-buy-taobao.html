@@ -259,6 +259,7 @@
     <form method="post" th:action="@{/member/buyAccountAdd}" id="dform" onsubmit="return check();">
         <table cellpadding="6" cellspacing="1" class="tb">
             <tr>
+
                 <td colspan="2" style="color: #57a0ff">买号信息</td>
             </tr>
             <tr>
@@ -286,6 +287,9 @@
             <tr class="taobao">
                 <td class="tl"><span class="f_red">*</span> 实名截图</td>
                 <td class="tr">
+                    <!--保证幂等性-->
+                    <input type="hidden" name="version" value="0" th:value="${member.version}">
+
                     <div class="thumb_upload">
                         <div class="thumb_upload_item">
                             <!--存放文件-->
@@ -307,7 +311,8 @@
                                      title="上传"
                                      onclick="makeForm(1)">
 
-                                <img th:src="@{/dist/index/img/img_upload.gif}" title="预览" onclick="_preview(Dd('showthumbthumb1').src, 1);">
+                                <img th:src="@{/dist/index/img/img_upload.gif}"
+                                     title="预览" onclick="_preview(Dd('showthumbthumb1').src, 1);">
                             </div>
                         </div>                            <div class="eg">
                         <span class="f_red">示例图：</span>
