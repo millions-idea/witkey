@@ -6,6 +6,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.Table;
+import java.util.Date;
 
 /**
  * Created by LiuLiHao on 2018/7/18 17:25.
@@ -46,5 +47,9 @@ public class MemberTaoBao extends BaseBean {
     private String catid;
     private String account_type;
     private String account;
+
+    private Integer is_pass;
+    private Date create_time;
+    private Date pass_time;
 
 }

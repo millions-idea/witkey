@@ -46,10 +46,12 @@
                                     <li class="reg_title">账户信息</li>
                                     <li>
                                         <div style="float: left;width: 80px;height: 40px;"></div>
-                                        <input type="radio" name="post[regid]" value="5" id="g_5" checked/>
+                                        <input type="radio" name="is_seller" value="0" id="g_5" checked/>
                                         <label for="g_5">试客会员</label>
-                                        <input type="radio" name="post[regid]" value="6" id="g_6"/>
+
+                                        <input type="radio" name="is_seller" value="1" id="g_6"/>
                                         <label for="g_6">商家会员</label>
+
                                         <span class="f_red" id="warning">【注意，请根据您的需求选择】</span>
                                     </li>
                                     <li>
@@ -323,12 +325,12 @@
         var mob = Dd('mobile').value;
 
         if (!mob){
-            alert('请输入手机号');
+            showmsg('请输入手机号');
             return;
         }
 
         if (!Dd('valicode').value){
-            alert('请输入验证码');
+            showmsg('请输入验证码');
         }else {
             $.ajax({
                 url:"/kaptcha/checkVerifyCode",
@@ -338,10 +340,38 @@
                 async:false,
                 success:function(result){
                     if(result == "false"){
-                        alert("验证码输入不正确!");
+                        showmsg("验证码输入不正确!");
                         flag = false;
                     }else {
-                        alert("验证码正确!");
+                        //调用发送短信
+
+                        var mob = $("#mobile").val();
+                        var postdata = JSON.stringify(mob);
+                        var url = "/mobileCode/sendSms";
+                        //提交
+                        $.ajax({
+                            //接口地址
+                            url: url ,
+                            type: 'POST',
+                            data: postdata,
+                            contentType : 'application/json',
+                            processData : false,
+                            dataType: 'json',
+                            success: function (date) {
+                                //成功的回调
+                                if(date.error == '1'){
+                                    showmsg("发送失败")
+                                }else {
+                                    showmsg("发送成功");
+                                }
+                            },
+                            error: function (returndata) {
+                                //请求异常的回调
+                                showmsg("操作失败")
+                            }
+                        });
+
+
                     }
                 }
             });
@@ -380,20 +410,25 @@
         Dd(ID).focus();
     }
     function check() {
-        if (!Dd('username').value) {
+        if ($("#username").val() == "" || $.trim($("#username").val()).length == 0) {
             alert('请输入用户名')
             return false;
-        } else {
-           // right_msg(type);
         }
 
-        if (Dd('cpassword').value != Dd('password').value) {
+        if ($("#password").val() == "" || $.trim($("#password").val()).length == 0) {
+            alert('请输入密码')
+            return false;
+        }
+
+        if ($("#cpassword").val() == "" || $.trim($("#cpassword").val()).length == 0) {
+            alert('请输入确认密码')
+            return false;
+        }
+
+        if ($("#cpassword").val() != $("#password").val()) {
             alert('两次输入的密码不一致')
             return false;
-        } else {
-           // right_msg(type);
         }
-
         if (Dd('truename').value.length < 2) {
             alert('请输入真实姓名')
             return false;

@@ -124,7 +124,10 @@
     <div id="header" class="clean">
         <div class="header_main">
             <div id="ypmsgbox"></div>
-            <script type="text/javascript">showmsg('添加成功');</script>            <div class="header_left">
+
+            <!--<script type="text/javascript">showmsg('添加成功');</script>            -->
+            <div class="header_left">
+
             <a href="/"><img th:src="@{/dist/img/logo.png}" alt="销量联盟"></a>
         </div>
             <div class="header_right">
@@ -166,13 +169,13 @@
                         </ul>
                     </div>
                     <div class="personal nav">
-                        <a id="taobaohao" href="/member/taobaohao.php">买号管理</a>
+                        <a id="taobaohao" th:href="@{/member/accountList}">买号管理</a>
                         <ul class="sub">
                             <li>
-                                <a href="/member/taobaohao.php">买号管理</a>
+                                <a th:href="@{/member/accountList}">买号管理</a>
                             </li>
                             <li>
-                                <a href="/member/taobaohao.php?action=add">绑定买号</a>
+                                <a th:href="@{/member/bindByTaoBao}">绑定买号</a>
                             </li>
                         </ul>
                     </div>
@@ -297,7 +300,10 @@
                 <td height="30" itemid="451" num-type="weeknum"><img src="/member/image/count.gif" width="10" height="10"/></td>
                 <td height="30" itemid="451" num-type="monthnum"><img src="/member/image/count.gif" width="10" height="10"/></td>
                 <td>
-                    <span style="color:#00F">审核通过</span>                                            </td>
+                    <span style="color:#00F" th:text="${account.is_pass}==0?'审核中...':'审核通过'">
+                        审核通过
+                    </span>
+                </td>
                 <td class="px11 f_gray">
                     <a href="?action=forbid&itemid=451&isforbid=1"><em class="bred" title="禁用后，处理任务时将不会显示此账号">禁用</em></a>
                 </td>

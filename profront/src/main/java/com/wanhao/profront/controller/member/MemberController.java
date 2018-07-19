@@ -52,6 +52,44 @@ public class MemberController {
     public String toRegister(){
         return "member/register";
     }
+    /**
+     * 注册
+     * @return
+     */
+    @PostMapping(value = "register")
+    public String register(Member member,String mobile_code, Model model,HttpSession session){
+        //判断手机验证码是否正确 todo
+        if (org.apache.commons.lang.StringUtils.isNotBlank(mobile_code)){
+            String validateCode= (String) session.getAttribute(MOBILE_CODE);
+                if (!mobile_code.equals(validateCode)){
+                    //验证码错误
+                    model.addAttribute("err","短信验证码不正确");
+                    return "member/register";
+                }
+        }
+        //检查是否包含禁用名字
+        NameForbidden nameForbidden = nameForbiddenService.query();
+        if (!StringUtils.isEmpty(nameForbidden)){
+            String[] strings = nameForbidden.getName().split(",");
+            if (strings!=null && strings.length>0){
+                for (String s : strings) {
+                    if (member.getUsername()!=null && member.getUsername().contains(s)){
+                        //禁用
+                        model.addAttribute("err","禁用的用户名");
+                        return "member/register";
+                    }
+                }
+            }
+        }
+        memberService.addMember(member);
+        //判断用户类型 如果是商户 成功直接跳转到登录后台，提示需要先绑定 掌柜账号
+        if (member.getIs_seller()==1){
+            return "";
+        }
+
+        //注册成功暂时返回首页
+        return "index";
+    }
 
     /**
      * 到登录
@@ -114,36 +152,6 @@ public class MemberController {
         return PREFIX+"forget";
     }
 
-    /**
-     * 注册
-     * @return
-     */
-    @PostMapping(value = "register")
-    public String register(Member member,String mobile_code, Model model){
-        //判断手机验证码是否正确 todo
-        if (mobile_code!=null){
-
-        }
-        //检查是否包含禁用名字
-        NameForbidden nameForbidden = nameForbiddenService.query();
-        if (!StringUtils.isEmpty(nameForbidden)){
-            String[] strings = nameForbidden.getName().split(",");
-            if (strings!=null && strings.length>0){
-                for (String s : strings) {
-                    if (member.getUsername()!=null && member.getUsername().contains(s)){
-                        //禁用
-                        model.addAttribute("err","禁用的用户名");
-                        return "member/register";
-                    }
-                }
-            }
-
-        }
-        memberService.addMember(member);
-
-        //注册成功暂时返回首页
-        return "index";
-    }
 
 
     /**
@@ -166,8 +174,7 @@ public class MemberController {
      */
     @RequestMapping(value = "goRealName",method = RequestMethod.GET)
     public String goRealName(){
-
-        return PREFIX+"auth/realname";
+        return PREFIX+"auth/auth-realname";
     }
 
     /**
@@ -191,7 +198,7 @@ public class MemberController {
 
         model.addAttribute("temp_real_name",realname);
         //更新
-        return PREFIX+ "auth/submit-success";
+        return PREFIX+ "auth/auth-realname-success";
     }
 
     /**
@@ -204,7 +211,7 @@ public class MemberController {
         String mName = (String) session.getAttribute(Constants.USER);
         Member member = memberService.findByName(mName);
         model.addAttribute("mobile",member.getMobile());
-        return PREFIX + "auth/realmobile";
+        return PREFIX + "auth/auth-mobile-start";
     }
 
     /**
@@ -214,7 +221,7 @@ public class MemberController {
     @GetMapping(value = "inputRealMobile")
     public String inputMobile(){
         //放入手机号到前台
-        return PREFIX + "auth/inputmobile";
+        return PREFIX + "auth/auth-mobile-input";
     }
 
     /**
@@ -238,15 +245,28 @@ public class MemberController {
             }
         }
 
-        return PREFIX + "auth/successmobile";
+        return PREFIX + "auth/auth-mobile-success";
+    }
+
+
+    /**
+     * 去认证银行卡
+     * @return
+     */
+    @GetMapping(value = "realBank")
+    public String inputBank(HttpSession session){
+        //放入用户姓名和身份证号到前台
+        return PREFIX + "auth/auth-bank-start";
     }
 
 
 
     ///////////////////////认证  auth 部分结束/////////////////////////
 
+
+    ///////////////////////买号列表添加  account 部分开始//////////////////////////
     /**
-     * 到添加淘宝买号页面
+     * 到添加买号页面
      * @return
      */
     @GetMapping(value = "bindByTaoBao")
@@ -328,6 +348,6 @@ public class MemberController {
         List<MemberTaoBao> taoBaos = taoBaoService.queryMemberBuyList(memberTaoBao);
         model.addAttribute("taoBaos",taoBaos);
 
-        return PREFIX+"bind/bind-success";
+        return PREFIX+"bind/bind-result";
     }
 }
