@@ -17,4 +17,14 @@ public interface MemberService {
      * @return
      */
     public List<Member> getMembers(Member member);
+
+    /**
+     * 主键查询
+     * @param member
+     * @return
+     */
+    Member getMember(Member member);
+
+    void updateMember(Member member);
+
 }

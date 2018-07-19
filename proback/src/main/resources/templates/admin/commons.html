@@ -122,19 +122,7 @@
                 edit: {
                     enable: false
                 },
-                // callback: {
-                //     onClick: zTreeOnClick
-                // }
             };
-
-            // function zTreeOnClick(event, treeId, treeNode) {
-            //     if(treeNode.ahref){
-            //         //window.open(treeNode.ahref,'');
-            //         window.location.href =  treeNode.ahref;
-            //     }else{
-            //         //alert("此节点没有链接！")
-            //     }
-            // };
 
             var zNodes = [
 
@@ -218,7 +206,8 @@
 
 
                 { id: 43, pId: 4, name: "会员相关",url:'javascript:;',target:'_self',icon:'/dist/img/MenuIcon/formmodel.gif' },
-                { id: 431, pId: 43, name: "资料认证",url:'/system/homePage',target:'_self',icon:'/dist/img/MenuIcon/ie.gif' },
+                { id: 431, pId: 43, name: "会员实名认证",url:'/member/toMemberRealNameAuth',target:'_self',icon:'/dist/img/MenuIcon/ie.gif' },
+                { id: 4315, pId: 43, name: "会员买号认证",url:'/member/toAuthAccount',target:'_self',icon:'/dist/img/MenuIcon/ie.gif' },
                 { id: 432, pId: 43, name: "银行卡认证",url:'/system/homePage',target:'_self',icon:'/dist/img/MenuIcon/ie.gif' },
                 { id: 433, pId: 43, name: "手机短信",url:'/system/homePage',target:'_self',icon:'/dist/img/MenuIcon/ie.gif' },
                 { id: 434, pId: 43, name: "电子邮件",url:'/system/homePage',target:'_self',icon:'/dist/img/MenuIcon/ie.gif' },

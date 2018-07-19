@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="/common/commons-head::commonHeader('系统首页_销量联盟')">
+</head>
+
+<body>
+<!--左侧菜单-->
+<div style="display: flex;">
+    <div th:replace="~{admin/commons::#left_menu}"></div>
+
+
+    <div style="flex: 1; padding: 20px; margin-left:185px;">
+
+
+        <div id="ypmsgbox"></div>
+        <div class="menu" onselectstart="return false" id="destoon_menu">
+            <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                <tr>
+                    <td valign="bottom">
+                        <table cellpadding="0" cellspacing="0">
+                            <tr>
+                                <td width="10">&nbsp;</td>
+                                <td id="Tab0" class="tab">
+                                    <a href="?moduleid=2&file=validate&action=truename" >实名认证</a>
+                                </td><td class="tab_nav">&nbsp;</td><td id="Tab1" class="tab">
+                                <a href="?moduleid=2&file=validate&action=qq" >QQ临时会话认证</a></td>
+                                <td class="tab_nav">&nbsp;</td>
+                                <td id="Tab2" class="tab"><a href="?moduleid=2&file=validate&action=mobile" >手机认证</a></td>
+                                <td class="tab_nav">&nbsp;</td><td id="Tab3" class="tab"><a href="?moduleid=2&file=validate&action=email" >邮件认证</a></td>
+                                <td class="tab_nav">&nbsp;</td></tr>
+                        </table>
+                    </td>
+                    <td width="110"><div>
+                        <img src="admin/image/spacer.gif" width="40" height="24" title="刷新" onclick="window.location.reload();" style="cursor:pointer;" alt=""/>
+                        <img src="admin/image/spacer.gif" width="20" height="24" title="后退" onclick="history.back(-1);" style="cursor:pointer;" alt=""/><img src="admin/image/spacer.gif" width="20" height="24" title="前进" onclick="history.go(1);" style="cursor:pointer;" alt=""/><img src="admin/image/spacer.gif" width="20" height="24" title="帮助" onclick="Go('http://www.destoon.com/client.php?action=help&product=b2b&mfa=member-validate-truename');" style="cursor:help;" alt=""/></div></td>
+                </tr>
+            </table>
+        </div>
+        <div id="ypcontent">    <div class="tt">记录搜索</div>
+            <form th:action="@{/member/queryMemberAuth}" method="post">
+                <table cellpadding="2" cellspacing="1" class="tb">
+                    <tr>
+                        <td>
+                            <select name="condition" >
+                                <option value="0" selected=selected>按条件</option>
+                                <!--<option value="1">认证项</option>-->
+                                <option value="1">会员名</option>
+                                <!--<option value="3">操作人</option>-->
+                            </select>
+                            &nbsp;
+                            <input type="text" size="20" name="value" value=""/>
+                            &nbsp;
+
+                            <script type="text/javascript" th:src="@{http://admin.topaaa.com/file/script/calendar.js}"></script>
+                            <input type="text" name="fromtime" id="fromtime" value="" size="10" onfocus="ca_show('fromtime', this, '-');" readonly ondblclick="this.value='';"/>
+                            <img th:src="@{http://admin.topaaa.com/file/image/calendar.gif}" align="absmiddle" onclick="ca_show('fromtime', this, '-');" style="cursor:pointer;"/> 至
+                            <input type="text" name="totime" id="totime" value="" size="10" onfocus="ca_show('totime', this, '-');" readonly ondblclick="this.value='';"/> <img th:src="@{http://admin.topaaa.com/file/image/calendar.gif}"
+                                                                                                                                                                                align="absmiddle" onclick="ca_show('totime', this, '-');" style="cursor:pointer;"/>
+                            &nbsp;
+
+                            <select name="auth_type">
+                                <option value="0">认证类型</option>
+                                <option value="1" selected>实名认证</option>
+                                <!--<option value="qq">QQ临时会话认证</option>-->
+                                <!--<option value="mobile">手机认证</option>-->
+                                <!--<option value="email">邮件认证</option>-->
+                            </select>&nbsp;
+
+                            <select name="status">
+                                <option value="3" selected>状态</option>
+                                <option value="1">已认证</option>
+                                <option value="0">未认证</option>
+                            </select>&nbsp;
+
+                            <input type="submit" value="搜 索" class="btn"/>&nbsp;
+                            <input type="reset" value="重 置" class="btn"/>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+            <form method="post">
+                <div class="tt">认证记录</div>
+                <table cellpadding="2" cellspacing="1" class="tb">
+                    <tr>
+                        <th width="25"><input type="checkbox" onclick="checkall(this.form);"/></th>
+                        <th>用户Id</th>
+                        <th>类型</th>
+                        <th>认证名称</th>
+                        <th>图片</th>
+                        <th>身份证号码</th>
+                        <th>会员</th>
+                        <th>IP</th>
+                        <th width="120">提交时间</th>
+                        <th>操作人</th>
+                        <th>状态</th>
+                    </tr>
+                    <tr onmouseover="this.className='on';"
+                        onmouseout="this.className='';"
+                        th:each="mem:${members}"
+                        align="center" >
+
+                        <td>
+                            <input type="checkbox" class="cb_auth" name="memid" th:value="${mem.id}"/>
+                        </td>
+
+                        <td>
+                            <span class="f_red" th:text="${mem.id}">10086</span>
+                        </td>
+                        <td>实名认证</td>
+                        <td></td>
+                        <td>
+
+                            <a target="_blank" th:href="@{'http://localhost:8081/images/upload/'+ ${mem.zheng}}">
+                                <img th:src="@{/img/img.gif}" width="18" height="18" alt=""/>
+                            </a>
+
+
+                            <a target="_blank" th:href="@{'http://localhost:8081/images/upload/'+ ${mem.fan}}">
+                                <img th:src="@{/img/img.gif}" width="18" height="18" alt=""/>
+                            </a>
+
+                            <a target="_blank" th:href="@{'http://localhost:8081/images/upload/'+ ${mem.shou_chi}}">
+                                <img th:src="@{/img/img.gif}" width="18" height="18" alt=""/>
+                            </a>
+
+                        <td>
+                            <a href="javascript:;" th:text="${mem.id_card}">321021356546565</a>
+
+                        </td>
+
+                        <td>
+                            <a href="javascript:;" th:text="${mem.username}">yp12345678</a>
+                        </td>
+
+                        <td class="px11">
+                            <a href="javascript:;" th:text="${mem.login_ip}">127.0.0.1</a>
+                        </td>
+
+                        <td class="px11" th:text="${#dates.format(mem.real_name_time, 'yyyy-MM-dd HH:mm')}">
+                            2016-06-26 15:07
+                        </td>
+
+                        <td title="2017-07-06 20:46:41">
+                            admin
+                        </td>
+
+                        <td>
+                            <span class="f_green" th:text="${mem.is_real_name}==0?'未认证':'已认证'">已认证</span>
+                        </td>
+
+                    </tr>
+                </table>
+
+                <table class="tb">
+                    <tr>
+                        <td>
+                            &nbsp;<textarea style="width:300px;height:40px;"
+                                            name="reason" id="reason"
+                                            onfocus="if(this.value=='')this.value='操作原因';"/>
+                            操作原因
+                            </textarea>
+                        </td>
+                        <td>
+                            <input type="checkbox" name="msg" id="msg" value="1" checked/> 消息通知
+                            <input type="checkbox" name="sms" id="sms" value="1"/> 短信通知
+                        </td>
+                    </tr>
+                </table>
+
+                <div class="btns">
+                    <button type="button"
+                           class="btn"
+                           onclick="doAuth(1);"
+                    >通过认证</button>
+                    &nbsp;
+                    <button type="button"
+                            class="btn" onclick="doAuth(2);">
+                        拒绝认证
+                    </button>
+                    &nbsp;
+
+                    <button type="button" class="btn" onclick="doAuth(0);">
+                        取消认证
+                    </button>
+                </div>
+
+            </form>
+            <div class="pages"></div>
+            <script type="text/javascript">
+                Menuon(0);
+
+                //通过认证
+                function doAuth(number) {
+                    var auth_arr = $(".cb_auth:checked");
+                    //console.log(auth_arr)
+
+                    var reason = $("#reason").val();
+
+                    if (auth_arr.length <= 0) {
+                        alert('请选择操作项');
+                        return;
+                    }
+                    var data = [];
+
+                    for(var i=0;i<auth_arr.length;i++){
+                        var auth = auth_arr[i];
+                        var val = auth.value;
+                        data.push(val);
+                        console.log(val);
+                    }
+                    if (data.length<=0){
+                        return;
+                    }
+
+                    //带上原因
+                    var dest = {
+                        data:data,
+                        reason:reason
+                    };
+
+                    var postdata = JSON.stringify(dest);
+                    var url = '/member/memberAuth';
+                    switch (number) {
+                        case 0:
+                            url = '/member/memberAuth';
+                            break;
+                        case 1:
+                            url = '/member/redoAuth';
+                            break;
+                        case 2:
+                            url = '/member/refuseAuth';
+                            break;
+                    }
+                    //提交
+                    $.ajax({
+                        //接口地址
+                        url: url ,
+                        type: 'POST',
+                        data: postdata,
+                        contentType : 'application/json',
+                        processData : false,
+                        dataType: 'json',
+                        success: function (date) {
+                            //成功的回调
+                            if(date.error == '1'){
+                                alert("操作失败")
+                            }else {
+                                alert("操作成功");
+                                //刷新页面
+                                window.location.reload(true);
+                            }
+                        },
+                        error: function (returndata) {
+                            //请求异常的回调
+                            alert("操作失败")
+                        }
+                    });
+
+
+                }
+                function is_reason() {
+                    return Dd('reason').value.length > 2 && Dd('reason').value != '操作原因';
+                }
+
+
+                function _reject() {
+                    if ((Dd('msg').checked || Dd('sms').checked) && !is_reason()) {
+                        alert('请填写操作原因或者取消通知');
+                        return false;
+                    }
+                    if (is_reason() && (!Dd('msg').checked && !Dd('sms').checked)) {
+                        alert('至少需要选择一种通知方式');
+                        return false;
+                    }
+                    return true;
+                }
+                function _cancel() {
+                    if ((Dd('msg').checked || Dd('sms').checked) && !is_reason()) {
+                        alert('请填写操作原因或者取消通知');
+                        return false;
+                    }
+                    if (is_reason() && (!Dd('msg').checked && !Dd('sms').checked)) {
+                        alert('至少需要选择一种通知方式');
+                        return false;
+                    }
+                    return confirm('此操作不可撤销，确定要继续吗？');
+                }
+            </script>
+            <br/>
+        </div>
+
+    </div>
+</div>
+</body>
+
+</html>

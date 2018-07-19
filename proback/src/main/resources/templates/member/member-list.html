@@ -1,24 +1,9 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>会员列表</title>
-    <link rel="stylesheet" th:href="@{/css/admin/frame/left.css}">
-    <link rel="stylesheet" th:href="@{/css/admin/frame/yp.css}">
 
-    <link rel="stylesheet" th:href="@{/dist/bootstrap.css}">
-    <script  th:src="@{/dist/jquery-2.0.0.min.js}"></script>
-    <script th:src="@{/dist/bootstrap.js}"></script>
-
-    <link rel="stylesheet" th:href="@{/dist/JQuery_zTree_v3.5.15/css/zTreeStyle/zTreeStyle.css}">
-
-    <script th:src="@{/dist/JQuery_zTree_v3.5.15/js/jquery.ztree.all-3.5.js}"></script>
-    <script th:src="@{/dist/JQuery_zTree_v3.5.15/js/jquery.ztree.core-3.5.js}"></script>
-
-    <style>
-
-    </style>
+<head th:include="/common/commons-head::commonHeader('系统首页_销量联盟')">
 </head>
+
 <body>
 
 </body>
@@ -178,16 +163,30 @@
                         onmouseover="this.className='on';"
                         onmouseout="this.className='';"
                         align="center">
-                        <td><input type="checkbox" name="userid[]" th:value="${mem.id}"/></td>
-                        <td class="px11" th:text="${mem.id}">209</td>
-                        <td align="left" th:text="${mem.proxy}">&nbsp;<a href="javascript:_user('');"></a></td>
+                        <td>
+                            <input type="checkbox" name="userid[]" th:value="${mem.id}"/>
+                        </td>
+                        <td class="px11" th:text="${mem.id}">
+                            209
+                        </td>
+                        <td align="left" th:text="${mem.proxy}">&nbsp;
+                            <a href="javascript:_user('');"></a>
+                        </td>
+
                         <td align="left">&nbsp;
                             <a href="javascript:_user('37150219830720873X');" th:text="${mem.username}">
                                 会员的用户名
                             </a>
                         </td>
-                        <td align="left" th:text="${mem.invite_id}"></td>
-                        <td align="left" th:text="${mem.real_name}">&nbsp;啊啊啊</td>
+
+                        <td align="left" th:text="${mem.invite_id}">
+
+                        </td>
+
+                        <td align="left" th:text="${mem.real_name}">
+                            &nbsp;
+                        </td>
+
                         <td class="px11">
                             <a href="javascript:Dwidget('?moduleid=2&file=record&username=37150219830720873X', '[37150219830720873X] 资金记录');"
                                th:text="${mem.money}">0.00</a>
@@ -210,9 +209,15 @@
                             </a>
                         </td>
                         <td>
-                            <a href="?moduleid=2&action=edit&userid=209"><img th:src="@{/img/edit.png}" width="16" height="16" title="修改" alt=""/></a>&nbsp;
-                            <a href="?moduleid=2&action=show&userid=209"><img th:src="@{/img/view.png}" width="16" height="16" title="会员[37150219830720873X]详细资料" alt=""/></a>&nbsp;
-                            <a href="?moduleid=2&action=login&userid=209" target="_blank"><img th:src="@{/img/set.png}" width="16" height="16" title="进入会员商务中心" alt=""/></a>&nbsp;
+                            <a href="?moduleid=2&action=edit&userid=209">
+                                <img th:src="@{/img/edit.png}" width="16" height="16" title="修改" alt=""/></a>&nbsp;
+
+                            <a href="?moduleid=2&action=show&userid=209">
+                                <img th:src="@{/img/view.png}" width="16" height="16" title="会员[37150219830720873X]详细资料" alt=""/>
+                            </a>&nbsp;
+                            <a href="?moduleid=2&action=login&userid=209" target="_blank">
+                                <img th:src="@{/img/set.png}" width="16" height="16" title="进入会员商务中心" alt=""/>
+                            </a>&nbsp;
                             <a href="?moduleid=2&file=index&action=delete&userid=209"
                                onclick="if(!confirm('确定危险！！要删除此会员吗？系统将删除选中用户所有信息，此操作将不可撤销')) return false;">
                                 <img th:src="@{/img/delete.png}" width="16" height="16" title="删除" alt=""/></a>
@@ -232,12 +237,12 @@
                     <input type="submit" value=" 发送消息 " class="btn" onclick="this.form.action='?moduleid=2&file=message&action=send';"/>&nbsp;
                     <input type="submit" value=" 移动至 " class="btn" onclick="if(Dd('mgroupid').value==0){alert('请选择会员组');Dd('mgroupid').focus();return false;}this.form.action='?moduleid=2&action=move';"/> <select name="groupid" id="mgroupid"><option value="0">会员组</option><option value="1">管理员</option><option value="2">禁止访问</option><option value="3">游客</option><option value="4">待审核会员</option><option value="5">试客会员</option><option value="6">商家会员</option><option value="7">VIP会员</option><option value="8">荣誉试客会员</option><option value="9">银牌试客会员</option><option value="10">金牌试客会员</option><option value="11">荣誉商家会员</option></select>        </div>
             </form>
-            <div class="pages"><input type="hidden" id="destoon_previous" value="http://admin.topaaa.com/am.php?moduleid=2&sum=25&page=2"/><a href="http://admin.topaaa.com/am.php?moduleid=2&sum=25&page=2">&nbsp;&#171;上一页&nbsp;</a> <strong>&nbsp;1&nbsp;</strong>  <a href="http://admin.topaaa.com/am.php?moduleid=2&sum=25&page=2">&nbsp;2&nbsp;</a>  <a href="http://admin.topaaa.com/am.php?moduleid=2&sum=25&page=2">&nbsp;下一页&#187;&nbsp;</a> <input type="hidden" id="destoon_next" value="http://admin.topaaa.com/am.php?moduleid=2&sum=25&page=2"/> <cite>共25条/2页</cite> <input type="text" class="pages_inp" id="destoon_pageno" value="1" onkeydown="if(event.keyCode==13 && this.value) {window.location.href='http://admin.topaaa.com/am.php?moduleid=2&sum=25&page={destoon_page}'.replace(/\{destoon_page\}/, this.value);return false;}"> <input type="button" class="pages_btn" value="GO" onclick="if(Dd('destoon_pageno').value>0)window.location.href='http://admin.topaaa.com/am.php?moduleid=2&sum=25&page={destoon_page}'.replace(/\{destoon_page\}/, Dd('destoon_pageno').value);"/></div>
+
+            <div class="pages" id="pages">
+
+            </div>
             <div class="tt">修改会员名</div>
             <form method="post" action="?">
-                <input type="hidden" name="moduleid" value="2"/>
-                <input type="hidden" name="file" value="index"/>
-                <input type="hidden" name="action" value="rename"/>
                 <a name="#editusername"></a>
                 <table cellpadding="2" cellspacing="1" class="tb">
                     <tr>
@@ -278,11 +283,30 @@
             <br/><br/><br/>
             <script type="text/javascript">Menuon(1);</script>
         </div>
-
-
-
     </div>
 </div>
 
+<script>
+    layui.use('laypage', function(){
+        var laypage = layui.laypage;
+
+        //执行一个laypage实例
+        laypage.render({
+            elem: 'pages' //注意，这里的 test1 是 ID，不用加 # 号
+            ,count: 50 //数据总数，从服务端得到
+            ,limit:10,
+            jump: function(obj, first){
+                //obj包含了当前分页的所有参数，比如：
+                console.log(obj.curr); //得到当前页，以便向服务端请求对应页的数据。
+                console.log(obj.limit); //得到每页显示的条数
+
+                //首次不执行
+                if(!first){
+                    //do something
+                }
+            }
+        });
+    });
+</script>
 
 </html>

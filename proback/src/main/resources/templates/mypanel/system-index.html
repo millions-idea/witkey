@@ -1,23 +1,9 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>系统首页</title>
-    <link rel="stylesheet" th:href="@{/dist/bootstrap.css}">
-    <script th:src="@{/dist/jquery-2.0.0.min.js}"></script>
-    <script th:src="@{/dist/bootstrap.js}"></script>
 
-    <link rel="stylesheet" th:href="@{/css/admin/frame/left.css}">
-    <link rel="stylesheet" th:href="@{/css/admin/frame/yp.css}">
-
-    <script th:src="@{/dist/bootstrap.js}"></script>
-
-    <link rel="stylesheet" th:href="@{/dist/JQuery_zTree_v3.5.15/css/zTreeStyle/zTreeStyle.css}">
-
-    <script th:src="@{/dist/JQuery_zTree_v3.5.15/js/jquery.ztree.all-3.5.js}"></script>
-    <script th:src="@{/dist/JQuery_zTree_v3.5.15/js/jquery.ztree.core-3.5.js}"></script>
-
+<head th:include="/common/commons-head::commonHeader('系统首页_销量联盟')">
 </head>
+
 <body>
 <div style="display: flex;">
     <!--左侧菜单-->

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="/common/commons-head::commonHeader('会员买号认证')">
+</head>
+
+<body>
+
+<!--左侧菜单-->
+<div style="display: flex;">
+    <div th:replace="~{admin/commons::#left_menu}"></div>
+
+
+    <div style="flex: 1; padding: 20px; margin-left:185px;">
+
+        <div id="ypmsgbox"></div>
+        <div class="menu" onselectstart="return false" id="destoon_menu">
+            <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                <tr>
+                    <td valign="bottom">
+                        <table cellpadding="0" cellspacing="0">
+                            <tr>
+                                <td width="10">&nbsp;</td>
+                                <td id="Tab0" class="tab">
+                                    <a href="?moduleid=2&action=add" >添加会员</a></td><td class="tab_nav">&nbsp;</td>
+                                <td id="Tab1" class="tab"><a href="?moduleid=2" >买号详细信息</a></td><td class="tab_nav">&nbsp;</td><td id="Tab2" class="tab"><a href="?moduleid=2&action=check" >审核会员</a></td><td class="tab_nav">&nbsp;</td><td id="Tab3" class="tab"><a href="?moduleid=2&file=contact" >联系会员</a></td><td class="tab_nav">&nbsp;</td></tr>
+                        </table>
+                    </td>
+                    <td width="110"><div><img src="admin/image/spacer.gif" width="40" height="24" title="刷新" onclick="window.location.reload();" style="cursor:pointer;" alt=""/><img src="admin/image/spacer.gif" width="20" height="24" title="后退" onclick="history.back(-1);" style="cursor:pointer;" alt=""/><img src="admin/image/spacer.gif" width="20" height="24" title="前进" onclick="history.go(1);" style="cursor:pointer;" alt=""/><img src="admin/image/spacer.gif" width="20" height="24" title="帮助" onclick="Go('http://www.destoon.com/client.php?action=help&product=b2b&mfa=member-index-show');" style="cursor:help;" alt=""/></div></td>
+                </tr>
+            </table>
+        </div>
+        <div id="ypcontent">    <div class="tt">会员资料</div>
+            <table cellpadding="2" cellspacing="1" class="tb">
+                <tr>
+                    <td class="tl">会员名</td>
+                    <td th:text="${taobao.mem_id}">&nbsp;
+                        <a href="" target="_blank">37150219830720873X</a>
+                    </td>
+                    <td class="tl">会员ID</td>
+                    <td th:text="${taobao.mem_id}">
+
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="tl">买号姓名</td>
+                    <td th:text="${taobao.account}">&nbsp;啊啊啊</td>
+                    <td class="tl">买号年龄段</td>
+                    <td th:text="${taobao.age_range}">
+
+                    </td>
+                </tr>
+
+
+                <tr>
+                    <td class="tl">买号类型</td>
+                    <td th:text="${taobao.account_type}"></td>
+
+                    <td class="tl">买号性别</td>
+                    <td th:text="${taobao.account_gender}">&nbsp;先生</td>
+                </tr>
+
+                <tr>
+                    <td class="tl">账号名称</td>
+                    <td th:text="${taobao.truename}">
+                        &nbsp;2016-09-02 18:01:15
+                    </td>
+                    <td class="tl">
+                        信誉度
+                    </td>
+                    <td th:text="${taobao.honor}">
+                        &nbsp;127.0.0.1 - LAN
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tl">申请时间</td>
+                    <td th:text="${#dates.format(taobao.create_time, 'yyyy-MM-dd HH:mm')}">
+                    </td>
+
+                    <td class="tl">买号的手机号</td>
+
+                    <td th:text="${taobao.mobile}">
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tl">省份</td>
+                    <td th:text="${taobao.pro_name}">
+
+                    </td>
+                    <td class="tl">市</td>
+                    <td th:text="${taobao.city_name}">
+
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="tl">乡镇</td>
+                    <td>
+
+                    </td>
+                    <td class="tl">详细地址</td>
+                    <td th:text="${taobao.address}">
+
+                    </td>
+
+                </tr>
+            </table>
+
+            <br/>
+            <div class="thumb">
+                <img th:src="'http://localhost:8081/images/upload/' + ${taobao.shoot_real_name}"
+                     id="file1" title="预览图片"
+                     width="400"
+                     height="640"
+                >
+                <img th:src="'http://localhost:8081/images/upload/' + ${taobao.shoot_honor}"
+                     id="file2" title="预览图片"
+                     width="400"
+                     height="640"
+                >
+                <img th:src="'http://localhost:8081/images/upload/' + ${taobao.shoot_taoqi}"
+                     id="file3" title="预览图片"
+                     width="400"
+                     height="640"
+                >
+                <img th:src="'http://localhost:8081/images/upload/' + ${taobao.shoot_zhi_ma}"
+                     id="file4" title="预览图片"
+                     width="400"
+                     height="640"
+                >
+            </div>
+
+            <script type="text/javascript">Menuon(1);</script>
+        </div>
+
+    </div>
+</div>
+
+
+</body>
+</html>

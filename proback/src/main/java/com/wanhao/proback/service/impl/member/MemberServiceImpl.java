@@ -14,7 +14,6 @@ import java.util.List;
 /**
  * Created by LiuLiHao on 2018/7/16 12:29.
  * 描述：会员操作
- *
  * 作者： LiuLiHao
  */
 @Service
@@ -75,7 +74,35 @@ public class MemberServiceImpl implements MemberService {
         if (member.getSheng() != null && member.getSheng().length() > 0) {
             criteria.andEqualTo("sheng",member.getSheng());
         }
+
+        //是否已经实名
+        if (member.getIs_real_name() != null) {
+            criteria.andEqualTo("is_real_name",member.getIs_real_name());
+        }
+
+        //是否上传了图片
+        if (member.getZheng() != null) {
+            criteria.andIsNotNull("zheng");
+        }
+        if (member.getFan() != null) {
+            criteria.andIsNotNull("fan");
+        }
+        if (member.getShou_chi() != null) {
+            criteria.andIsNotNull("shou_chi");
+        }
+
         return memberMapper.selectByExample(example);
 
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Member getMember(Member member) {
+        return memberMapper.selectOne(member);
+    }
+
+    @Override
+    public void updateMember(Member member) {
+        memberMapper.updateByPrimaryKey(member);
     }
 }

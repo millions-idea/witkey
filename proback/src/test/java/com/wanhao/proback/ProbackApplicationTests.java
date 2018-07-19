@@ -3,9 +3,11 @@ package com.wanhao.proback;
 import com.wanhao.proback.bean.Area;
 import com.wanhao.proback.bean.admin.Admin;
 import com.wanhao.proback.bean.member.Member;
+import com.wanhao.proback.bean.member.MemberTaoBao;
 import com.wanhao.proback.service.AreaService;
 import com.wanhao.proback.service.admin.AdminService;
 import com.wanhao.proback.service.member.MemberService;
+import com.wanhao.proback.service.member.MemberTaoBaoService;
 import com.wanhao.proback.service.member.NameForbiddenService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -53,5 +55,14 @@ public class ProbackApplicationTests {
     public void testArea(){
         List<Area> allProvince = areaService.getAllProvince();
         System.out.println(allProvince);
+    }
+
+    @Autowired
+    MemberTaoBaoService taoBaoService;
+
+    @Test
+    public void testTao(){
+        MemberTaoBao one = taoBaoService.getOne(4);
+        System.out.println(one);
     }
 }

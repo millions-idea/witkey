@@ -1,19 +1,25 @@
 package com.wanhao.proback.controller.member;
 
+import com.google.gson.JsonObject;
 import com.wanhao.proback.bean.Area;
 import com.wanhao.proback.bean.member.Member;
+import com.wanhao.proback.bean.member.MemberTaoBao;
 import com.wanhao.proback.bean.member.NameForbidden;
 import com.wanhao.proback.service.AreaService;
 import com.wanhao.proback.service.member.MemberService;
+import com.wanhao.proback.service.member.MemberTaoBaoService;
 import com.wanhao.proback.service.member.NameForbiddenService;
+import com.wanhao.proback.utils.DateUtil;
+import com.wanhao.proback.utils.ResponseUtils;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
+import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -34,11 +40,14 @@ public class MemberController {
     @Autowired
     AreaService areaService;
 
+    private static final String PREFIX = "member/";
+
+
     @RequestMapping(value = "forbidden")
-    public String toForbidden(Map<String,Object> map){
+    public String toForbidden(Model model){
         //查询出来
         NameForbidden forbidden = nameForbiddenService.query();
-        map.put("forbidden",forbidden.getName());
+        model.addAttribute("forbidden",forbidden.getName());
         return "member/set-forbidden";
     }
 
@@ -52,12 +61,10 @@ public class MemberController {
         NameForbidden nameForbidden = new NameForbidden();
         nameForbidden.setName(name_forbidden);
         nameForbidden.setId(1);
-
         nameForbiddenService.update(nameForbidden);
-
         //查询出来
         model.addAttribute("forbidden",name_forbidden);
-        return "member/set-forbidden";
+        return PREFIX+"set-forbidden";
     }
 
     /**
@@ -76,7 +83,7 @@ public class MemberController {
     }
 
     /**
-     * 会员列表
+     * 会员列表查询
      * @return
      */
     @PostMapping(value = "memberList")
@@ -85,9 +92,7 @@ public class MemberController {
                              String type_value,
                              Double minmoney,
                              Double maxmoney,
-
                              Model model){
-
         if (type!=null){
             switch (type){
                 case "0":
@@ -134,6 +139,195 @@ public class MemberController {
     @GetMapping(value = "memberAdd")
     public String memberAdd(){
 
-        return "member/add";
+        return PREFIX+"add";
+    }
+
+    //////////////////////////认证部分////////////////////////
+    /**
+     * 实名认证审核页面
+     * @return
+     */
+    @GetMapping(value = "toMemberRealNameAuth")
+    public String toMemberAuth(Model model){
+        Member member = new Member();
+        member.setIs_real_name(0);
+        member.setZheng("1");
+        member.setFan("1");
+        member.setShou_chi("1");
+        //查询已经上传图片 并且没有通过认证的
+        List<Member> members = memberService.getMembers(member);
+        model.addAttribute("members",members);
+        return PREFIX+"realname-auth";
+    }
+
+    /**
+     *
+     * @param condition 条件类型
+     * @param value
+     * @param auth_type 认证类型
+     * @param status 状态
+     * @return
+     */
+    @PostMapping(value = "queryMemberAuth")
+    public String queryMemberAuth(Integer condition,String value,
+                                  String fromtime,String totime,
+                                  Integer auth_type,Integer status,Model model){
+        Member member = new Member();
+        //按照会员名查找
+        if (condition!=null && condition.equals(1)){
+            member.setUsername(value);
+        }
+
+        //是否实名
+        if (auth_type!=null && auth_type.equals(1) && !status.equals(3)){
+            member.setIs_real_name(status);
+        }
+
+        //查询出来
+        List<Member> members = memberService.getMembers(member);
+
+        List<Member> sm = members;
+
+        //过滤时间要求
+        if (StringUtils.isNotBlank(fromtime)){
+            Date formatDate = DateUtil.getDateFromString(fromtime,"yyyy-MM-dd");
+            long time = formatDate.getTime();
+            sm  =new LinkedList<>();
+            if (members!=null && members.size()>0){
+                for (Member temp : members) {
+                    if (temp.getReal_name_time().getTime() > time ){
+                        sm.add(temp);
+                    }
+                }
+
+            }
+        }
+
+        //限制结束时间
+        List<Member> dm = sm;
+        if (StringUtils.isNotBlank(totime)){
+            Date toDate = DateUtil.getDateFromString(totime,"yyyy-MM-dd");
+            long time = toDate.getTime();
+            dm = new LinkedList<>();
+
+            if (sm!=null && sm.size()>0){
+                for (Member temp : sm) {
+                    if (temp.getReal_name_time().getTime() < time){
+                        dm.add(temp);
+                    }
+                }
+
+            }
+        }
+
+        model.addAttribute("members",dm);
+
+        return PREFIX+"realname-auth";
+    }
+
+    /**
+     * 同意实名
+     */
+    @PostMapping(value = "memberAuth")
+    public void memberAuth(@RequestBody AuthData data, HttpServletResponse response){
+        auth(data,1,response);
+    }
+
+    /**
+     * 拒绝实名
+     * @param data
+     * @param response
+     */
+    @PostMapping(value = "refuseAuth")
+    public void refuseAuth(@RequestBody AuthData data, HttpServletResponse response){
+        auth(data,2,response);
+    }
+
+    /**
+     * 从新实名
+     * @param data
+     * @param response
+     */
+    @PostMapping(value = "redoAuth")
+    public void redoAuth(@RequestBody AuthData data, HttpServletResponse response){
+        auth(data,0,response);
+    }
+
+    /**
+     * 实名操作
+     * @param data
+     * @param type 1同意 2 拒绝 0从新实名
+     * @param response
+     */
+    public void auth(AuthData data,Integer type,HttpServletResponse response){
+        JsonObject jsonObject = new JsonObject();
+        if (data.data==null || data.data.length<=0){
+            //返回错误
+            jsonObject.addProperty("error","1");
+            ResponseUtils.renderJson(response,jsonObject.toString());
+            return;
+        }
+        Member member = new Member();
+        for (Integer auth : data.data) {
+            member.setId(auth);
+            Member temp = memberService.getMember(member);
+            temp.setIs_real_name(type);
+            //说明信息
+            temp.setRemark(data.reason);
+            //保存
+            memberService.updateMember(temp);
+        }
+        //返回结果
+        jsonObject.addProperty("error","0");
+        ResponseUtils.renderJson(response,jsonObject.toString());
+    }
+
+
+    //////////////////////////会员买号认证////////////////////////////
+
+    @Autowired
+    MemberTaoBaoService memberTaoBaoService;
+
+    /**
+     * 跳转到买号列表
+     * @return
+     */
+    @GetMapping(value = "toAuthAccount")
+    public String toAuthAccount(Model model){
+        MemberTaoBao memberTaoBao = new MemberTaoBao();
+        List<MemberTaoBao> taoBaos = memberTaoBaoService.queryMemberBuyList(memberTaoBao);
+        model.addAttribute("taoBaos",taoBaos);
+
+        return PREFIX +"auth/auth-account";
+    }
+
+    /**
+     * 买号列表查询
+     * @return
+     */
+    @GetMapping(value = "authAccountSearch")
+    public String authAccount(MemberTaoBao memberTaoBao,Model model){
+
+        return PREFIX +"auth/auth-account";
+    }
+
+
+    /**
+     * 跳转到买号详细信息
+     * @return
+     */
+    @GetMapping(value = "toAuthAccountDetail/{id}")
+    public String toAuthAccountDetail(@PathVariable("id") Integer id,Model model){
+        MemberTaoBao taoBao = memberTaoBaoService.getOne(id);
+        model.addAttribute("taobao",taoBao);
+
+        return PREFIX +"auth/auth-account-detail";
+    }
+
+
+    //接收参数
+    static class AuthData{
+        public Integer[] data;
+        public String reason;
     }
 }

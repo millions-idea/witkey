@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="/common/commons-head::commonHeader('会员买号认证')">
+</head>
+
+
+<body>
+
+<div id="ypmsgbox"></div>
+<div class="menu" onselectstart="return false" id="destoon_menu">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+        <tr>
+            <td valign="bottom">
+                <table cellpadding="0" cellspacing="0">
+                    <tr>
+                        <td width="10">&nbsp;</td>
+                        <td id="Tab0" class="tab"><a href="?moduleid=2&action=add" >添加会员</a></td><td class="tab_nav">&nbsp;</td><td id="Tab1" class="tab"><a href="?moduleid=2" >会员列表</a></td><td class="tab_nav">&nbsp;</td><td id="Tab2" class="tab"><a href="?moduleid=2&action=check" >审核会员</a></td><td class="tab_nav">&nbsp;</td><td id="Tab3" class="tab"><a href="?moduleid=2&file=contact" >联系会员</a></td><td class="tab_nav">&nbsp;</td></tr>
+                </table>
+            </td>
+            <td width="110"><div><img src="admin/image/spacer.gif" width="40" height="24" title="刷新" onclick="window.location.reload();" style="cursor:pointer;" alt=""/><img src="admin/image/spacer.gif" width="20" height="24" title="后退" onclick="history.back(-1);" style="cursor:pointer;" alt=""/><img src="admin/image/spacer.gif" width="20" height="24" title="前进" onclick="history.go(1);" style="cursor:pointer;" alt=""/><img src="admin/image/spacer.gif" width="20" height="24" title="帮助" onclick="Go('http://www.destoon.com/client.php?action=help&product=b2b&mfa=member-index-check');" style="cursor:help;" alt=""/></div></td>
+        </tr>
+    </table>
+</div>
+
+<div style="display: flex;">
+    <div th:replace="~{admin/commons::#left_menu}"></div>
+
+
+    <div style="flex: 1; padding: 20px; margin-left:185px;">
+
+        <div id="ypcontent"><form action="?">
+            <div class="tt">会员搜索</div>
+            <input type="hidden" name="moduleid" value="2"/>
+            <input type="hidden" name="action" value="check"/>
+            <table cellpadding="2" cellspacing="1" class="tb">
+                <tr>
+                    <td>&nbsp;
+                        <select name="fields" >
+                            <option value="0" selected=selected>按条件</option>
+                            <option value="2">会员id</option>
+                            <option value="4">姓名</option>
+                            <option value="5">手机号码</option>
+                        </select>&nbsp;
+
+                        <input type="text" size="30" name="kw" value="" title="关键词"/>&nbsp;
+
+                        <select name="account_gender" >
+                            <option value="0" selected=selected>性别</option>
+                            <option value="1">男号</option>
+                            <option value="2">女号</option>
+                        </select>&nbsp;
+
+                        <select name="is_pass" >
+                            <option value="5" selected=selected>认证状态</option>
+                            <option value="1">审核通过</option>
+                            <option value="0">未审核</option>
+                        </select>&nbsp;
+
+
+                        <!--<select name="order" >-->
+                            <!--<option value="0" selected=selected>结果排序方式</option>-->
+                            <!--<option value="7">账户资金降序</option>-->
+                            <!--<option value="8">账户资金升序</option>-->
+                            <!--<option value="9">会员联盟币降序</option>-->
+                            <!--<option value="10">会员联盟币升序</option>-->
+                            <!--<option value="11">短信余额降序</option>-->
+                            <!--<option value="12">短信余额升序</option>-->
+                        <!--</select>&nbsp;-->
+                        <input type="submit" value="搜 索" class="btn"/>&nbsp;
+                        <input type="button" value="重 置" class="btn" onclick="Go('?moduleid=2&action=check');"/>
+                    </td>
+                </tr>
+            </table>
+        </form>
+            <form method="post">
+                <div class="tt">会员买号审核</div>
+                <table cellpadding="2" cellspacing="1" class="tb">
+                    <tr>
+                        <th width="25"><input type="checkbox" onclick="checkall(this.form);"/></th>
+                        <th>会员ID</th>
+                        <th>买号类型</th>
+                        <th>账号名称</th>
+                        <th>账号性别</th>
+                        <th>信誉度</th>
+                        <th>申请时间</th>
+                        <th>相关图片</th>
+                        <th>状态</th>
+                        <th>详细信息</th>
+                        <!--<th width="80">操作</th>-->
+                    </tr>
+                    <tr th:each="mem:${taoBaos}"
+                        onmouseover="this.className='on';"
+                        onmouseout="this.className='';"
+                        align="center">
+                        <td>
+                            <input type="checkbox" name="userid[]" th:value="${mem.id}"/>
+                        </td>
+
+                        <td class="px11" th:text="${mem.mem_id}">
+                            209
+                        </td>
+                        <td class="px11" th:text="${mem.account_type}">
+                            淘宝试用
+                        </td>
+                        <td class="px11" th:text="${mem.account}">
+                            不忘初心
+                        </td>
+                        <td class="px11" th:text="${mem.account_gender}">
+                            男号
+                        </td>
+                        <td class="px11" th:text="${mem.honor}">
+                            1心
+                        </td>
+                        <td class="px11" th:text="${#dates.format(mem.create_time, 'yyyy-MM-dd HH:mm')}">
+                            2018年7月19日16:22:33
+                        </td>
+
+                        <td class="px11" th:text="${#dates.format(mem.create_time, 'yyyy-MM-dd HH:mm')}">
+                            2018年7月19日16:22:33
+                        </td>
+                        <td class="px11" th:text="${mem.is_pass}==1?'审核通过':'未审核'">
+                            未审核
+                        </td>
+                        <td class="px11">
+                            <a target="_blank" th:href="@{/member/toAuthAccountDetail/}+${mem.id}">点击查看</a>
+                        </td>
+                    </tr>
+                </table>
+
+                <table class="tb">
+                    <tr>
+                        <td>
+                            &nbsp;<textarea style="width:300px;height:40px;"
+                                            name="reason" id="reason"
+                                            onfocus="if(this.value=='')this.value='操作原因';"/>
+                            操作原因
+                            </textarea>
+                        </td>
+                        <td>
+                            <input type="checkbox" name="msg" id="msg" value="1" checked/> 消息通知
+                            <input type="checkbox" name="sms" id="sms" value="1"/> 短信通知
+                        </td>
+                    </tr>
+                </table>
+
+                <div class="btns">
+
+                    <div class="btns">
+                        <button type="button"
+                                class="btn"
+                                onclick="doAuth(1);"
+                        >通过审核</button>
+                        &nbsp;
+                        <button type="button"
+                                class="btn" onclick="doAuth(2);">
+                            拒绝审核
+                        </button>
+                        &nbsp;
+
+                        <button type="button" class="btn" onclick="doAuth(0);">
+                            取消认证
+                        </button>
+                    </div>
+
+                </div>
+            </form>
+            <div class="pages"></div>
+            <script type="text/javascript">Menuon(2);</script>
+            <br/>
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>
