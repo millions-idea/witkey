@@ -25,4 +25,10 @@ public class AreaServiceImpl implements AreaService {
     public List<Area> getAllProvince() {
         return areaMapper.getAllProvince();
     }
+
+
+    @Override
+    public List<Area> getAllCity(Integer cid) {
+        return areaMapper.getAllCity(cid);
+    }
 }

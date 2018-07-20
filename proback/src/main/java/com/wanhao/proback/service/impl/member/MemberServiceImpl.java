@@ -36,6 +36,7 @@ public class MemberServiceImpl implements MemberService {
         if (member.getUsername() != null && member.getUsername().length() > 0) {
             criteria.andLike("username", "%" + member.getUsername() + "%");
         }
+
         //代理商
         if (member.getProxy() != null && member.getProxy().length() > 0) {
             criteria.andLike("proxy", "%" + member.getProxy() + "%");
@@ -104,5 +105,35 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public void updateMember(Member member) {
         memberMapper.updateByPrimaryKey(member);
+    }
+
+    @Override
+    public void addMember(Member member) {
+        memberMapper.insert(member);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Member> loginMember(Member member) {
+        if (member.getPage() != null && member.getRows() != null) {
+            PageHelper.startPage(member.getPage(), member.getRows());
+        }
+        Example example = new Example(Member.class);
+
+        Example.Criteria criteria = example.createCriteria();
+        //会员名
+        if (member.getUsername() != null && member.getUsername().length() > 0) {
+            criteria.andEqualTo("username", member.getUsername() );
+        }
+        //密码
+        if (member.getPassword() != null && member.getPassword().length() > 0) {
+            criteria.andEqualTo("password", member.getPassword() );
+        }
+
+        //手机号
+        if (member.getMobile() != null && member.getMobile().length() > 0) {
+            criteria.andEqualTo("mobile", member.getMobile() );
+        }
+        return memberMapper.selectByExample(example);
     }
 }

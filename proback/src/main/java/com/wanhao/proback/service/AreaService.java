@@ -15,4 +15,12 @@ public interface AreaService {
      * @return
      */
     List<Area> getAllProvince();
+
+
+    /**
+     * 查询所有市
+     * @return
+     */
+    List<Area> getAllCity(Integer cid);
+
 }

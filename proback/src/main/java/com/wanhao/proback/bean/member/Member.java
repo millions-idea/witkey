@@ -87,21 +87,18 @@ public class Member extends BaseBean {
     private Integer is_real_mobile;
     private Integer is_real_bank;
     private Integer is_seller;
-
-
     //用户类型
     private String vipmodel;
-
     private String zheng;
     private String fan;
     private String shou_chi;
     //实名认证提交时间
     private Date real_name_time;
-
     private Integer version;
-
     //是否绑定了买号  1是 0否
     private Integer is_bind_buy_account;
+    private String shi;
+    private String token;
 
 
 

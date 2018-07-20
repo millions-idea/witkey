@@ -21,4 +21,13 @@ public interface AreaMapper extends MyMapper<Area> {
     @Select("SELECT * FROM tb_area WHERE parentid=0 ORDER BY codeid ASC")
     List<Area> getAllProvince();
 
+
+    /**
+     * 查询所有市
+     * @return
+     */
+    @Select("SELECT * FROM tb_area WHERE parentid=#{cid} ORDER BY codeid ASC")
+    List<Area> getAllCity(Integer cid);
+
+
 }

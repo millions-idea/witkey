@@ -27,4 +27,7 @@ public interface MemberService {
 
     void updateMember(Member member);
 
+    void addMember(Member member);
+
+    List<Member> loginMember(Member member);
 }
