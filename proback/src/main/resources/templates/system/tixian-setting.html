@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="/common/commons-head::commonHeader('系统首页_提现设置')">
+</head>
+
+
+<body>
+
+<div style="display: flex;">
+    <!--左侧菜单-->
+    <div th:replace="~{admin/commons::#left_menu}"></div>
+
+
+    <div style="flex: 1;margin-left:185px;">
+        <div id="ypmsgbox"></div>
+        <div class="menu" onselectstart="return false" id="destoon_menu">
+            <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                <tr>
+                    <td valign="bottom">
+                        <table cellpadding="0" cellspacing="0">
+                            <tr>
+                                <td id="Tab1" class="tab"><a href="javascript:;" >提现设置</a></td>
+                                <td class="tab_nav">&nbsp;</td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td width="110"><div><img src="admin/image/spacer.gif" width="40" height="24" title="刷新" onclick="window.location.reload();" style="cursor:pointer;" alt=""/><img src="admin/image/spacer.gif" width="20" height="24" title="后退" onclick="history.back(-1);" style="cursor:pointer;" alt=""/><img src="admin/image/spacer.gif" width="20" height="24" title="前进" onclick="history.go(1);" style="cursor:pointer;" alt=""/><img src="admin/image/spacer.gif" width="20" height="24" title="帮助" onclick="Go('http://www.destoon.com/client.php?action=help&product=b2b&mfa=member-index-edit');" style="cursor:help;" alt=""/></div></td>
+                </tr>
+            </table>
+        </div>
+
+        <div id="ypcontent"><script type="text/javascript"
+                                    src="http://admin.topaaa.com/file/script/profile.js"></script>
+            <div class="tt">提现设置修改</div>
+
+            <!--显示提示信息-->
+            <h3 th:text="${message}" th:if="${message}">
+
+            </h3>
+
+            <form method="post" th:action="@{/member/tixian}" onsubmit="return Dcheck();" id="dform">
+                <table cellpadding="2" cellspacing="1" class="tb">
+
+                    <tr>
+                        <td class="tl"><span class="f_red">*</span> 是否开启提现功能</td>
+                        <td>
+                            是
+                            <input type="radio" checked  name="open_tixian"  value="1"/>&nbsp;<span  class="f_red"></span>
+                            否
+                            <input type="radio"  name="open_tixian"  value="0"/>&nbsp;<span  class="f_red"></span>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="tl"><span class="f_red">*</span> 设置24小时内提现次数</td>
+                        <td>
+                            <select name="tixian_count" id="groupid">
+                                <option value="0" selected>为0时关闭提现</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                            </select>
+                    </tr>
+                    <tr>
+                        <td class="tl"><span class="f_hid">*</span> 单次提现最小金额</td>
+                        <td>
+                            <input type="number" size="20" name="min_money"
+                                   id="password"  autocomplete="off"/>&nbsp;
+                            <span id="dpassword" class="f_red"></span>
+                    </tr>
+
+                    <tr>
+                        <td class="tl"><span class="f_hid">*</span> 单次提现最大金额</td>
+                        <td><input type="number" size="20" name="max_money"
+                                   id="cpassword" autocomplete="off"/>&nbsp;
+                            <span id="dcpassword" class="f_red"></span>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="tl"><span class="f_hid">*</span> 提现手续费</td>
+                        <td>
+                            <input type="number" size="20" name="shouxu"
+                                   id="payword"  autocomplete="off"/>&nbsp;
+                            <span id="dpayword" class="f_red"></span>
+                    </tr>
+
+                    <tr>
+                        <td class="tl"><span class="f_hid">*</span> 费率最小值</td>
+                        <td><input type="number" size="20"
+                                   name="min_shouxu" id="cpayword" autocomplete="off"/>
+                            &nbsp;<span id="dcpayword" class="f_red"></span>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="tl"><span class="f_red">*</span> 费率最大值</td>
+                        <td>
+                            <input type="number" size="30" name="max_shouxu"
+                                   id="email"  />
+                    </tr>
+
+                </table>
+
+                <div class="sbt">
+                    <input type="submit" name="submit"
+                           value=" 确 定 " class="btn">&nbsp;&nbsp;
+
+                    <input type="button" value=" 返 回 " class="btn"
+                           onclick="history.back(-1);"/>
+                </div>
+
+
+            </form>
+        </div>
+
+    </div>
+</div>
+</body>
+</html>

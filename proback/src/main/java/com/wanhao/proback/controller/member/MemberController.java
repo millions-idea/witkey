@@ -1,11 +1,14 @@
 package com.wanhao.proback.controller.member;
 
+import com.github.pagehelper.PageInfo;
 import com.google.gson.JsonObject;
 import com.wanhao.proback.bean.Area;
 import com.wanhao.proback.bean.member.Member;
+import com.wanhao.proback.bean.member.MemberBank;
 import com.wanhao.proback.bean.member.MemberTaoBao;
 import com.wanhao.proback.bean.member.NameForbidden;
 import com.wanhao.proback.service.AreaService;
+import com.wanhao.proback.service.member.MemberBankService;
 import com.wanhao.proback.service.member.MemberService;
 import com.wanhao.proback.service.member.MemberTaoBaoService;
 import com.wanhao.proback.service.member.NameForbiddenService;
@@ -283,6 +286,7 @@ public class MemberController {
     }
 
 
+
     //////////////////////////会员买号认证////////////////////////////
 
     @Autowired
@@ -323,6 +327,108 @@ public class MemberController {
 
         return PREFIX +"auth/auth-account-detail";
     }
+
+
+    //////////////////////////会员银行卡认证////////////////////////////
+
+    @Autowired
+    MemberBankService memberBankService;
+
+    /**
+     * 到银行卡认证审核页面
+     * @return
+     */
+    @RequestMapping(value = "toAuthBank")
+    public String toAuthBank(Model model,MemberBank bank,Integer selectOps,String selectVal){
+        MemberBank memberBank = new MemberBank();
+
+        if (bank!=null && bank.getPage()!=null){
+            memberBank.setPage(bank.getPage());
+        }
+        //判断查询条件
+        if (selectOps!=null){
+            switch (selectOps){
+                case 1://姓名
+                    memberBank.setBank_username(selectVal);
+                    break;
+                case 2://银行卡号
+                    memberBank.setBank_num(selectVal);
+                    break;
+                case 3://卡类型
+                    memberBank.setBank_type(selectVal);
+                    break;
+                case 4://会员id
+                    memberBank.setMem_id(Integer.valueOf(selectVal));
+                    break;
+            }
+        }
+        List<MemberBank> banks = memberBankService.findByPages(memberBank);
+        //返回pageinfo
+        PageInfo<MemberBank> info = new PageInfo<MemberBank>(banks);
+        //前台可以使用分页
+        model.addAttribute("pageinfo",info);
+        return PREFIX +"auth/auth-bank";
+    }
+
+
+    /**
+     * 银行卡认证--同意
+     * @return
+     */
+    @PostMapping(value = "authBankAgree")
+    public void authBankAgree(@RequestBody AuthData data, HttpServletResponse response){
+        authBank(data,1,response);
+    }
+    /**
+     * 银行卡认证---拒绝
+     * @return
+     */
+    @PostMapping(value = "authBankRefuse")
+    public void authBankRefuse(@RequestBody AuthData data, HttpServletResponse response){
+        authBank(data,3,response);
+    }
+    /**
+     * 银行卡认证--从新填写
+     * @return
+     */
+    @PostMapping(value = "authBankRedo")
+    public void authBankRedo(@RequestBody AuthData data, HttpServletResponse response){
+        authBank(data,2,response);
+    }
+
+    /**
+     * 银行卡操作
+     * @param data
+     * @param type 1同意 2 拒绝 0从新实名
+     * @param response
+     */
+    public void authBank(AuthData data,Integer type,HttpServletResponse response){
+        JsonObject jsonObject = new JsonObject();
+        if (data.data==null || data.data.length<=0){
+            //返回错误
+            jsonObject.addProperty("error","1");
+            ResponseUtils.renderJson(response,jsonObject.toString());
+            return;
+        }
+
+        MemberBank bank = new MemberBank();
+
+        for (Integer auth : data.data) {
+            bank.setId(auth);
+            List<MemberBank> byPages = memberBankService.findByPages(bank);
+            if (byPages!=null && byPages.size()>0){
+                MemberBank bank1 = byPages.get(0);
+                bank1.setIs_auth(type);
+                bank1.setRemark(data.reason);
+                //保存更新
+                memberBankService.update(bank1);
+            }
+        }
+        //返回结果
+        jsonObject.addProperty("error","0");
+        ResponseUtils.renderJson(response,jsonObject.toString());
+    }
+
 
 
     //接收参数

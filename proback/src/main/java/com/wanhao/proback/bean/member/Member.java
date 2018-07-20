@@ -100,4 +100,10 @@ public class Member extends BaseBean {
 
     private Integer version;
 
+    //是否绑定了买号  1是 0否
+    private Integer is_bind_buy_account;
+
+
+
+
 }

@@ -96,10 +96,5 @@ public class AdminController {
         return "admin/index";
     }
 
-    ///////////////////frame部分////////////////
-    @RequestMapping(value = "left")
-    public String left(){
-        return "admin/frame/left";
-    }
 
 }

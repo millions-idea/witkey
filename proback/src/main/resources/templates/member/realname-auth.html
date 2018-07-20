@@ -207,7 +207,7 @@
                         var auth = auth_arr[i];
                         var val = auth.value;
                         data.push(val);
-                        console.log(val);
+                       // console.log(val);
                     }
                     if (data.length<=0){
                         return;
@@ -256,9 +256,9 @@
                             alert("操作失败")
                         }
                     });
-
-
                 }
+
+
                 function is_reason() {
                     return Dd('reason').value.length > 2 && Dd('reason').value != '操作原因';
                 }
