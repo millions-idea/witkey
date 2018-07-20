@@ -102,7 +102,10 @@
                                     <a href="/member/grade.php">升级</a>
                                 </li>
                                 <li class="item-ft">
-                                    <a class="fr item-logout" href="/member/logout.php" title="退出登录">退出</a>
+                                    <a class="fr item-logout" th:href="@{/logout}" title="退出登录">
+                                        退出
+                                    </a>
+
                                     <a class="item-myfav" href="/member/edit.php">账号设置</a>
                                 </li>
                             </ul>
@@ -135,7 +138,7 @@
                     <p>[[${session.member.vipmodel}]]</p>
                 </div>
                 <div class="logout">
-                    <a href="/member/logout.php">退出</a>                </div>
+                    <a th:href="@{/logout}">退出</a>                </div>
             </div>
         </div>
     </div><script id="yplayer" type="text/template7">
@@ -261,17 +264,18 @@
 
                             <!--th:if="${session.member.is_real_mobile} ne '1'"-->
                             <li >
-                                <a th:href="@{/member/realMobile}"
-                                   class="b"
-                                   th:class="${session.member.is_real_mobile}==1? 'suess':'error'"
-                                   target="_blank">手机认证 <em class="error" title="请先通过手机认证"></em>
+                                <a th:href="@{/member/realMobile}" class="b" target="_blank">手机认证
+                                    <em class="error" th:class="${session.member.is_real_mobile}==1? 'suess':'error'"
+                                        title="请先通过手机认证">
+                                    </em>
                                 </a>
                             </li>
                             <!--th:if="${session.member.is_real_bank} ne '1'"-->
                             <li >
                                 <a th:href="@{/member/realBank}" class="b"
-                                   th:class="${session.member.is_real_bank}==1? 'suess':'error'"
-                                   target="_blank">银行卡认证 <em class="error" title="请先通过银行卡认证"></em>
+                                   target="_blank">银行卡认证
+                                    <em class="error"
+                                        th:class="${session.member.is_real_bank}==1? 'suess':'error'" title="请先通过银行卡认证"></em>
                                 </a>
                             </li>
 
@@ -284,8 +288,9 @@
                             </li>
                             <!--允许申请试用-->
                             <li>
-                                <a href="/member/taobaohao.php?action=add"
+                                <a th:href="@{/member/bindByTaoBao}"
                                    class="b" target="_blank">绑定买号<em class="error"
+                                                                     th:class="${session.member.is_bind_buy_account}==1? 'suess':'error'"
                                                                      title="请先绑定买号">
 
                                 </em></a></li>

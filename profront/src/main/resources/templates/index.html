@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+>
 <head>
     <meta charset="UTF-8">
     <meta name="renderer" content="webkit">
@@ -24,12 +26,22 @@
     <div class="wrap-header" style="width:1100px;margin:0 auto;">
         <a href="/" class="logo"><img alt="销量联盟" th:src="@{/dist/img/logo.png}" height="63"></a>
         <div class='version'>
-            <!--登录-->
-            <div class="elielogin" onclick="location.href='/member/toLogin'">
-                <i></i>登录
+            <!--匿名-->
+            <div sec:authorize="isAnonymous()">
+                <!--登录-->
+                <div class="elielogin" onclick="location.href='/member/toLogin'">
+                    <i></i>登录
+                </div>
+                <!--注册-->
+                <div class="eliesign" onclick="location.href='/member/register'"><i></i>注册</div>
             </div>
-            <!--注册-->
-            <div class="eliesign" onclick="location.href='/member/register'"><i></i>注册</div>
+            <!--登录-->
+            <div sec:authorize="isAuthenticated()">
+                <!--登录-->
+                <div class="elielogin" style="margin-left: 35px;margin-top: 3px;width: 100px;" onclick="location.href='/member/memberIndex'">
+                    个人中心
+                </div>
+            </div>
         </div>
         <ul class='fr nav-menu' id='submenu'>
             <li class="cur"><a href="/">首页</a></li>

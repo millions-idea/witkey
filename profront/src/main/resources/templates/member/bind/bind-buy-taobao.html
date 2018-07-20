@@ -288,7 +288,7 @@
                 <td class="tl"><span class="f_red">*</span> 实名截图</td>
                 <td class="tr">
                     <!--保证幂等性-->
-                    <input type="hidden" name="version" value="0" th:value="${member.version}">
+                    <input type="hidden" name="version" value="0" th:value="${session.member.version}">
 
                     <div class="thumb_upload">
                         <div class="thumb_upload_item">

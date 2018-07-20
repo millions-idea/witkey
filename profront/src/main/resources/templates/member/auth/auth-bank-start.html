@@ -216,63 +216,100 @@
     <div class="menu">
         <table cellpadding="0" cellspacing="0">
             <tr>
-                <td class="tab"><a id="m1" href="?action=add"><span>1、提交信息</span></a></td>
-                <td class="tab"><a id="m2" href="vbank.php"><span>2、通过认证</span></a></td>
+                <td class="tab"><a id="m1" href="javascript:;"><span>1、提交信息</span></a></td>
+                <td class="tab"><a id="m2" href="javascript:;"><span>2、通过认证</span></a></td>
             </tr>
         </table>
     </div>
-    <form method="post" action="vbank.php" id="dform">
-        <input type="hidden" name="action" value="add"/>
-        <input type="hidden" name="submit" value="1"/>
+    <form method="post" action="" id="dform">
         <table cellpadding="6" cellspacing="1" class="tb">
             <tbody>
+
+            <!--开户银行-->
             <tr>
-                <td class="tl"><span class="f_red">*</span> 真实姓名</td>
-                <td class="tr" th:text="${session.member.username}">
-                    刘浩
+                <td class="tl"><span class="f_red">*</span> 选择开户银行</td>
+                <td class="tr">
+                    <select name="bank_type" id="bank_type">
+                        <option value="中国工商银行">中国工商银行</option>
+                        <option value="中国人民银行">中国人民银行</option>
+                        <option value="农业银行">农业银行</option>
+                        <option value="建设银行">建设银行</option>
+                        <option value="网商银行">网商银行</option>
+                        <option value="中国工商银行">中国工商银行</option>
+                    </select>
                 </td>
             </tr>
-            <tr>
-                <td class="tl"><span class="f_red">*</span> 身份证号码</td>
-                <td class="tr" th:text="${session.member.id_card}">
-                    371828199805051234                                            </td>
-            </tr>
+
+
             <tr>
                 <td class="tl"><span class="f_red">*</span> 银行卡账号</td>
                 <td class="tr">
-                    <input type="text" name="post[bank_num]" size="60"/>
+                    <input type="text" id="bank_num" placeholder="输入银行卡号"  name="bank_num" size="60"/>
                 </td>
             </tr>
+
             <tr>
-                <td class="tl"><span class="f_red">*</span> 开户行</td>
+                <td class="tl"><span class="f_red">*</span> 银行卡预留手机号</td>
                 <td class="tr">
-                    <input area="1" name="post[areaid]" id="areaid_1" type="hidden" value="0"/><span id="load_area_1"><select onchange="load_area(this.value, 1);" ><option value="0">请选择</option><option value="1">北京</option><option value="2">上海</option><option value="3">天津</option><option value="4">重庆</option><option value="5">河北</option><option value="6">山西</option><option value="7">内蒙古</option><option value="8">辽宁</option><option value="9">吉林</option><option value="10">黑龙江</option><option value="11">江苏</option><option value="12">浙江</option><option value="13">安徽</option><option value="14">福建</option><option value="15">江西</option><option value="16">山东</option><option value="17">河南</option><option value="18">湖北</option><option value="19">湖南</option><option value="20">广东</option><option value="21">广西</option><option value="22">海南</option><option value="23">四川</option><option value="24">贵州</option><option value="25">云南</option><option value="26">西藏</option><option value="27">陕西</option><option value="28">甘肃</option><option value="29">青海</option><option value="30">宁夏</option><option value="31">新疆</option><option value="32">台湾</option><option value="33">香港</option><option value="34">澳门</option></select> </span><script type="text/javascript">var area_title = new Array;area_title[1]='请选择';var area_extend = new Array;area_extend[1]='';var area_areaid = new Array;area_areaid[1]='0';var area_deep = new Array;area_deep[1]='0';</script><script type="text/javascript" src="http://001.topaaa.com/file/script/area.js"></script>                                                                        <input type="text" id="bank_kaihuhang" size="30" name="post[bank_kaihuhang]"/>
+                    <input type="text" id="bank_mobile" placeholder="请输入银行卡预留手机号"  name="bank_mobile" size="60"/>
                 </td>
             </tr>
+
+            <tr>
+                <td class="tl"><span class="f_red">*</span> 开户人姓名</td>
+                <td class="tr">
+                    <input type="text" id="bank_username" placeholder="请输入开户人姓名"  name="bank_username" size="60"/>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="tl"><span class="f_red">*</span> 开户人身份证号码</td>
+                <td class="tr">
+                    <input type="text" id="bank_id_card" placeholder="请输入开户人身份证号码"  name="bank_id_card" size="60"/>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="tl"><span class="f_red">*</span> 验证码 </td>
+                <td class="tr">
+                    <input type="text" placeholder="请输入验证码"
+                           name="post[bank_num]" size="30"/>
+                    <button type="button" style="margin-left: 18px;" class="bblue">
+                        获取验证码
+                    </button>
+                </td>
+            </tr>
+
+
             </tbody>
             <tr>
                 <td class="tl">&nbsp;</td>
-                <td class="tr" height="30"><input id="submit" type="submit" value=" 确 定 " class="bblue"/>
+                <td class="tr" height="30">
+                    <!--ajax提交-->
+                    <button id="sub_bank" type="button"  class="bblue">
+                        提交绑定
+                    </button>
+
                 </td>
             </tr>
         </table>
     </form>
     <script>
-        $('#dform').submit(function (envent) {
-            envent.preventDefault();
-            if($('#submit').hasClass('bgray')) return;
-            $('#submit').attr('class','bgray');
-            $.post('/member/vbank.php', $('#dform').serialize(), function (data) {
-                $('#submit').attr('class','bblue');
-                if (data == 'success') {
-                    layer_alert('认证成功', function () {
-                        location.href = '/member/';
-                    });
-                } else {
-                    layer_alert(data);
-                }
-            });
-        });
+        // $('#dform').submit(function (envent) {
+        //     envent.preventDefault();
+        //     if($('#submit').hasClass('bgray')) return;
+        //     $('#submit').attr('class','bgray');
+        //     $.post('/member/vbank.php', $('#dform').serialize(), function (data) {
+        //         $('#submit').attr('class','bblue');
+        //         if (data == 'success') {
+        //             layer_alert('认证成功', function () {
+        //                 location.href = '/member/';
+        //             });
+        //         } else {
+        //             layer_alert(data);
+        //         }
+        //     });
+        // });
         $(function () {
             set_nav("m1", "sb0");
         });
@@ -309,10 +346,54 @@
         </div>
     </div>
 </div>
-<link rel="stylesheet" href="http://001.topaaa.com/file/script/layim/css/layui.css">
-<script src="http://001.topaaa.com/file/script/layim/layui.js"></script>
-<script src="http://001.topaaa.com/file/script/layim/func.js"></script>
 <script>
+    $("#sub_bank").click(function () {
+        var formData = new FormData($("#dform"));
+
+        var bank_type = $("#bank_type").val();
+        var bank_username = $("#bank_username").val();
+        var bank_mobile = $("#bank_mobile").val();
+        var bank_num = $("#bank_num").val();
+        var bank_id_card = $("#bank_id_card").val();
+
+        var data = {
+            bank_type:bank_type,
+            bank_username:bank_username,
+            bank_mobile:bank_mobile,
+            bank_num:bank_num,
+            bank_id_card:bank_id_card
+
+        };
+        var postdata = JSON.stringify(data);
+        console.log(postdata);
+
+        //todo  有问题 后台接收不到值
+        $.ajax({
+            //接口地址
+            url: '/member/authBank' ,
+            type: 'POST',
+            data: postdata,
+            async: false,
+            cache: false,
+            contentType: "application/json; charset=utf-8",
+            processData: false,
+            dataType: 'json',
+            success: function (data) {
+                //成功的回调
+                if(data.error == '1'){
+                    //alert("上传失败")
+                }else {
+
+                }
+            },
+            error: function (returndata) {
+                //请求异常的回调
+                // modals.warn("网络访问失败，请稍后重试!");
+            }
+        });
+
+    });
+
     var IM = {};
     var mineId;
     var mineUsername;

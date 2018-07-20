@@ -1,6 +1,7 @@
 package com.wanhao.profront.controller.member;
 
 import com.wanhao.profront.bean.member.Member;
+import com.wanhao.profront.bean.member.MemberBank;
 import com.wanhao.profront.bean.member.MemberTaoBao;
 import com.wanhao.profront.bean.member.NameForbidden;
 import com.wanhao.profront.service.member.MemberService;
@@ -19,6 +20,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
@@ -124,6 +126,8 @@ public class MemberController {
 
         //暂时放入session
         session.setAttribute("member",member);
+        model.addAttribute("member",member);
+
         session.setAttribute(Constants.USER,username);
         return PREFIX+"index";
     }
@@ -267,8 +271,18 @@ public class MemberController {
      */
     @GetMapping(value = "realBank")
     public String inputBank(HttpSession session){
-        //放入用户姓名和身份证号到前台
         return PREFIX + "auth/auth-bank-start";
+    }
+
+
+    /**
+     * 提交认证银行卡
+     */
+    @PostMapping(value = "authBank")
+    public void authBank(MemberBank memberBank, HttpServletResponse response){
+        //todo 接收不到值
+        System.out.println(1);
+
     }
 
 
