@@ -4,6 +4,7 @@ import com.wanhao.proback.bean.admin.Admin;
 import com.wanhao.proback.dao.admin.AdminMapper;
 import com.wanhao.proback.service.admin.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,6 +24,7 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     @Transactional(readOnly = true)
+    @Cacheable(value = "admin",key = "#username")
     public Admin findByName(String username) {
         //根据姓名查找
         Admin admin = new Admin();
@@ -31,6 +33,7 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
+    @Cacheable(value = "admin")
     @Transactional(readOnly = true)
     public List<Admin> findAll() {
         return adminMapper.selectAll();

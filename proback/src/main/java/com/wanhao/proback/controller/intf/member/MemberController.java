@@ -56,11 +56,13 @@ public class MemberController {
      * @return
      */
     @PostMapping(value = "register")
-    public void register(HttpServletRequest request, Integer is_seller, String username,
+    public void register(HttpServletRequest request,
+                         Integer is_seller, String username,
                          String password, String real_name,
                          String email, String mobile,
                          String qq, Integer invite_id,
-                         String sheng, String shi, HttpServletResponse response) {
+                         String sheng, String shi,
+                         HttpServletResponse response) {
         JsonObject jsonObject = new JsonObject();
 
         if (IsNullUtils.isContainsNull(username,password,real_name,email,mobile,qq,sheng,shi)  ) {
@@ -92,6 +94,7 @@ public class MemberController {
 //        }
 
         member.setPassword(password);
+        member.setUsername(username);
         member.setReal_name(real_name);
         member.setEmail(email);
         member.setMobile(mobile);
@@ -107,7 +110,8 @@ public class MemberController {
 
 
         memberService.addMember(member);
-        jsonObject.addProperty("error", "0");
+        jsonObject.addProperty("error", 0);
+        jsonObject.addProperty(Constants.MESSAGE, "注册成功!");
         ResponseUtils.renderJson(response, jsonObject.toString());
     }
 
@@ -122,23 +126,24 @@ public class MemberController {
         JsonObject jsonObject = new JsonObject();
         //字段不能为空
         if (IsNullUtils.isContainsNull(username,password)) {
-            jsonObject.addProperty(Constants.ERROR, "1");
+            jsonObject.addProperty(Constants.ERROR, 1);
             jsonObject.addProperty(Constants.MESSAGE, "密码错误!");
             ResponseUtils.renderJson(response, jsonObject.toString());
             return;
         }
+
         //记录登录ip
         String ipAdrress = IpUtils.getIpAdrress(request);
         //rsa 解密
         byte[] decode;
         try {
-            decode = Base64Utils.decode(password);
-            byte[] content = RSAUtil.decryptByPrivateKey(decode, Constants.PRI_KEY);
+//            decode = Base64Utils.decode(password);
+//            byte[] content = RSAUtil.decryptByPrivateKey(decode, Constants.PRI_KEY);
             //解密结果
             ///password = new String(content);
             Member member = new Member();
             member.setUsername(username);
-            member.setPassword(password);
+            //member.setPassword(password);
 
             List<Member> members = memberService.loginMember(member);
             if (members != null && members.size() > 0) {
@@ -157,7 +162,7 @@ public class MemberController {
                 servletContext.setAttribute(Constants.TOKEN, uuid);
 
                 jsonObject.addProperty(Constants.TOKEN, uuid);
-                jsonObject.addProperty(Constants.ERROR, "0");
+                jsonObject.addProperty(Constants.ERROR, 0);
                 jsonObject.addProperty(Constants.MESSAGE, "登录成功!");
                 //保存到session
                 request.getSession().setAttribute(Constants.USER, save);
@@ -170,12 +175,12 @@ public class MemberController {
                 jsonObject.addProperty("member", mem);
 
             } else {
-                jsonObject.addProperty(Constants.ERROR, "1");
+                jsonObject.addProperty(Constants.ERROR, 1);
                 jsonObject.addProperty(Constants.MESSAGE, "密码错误!");
             }
 
         } catch (Exception e) {
-            jsonObject.addProperty(Constants.ERROR, "1");
+            jsonObject.addProperty(Constants.ERROR, 1);
             jsonObject.addProperty(Constants.MESSAGE, "密码错误!");
         }
 

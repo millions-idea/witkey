@@ -5,6 +5,7 @@ import com.wanhao.proback.bean.member.Member;
 import com.wanhao.proback.dao.member.MemberMapper;
 import com.wanhao.proback.service.member.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.entity.Example;
@@ -25,6 +26,7 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     @Transactional(readOnly = true)
+    @Cacheable(value = "members")
     public List<Member> getMembers(Member member) {
         if (member.getPage() != null && member.getRows() != null) {
             PageHelper.startPage(member.getPage(), member.getRows());
@@ -114,6 +116,7 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     @Transactional(readOnly = true)
+    @Cacheable(value = "members")
     public List<Member> loginMember(Member member) {
         Example example = new Example(Member.class);
 

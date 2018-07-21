@@ -5,6 +5,7 @@ import com.wanhao.proback.dao.member.MemberTaoBaoMapper;
 import com.wanhao.proback.service.member.MemberTaoBaoService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.entity.Example;
@@ -32,6 +33,7 @@ public class MemberTaoBaoServiceImpl implements MemberTaoBaoService {
 
     @Override
     @Transactional(readOnly = true)
+    @Cacheable(value = "memberslist")
     public List<MemberTaoBao> queryMemberBuyList(MemberTaoBao taoBao) {
         Example example = new Example(MemberTaoBao.class);
 
@@ -55,6 +57,7 @@ public class MemberTaoBaoServiceImpl implements MemberTaoBaoService {
 
     @Override
     @Transactional(readOnly = true)
+    @Cacheable(value = "members")
     public MemberTaoBao getOne(Integer id) {
         MemberTaoBao memberTaoBao = new MemberTaoBao();
         memberTaoBao.setId(id);

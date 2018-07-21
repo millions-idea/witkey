@@ -4,6 +4,7 @@ import com.wanhao.proback.bean.Setting;
 import com.wanhao.proback.dao.SettingMapper;
 import com.wanhao.proback.service.SettingService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,6 +27,7 @@ public class SettingServiceImpl implements SettingService {
     }
 
     @Override
+    @Cacheable(value = "setting")
     @Transactional(readOnly = true)
     public Setting query() {
         return settingMapper.selectAll().get(0);
