@@ -54,8 +54,9 @@ public class MemberBankServiceImpl implements MemberBankService {
 
         //bank_num
         if (StringUtils.isNotBlank(memberBank.getBank_num())){
-            criteria.andLike("bank_num",memberBank.getBank_num() + "%" );
+            criteria.andLike("bank_num",memberBank.getBank_num());
         }
+
         //type
         if (memberBank.getBank_type() != null) {
             criteria.andEqualTo("bank_type",memberBank.getBank_type());
@@ -66,7 +67,11 @@ public class MemberBankServiceImpl implements MemberBankService {
     @Override
     public void update(MemberBank bank) {
         bankMapper.updateByPrimaryKey(bank);
+    }
 
+    @Override
+    public void add(MemberBank bank) {
+        bankMapper.insert(bank);
     }
 
 }

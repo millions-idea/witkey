@@ -36,4 +36,10 @@ public class MemberBank extends BaseBean {
     private String remark;
     private Integer version;
 
+    private String alipay;
+    private String bank_province;
+    private String bank_city;
+    private String bank_addr;
+
+
 }

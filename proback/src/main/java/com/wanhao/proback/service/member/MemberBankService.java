@@ -18,8 +18,15 @@ public interface MemberBankService  {
     List<MemberBank> findByPages(MemberBank memberBank);
 
     /**
-     * 添加
+     * 更新
      * @param bank
      */
     void update(MemberBank bank);
+
+    /**
+     * 添加
+     * @param bank
+     */
+    void add(MemberBank bank);
+
 }

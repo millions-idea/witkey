@@ -49,5 +49,6 @@ public class MemberTaoBao extends BaseBean {
     private String remark;
     private Integer version;
 
+    private String shoot_huabei;
 
 }

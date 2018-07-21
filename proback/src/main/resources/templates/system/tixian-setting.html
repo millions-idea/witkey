@@ -36,19 +36,20 @@
 
             <!--显示提示信息-->
             <h3 th:text="${message}" th:if="${message}">
-
             </h3>
 
-            <form method="post" th:action="@{/member/tixian}" onsubmit="return Dcheck();" id="dform">
+            <form method="post" th:action="@{/system/tixian}" onsubmit="return Dcheck();" id="dform">
                 <table cellpadding="2" cellspacing="1" class="tb">
 
                     <tr>
                         <td class="tl"><span class="f_red">*</span> 是否开启提现功能</td>
                         <td>
                             是
-                            <input type="radio" checked  name="open_tixian"  value="1"/>&nbsp;<span  class="f_red"></span>
+                            <input type="radio" checked th:checked="${setting.open_tixian}==1" name="open_tixian"  value="1"/>
+                            &nbsp;<span  class="f_red"></span>
                             否
-                            <input type="radio"  name="open_tixian"  value="0"/>&nbsp;<span  class="f_red"></span>
+                            <input type="radio" th:checked="${setting.open_tixian}==0" name="open_tixian"  value="0"/>
+                            &nbsp;<span  class="f_red"></span>
                         </td>
                     </tr>
 
@@ -69,13 +70,13 @@
                         <td class="tl"><span class="f_hid">*</span> 单次提现最小金额</td>
                         <td>
                             <input type="number" size="20" name="min_money"
-                                   id="password"  autocomplete="off"/>&nbsp;
+                                   id="password" th:value="${setting.min_money}"  autocomplete="off"/>&nbsp;
                             <span id="dpassword" class="f_red"></span>
                     </tr>
 
                     <tr>
                         <td class="tl"><span class="f_hid">*</span> 单次提现最大金额</td>
-                        <td><input type="number" size="20" name="max_money"
+                        <td><input type="number" th:value="${setting.max_money}" size="20" name="max_money"
                                    id="cpassword" autocomplete="off"/>&nbsp;
                             <span id="dcpassword" class="f_red"></span>
                         </td>
@@ -84,14 +85,14 @@
                     <tr>
                         <td class="tl"><span class="f_hid">*</span> 提现手续费</td>
                         <td>
-                            <input type="number" size="20" name="shouxu"
-                                   id="payword"  autocomplete="off"/>&nbsp;
+                            <input type="number" th:value="${setting.shouxu}" size="20" name="shouxu"
+                                   id="payword" step="0.01"  autocomplete="off"/>&nbsp;
                             <span id="dpayword" class="f_red"></span>
                     </tr>
 
                     <tr>
                         <td class="tl"><span class="f_hid">*</span> 费率最小值</td>
-                        <td><input type="number" size="20"
+                        <td><input type="number" th:value="${setting.min_shouxu}" step="0.01" size="20"
                                    name="min_shouxu" id="cpayword" autocomplete="off"/>
                             &nbsp;<span id="dcpayword" class="f_red"></span>
                         </td>
@@ -100,7 +101,7 @@
                     <tr>
                         <td class="tl"><span class="f_red">*</span> 费率最大值</td>
                         <td>
-                            <input type="number" size="30" name="max_shouxu"
+                            <input type="number" th:value="${setting.max_shouxu}" step="0.01" size="30" name="max_shouxu"
                                    id="email"  />
                     </tr>
 

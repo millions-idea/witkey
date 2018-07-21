@@ -1,5 +1,8 @@
 package com.wanhao.proback.controller.system;
 
+import com.wanhao.proback.bean.Setting;
+import com.wanhao.proback.service.SettingService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,12 +21,19 @@ public class SystemController {
     private static final String PREFIX = "system/";
 
 
+    @Autowired
+    SettingService settingService;
+
     /**
      * 进入提现设置页面
      * @return
      */
     @GetMapping(value = "tixian")
-    public String toTiXianSetting(){
+    public String toTiXianSetting(Model model){
+        Setting setting = settingService.query();
+        //放入前台
+        model.addAttribute("setting",setting);
+
         return PREFIX+ "tixian-setting";
     }
 
@@ -32,12 +42,39 @@ public class SystemController {
      * @return
      */
     @PostMapping(value = "tixian")
-    public String modTiXian(Model model){
+    public String modTiXian(Integer open_tixian,Integer tixian_count,
+                            Double min_money,Double max_money,
+                            Double shouxu,Double min_shouxu,
+                            Double max_shouxu,
+                            Model model){
         //设置保存到数据库
+        Setting setting = new Setting();
+        setting.setOpen_tixian(open_tixian);
+        setting.setTixian_count(tixian_count);
+        setting.setMin_money(min_money);
+        setting.setMax_money(max_money);
+        setting.setShouxu(shouxu);
+        setting.setMin_shouxu(min_shouxu);
+        setting.setMax_shouxu(max_shouxu);
+
+        settingService.update(setting);
 
         //保存成功 message 设置为: 保存成功
         model.addAttribute("message","保存成功");
+        model.addAttribute("setting",setting);
+
 
         return PREFIX+ "tixian-setting";
     }
+
+    /**
+     * 网站设置
+     * @return
+     */
+    @GetMapping(value = "webSetting")
+    public String webSetting(){
+        return PREFIX + "";
+    }
+
+
 }

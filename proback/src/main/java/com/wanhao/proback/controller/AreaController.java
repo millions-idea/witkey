@@ -1,7 +1,9 @@
 package com.wanhao.proback.controller;
 
+import com.google.gson.Gson;
 import com.wanhao.proback.bean.Area;
 import com.wanhao.proback.service.AreaService;
+import com.wanhao.proback.utils.ResponseUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,18 +26,22 @@ public class AreaController {
 
     @RequestMapping(value = "getAllProvince")
     @ResponseBody
-    public List<Area> getAllProvince(HttpServletResponse response){
+    public void getAllProvince(HttpServletResponse response){
         //查询所有省份
         List<Area> list = areaService.getAllProvince();
-        return list;
+        Gson gson = new Gson();
+        String s = gson.toJson(list);
+        ResponseUtils.renderJson(response,s);
     }
 
     @RequestMapping(value = "getCity")
     @ResponseBody
-    public List<Area> getAllProvince(Integer cid, HttpServletResponse response){
+    public void getAllProvince(Integer cid, HttpServletResponse response){
         //查询所有市
         List<Area> list = areaService.getAllCity(cid);
-        return list;
+        Gson gson = new Gson();
+        String s = gson.toJson(list);
+        ResponseUtils.renderJson(response,s);
     }
 }
 
