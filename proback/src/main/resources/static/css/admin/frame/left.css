@@ -448,7 +448,7 @@ a.t:hover {
     display: block;
     width: 26px;
     height: 26px;
-    background: url('/static/img/admin/frame/close.gif') no-repeat center center;
+    background: url('/img/close.gif') no-repeat center center;
 }
 
 #Dtop .dbox {

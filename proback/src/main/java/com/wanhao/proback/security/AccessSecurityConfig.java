@@ -97,6 +97,8 @@ public class AccessSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/area/**")
                 .antMatchers("/fileup/**")
                 .antMatchers("/intf_member/**")
+                .antMatchers("/images/**")
+                .antMatchers("/intf_setting/**")
 
         ;
     }

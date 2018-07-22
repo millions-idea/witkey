@@ -11,6 +11,7 @@ import java.util.List;
  */
 public interface ShopService {
 
+
     void add(Shop shop);
 
     void update(Shop shop);

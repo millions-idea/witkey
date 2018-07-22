@@ -6,7 +6,6 @@ import com.wanhao.proback.dao.member.MemberBankMapper;
 import com.wanhao.proback.service.member.MemberBankService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.entity.Example;
@@ -26,7 +25,6 @@ public class MemberBankServiceImpl implements MemberBankService {
 
 
     @Override
-    @Cacheable(value = "bank")
     @Transactional(readOnly = true)
     public List<MemberBank> findByPages(MemberBank memberBank) {
         if (memberBank.getPage() != null && memberBank.getRows() != null) {
@@ -67,13 +65,15 @@ public class MemberBankServiceImpl implements MemberBankService {
     }
 
     @Override
+   // @CacheEvict(key = "#p0.id")
     public void update(MemberBank bank) {
-        bankMapper.updateByPrimaryKey(bank);
+        bankMapper.updateByPrimaryKeySelective(bank);
     }
 
     @Override
+    //@CachePut(key = "#p0.id")
     public void add(MemberBank bank) {
-        bankMapper.insert(bank);
+        bankMapper.insertSelective(bank);
     }
 
 }

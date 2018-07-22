@@ -3,16 +3,19 @@ package com.wanhao.proback.controller.intf.member;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.wanhao.proback.annotaion.ISLogin;
+import com.wanhao.proback.bean.Area;
 import com.wanhao.proback.bean.member.Member;
 import com.wanhao.proback.bean.member.MemberBank;
 import com.wanhao.proback.bean.member.MemberTaoBao;
 import com.wanhao.proback.bean.shop.Shop;
+import com.wanhao.proback.service.AreaService;
 import com.wanhao.proback.service.member.MemberBankService;
 import com.wanhao.proback.service.member.MemberService;
 import com.wanhao.proback.service.member.MemberTaoBaoService;
 import com.wanhao.proback.service.shop.ShopService;
 import com.wanhao.proback.utils.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -40,6 +43,7 @@ public class MemberController {
 
     @Autowired
     MemberBankService bankService;
+
     /**
      * 注册
      *
@@ -57,6 +61,7 @@ public class MemberController {
      */
     @PostMapping(value = "register")
     public void register(HttpServletRequest request,
+                         String invite_name,
                          Integer is_seller, String username,
                          String password, String real_name,
                          String email, String mobile,
@@ -65,7 +70,7 @@ public class MemberController {
                          HttpServletResponse response) {
         JsonObject jsonObject = new JsonObject();
 
-        if (IsNullUtils.isContainsNull(username,password,real_name,email,mobile,qq,sheng,shi)  ) {
+        if (IsNullUtils.isContainsNull(username, password, real_name, email, mobile, qq, sheng, shi)) {
             //信息不完整
             ResponseUtils.retnFailMsg(response, jsonObject);
             return;
@@ -82,6 +87,15 @@ public class MemberController {
             return;
         }
 
+        //加载推荐人
+        if (IsNullUtils.isContainsNull(invite_name)){
+            Member invite = memberService.getMemberByUserName(invite_name);
+            if (invite!=null){
+                //设置推荐id
+                member.setInvite_id(invite.getId());
+            }
+        }
+
         //rsa 解密
 //        byte[] decode;
 //        try {
@@ -93,14 +107,26 @@ public class MemberController {
 //
 //        }
 
+        try {
+            //加载省市
+            Area area = areaService.getArea(Integer.valueOf(sheng));
+            Area areaCity = areaService.getArea(Integer.valueOf(shi));
+
+            member.setSheng(area.getCityName());
+            member.setShi(areaCity.getCityName());
+        }catch (Exception e){
+
+        }
+
+
+
         member.setPassword(password);
         member.setUsername(username);
         member.setReal_name(real_name);
         member.setEmail(email);
         member.setMobile(mobile);
         member.setQq(qq);
-        member.setSheng(sheng);
-        member.setShi(shi);
+
         if (invite_id != null) {
             member.setInvite_id(invite_id);
         }
@@ -125,7 +151,7 @@ public class MemberController {
 
         JsonObject jsonObject = new JsonObject();
         //字段不能为空
-        if (IsNullUtils.isContainsNull(username,password)) {
+        if (IsNullUtils.isContainsNull(username, password)) {
             jsonObject.addProperty(Constants.ERROR, 1);
             jsonObject.addProperty(Constants.MESSAGE, "密码错误!");
             ResponseUtils.renderJson(response, jsonObject.toString());
@@ -156,6 +182,15 @@ public class MemberController {
                 //uuid返回给前台
                 String uuid = UUID.randomUUID().toString();
                 save.setToken(uuid);
+                //放入redis
+
+                // 手机号  用户
+                redisTemplate.opsForValue().set(save.getMobile(), save);
+                // token  手机号
+                redisTemplate.opsForValue().set(uuid, save.getMobile());
+
+                //更新数据库
+                memberService.updateMember(save);
 
                 //暂时保存到context
                 ServletContext servletContext = request.getServletContext();
@@ -188,6 +223,8 @@ public class MemberController {
         // return jsonObject;
     }
 
+    @Autowired
+    RedisTemplate redisTemplate;
 
     /**
      * 实名认证
@@ -208,13 +245,16 @@ public class MemberController {
                          String url3) {
         JsonObject jsonObject = new JsonObject();
 
-        if (IsNullUtils.isContainsNull(realname,idcard,url1,url2,url3)) {
+        if (IsNullUtils.isContainsNull(realname, idcard, url1, url2, url3)) {
             //信息不完整
             ResponseUtils.retnFailMsg(response, jsonObject);
             return;
         }
+
         //保存信息
         Member member = (Member) request.getSession().getAttribute(Constants.USER);
+        System.out.println(member);
+
         member.setReal_name(realname);
         member.setId_card(idcard);
         member.setZheng(url1);
@@ -262,7 +302,13 @@ public class MemberController {
                                String city, String address) {
         JsonObject jsonObject = new JsonObject();
 
-        if (catid == null || IsNullUtils.isContainsNull(account, account_gender, honor, age_range, truename, mobile, province, city, address) ){
+        if (catid == null || IsNullUtils.isContainsNull(
+                account, account_gender, honor,
+
+                age_range, truename, mobile,
+
+                province, city, address)) {
+
             //信息不完整
             ResponseUtils.retnFailMsg(response, jsonObject);
             return;
@@ -275,16 +321,16 @@ public class MemberController {
 
         //判断这个号是否已经绑定过了
         memberTaoBao.setAccount(account);
-        switch (catid){
+        switch (catid) {
             case 4://淘宝
                 memberTaoBao.setAccount_type("淘宝试用");
                 //拼接类别
                 StringBuilder sb = new StringBuilder();
-                if (buy_class!=null && buy_class.length>0){
-                    for (int i=0;i<buy_class.length;i++){
-                        if (i==buy_class.length-1){
+                if (buy_class != null && buy_class.length > 0) {
+                    for (int i = 0; i < buy_class.length; i++) {
+                        if (i == buy_class.length - 1) {
                             sb.append(buy_class[i]);
-                        }else {
+                        } else {
                             sb.append(buy_class[i]).append(",");
                         }
                     }
@@ -307,10 +353,10 @@ public class MemberController {
                 break;
         }
         List<MemberTaoBao> list = taoBaoService.queryMemberBuyList(memberTaoBao);
-        if (list!=null && list.size()>0){
+        if (list != null && list.size() > 0) {
             //已经绑定过了
-            jsonObject.addProperty(Constants.ERROR,1);
-            jsonObject.addProperty(Constants.MESSAGE,"该账号已经绑定过了! 不要重复绑定");
+            jsonObject.addProperty(Constants.ERROR, 1);
+            jsonObject.addProperty(Constants.MESSAGE, "该账号已经绑定过了! 不要重复绑定");
         }
         //会员Id
         Integer mem_id = member.getId();
@@ -318,9 +364,20 @@ public class MemberController {
 
         memberTaoBao.setAccount_gender(account_gender);
         memberTaoBao.setAddress(address);
+
+
+        //加载省市
+        Area area = areaService.getArea(Integer.valueOf(province));
+        Area areaCity = areaService.getArea(Integer.valueOf(city));
+        //存入省市
+        memberTaoBao.setPro_name(area.getCityName());
+        memberTaoBao.setCity_name(areaCity.getCityName());
+        memberTaoBao.setProvince(province);
         memberTaoBao.setCity(city);
-        memberTaoBao.setPro_name(province);
+
+
         memberTaoBao.setHonor(honor);
+        memberTaoBao.setMobile(mobile);
         memberTaoBao.setTruename(truename);
         memberTaoBao.setTaoqi(taoqi);
         //实名截图
@@ -335,7 +392,7 @@ public class MemberController {
         memberTaoBao.setShoot_huabei(url5);
         taoBaoService.addMemberTaoBao(memberTaoBao);
         //成功
-        ResponseUtils.retnSuccessMsg(response,jsonObject,"操作完成,下一步由管理员审核");
+        ResponseUtils.retnSuccessMsg(response, jsonObject, "操作完成,下一步由管理员审核");
     }
 
     /**
@@ -343,17 +400,18 @@ public class MemberController {
      */
     @ISLogin
     @RequestMapping(value = "queryBuyAccountList")
-    public void queryBuyAccountList(Integer memid,HttpServletRequest request, HttpServletResponse response){
+    public void queryBuyAccountList(Integer memid, HttpServletRequest request,
+                                    HttpServletResponse response) {
         JsonObject jsonObject = new JsonObject();
 
-        if (memid!=null){
+        if (memid != null) {
             MemberTaoBao memberTaoBao = new MemberTaoBao();
             memberTaoBao.setMem_id(memid);
             List<MemberTaoBao> list = taoBaoService.queryMemberBuyList(memberTaoBao);
             String s = GsonUtils.toJson(list);
-            jsonObject.addProperty("list",s);
+            jsonObject.addProperty("list", s);
             //返回
-            ResponseUtils.retnSuccessMsg(response,jsonObject);
+            ResponseUtils.retnSuccessMsg(response, jsonObject);
         }
 
     }
@@ -364,13 +422,14 @@ public class MemberController {
     @ISLogin
     @PostMapping(value = "bindBank")
     public void bindBank(HttpServletRequest request, HttpServletResponse response,
-                         String bank_type,String bank_num,
-                         String bank_mobile,String bank_username,
-                         String bank_id_card,Integer memid){
+                         String bank_type, String bank_num,
+                         String bank_mobile, String bank_username,
+                         String bank_id_card, Integer memid) {
         JsonObject jsonObject = new JsonObject();
 
-        if (memid == null || IsNullUtils.isContainsNull(bank_type, bank_num, bank_mobile, bank_username
-                , bank_id_card) ){
+        if (memid == null || IsNullUtils.isContainsNull(
+                bank_type, bank_num, bank_mobile, bank_username
+                , bank_id_card)) {
             //信息不完整
             ResponseUtils.retnFailMsg(response, jsonObject);
             return;
@@ -380,8 +439,8 @@ public class MemberController {
         bank.setBank_num(bank_num);
 
         List<MemberBank> list = bankService.findByPages(bank);
-        if (list!=null && list.size()>0){
-            ResponseUtils.retnFailMsg(response,jsonObject,"已经绑定过了,不能重复绑定");
+        if (list != null && list.size() > 0) {
+            ResponseUtils.retnFailMsg(response, jsonObject, "已经绑定过了,不能重复绑定");
             return;
         }
 
@@ -392,50 +451,60 @@ public class MemberController {
         bank.setBank_id_card(bank_id_card);
         bankService.add(bank);
 
-        ResponseUtils.retnSuccessMsg(response,jsonObject,"已提交,由管理员审核");
+        ResponseUtils.retnSuccessMsg(response, jsonObject, "已提交,由管理员审核");
     }
-
 
 
     @Autowired
     ShopService shopService;
 
+    @Autowired
+    AreaService areaService;
+
     @ISLogin
     @PostMapping(value = "bindShop")
     public void bindShop(HttpServletRequest request, HttpServletResponse response,
-                         String shop_type,String shop_name,
-                         String shop_url,String shop_wangwang,
-                         String send_province,String send_city,
-                         String send_town,String shop_img,Integer memid){
+                         String shop_type, String shop_name,
+                         String shop_url, String shop_wangwang,
+                         String send_province, String send_city,
+                         String shop_img, Integer memid) {
 
         JsonObject jsonObject = new JsonObject();
 
         if (IsNullUtils.isContainsNull(shop_type, shop_name, shop_url, shop_wangwang
-                , send_province,send_city,send_town,shop_img) ){
+                , send_province, send_city, shop_img)) {
             //信息不完整
             ResponseUtils.retnFailMsg(response, jsonObject);
             return;
         }
+
+
+
         //是否已经绑定过
         Shop shop = new Shop();
         shop.setShop_url(shop_url);
         shop.setShop_name(shop_name);
 
         List<Shop> shops = shopService.getShops(shop);
-        if (shops!=null && shops.size()>0){
-            ResponseUtils.retnFailMsg(response,jsonObject,"该店铺已经绑定过,不能重复绑定");
+        if (shops != null && shops.size() > 0) {
+            ResponseUtils.retnFailMsg(response, jsonObject, "该店铺已经绑定过,不能重复绑定");
             return;
         }
+        //加载省市
+        Area area = areaService.getArea(Integer.valueOf(send_province));
+        Area areaCity = areaService.getArea(Integer.valueOf(send_city));
+
+        //省市设置
+        shop.setSend_city(areaCity.getCityName());
+        shop.setSend_province(area.getCityName());
+
         shop.setShop_type(shop_type);
         shop.setShop_wangwang(shop_wangwang);
-        shop.setSend_city(send_city);
-        shop.setSend_town(send_town);
-        shop.setSend_province(send_province);
         shop.setMem_id(memid);
 
         //保存
         shopService.add(shop);
-        ResponseUtils.retnSuccessMsg(response,jsonObject,"申请完成,等待审核");
+        ResponseUtils.retnSuccessMsg(response, jsonObject, "申请完成,等待审核");
 
     }
 
@@ -446,13 +515,13 @@ public class MemberController {
     @ISLogin
     @PostMapping(value = "bindCash")
     public void bindCash(HttpServletRequest request, HttpServletResponse response,
-                         String alipay,String bank_type,
-                         String bank_num,String bank_province,
-                         String bank_city,String bank_addr,Integer memid){
+                         String alipay, String bank_type,
+                         String bank_num, String bank_province,
+                         String bank_city, String bank_addr, Integer memid) {
         JsonObject jsonObject = new JsonObject();
 
-        if (memid == null || IsNullUtils.isContainsNull(bank_type,bank_province, bank_num, bank_city, bank_addr
-                , alipay) ){
+        if (memid == null || IsNullUtils.isContainsNull(bank_type, bank_province, bank_num, bank_city, bank_addr
+                , alipay)) {
             //信息不完整
             ResponseUtils.retnFailMsg(response, jsonObject);
             return;
@@ -475,7 +544,8 @@ public class MemberController {
         bank.setAlipay(alipay);
         bankService.add(bank);
 
-        ResponseUtils.retnSuccessMsg(response,jsonObject,"已提交,由管理员审核");
+        ResponseUtils.retnSuccessMsg(response, jsonObject, "已提交,由管理员审核");
     }
+
 
 }

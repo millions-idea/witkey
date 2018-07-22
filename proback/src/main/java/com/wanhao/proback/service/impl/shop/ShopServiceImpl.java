@@ -5,7 +5,6 @@ import com.wanhao.proback.bean.shop.Shop;
 import com.wanhao.proback.dao.shop.ShopMapper;
 import com.wanhao.proback.service.shop.ShopService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.entity.Example;
@@ -27,17 +26,16 @@ public class ShopServiceImpl implements ShopService {
 
     @Override
     public void add(Shop shop) {
-        shopMapper.insert(shop);
+        shopMapper.insertSelective(shop);
     }
 
     @Override
     public void update(Shop shop) {
-        shopMapper.updateByPrimaryKey(shop);
+        shopMapper.updateByPrimaryKeySelective(shop);
     }
 
     @Override
     @Transactional(readOnly = true)
-    @Cacheable(value = "shops")
     public List<Shop> getShops(Shop shop) {
         if (shop.getPage() != null && shop.getRows() != null) {
             PageHelper.startPage(shop.getPage(), shop.getRows());

@@ -4,6 +4,8 @@ import com.wanhao.proback.bean.Setting;
 import com.wanhao.proback.dao.SettingMapper;
 import com.wanhao.proback.service.SettingService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,15 +17,17 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service
 @Transactional
+@CacheConfig(cacheNames = "setting")
 public class SettingServiceImpl implements SettingService {
 
     @Autowired
     SettingMapper settingMapper;
 
     @Override
+    @CacheEvict(allEntries = true)
     public void update(Setting setting) {
         setting.setId(1);
-        settingMapper.updateByPrimaryKey(setting);
+        settingMapper.updateByPrimaryKeySelective(setting);
     }
 
     @Override

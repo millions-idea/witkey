@@ -71,9 +71,9 @@ public class Member extends BaseBean {
     //支付宝
     private String alipay;
     //差评
-    private Integer bad_comment;
-    private Integer good_comment;
-    private Integer mid_comment;
+    private Integer bad_comment=0;
+    private Integer good_comment=0;
+    private Integer mid_comment=0;
     //是否通过考试
     private Integer pass_exam;
     //银行卡号
@@ -83,10 +83,10 @@ public class Member extends BaseBean {
     //银行地址
     private String bank_addr;
     //是否实名认证
-    private Integer is_real_name;
-    private Integer is_real_mobile;
-    private Integer is_real_bank;
-    private Integer is_seller;
+    private Integer is_real_name=0;
+    private Integer is_real_mobile=0;
+    private Integer is_real_bank=0;
+    private Integer is_seller=0;
     //用户类型
     private String vipmodel;
     private String zheng;
@@ -94,7 +94,7 @@ public class Member extends BaseBean {
     private String shou_chi;
     //实名认证提交时间
     private Date real_name_time;
-    private Integer version;
+    private Integer version=1;
     //是否绑定了买号  1是 0否
     private Integer is_bind_buy_account;
     private String shi;

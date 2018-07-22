@@ -18,4 +18,6 @@ public interface MemberTaoBaoService {
 
     MemberTaoBao getOne(Integer id);
 
+    void update(MemberTaoBao taoBao);
+
 }

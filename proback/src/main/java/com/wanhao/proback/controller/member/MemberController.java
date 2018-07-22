@@ -296,9 +296,37 @@ public class MemberController {
      * 跳转到买号列表
      * @return
      */
-    @GetMapping(value = "toAuthAccount")
-    public String toAuthAccount(Model model){
+    @RequestMapping(value = "toAuthAccount")
+    public String toAuthAccount(Model model,String gender,
+                                String pass,String fields,
+                                String input_val){
         MemberTaoBao memberTaoBao = new MemberTaoBao();
+
+        //条件查询
+        if (StringUtils.isNotBlank(fields) && !fields.equals("0") && StringUtils.isNotBlank(input_val)){
+            switch (fields){
+                case "2":
+                        memberTaoBao.setMem_id(Integer.valueOf(input_val));
+                    break;
+                case "4":
+
+                    break;
+                case "5":
+                    break;
+            }
+        }
+
+        //性别
+        if (StringUtils.isNotBlank(gender) && !gender.equals("0")){
+            memberTaoBao.setAccount_gender(gender);
+        }
+
+        //是否审核通过
+        if (StringUtils.isNotBlank(pass) && !pass.equals("5")){
+            memberTaoBao.setIs_pass(Integer.valueOf(pass));
+        }
+
+
         List<MemberTaoBao> taoBaos = memberTaoBaoService.queryMemberBuyList(memberTaoBao);
         model.addAttribute("taoBaos",taoBaos);
 
@@ -306,15 +334,65 @@ public class MemberController {
     }
 
     /**
-     * 买号列表查询
+     * 买号认证--同意
      * @return
      */
-    @GetMapping(value = "authAccountSearch")
-    public String authAccount(MemberTaoBao memberTaoBao,Model model){
-
-        return PREFIX +"auth/auth-account";
+    @PostMapping(value = "buyAccountAgree")
+    public void buyAccountAgree(@RequestBody AuthData data, HttpServletResponse response){
+        account(data,1,response);
     }
 
+    /**
+     * 买号认证--同意
+     * @return
+     */
+    @PostMapping(value = "buyAccountRefuse")
+    public void buyAccountRefuse(@RequestBody AuthData data, HttpServletResponse response){
+        account(data,2,response);
+    }
+
+    /**
+     * 买号认证--从新认证
+     * @return
+     */
+    @PostMapping(value = "buyAccountRedo")
+    public void buyAccountRedo(@RequestBody AuthData data, HttpServletResponse response){
+        account(data,0,response);
+    }
+
+    /**
+     * 买号认证操作
+     * @param data
+     * @param type 1同意 2 拒绝
+     * @param response
+     */
+    public void account(AuthData data,Integer type,HttpServletResponse response){
+        JsonObject jsonObject = new JsonObject();
+        if (data.data==null || data.data.length<=0){
+            //返回错误
+            jsonObject.addProperty("error","1");
+            ResponseUtils.renderJson(response,jsonObject.toString());
+            return;
+        }
+
+        MemberTaoBao taoBao = new MemberTaoBao();
+
+        for (Integer auth : data.data) {
+            taoBao.setId(auth);
+            List<MemberTaoBao> list = memberTaoBaoService.queryMemberBuyList(taoBao);
+            if (list!=null && list.size()>0){
+                MemberTaoBao bank1 = list.get(0);
+                bank1.setIs_pass(type);
+                bank1.setRemark(data.reason);
+                //保存更新
+                memberTaoBaoService.update(bank1);
+            }
+        }
+
+        //返回结果
+        jsonObject.addProperty("error","0");
+        ResponseUtils.renderJson(response,jsonObject.toString());
+    }
 
     /**
      * 跳转到买号详细信息
@@ -327,6 +405,7 @@ public class MemberController {
 
         return PREFIX +"auth/auth-account-detail";
     }
+
 
 
     //////////////////////////会员银行卡认证////////////////////////////
@@ -422,6 +501,8 @@ public class MemberController {
                 bank1.setRemark(data.reason);
                 //保存更新
                 memberBankService.update(bank1);
+                //更新用户已认证银行卡
+
             }
         }
         //返回结果

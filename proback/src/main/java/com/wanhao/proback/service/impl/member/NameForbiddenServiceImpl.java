@@ -28,6 +28,6 @@ public class NameForbiddenServiceImpl implements NameForbiddenService {
 
     @Override
     public void update(NameForbidden name) {
-        nameForbiddenMapper.updateByPrimaryKey(name);
+        nameForbiddenMapper.updateByPrimaryKeySelective(name);
     }
 }

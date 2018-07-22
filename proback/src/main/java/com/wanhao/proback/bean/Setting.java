@@ -50,5 +50,7 @@ public class Setting extends BaseBean{
     private Double shangjia_wancheng_yiji;
     private Double shike_wancheng_yiji;
     private Double shike_wancheng_erji;
+    private Double yiji_jiangli;
+    private Double erji_jiangli;
 
 }

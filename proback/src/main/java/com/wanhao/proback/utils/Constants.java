@@ -21,7 +21,7 @@ public interface Constants {
      *
      * 图片地址
      */
-    String IMAGE_PATH = "http://localhost:8081/images/upload/";
+    String IMAGE_PATH = "http://192.168.43.181:8081/images/upload/";
 
     /**
      * user标记

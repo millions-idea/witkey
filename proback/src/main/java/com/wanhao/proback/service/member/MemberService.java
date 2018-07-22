@@ -30,4 +30,13 @@ public interface MemberService {
     void addMember(Member member);
 
     List<Member> loginMember(Member member);
+
+    List<Member> loginMemberByMobile(Member member);
+
+    /**
+     * 用户名查找
+     * @param invite_name
+     */
+    Member getMemberByUserName(String invite_name);
+
 }

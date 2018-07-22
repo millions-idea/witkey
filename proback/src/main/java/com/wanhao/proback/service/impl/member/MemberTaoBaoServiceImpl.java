@@ -5,7 +5,6 @@ import com.wanhao.proback.dao.member.MemberTaoBaoMapper;
 import com.wanhao.proback.service.member.MemberTaoBaoService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.entity.Example;
@@ -27,18 +26,21 @@ public class MemberTaoBaoServiceImpl implements MemberTaoBaoService {
 
     @Override
     public void addMemberTaoBao(MemberTaoBao taoBao) {
-        taoBaoMapper.insert(taoBao);
+        taoBaoMapper.insertSelective(taoBao);
 
     }
 
     @Override
     @Transactional(readOnly = true)
-    @Cacheable(value = "memberslist")
     public List<MemberTaoBao> queryMemberBuyList(MemberTaoBao taoBao) {
         Example example = new Example(MemberTaoBao.class);
 
         Example.Criteria criteria = example.createCriteria();
 
+        if (taoBao.getId()!=null){
+            //id
+            criteria.andEqualTo("id", taoBao.getId());
+        }
         if (taoBao.getMem_id()!=null){
             //会员名
             criteria.andEqualTo("mem_id", taoBao.getMem_id());
@@ -52,16 +54,32 @@ public class MemberTaoBaoServiceImpl implements MemberTaoBaoService {
         if (StringUtils.isNotBlank(taoBao.getAccount())){
             criteria.andEqualTo("account", taoBao.getAccount());
         }
+
+        //性别
+        if (StringUtils.isNotBlank(taoBao.getAccount_gender())){
+            criteria.andEqualTo("account_gender", taoBao.getAccount_gender());
+        }
+
+        //是否通过
+        if (taoBao.getIs_pass()!=null){
+            criteria.andEqualTo("is_pass", taoBao.getIs_pass());
+        }
+
         return taoBaoMapper.selectByExample(example);
     }
 
     @Override
     @Transactional(readOnly = true)
-    @Cacheable(value = "members")
     public MemberTaoBao getOne(Integer id) {
         MemberTaoBao memberTaoBao = new MemberTaoBao();
         memberTaoBao.setId(id);
         return taoBaoMapper.selectOne(memberTaoBao);
+    }
+
+    @Override
+    public void update(MemberTaoBao taoBao) {
+        System.out.println(taoBao.getId());
+        taoBaoMapper.updateByPrimaryKeySelective(taoBao);
     }
 }
 

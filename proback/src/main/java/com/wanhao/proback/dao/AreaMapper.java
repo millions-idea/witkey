@@ -29,5 +29,7 @@ public interface AreaMapper extends MyMapper<Area> {
     @Select("SELECT * FROM tb_area WHERE parentid=#{cid} ORDER BY codeid ASC")
     List<Area> getAllCity(Integer cid);
 
+    @Select("SELECT * FROM tb_area WHERE codeid=#{id}")
+    Area getArea(Integer id);
 
 }

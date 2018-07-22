@@ -23,4 +23,5 @@ public interface AreaService {
      */
     List<Area> getAllCity(Integer cid);
 
+    Area getArea(Integer id);
 }

@@ -1,6 +1,5 @@
 package com.wanhao.proback;
 
-import com.wanhao.proback.bean.Area;
 import com.wanhao.proback.bean.admin.Admin;
 import com.wanhao.proback.bean.member.Member;
 import com.wanhao.proback.bean.member.MemberTaoBao;
@@ -40,8 +39,8 @@ public class ProbackApplicationTests {
     @Test
     public void testMember(){
         Member member = new Member();
-        member.setUsername("张");
-        List<Member> members = memberService.getMembers(member);
+        member.setMobile("13562959695");
+        List<Member> members = memberService.loginMemberByMobile(member);
         System.out.println(members);
     }
 
@@ -53,8 +52,9 @@ public class ProbackApplicationTests {
 
     @Test
     public void testArea(){
-        List<Area> allProvince = areaService.getAllProvince();
-        System.out.println(allProvince);
+        Member test = memberService.getMemberByUserName("test");
+        System.out.println(test);
+
     }
 
     @Autowired

@@ -8,6 +8,7 @@ import com.wanhao.proback.bean.Setting;
  * 作者： LiuLiHao
  */
 public interface SettingService {
+
     void update(Setting setting);
 
     Setting query();

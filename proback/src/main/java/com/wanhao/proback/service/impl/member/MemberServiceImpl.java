@@ -5,7 +5,7 @@ import com.wanhao.proback.bean.member.Member;
 import com.wanhao.proback.dao.member.MemberMapper;
 import com.wanhao.proback.service.member.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.entity.Example;
@@ -19,6 +19,7 @@ import java.util.List;
  */
 @Service
 @Transactional
+@CacheConfig(cacheNames = "member")
 public class MemberServiceImpl implements MemberService {
 
     @Autowired
@@ -26,7 +27,6 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     @Transactional(readOnly = true)
-    @Cacheable(value = "members")
     public List<Member> getMembers(Member member) {
         if (member.getPage() != null && member.getRows() != null) {
             PageHelper.startPage(member.getPage(), member.getRows());
@@ -106,17 +106,17 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public void updateMember(Member member) {
-        memberMapper.updateByPrimaryKey(member);
+        memberMapper.updateByPrimaryKeySelective(member);
     }
 
     @Override
     public void addMember(Member member) {
-        memberMapper.insert(member);
+        memberMapper.insertSelective(member);
     }
 
     @Override
     @Transactional(readOnly = true)
-    @Cacheable(value = "members")
+    //@Cacheable(key = "#p0.username")
     public List<Member> loginMember(Member member) {
         Example example = new Example(Member.class);
 
@@ -131,5 +131,36 @@ public class MemberServiceImpl implements MemberService {
             criteria.andEqualTo("mobile", member.getMobile());
         }
         return memberMapper.selectByExample(example);
+    }
+
+    @Override
+   // @Cacheable(key = "#p0.mobile")
+    public List<Member> loginMemberByMobile(Member member) {
+        Example example = new Example(Member.class);
+
+        Example.Criteria criteria = example.createCriteria();
+        //手机号
+        criteria.andEqualTo("mobile", member.getMobile());
+        //密码
+        //criteria.andEqualTo("token", member.getToken());
+
+        return memberMapper.selectByExample(example);
+    }
+
+    @Override
+    //@Cacheable(key = "#invite_name")
+    public Member getMemberByUserName(String invite_name) {
+        Example example = new Example(Member.class);
+
+        Example.Criteria criteria = example.createCriteria();
+        Member member = new Member();
+        member.setUsername(invite_name);
+        //手机号
+        criteria.andEqualTo("username", member.getUsername());
+        List<Member> members = memberMapper.selectByExample(example);
+        if (member!=null && members.size()>0){
+            return members.get(0);
+        }
+        return null;
     }
 }

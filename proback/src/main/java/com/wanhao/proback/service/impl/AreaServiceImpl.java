@@ -25,15 +25,19 @@ public class AreaServiceImpl implements AreaService {
     @Override
     @Cacheable(value = "province")
     public List<Area> getAllProvince() {
-        System.out.println("不使用缓存");
         return areaMapper.getAllProvince();
     }
 
 
     @Override
-    @Cacheable(value = "city",key = "#cid")
+    @Cacheable(value = "aaa")
     public List<Area> getAllCity(Integer cid) {
-        System.out.println("不使用缓存");
         return areaMapper.getAllCity(cid);
     }
+
+    @Override
+    public Area getArea(Integer id) {
+        return areaMapper.getArea(id);
+    }
+
 }

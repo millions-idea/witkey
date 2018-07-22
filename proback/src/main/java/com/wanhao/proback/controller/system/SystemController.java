@@ -2,6 +2,7 @@ package com.wanhao.proback.controller.system;
 
 import com.wanhao.proback.bean.Setting;
 import com.wanhao.proback.service.SettingService;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -72,9 +73,38 @@ public class SystemController {
      * @return
      */
     @GetMapping(value = "webSetting")
-    public String webSetting(){
-        return PREFIX + "";
+    public String webSetting(Model model){
+        Setting setting = settingService.query();
+        model.addAttribute("setting",setting);
+
+        return PREFIX + "web-setting";
     }
 
+    /**
+     * 修改设置
+     * @return
+     */
+    @PostMapping(value = "webSetting")
+    public String modSetting(Setting setting,Model model,
+                             String web_logo_mod,String mobile_logo_mod,
+                             String app_logo_mod){
+        //设置修改后的图片
+        if (StringUtils.isNotBlank(web_logo_mod)){
+            setting.setWeb_logo(web_logo_mod);
+        }
+        if (StringUtils.isNotBlank(mobile_logo_mod)){
+            setting.setMobile_logo(mobile_logo_mod);
+        }
+        if (StringUtils.isNotBlank(app_logo_mod)){
+            setting.setApp_logo(app_logo_mod);
+        }
+
+        //保存修改
+        settingService.update(setting);
+        Setting query = settingService.query();
+        model.addAttribute("setting",query);
+        return PREFIX + "web-setting";
+
+    }
 
 }
