@@ -14,6 +14,7 @@ import com.wanhao.proback.service.member.MemberService;
 import com.wanhao.proback.service.member.MemberTaoBaoService;
 import com.wanhao.proback.service.shop.ShopService;
 import com.wanhao.proback.utils.*;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
@@ -46,17 +47,6 @@ public class MemberController {
 
     /**
      * 注册
-     *
-     * @param is_seller
-     * @param username
-     * @param password
-     * @param real_name
-     * @param email
-     * @param mobile
-     * @param qq
-     * @param invite_id
-     * @param sheng
-     * @param shi
      * @return
      */
     @PostMapping(value = "register")
@@ -121,6 +111,8 @@ public class MemberController {
 
 
         member.setPassword(password);
+        //支付密码和密码默认一样
+        member.setPay_pass(password);
         member.setUsername(username);
         member.setReal_name(real_name);
         member.setEmail(email);
@@ -147,7 +139,8 @@ public class MemberController {
      * @return
      */
     @PostMapping(value = "login")
-    public void login(HttpServletRequest request, HttpServletResponse response, String username, String password) {
+    public void login(HttpServletRequest request, HttpServletResponse response,
+                      String username, String password) {
 
         JsonObject jsonObject = new JsonObject();
         //字段不能为空
@@ -169,15 +162,25 @@ public class MemberController {
             ///password = new String(content);
             Member member = new Member();
             member.setUsername(username);
-            //member.setPassword(password);
+            member.setPassword(password);
 
             List<Member> members = memberService.loginMember(member);
             if (members != null && members.size() > 0) {
                 //登录成功
                 Member save = members.get(0);
+                if (save.getStatus()!=null && save.getStatus()==1 ){
+                    //账号被禁用
+                    ResponseUtils.retnFailMsg(response,jsonObject,"账号被禁用!");
+                    return;
+                }
+
                 String location = IpUtils.getLocation(ipAdrress);
                 //保存登录ip
                 save.setLogin_ip(ipAdrress + location);
+                //登录次数+1
+                if (save.getLoin_count()!=null){
+                    save.setLoin_count(save.getLoin_count()+1);
+                }
 
                 //uuid返回给前台
                 String uuid = UUID.randomUUID().toString();
@@ -228,14 +231,6 @@ public class MemberController {
 
     /**
      * 实名认证
-     *
-     * @param request
-     * @param response
-     * @param realname
-     * @param idcard
-     * @param url1
-     * @param url2
-     * @param url3
      */
     @PostMapping(value = "realName")
     @ISLogin
@@ -268,26 +263,6 @@ public class MemberController {
     /**
      * 绑定买号
      * 买家号
-     *
-     * @param request
-     * @param response
-     * @param catid
-     * @param account
-     * @param url1
-     * @param url2
-     * @param url3
-     * @param url4
-     * @param url5
-     * @param account_gender
-     * @param honor
-     * @param age_range
-     * @param taoqi
-     * @param buy_class
-     * @param truename
-     * @param mobile
-     * @param province
-     * @param city
-     * @param address
      */
     @ISLogin
     @PostMapping(value = "bindBuyAccount")
@@ -547,5 +522,95 @@ public class MemberController {
         ResponseUtils.retnSuccessMsg(response, jsonObject, "已提交,由管理员审核");
     }
 
+    /**
+     * 密码管理
+     */
+    @ISLogin
+    @RequestMapping(value = "passwordManager")
+    public void passwordManager(HttpServletRequest request, HttpServletResponse response,
+                                String new_pass,String old_pass,
+                                Integer memid,
+                                String new_pay_pass,String old_pay_pass){
+
+        JsonObject jsonObject = new JsonObject();
+
+        Member member = new Member();
+        if (StringUtils.isNotBlank(new_pass)){
+            //检查旧密码
+            if (StringUtils.isNotBlank(old_pass)){
+                //比对
+                member.setId(memid);
+                Member dbMember = memberService.getMember(member);
+                if (dbMember!=null){
+                    String password = dbMember.getPassword();
+                    if (old_pass.equals(password)){
+                        //旧密码正确
+                        dbMember.setPassword(new_pass);
+                        //保存
+                        memberService.updateMember(dbMember);
+                        jsonObject.addProperty(Constants.MESSAGE,"密码修改完成");
+                    }
+                }
+            }
+        }
+
+        //修改支付密码
+        if (StringUtils.isNotBlank(new_pay_pass) && StringUtils.isNotBlank(old_pay_pass)){
+            member.setId(memid);
+            Member dbMember = memberService.getMember(member);
+
+            if (dbMember!=null && old_pay_pass.equals(dbMember.getPay_pass())){
+                //旧支付密码正确
+                dbMember.setPay_pass(new_pay_pass);
+                memberService.updateMember(dbMember);
+                jsonObject.addProperty(Constants.MESSAGE,"支付密码修改完成");
+            }
+        }
+        //返回
+        ResponseUtils.retnSuccessMsg(response,jsonObject);
+
+
+    }
+
+
+    /**
+     * 加载一级推广的下线
+     */
+    @ISLogin
+    @RequestMapping(value = "loadFirstInviteList")
+    public void loadInviteList(HttpServletRequest request, HttpServletResponse response,
+                               Integer memid){
+        JsonObject jsonObject = new JsonObject();
+
+        if (memid!=null){
+            List<Member> list = memberService.getMemberFristInvite(memid);
+            String json = GsonUtils.toJson(list);
+            jsonObject.addProperty("list",json);
+            //返回一级下线
+            ResponseUtils.retnSuccessMsg(response,jsonObject);
+        }else {
+            ResponseUtils.retnFailMsg(response,jsonObject);
+        }
+    }
+
+    /**
+     * 加载二级推广的下线
+     */
+    @ISLogin
+    @RequestMapping(value = "loadSecondInviteList")
+    public void loadSecInviteList(HttpServletRequest request, HttpServletResponse response,
+                               Integer memid){
+        JsonObject jsonObject = new JsonObject();
+
+        if (memid!=null){
+            List<Member> list = memberService.getMemberSecondInvite(memid);
+            String json = GsonUtils.toJson(list);
+            jsonObject.addProperty("list",json);
+            //返回
+            ResponseUtils.retnSuccessMsg(response,jsonObject);
+        }else {
+            ResponseUtils.retnFailMsg(response,jsonObject);
+        }
+    }
 
 }

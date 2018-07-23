@@ -27,6 +27,6 @@ public class Shop extends BaseBean {
     private String send_city;
     private String send_town;
     private String shop_img;
-
+    private String remark;
 
 }

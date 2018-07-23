@@ -12,5 +12,11 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface MemberMapper extends MyMapper<Member> {
 
+//    @Select("SELECT * FROM tb_member WHERE invite_id=#{invite_id}")
+//    List<Member> getInviteFirstList(Integer invite_id);
+//
+//
+//    @Select("SELECT * FROM tb_member WHERE invite_id=#{invite_id}")
+//    List<Member> getInviteSeconList(Integer invite_id);
 
 }

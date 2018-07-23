@@ -99,8 +99,10 @@ public class Member extends BaseBean {
     private Integer is_bind_buy_account;
     private String shi;
     private String token;
+    private String pay_pass;
 
 
+    private Integer is_bind_shop;
 
 
 }

@@ -48,9 +48,19 @@ public class ShopServiceImpl implements ShopService {
         if (shop.getShop_name() != null) {
             criteria.andEqualTo("shop_name",shop.getShop_name());
         }
-
+        //url
         if (shop.getShop_url() != null) {
             criteria.andEqualTo("shop_url",shop.getShop_url());
+        }
+
+        //会员Id
+        if (shop.getMem_id() != null) {
+            criteria.andEqualTo("mem_id",shop.getMem_id());
+        }
+
+        //是否认证
+        if (shop.getIs_pass() != null) {
+            criteria.andEqualTo("is_pass",shop.getIs_pass());
         }
 
         return shopMapper.selectByExample(example);

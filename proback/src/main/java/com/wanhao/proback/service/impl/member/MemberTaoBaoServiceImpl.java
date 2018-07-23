@@ -36,6 +36,8 @@ public class MemberTaoBaoServiceImpl implements MemberTaoBaoService {
         Example example = new Example(MemberTaoBao.class);
 
         Example.Criteria criteria = example.createCriteria();
+        //查找未删除的
+        criteria.andEqualTo("is_delete", 0);
 
         if (taoBao.getId()!=null){
             //id
@@ -79,6 +81,14 @@ public class MemberTaoBaoServiceImpl implements MemberTaoBaoService {
     @Override
     public void update(MemberTaoBao taoBao) {
         System.out.println(taoBao.getId());
+        taoBaoMapper.updateByPrimaryKeySelective(taoBao);
+    }
+
+    @Override
+    public void delete(Integer account_id) {
+        MemberTaoBao taoBao = new MemberTaoBao();
+        taoBao.setId(account_id);
+        taoBao.setIs_delete(1);
         taoBaoMapper.updateByPrimaryKeySelective(taoBao);
     }
 }

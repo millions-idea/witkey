@@ -377,6 +377,8 @@ public class MemberController {
 
         MemberTaoBao taoBao = new MemberTaoBao();
 
+        Member member = new Member();
+
         for (Integer auth : data.data) {
             taoBao.setId(auth);
             List<MemberTaoBao> list = memberTaoBaoService.queryMemberBuyList(taoBao);
@@ -386,6 +388,19 @@ public class MemberController {
                 bank1.setRemark(data.reason);
                 //保存更新
                 memberTaoBaoService.update(bank1);
+                //更新会员买号是否完成
+                if (type==1){
+                    member.setId(bank1.getMem_id());
+                    Member dbMember = memberService.getMember(member);
+                    if (dbMember!=null ){
+                        if (dbMember.getIs_bind_buy_account()==null || dbMember.getIs_bind_buy_account()==0){
+                            dbMember.setIs_bind_buy_account(1);
+                            //设置为已经绑定买号
+                            memberService.updateMember(dbMember);
+                        }
+                    }
+
+                }
             }
         }
 
@@ -492,6 +507,8 @@ public class MemberController {
 
         MemberBank bank = new MemberBank();
 
+        Member member = new Member();
+
         for (Integer auth : data.data) {
             bank.setId(auth);
             List<MemberBank> byPages = memberBankService.findByPages(bank);
@@ -502,7 +519,17 @@ public class MemberController {
                 //保存更新
                 memberBankService.update(bank1);
                 //更新用户已认证银行卡
-
+                if (type==1){
+                    Integer mem_id = bank1.getMem_id();
+                    if (mem_id!=null){
+                        member.setId(mem_id);
+                        Member dbMember = memberService.getMember(member);
+                        if (dbMember.getIs_real_bank()==null || dbMember.getIs_real_bank()==0){
+                            dbMember.setIs_real_bank(1);
+                            memberService.updateMember(dbMember);
+                        }
+                    }
+                }
             }
         }
         //返回结果

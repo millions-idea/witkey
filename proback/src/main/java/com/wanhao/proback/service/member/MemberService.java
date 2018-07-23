@@ -39,4 +39,10 @@ public interface MemberService {
      */
     Member getMemberByUserName(String invite_name);
 
+    //一级下线
+    List<Member> getMemberFristInvite(Integer id);
+
+    //二级下线
+    List<Member> getMemberSecondInvite(Integer memid);
+
 }

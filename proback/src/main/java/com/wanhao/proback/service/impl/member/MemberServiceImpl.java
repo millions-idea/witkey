@@ -6,10 +6,12 @@ import com.wanhao.proback.dao.member.MemberMapper;
 import com.wanhao.proback.service.member.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.entity.Example;
 
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -24,6 +26,9 @@ public class MemberServiceImpl implements MemberService {
 
     @Autowired
     MemberMapper memberMapper;
+
+    @Autowired
+    RedisTemplate redisTemplate;
 
     @Override
     @Transactional(readOnly = true)
@@ -134,7 +139,8 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-   // @Cacheable(key = "#p0.mobile")
+    @Transactional(readOnly = true)
+    // @Cacheable(key = "#p0.mobile")
     public List<Member> loginMemberByMobile(Member member) {
         Example example = new Example(Member.class);
 
@@ -149,6 +155,7 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     //@Cacheable(key = "#invite_name")
+    @Transactional(readOnly = true)
     public Member getMemberByUserName(String invite_name) {
         Example example = new Example(Member.class);
 
@@ -158,9 +165,40 @@ public class MemberServiceImpl implements MemberService {
         //手机号
         criteria.andEqualTo("username", member.getUsername());
         List<Member> members = memberMapper.selectByExample(example);
-        if (member!=null && members.size()>0){
+        if (member != null && members.size() > 0) {
             return members.get(0);
         }
         return null;
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Member> getMemberFristInvite(Integer id) {
+        Example example = new Example(Member.class);
+
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("invite_id", id);
+        return memberMapper.selectByExample(example);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Member> getMemberSecondInvite(Integer memid) {
+        LinkedList<Member> members = new LinkedList<>();
+
+        List<Member> memberFristInvite = getMemberFristInvite(memid);
+        //查询一级下线
+        if (memberFristInvite!=null && memberFristInvite.size()>0){
+
+            for (Member member : memberFristInvite) {
+                Integer id = member.getId();
+                List<Member> list = getMemberFristInvite(id);
+                if (list!=null && list.size()>0){
+                    members.addAll(list);
+                }
+            }
+
+        }
+        return members;
     }
 }

@@ -51,4 +51,5 @@ public class MemberTaoBao extends BaseBean {
 
     private String shoot_huabei;
 
+    private Integer is_delete;
 }

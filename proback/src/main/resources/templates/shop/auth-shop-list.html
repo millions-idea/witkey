@@ -36,7 +36,7 @@
             </table>
         </div>
         <div id="ypcontent">    <div class="tt">记录搜索</div>
-            <form th:action="@{/member/queryMemberAuth}" method="post">
+            <form th:action="@{/shop/toAuthShop}" method="post">
                 <table cellpadding="2" cellspacing="1" class="tb">
                     <tr>
                         <td>
@@ -70,7 +70,7 @@
                 </table>
             </form>
             <form method="post">
-                <div class="tt">认证记录</div>
+                <div class="tt">商家列表</div>
                 <table cellpadding="2" cellspacing="1" class="tb">
                     <tr>
                         <th width="25">
@@ -89,7 +89,7 @@
                     </tr>
                     <tr onmouseover="this.className='on';"
                         onmouseout="this.className='';"
-                        th:each="mem:${shops}"
+                        th:each="mem:${pageinfo.list}"
                         align="center" >
 
                         <td>
@@ -170,7 +170,11 @@
                 </div>
 
             </form>
-            <div class="pages"></div>
+            <!--分页区域-->
+            <div class="pages" id="pages">
+
+            </div>
+
             <script type="text/javascript">
                 Menuon(0);
 
@@ -204,16 +208,16 @@
                     };
 
                     var postdata = JSON.stringify(dest);
-                    var url = '/member/memberAuth';
+                    var url = '/shop/memberAuth';
                     switch (number) {
                         case 0:
-                            url = '/member/memberAuth';
+                            url = '/shop/bindShopRedo';
                             break;
                         case 1:
-                            url = '/member/redoAuth';
+                            url = '/shop/bindShopAgree';
                             break;
                         case 2:
-                            url = '/member/refuseAuth';
+                            url = '/shop/bindShopRefuse';
                             break;
                     }
                     //提交
@@ -281,3 +285,24 @@
 </div>
 </body>
 </html>
+
+<script type="text/javascript">
+    //分页
+    layui.use('laypage', function () {
+        var laypage = layui.laypage;
+
+        laypage.render({
+            elem: 'pages'
+            , count: [[${pageinfo.total}]] //数据总数，从服务端得到
+            ,curr: [[${pageinfo.pageNum}]] //获取起始页
+            , jump: function (obj, first) {
+                //首次不执行
+                if (!first) {
+                    var current = obj.curr;
+                    window.location.href = "/shop/toAuthShop?page=" + current;
+                }
+            }
+        });
+    });
+
+</script>

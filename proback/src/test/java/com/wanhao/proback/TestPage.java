@@ -2,7 +2,9 @@ package com.wanhao.proback;
 
 import com.github.pagehelper.PageInfo;
 import com.wanhao.proback.bean.member.Member;
+import com.wanhao.proback.bean.vip.Vip;
 import com.wanhao.proback.service.member.MemberService;
+import com.wanhao.proback.service.vip.VipService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,5 +33,23 @@ public class TestPage {
         List<Member> members = memberService.getMembers(member);
         PageInfo<Member> info = new PageInfo<>(members);
         System.out.println(info);
+    }
+
+    @Autowired
+    VipService vipService;
+
+
+    @Test
+    public void testFirst(){
+        List<Member> memberFristInvite = memberService.getMemberFristInvite(6);
+        System.out.println(memberFristInvite);
+
+        List<Member> memberSecondInvite = memberService.getMemberSecondInvite(6);
+        System.out.println(memberSecondInvite);
+    }
+    @Test
+    public void testVIp(){
+        List<Vip> all = vipService.getAll();
+        System.out.println(all);
     }
 }

@@ -20,4 +20,5 @@ public interface MemberTaoBaoService {
 
     void update(MemberTaoBao taoBao);
 
+    void delete(Integer account_id);
 }
