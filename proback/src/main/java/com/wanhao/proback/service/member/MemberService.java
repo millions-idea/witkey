@@ -1,6 +1,7 @@
 package com.wanhao.proback.service.member;
 
 import com.wanhao.proback.bean.member.Member;
+import com.wanhao.proback.bean.util.InviteResult;
 
 import java.util.List;
 
@@ -44,5 +45,28 @@ public interface MemberService {
 
     //二级下线
     List<Member> getMemberSecondInvite(Integer memid);
+
+    /**
+     * 查询推广人数排行列表
+     * @return
+     */
+    List<InviteResult> getInviteData();
+
+
+
+    /**
+     * 查询一周推广人数排行列表
+     * @return
+     */
+    List<InviteResult> getInviteDataByWeek();
+
+
+    /**
+     * 查询一月推广人数排行列表
+     * @return
+     */
+    List<InviteResult> getInviteDataByMonth();
+
+
 
 }

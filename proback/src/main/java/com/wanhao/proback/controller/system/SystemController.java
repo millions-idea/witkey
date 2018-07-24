@@ -87,7 +87,7 @@ public class SystemController {
     @PostMapping(value = "webSetting")
     public String modSetting(Setting setting,Model model,
                              String web_logo_mod,String mobile_logo_mod,
-                             String app_logo_mod){
+                             String app_logo_mod,String goods_default_img_mod){
         //设置修改后的图片
         if (StringUtils.isNotBlank(web_logo_mod)){
             setting.setWeb_logo(web_logo_mod);
@@ -97,6 +97,10 @@ public class SystemController {
         }
         if (StringUtils.isNotBlank(app_logo_mod)){
             setting.setApp_logo(app_logo_mod);
+        }
+
+        if (StringUtils.isNotBlank(goods_default_img_mod)){
+            setting.setApp_logo(goods_default_img_mod);
         }
 
         //保存修改

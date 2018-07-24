@@ -4,18 +4,20 @@ import com.google.gson.Gson;
 
 /**
  * Created by LiuLiHao on 2018/7/21 13:38.
- * 描述：
- * 作者： LiuLiHao
+ * desc： convert object to json string
+ * author： LiuLiHao
  */
 public class GsonUtils {
 
+    //singleton mode
+    private static final Gson gson = new Gson();
+
     /**
-     * 转json
+     * 2json
      * @param object
      * @return
      */
     public static String toJson(Object object){
-        Gson gson = new Gson();
         return gson.toJson(object);
     }
 

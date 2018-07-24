@@ -8,6 +8,7 @@ import com.wanhao.proback.bean.member.Member;
 import com.wanhao.proback.bean.member.MemberBank;
 import com.wanhao.proback.bean.member.MemberTaoBao;
 import com.wanhao.proback.bean.shop.Shop;
+import com.wanhao.proback.bean.util.InviteResult;
 import com.wanhao.proback.service.AreaService;
 import com.wanhao.proback.service.member.MemberBankService;
 import com.wanhao.proback.service.member.MemberService;
@@ -18,12 +19,14 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -116,6 +119,8 @@ public class MemberController {
         member.setUsername(username);
         member.setReal_name(real_name);
         member.setEmail(email);
+        //注册时间
+        member.setRegist_time(new Date());
         member.setMobile(mobile);
         member.setQq(qq);
 
@@ -124,7 +129,9 @@ public class MemberController {
         }
         //记录注册ip
         String ipAdrress = IpUtils.getIpAdrress(request);
-        member.setRegist_ip(ipAdrress);
+        //根据ip查询省市
+        String location = IpUtils.getLocation(ipAdrress);
+        member.setRegist_ip(ipAdrress+location);
 
 
         memberService.addMember(member);
@@ -534,6 +541,11 @@ public class MemberController {
 
         JsonObject jsonObject = new JsonObject();
 
+        if (StringUtils.isBlank(old_pass) && StringUtils.isBlank(old_pay_pass)){
+            ResponseUtils.retnFailMsg(response,jsonObject,"没有修改密码");
+            return;
+        }
+
         Member member = new Member();
         if (StringUtils.isNotBlank(new_pass)){
             //检查旧密码
@@ -549,6 +561,9 @@ public class MemberController {
                         //保存
                         memberService.updateMember(dbMember);
                         jsonObject.addProperty(Constants.MESSAGE,"密码修改完成");
+                    }else {
+                        ResponseUtils.retnFailMsg(response,jsonObject,"原密码错误,修改失败");
+                        return;
                     }
                 }
             }
@@ -564,6 +579,9 @@ public class MemberController {
                 dbMember.setPay_pass(new_pay_pass);
                 memberService.updateMember(dbMember);
                 jsonObject.addProperty(Constants.MESSAGE,"支付密码修改完成");
+            }else {
+                ResponseUtils.retnFailMsg(response,jsonObject,"原密码错误,支付密码修改失败");
+                return;
             }
         }
         //返回
@@ -611,6 +629,30 @@ public class MemberController {
         }else {
             ResponseUtils.retnFailMsg(response,jsonObject);
         }
+    }
+
+    /**
+     * 获取周推广排行列表
+     */
+    @GetMapping(value = "loadInviteByWeek")
+    public void loadInviteByWeek(HttpServletRequest request, HttpServletResponse response){
+        JsonObject jsonObject = new JsonObject();
+        List<InviteResult> list = memberService.getInviteDataByWeek();
+        String s = GsonUtils.toJson(list);
+        jsonObject.addProperty("list",s);
+        ResponseUtils.retnSuccessMsg(response,jsonObject,"查询成功");
+    }
+
+    /**
+     * 获取周推广排行列表
+     */
+    @GetMapping(value = "loadInviteByMonth")
+    public void loadInviteByMonth(HttpServletRequest request, HttpServletResponse response){
+        JsonObject jsonObject = new JsonObject();
+        List<InviteResult> list = memberService.getInviteDataByMonth();
+        String s = GsonUtils.toJson(list);
+        jsonObject.addProperty("list",s);
+        ResponseUtils.retnSuccessMsg(response,jsonObject,"查询成功");
     }
 
 }

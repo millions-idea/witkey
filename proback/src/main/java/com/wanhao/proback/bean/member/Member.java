@@ -100,9 +100,11 @@ public class Member extends BaseBean {
     private String shi;
     private String token;
     private String pay_pass;
-
-
     private Integer is_bind_shop;
 
-
+    public Member() {
+    }
+    public Member(Integer id){
+        setId(id);
+    }
 }

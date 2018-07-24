@@ -9,7 +9,7 @@ import javax.persistence.Table;
 
 /**
  * Created by LiuLiHao on 2018/7/21 14:39.
- * 描述：
+ * 描述： 店铺
  * 作者： LiuLiHao
  */
 @Table(name = "tb_shop")

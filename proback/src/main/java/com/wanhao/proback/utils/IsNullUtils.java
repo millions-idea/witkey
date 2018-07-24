@@ -25,4 +25,24 @@ public class IsNullUtils {
         }
         return false;
     }
+
+    /**
+     * 判空
+     * @return
+     */
+    public static boolean isNull(Object... arr){
+        if (arr!=null && arr.length>0){
+            for (int i=0;i<arr.length;i++){
+                Object o = arr[i];
+
+                if (o instanceof String && StringUtils.isBlank((String) o)){
+                    return true;
+                }else if (o==null){
+                    return true;
+                }
+
+            }
+        }
+        return false;
+    }
 }

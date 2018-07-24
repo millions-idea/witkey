@@ -66,4 +66,12 @@ public class ShopServiceImpl implements ShopService {
         return shopMapper.selectByExample(example);
 
     }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Shop getByPk(Integer id) {
+        Shop shop = new Shop();
+        shop.setId(id);
+        return shopMapper.selectByPrimaryKey(shop);
+    }
 }

@@ -2,6 +2,7 @@ package com.wanhao.proback.service.impl.member;
 
 import com.github.pagehelper.PageHelper;
 import com.wanhao.proback.bean.member.Member;
+import com.wanhao.proback.bean.util.InviteResult;
 import com.wanhao.proback.dao.member.MemberMapper;
 import com.wanhao.proback.service.member.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -106,7 +107,7 @@ public class MemberServiceImpl implements MemberService {
     @Override
     @Transactional(readOnly = true)
     public Member getMember(Member member) {
-        return memberMapper.selectOne(member);
+        return memberMapper.selectByPrimaryKey(member);
     }
 
     @Override
@@ -200,5 +201,23 @@ public class MemberServiceImpl implements MemberService {
 
         }
         return members;
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<InviteResult> getInviteData() {
+        return memberMapper.getInviteData();
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<InviteResult> getInviteDataByWeek() {
+        return memberMapper.getInviteDataByWeek();
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<InviteResult> getInviteDataByMonth() {
+        return memberMapper.getInviteDataByMonth();
     }
 }

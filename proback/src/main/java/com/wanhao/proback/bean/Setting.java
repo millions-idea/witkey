@@ -41,6 +41,9 @@ public class Setting extends BaseBean{
     private String yongjin_name;
     private Integer message_open;
     private String alipay_qrcode;
+    private String goods_default_img;
+
+
     private Double zhijie_fabu_shiyong;
     private Double jianjie_fabu_shiyong;
     private Double zhijie_shenqing_shiyong;

@@ -18,4 +18,7 @@ public interface ShopService {
 
     List<Shop> getShops(Shop shop);
 
+    //主键查询
+    Shop getByPk(Integer id);
+
 }

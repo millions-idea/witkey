@@ -160,13 +160,41 @@
                                 <div style="float: left;line-height: 100px;margin-left: 20px">
                                     <input name="app_logo" type="text"
                                            th:value="${setting.app_logo}"
-                                           value="/skin/ypmili/css/img/app_logo.png" id="app_logo" size="58"
+                                           value="/skin/ypmili/css/img/app_logo.png"
+                                           id="app_logo_1" size="58"
                                            style="display: none"/>
 
                                     <!--保存修改值-->
                                     <input type="hidden" name="app_logo_mod" id="app_logo">
 
                                     <span onclick="makeForm(3)"
+                                          class="jt">上传</span>&nbsp;&nbsp;<span onclick="_preview(Dd('app_logo').value)"
+                                                                                class="jt">预览</span>&nbsp;&nbsp;<span
+                                        onclick="Dd('app_logo').value='';Dd('showapp_logo').src='http://admin.topaaa.com/skin/default/css/img/app_logo.png';"
+                                        class="jt">删除</span>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="tl">任务列表商品默认图片(未接单可见)</td>
+                            <td>
+                                <img onclick="_preview(Dd('app_logo').value)"
+                                     th:src="${setting.goods_default_img}"
+                                     style="float: left;cursor: pointer"
+                                     id="showgood_logo" height="100"/>
+
+                                <div style="float: left;line-height: 100px;margin-left: 20px">
+                                    <input name="app_logo" type="text"
+                                           th:value="${setting.goods_default_img}"
+                                           value="/skin/ypmili/css/img/app_logo.png"
+                                           size="58"
+                                           style="display: none"/>
+
+                                    <!--保存修改值-->
+                                    <input type="hidden" name="goods_default_img_mod" id="gd_logo">
+
+                                    <span onclick="makeForm(4)"
                                           class="jt">上传</span>&nbsp;&nbsp;<span onclick="_preview(Dd('app_logo').value)"
                                                                                 class="jt">预览</span>&nbsp;&nbsp;<span
                                         onclick="Dd('app_logo').value='';Dd('showapp_logo').src='http://admin.topaaa.com/skin/default/css/img/app_logo.png';"
@@ -223,12 +251,12 @@
                                                         $("#mobile_logo").val(data.url);
                                                         break;
                                                     case 3:
-                                                        $("#showapp_logo").attr("src", data.url);
+                                                        $("#app_logo_1").attr("src", data.url);
                                                         $("#app_logo").val(data.url);
                                                         break;
                                                     case 4:
-                                                        $("#file4").attr("src", data.url);
-                                                        $("#url4").val(data.url);
+                                                        $("#showgood_logo").attr("src", data.url);
+                                                        $("#gd_logo").val(data.url);
                                                         break;
                                                 }
                                                 //移除表单

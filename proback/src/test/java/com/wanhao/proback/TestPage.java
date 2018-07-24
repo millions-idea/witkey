@@ -1,8 +1,8 @@
 package com.wanhao.proback;
 
-import com.github.pagehelper.PageInfo;
-import com.wanhao.proback.bean.member.Member;
+import com.wanhao.proback.bean.util.InviteResult;
 import com.wanhao.proback.bean.vip.Vip;
+import com.wanhao.proback.dao.member.MemberMapper;
 import com.wanhao.proback.service.member.MemberService;
 import com.wanhao.proback.service.vip.VipService;
 import org.junit.Test;
@@ -25,14 +25,13 @@ public class TestPage {
     @Autowired
     MemberService memberService;
 
+    @Autowired
+    MemberMapper memberMapper;
+
     @Test
     public void testQ(){
-        Member member = new Member();
-        member.setPage(2);
-        member.setRows(5);
-        List<Member> members = memberService.getMembers(member);
-        PageInfo<Member> info = new PageInfo<>(members);
-        System.out.println(info);
+        List<InviteResult> inviteData = memberMapper.getInviteData();
+        System.out.println(inviteData);
     }
 
     @Autowired
@@ -41,11 +40,9 @@ public class TestPage {
 
     @Test
     public void testFirst(){
-        List<Member> memberFristInvite = memberService.getMemberFristInvite(6);
-        System.out.println(memberFristInvite);
+        List<InviteResult> inviteDataByMonth = memberMapper.getInviteDataByMonth();
 
-        List<Member> memberSecondInvite = memberService.getMemberSecondInvite(6);
-        System.out.println(memberSecondInvite);
+        System.out.println(inviteDataByMonth);
     }
     @Test
     public void testVIp(){
