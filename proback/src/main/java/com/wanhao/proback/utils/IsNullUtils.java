@@ -12,7 +12,7 @@ public class IsNullUtils {
 
     /**
      * 判空
-     * @return
+     * @return 为空返回 true 为空返回 false
      */
     public static boolean isContainsNull(String... arr){
         if (arr!=null && arr.length>0){
@@ -28,7 +28,7 @@ public class IsNullUtils {
 
     /**
      * 判空
-     * @return
+     * @return 为空返回 true 为空返回 false
      */
     public static boolean isNull(Object... arr){
         if (arr!=null && arr.length>0){

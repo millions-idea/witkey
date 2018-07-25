@@ -1,6 +1,7 @@
 package com.wanhao.proback.service.shop;
 
 import com.wanhao.proback.bean.shop.Goods;
+import com.wanhao.proback.service.BaseService;
 
 import java.util.List;
 
@@ -9,16 +10,9 @@ import java.util.List;
  * 描述：
  * 作者： LiuLiHao
  */
-public interface GoodsService {
+public interface GoodsService extends BaseService<Goods> {
 
 
     List<Goods> getGoods(Goods goods);
-
-
-    void update(Goods goods);
-
-    void add(Goods goods);
-
-    void delete(int id);
 
 }

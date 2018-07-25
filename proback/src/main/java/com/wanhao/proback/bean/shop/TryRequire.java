@@ -21,10 +21,7 @@ public class TryRequire extends BaseBean {
     private Integer bask_img;
     private Integer task_rec_time;
     private Integer memid;
-
     private Integer goods_id;
-
-
     private String device;
     private Integer need_bi_san_jia;
     private Integer need_chat;

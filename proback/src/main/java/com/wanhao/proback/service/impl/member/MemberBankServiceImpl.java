@@ -3,6 +3,7 @@ package com.wanhao.proback.service.impl.member;
 import com.github.pagehelper.PageHelper;
 import com.wanhao.proback.bean.member.MemberBank;
 import com.wanhao.proback.dao.member.MemberBankMapper;
+import com.wanhao.proback.service.BaseServiceImpl;
 import com.wanhao.proback.service.member.MemberBankService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,7 @@ import java.util.List;
  */
 @Service
 @Transactional
-public class MemberBankServiceImpl implements MemberBankService {
+public class MemberBankServiceImpl extends BaseServiceImpl<MemberBank> implements MemberBankService {
     @Autowired
     MemberBankMapper bankMapper;
 
@@ -62,18 +63,6 @@ public class MemberBankServiceImpl implements MemberBankService {
             criteria.andEqualTo("bank_type",memberBank.getBank_type());
         }
         return bankMapper.selectByExample(example);
-    }
-
-    @Override
-   // @CacheEvict(key = "#p0.id")
-    public void update(MemberBank bank) {
-        bankMapper.updateByPrimaryKeySelective(bank);
-    }
-
-    @Override
-    //@CachePut(key = "#p0.id")
-    public void add(MemberBank bank) {
-        bankMapper.insertSelective(bank);
     }
 
 }

@@ -3,6 +3,7 @@ package com.wanhao.proback.config;
 import com.wanhao.proback.annotaion.ISLogin;
 import com.wanhao.proback.bean.member.Member;
 import com.wanhao.proback.exception.FormRepeatException;
+import com.wanhao.proback.exception.TokenInvalidException;
 import com.wanhao.proback.service.member.MemberService;
 import com.wanhao.proback.utils.Constants;
 import org.apache.commons.lang.StringUtils;
@@ -53,7 +54,7 @@ public class ISLoginContract {
                         response = (HttpServletResponse) args[i];
                     }
                 }
-                //获取不到
+                //从请求头获取
                 String mobile1 = request.getHeader("mobile");
                 if (mobile1!=null){
                     System.out.println(mobile1);
@@ -78,14 +79,13 @@ public class ISLoginContract {
                 }else {
                     //错误
                     System.out.println("错误的token");
+                    throw new TokenInvalidException("登录信息不正确,请从新登录");
                 }
 
             }
 
-        } catch (FormRepeatException e){
-
-        } catch (Exception e){
-
+        }  catch (Exception e){
+            throw e;
         }
     }
 

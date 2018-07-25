@@ -22,9 +22,7 @@ public class BuyerRequire extends BaseBean {
     private Integer taoqi_limit;
     private Integer gender_limit;
     private Integer memid;
-
     private Integer goods_id;
-
     private String forbidden_area;
     private String honor_limit;
     private String age_limit;

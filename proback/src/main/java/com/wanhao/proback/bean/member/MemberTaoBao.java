@@ -10,7 +10,7 @@ import java.util.Date;
 
 /**
  * Created by LiuLiHao on 2018/7/18 17:25.
- * 描述： 淘宝买号表
+ * 描述： 买家买号表
  * 作者： LiuLiHao
  */
 @Table(name = "tb_member_taobao")
@@ -52,4 +52,8 @@ public class MemberTaoBao extends BaseBean {
     private String shoot_huabei;
 
     private Integer is_delete;
+
+    //信誉值
+    private Integer honor_value;
+
 }

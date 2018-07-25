@@ -1,6 +1,7 @@
 package com.wanhao.proback.service.shop;
 
 import com.wanhao.proback.bean.shop.BuyerRequire;
+import com.wanhao.proback.service.BaseService;
 
 import java.util.List;
 
@@ -9,14 +10,8 @@ import java.util.List;
  * 描述：
  * 作者： LiuLiHao
  */
-public interface BuyerRequireService {
+public interface BuyerRequireService extends BaseService<BuyerRequire> {
 
-    List<BuyerRequire> getGoods(BuyerRequire require);
+    List<BuyerRequire> getBuyerRequires(BuyerRequire require);
 
-
-    void update(BuyerRequire require);
-
-    void add(BuyerRequire require);
-
-    void delete(int id);
 }

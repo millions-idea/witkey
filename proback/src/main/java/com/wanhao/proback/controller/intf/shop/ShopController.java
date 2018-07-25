@@ -8,8 +8,12 @@ import com.wanhao.proback.bean.shop.Goods;
 import com.wanhao.proback.bean.shop.Shop;
 import com.wanhao.proback.bean.shop.TryRequire;
 import com.wanhao.proback.service.member.MemberService;
+import com.wanhao.proback.service.shop.BuyerRequireService;
 import com.wanhao.proback.service.shop.GoodsService;
 import com.wanhao.proback.service.shop.ShopService;
+import com.wanhao.proback.service.shop.TryRequireService;
+import com.wanhao.proback.utils.GsonUtils;
+import com.wanhao.proback.utils.IsNullUtils;
 import com.wanhao.proback.utils.ResponseUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  * Created by LiuLiHao on 2018/7/23 21:42.
@@ -24,6 +29,7 @@ import javax.servlet.http.HttpServletResponse;
  * 作者： LiuLiHao
  */
 @Controller(value = "intf_shop")
+@RequestMapping(value = "intf_shop")
 public class ShopController {
 
     @Autowired
@@ -74,15 +80,15 @@ public class ShopController {
 
         Member dbMember = memberService.getMember(member);
 
-        if (dbMember==null || dbMember.getIs_seller()==null || dbMember.getIs_seller()==0){
-            ResponseUtils.retnFailMsg(response,jsonObject,"操作失败...");
+        if (dbMember == null || dbMember.getIs_seller() == null || dbMember.getIs_seller() == 0) {
+            ResponseUtils.retnFailMsg(response, jsonObject, "操作失败...");
             return;
         }
         //查看店铺是否审核通过
         Shop shop = shopService.getByPk(shop_id);
-        if (shop==null || shop.getIs_pass()==null || shop.getIs_pass()==0){
+        if (shop == null || shop.getIs_pass() == null || shop.getIs_pass() == 0) {
             //审核未通过
-            ResponseUtils.retnFailMsg(response,jsonObject,"抱歉,您的店铺还未审核通过不能发布任务...");
+            ResponseUtils.retnFailMsg(response, jsonObject, "抱歉,您的店铺还未审核通过不能发布任务...");
             return;
         }
 
@@ -114,7 +120,6 @@ public class ShopController {
         tryRequire.setNeed_col_goods(need_col_goods);
 
 
-
         Goods goods = new Goods();
         goods.setTime_divider(time_divider);
         goods.setTask_safe(task_safe);
@@ -140,30 +145,66 @@ public class ShopController {
 
     @Autowired
     GoodsService goodsService;
+    @Autowired
+    TryRequireService tryRequireService;
+    @Autowired
+    BuyerRequireService buyerRequireService;
 
     /**
      * 加载用户任务列表
      */
-    @ISLogin
+    // @ISLogin
     @RequestMapping(value = "loadUserTaskList")
     public void loadUserTaskList(HttpServletRequest request, HttpServletResponse response,
-                                 Integer memid){
-        if (memid!=null){
-            JsonObject jsonObject = new JsonObject();
-            //判断用户是否已经绑定账号
-            Member member = new Member(memid);
-            Member dbMember = memberService.getMember(member);
-            if (dbMember==null || dbMember.getIs_bind_buy_account()==null ||
-                    dbMember.getIs_bind_buy_account()==0){
-                //没有绑定买号
-                ResponseUtils.retnFailMsg(response,jsonObject,"没有绑定买号,不能浏览任务...");
-                return;
-            }
-            Goods goods = new Goods();
-            goods.setPay_type(1);
-            //查询任务列表
-            goodsService.getGoods(goods);
+                                 Integer memid) {
+        //if (memid!=null){
+        JsonObject jsonObject = new JsonObject();
+        //判断用户是否已经绑定账号
+        Member member = new Member(memid);
+        Member dbMember = memberService.getMember(member);
+        if (dbMember == null || dbMember.getIs_bind_buy_account() == null ||
+                dbMember.getIs_bind_buy_account() == 0) {
+            //没有绑定买号
+            ResponseUtils.retnFailMsg(response, jsonObject, "没有绑定买号,不能浏览任务...");
+            return;
+        }
+        Goods goods = new Goods();
+        goods.setPay_type(1);
+        //查询任务列表
 
+        List<Goods> list = goodsService.getGoods(goods);
+        if (list != null && list.size() > 0) {
+            for (Goods temp : list) {
+                Integer id = temp.getId();
+                //试用限制
+                TryRequire require = new TryRequire();
+                require.setGoods_id(id);
+                List<TryRequire> goods1 = tryRequireService.get(require);
+                temp.setTryRequire(goods1.get(0));
+                //买家限制
+                BuyerRequire buyerRequire = new BuyerRequire();
+                buyerRequire.setGoods_id(id);
+                List<BuyerRequire> buyerRequires = buyerRequireService.getBuyerRequires(buyerRequire);
+                //设置
+                temp.setBuyerRequire(buyerRequires.get(0));
+            }
+        }
+        //返回数据
+        jsonObject.addProperty("list",GsonUtils.toJson(list));
+        ResponseUtils.retnSuccessMsg(response,jsonObject);
+        //}
+    }
+
+    /**
+     * 接取任务
+     */
+    @ISLogin
+    @RequestMapping(value = "recvTask")
+    public void recvTask(HttpServletRequest request, HttpServletResponse response,
+                         Integer memid,Integer goods_id){
+        JsonObject jsonObject = new JsonObject();
+        if (IsNullUtils.isNull(memid,goods_id)){
+            //ResponseUtils.retnFailMsg();
         }
     }
 }

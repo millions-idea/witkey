@@ -63,12 +63,20 @@ public class MemberController {
                          HttpServletResponse response) {
         JsonObject jsonObject = new JsonObject();
 
-        if (IsNullUtils.isContainsNull(username, password, real_name, email, mobile, qq, sheng, shi)) {
+        if (IsNullUtils.isNull(is_seller,username, password,
+                real_name, email, mobile,
+                qq, sheng, shi)) {
             //信息不完整
             ResponseUtils.retnFailMsg(response, jsonObject);
             return;
         }
         Member member = new Member();
+        //判断账号类型
+        if (! (is_seller==0 || is_seller==1)){
+            ResponseUtils.retnFailMsg(response, jsonObject,"账号类型错误");
+            return;
+        }
+
         member.setIs_seller(is_seller);
         member.setMobile(mobile);
         //判断用户是否存在
@@ -108,10 +116,7 @@ public class MemberController {
             member.setSheng(area.getCityName());
             member.setShi(areaCity.getCityName());
         }catch (Exception e){
-
         }
-
-
 
         member.setPassword(password);
         //支付密码和密码默认一样
@@ -135,9 +140,7 @@ public class MemberController {
 
 
         memberService.addMember(member);
-        jsonObject.addProperty("error", 0);
-        jsonObject.addProperty(Constants.MESSAGE, "注册成功!");
-        ResponseUtils.renderJson(response, jsonObject.toString());
+        ResponseUtils.retnSuccessMsg(response, jsonObject,"注册成功");
     }
 
     /**
@@ -152,9 +155,7 @@ public class MemberController {
         JsonObject jsonObject = new JsonObject();
         //字段不能为空
         if (IsNullUtils.isContainsNull(username, password)) {
-            jsonObject.addProperty(Constants.ERROR, 1);
-            jsonObject.addProperty(Constants.MESSAGE, "密码错误!");
-            ResponseUtils.renderJson(response, jsonObject.toString());
+            ResponseUtils.retnFailMsg(response, jsonObject);
             return;
         }
 
@@ -230,7 +231,6 @@ public class MemberController {
         }
 
         ResponseUtils.renderJson(response, jsonObject.toString());
-        // return jsonObject;
     }
 
     @Autowired
@@ -255,8 +255,11 @@ public class MemberController {
 
         //保存信息
         Member member = (Member) request.getSession().getAttribute(Constants.USER);
-        System.out.println(member);
-
+        //System.out.println(member);
+        if (member==null){
+            ResponseUtils.retnFailMsg(response, jsonObject,"登录过期,请从新登录");
+            return;
+        }
         member.setReal_name(realname);
         member.setId_card(idcard);
         member.setZheng(url1);
@@ -281,7 +284,8 @@ public class MemberController {
                                String honor, String age_range, Integer taoqi,
                                Integer[] buy_class, String truename,
                                String mobile, String province,
-                               String city, String address) {
+                               String city, String address,
+                               Integer honor_value) {
         JsonObject jsonObject = new JsonObject();
 
         if (catid == null || IsNullUtils.isContainsNull(
@@ -299,6 +303,10 @@ public class MemberController {
         //保存信息
         Member member = (Member) request.getSession().getAttribute(Constants.USER);
 
+        if (member==null){
+            ResponseUtils.retnFailMsg(response, jsonObject,"登录过期,请从新登录");
+            return;
+        }
         MemberTaoBao memberTaoBao = new MemberTaoBao();
 
         //判断这个号是否已经绑定过了
@@ -344,6 +352,8 @@ public class MemberController {
         Integer mem_id = member.getId();
         memberTaoBao.setMem_id(mem_id);
 
+        //信用数值
+        memberTaoBao.setHonor_value(honor_value);
         memberTaoBao.setAccount_gender(account_gender);
         memberTaoBao.setAddress(address);
 

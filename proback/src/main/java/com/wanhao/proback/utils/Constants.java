@@ -18,8 +18,25 @@ public interface Constants {
 
 
     /**
+     * 允许上传的文件类型
+     */
+    String[] FILE_TYPES = {
+            "jpg",
+            "png"
+    };
+
+    /**
+     * 允许上传的MIME文件类型
+     */
+    String[] MIME_TYPES = {
+      "image/png",
+      "image/jpeg"
+    };
+
+    /**
      *
-     * 图片地址
+     * 图片地址  填写对应的服务器地址
+     *
      */
     String IMAGE_PATH = "http://192.168.43.181:8081/images/upload/";
 
@@ -29,7 +46,7 @@ public interface Constants {
     String USER = "CURRENT_USER";
 
     /**
-     * 信息提示 在message里使用
+     * 在jsonobject message里使用
      */
     String MESSAGE = "message";
 

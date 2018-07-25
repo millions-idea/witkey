@@ -238,7 +238,7 @@
                                         success: function (data) {
                                             //成功的回调
                                             if (data.error == '1') {
-                                                //alert("上传失败")
+                                                alert("上传失败")
                                             } else {
                                                 //显示上传成功的图片
                                                 switch (number) {
@@ -261,11 +261,13 @@
                                                 }
                                                 //移除表单
                                                 document.body.removeChild(turnForm);
+                                                alert("上传成功")
+
                                             }
                                         },
                                         error: function (returndata) {
                                             //请求异常的回调
-                                            // modals.warn("网络访问失败，请稍后重试!");
+                                            alert("上传失败")
                                         }
                                     });
                                 };

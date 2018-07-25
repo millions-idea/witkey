@@ -3,6 +3,7 @@ package com.wanhao.proback.service.impl.shop;
 import com.github.pagehelper.PageHelper;
 import com.wanhao.proback.bean.shop.Goods;
 import com.wanhao.proback.dao.shop.GoodsMapper;
+import com.wanhao.proback.service.BaseServiceImpl;
 import com.wanhao.proback.service.shop.GoodsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,7 +19,7 @@ import java.util.List;
  */
 @Service
 @Transactional
-public class GoodsServiceImpl implements GoodsService {
+public class GoodsServiceImpl extends BaseServiceImpl<Goods> implements GoodsService {
 
     @Autowired
     GoodsMapper mapper;
@@ -34,22 +35,5 @@ public class GoodsServiceImpl implements GoodsService {
         Example example = new Example(Goods.class);
 
         return mapper.selectByExample(example);
-    }
-
-    @Override
-    public void update(Goods goods) {
-        mapper.updateByPrimaryKeySelective(goods);
-    }
-
-    @Override
-    public void add(Goods goods) {
-        mapper.insertSelective(goods);
-    }
-
-    @Override
-    public void delete(int id) {
-        Goods goods = new Goods();
-        goods.setId(id);
-        mapper.deleteByPrimaryKey(goods);
     }
 }

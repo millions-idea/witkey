@@ -2,6 +2,7 @@ package com.wanhao.proback.service.impl.member;
 
 import com.wanhao.proback.bean.member.MemberTaoBao;
 import com.wanhao.proback.dao.member.MemberTaoBaoMapper;
+import com.wanhao.proback.service.BaseServiceImpl;
 import com.wanhao.proback.service.member.MemberTaoBaoService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,8 @@ import java.util.List;
  */
 @Service
 @Transactional
-public class MemberTaoBaoServiceImpl implements MemberTaoBaoService {
+public class MemberTaoBaoServiceImpl extends BaseServiceImpl<MemberTaoBao>
+        implements MemberTaoBaoService {
 
     @Autowired
     MemberTaoBaoMapper taoBaoMapper;
@@ -27,7 +29,6 @@ public class MemberTaoBaoServiceImpl implements MemberTaoBaoService {
     @Override
     public void addMemberTaoBao(MemberTaoBao taoBao) {
         taoBaoMapper.insertSelective(taoBao);
-
     }
 
     @Override
@@ -78,18 +79,5 @@ public class MemberTaoBaoServiceImpl implements MemberTaoBaoService {
         return taoBaoMapper.selectOne(memberTaoBao);
     }
 
-    @Override
-    public void update(MemberTaoBao taoBao) {
-        System.out.println(taoBao.getId());
-        taoBaoMapper.updateByPrimaryKeySelective(taoBao);
-    }
-
-    @Override
-    public void delete(Integer account_id) {
-        MemberTaoBao taoBao = new MemberTaoBao();
-        taoBao.setId(account_id);
-        taoBao.setIs_delete(1);
-        taoBaoMapper.updateByPrimaryKeySelective(taoBao);
-    }
 }
 

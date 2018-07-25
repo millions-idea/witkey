@@ -1,6 +1,7 @@
 package com.wanhao.proback.service.shop;
 
 import com.wanhao.proback.bean.shop.TryRequire;
+import com.wanhao.proback.service.BaseService;
 
 import java.util.List;
 
@@ -9,15 +10,9 @@ import java.util.List;
  * 描述：
  * 作者： LiuLiHao
  */
-public interface TryRequireService {
+public interface TryRequireService extends BaseService<TryRequire> {
 
-    List<TryRequire> getGoods(TryRequire require);
+    List<TryRequire> get(TryRequire require);
 
-
-    void update(TryRequire require);
-
-    void add(TryRequire require);
-
-    void delete(int id);
 
 }

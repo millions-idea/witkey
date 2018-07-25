@@ -1,6 +1,7 @@
 package com.wanhao.proback.service.shop;
 
 import com.wanhao.proback.bean.shop.Shop;
+import com.wanhao.proback.service.BaseService;
 
 import java.util.List;
 
@@ -9,12 +10,7 @@ import java.util.List;
  * 描述：
  * 作者： LiuLiHao
  */
-public interface ShopService {
-
-
-    void add(Shop shop);
-
-    void update(Shop shop);
+public interface ShopService extends BaseService<Shop> {
 
     List<Shop> getShops(Shop shop);
 

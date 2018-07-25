@@ -3,6 +3,7 @@ package com.wanhao.proback.service.impl.shop;
 import com.github.pagehelper.PageHelper;
 import com.wanhao.proback.bean.shop.BuyerRequire;
 import com.wanhao.proback.dao.shop.BuyerRequireMapper;
+import com.wanhao.proback.service.BaseServiceImpl;
 import com.wanhao.proback.service.shop.BuyerRequireService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,38 +19,25 @@ import java.util.List;
  */
 @Service
 @Transactional
-public class BuyerRequireImpl implements BuyerRequireService {
+public class BuyerRequireImpl extends BaseServiceImpl<BuyerRequire>
+        implements BuyerRequireService {
 
     @Autowired
     BuyerRequireMapper mapper;
 
-
     @Override
     @Transactional(readOnly = true)
-    public List<BuyerRequire> getGoods(BuyerRequire require) {
+    public List<BuyerRequire> getBuyerRequires(BuyerRequire require) {
         if (require.getPage() != null && require.getRows() != null) {
             PageHelper.startPage(require.getPage(), require.getRows());
         }
 
         Example example = new Example(BuyerRequire.class);
-
+        Example.Criteria criteria = example.createCriteria();
+        if (require.getGoods_id()!=null){
+            criteria.andEqualTo("goods_id",require.getGoods_id());
+        }
         return mapper.selectByExample(example);
     }
 
-    @Override
-    public void update(BuyerRequire require) {
-        mapper.updateByPrimaryKeySelective(require);
-    }
-
-    @Override
-    public void add(BuyerRequire require) {
-        mapper.insertSelective(require);
-    }
-
-    @Override
-    public void delete(int id) {
-        BuyerRequire buyerRequire = new BuyerRequire();
-        buyerRequire.setId(id);
-        mapper.deleteByPrimaryKey(buyerRequire);
-    }
 }

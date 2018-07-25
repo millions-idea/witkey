@@ -2,6 +2,7 @@ package com.wanhao.proback.service.member;
 
 
 import com.wanhao.proback.bean.member.MemberTaoBao;
+import com.wanhao.proback.service.BaseService;
 
 import java.util.List;
 
@@ -10,7 +11,7 @@ import java.util.List;
  * 描述：
  * 作者： LiuLiHao
  */
-public interface MemberTaoBaoService {
+public interface MemberTaoBaoService extends BaseService<MemberTaoBao> {
 
     void addMemberTaoBao(MemberTaoBao taoBao);
 
@@ -18,7 +19,4 @@ public interface MemberTaoBaoService {
 
     MemberTaoBao getOne(Integer id);
 
-    void update(MemberTaoBao taoBao);
-
-    void delete(Integer account_id);
 }

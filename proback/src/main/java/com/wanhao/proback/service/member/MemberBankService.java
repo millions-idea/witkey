@@ -1,6 +1,7 @@
 package com.wanhao.proback.service.member;
 
 import com.wanhao.proback.bean.member.MemberBank;
+import com.wanhao.proback.service.BaseService;
 
 import java.util.List;
 
@@ -9,24 +10,13 @@ import java.util.List;
  * 描述：
  * 作者： LiuLiHao
  */
-public interface MemberBankService  {
+public interface MemberBankService  extends BaseService<MemberBank> {
+
     /**
      * 分页查询
      * @param memberBank
      * @return
      */
     List<MemberBank> findByPages(MemberBank memberBank);
-
-    /**
-     * 更新
-     * @param bank
-     */
-    void update(MemberBank bank);
-
-    /**
-     * 添加
-     * @param bank
-     */
-    void add(MemberBank bank);
 
 }

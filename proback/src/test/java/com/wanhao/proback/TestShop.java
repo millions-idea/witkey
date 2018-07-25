@@ -1,6 +1,8 @@
 package com.wanhao.proback;
 
+import com.wanhao.proback.bean.member.TiXian;
 import com.wanhao.proback.bean.shop.Shop;
+import com.wanhao.proback.service.member.TiXianService;
 import com.wanhao.proback.service.shop.ShopService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -42,6 +44,23 @@ public class TestShop {
             shop.setShop_name(shopType[random.nextInt(shopType.length)] + i+"号店");
             shopService.add(shop);
             System.out.println("添加完成");
+        }
+    }
+
+    @Autowired
+    TiXianService tiXianService;
+
+    @Test
+    public void testBase(){
+        for (int i=0;i<10;i++){
+            TiXian tiXian = new TiXian();
+            tiXian.setMemid(6);
+            tiXian.setFlag(1);
+            tiXian.setMoney(50.1);
+            tiXian.setShoukuanren("胡锦涛");
+            tiXian.setShouxu(0.1);
+            tiXianService.add(tiXian);
+
         }
     }
 }

@@ -2,6 +2,7 @@ package com.wanhao.proback.controller;
 
 import com.google.gson.JsonObject;
 import com.wanhao.proback.utils.Constants;
+import com.wanhao.proback.utils.FileCheckUtil;
 import com.wanhao.proback.utils.ResponseUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.stereotype.Controller;
@@ -13,7 +14,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Random;
@@ -43,20 +43,56 @@ public class FileupLoadController {
             ResponseUtils.renderJson(response, errObj.toString());
             return;
         }
-
-        //动态生成图片名称 名称=日期毫秒+3位随机数字
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmssSSS");
-        String format = dateFormat.format(new Date());
-
-        //后缀名
+        //后缀名检测
         String extension = FilenameUtils.getExtension(file.getOriginalFilename());
 
-        //生成随机数
-        Random random = new Random();
-        for (int i = 0; i < 3; i++) {
-            format += random.nextInt(10);
+        //判断后缀名
+        String[] fileTypes = Constants.FILE_TYPES;
+        boolean flag = false;
+        for (String fileType : fileTypes) {
+            if (fileType.equals(extension)){
+                flag = true;
+                break;
+            }
         }
+
+        if (!flag){
+            //不能上传
+            ResponseUtils.renderJson(response, errObj.toString());
+            return;
+        }
+
         try {
+            //文件类型检测
+            String mimeType = FileCheckUtil.getFileMimeType(file.getBytes());
+
+            flag = false;
+            for (String mt : Constants.MIME_TYPES) {
+                if (mt.equals(mimeType)){
+                    flag = true;
+                    break;
+                }
+            }
+            System.out.println(mimeType);
+
+            if (!flag){
+                //不能上传
+                ResponseUtils.renderJson(response, errObj.toString());
+                return;
+            }
+
+            //可以上传
+            //动态生成图片名称 名称=日期毫秒+3位随机数字
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmssSSS");
+            String format = dateFormat.format(new Date());
+
+
+            //生成随机数
+            Random random = new Random();
+            for (int i = 0; i < 6; i++) {
+                format += random.nextInt(10);
+            }
+
             //获取跟目录
             File abspath = new File(ResourceUtils.getURL("classpath:").getPath());
             if (!abspath.exists())
@@ -82,13 +118,14 @@ public class FileupLoadController {
             //保存文件
             file.transferTo(dest);
 
-            //前台访问的地址
+            //前台img访问的地址  直接使用 img:src 显示
             String url = Constants.IMAGE_PATH +  finalFileName;
 
             //返回保存文件的地址
             JsonObject jsonObject = new JsonObject();
             jsonObject.addProperty("url", url);
 
+            //保存到数据库的文件path   xxxx.jpg 不带路径
             jsonObject.addProperty("path", finalFileName);
             //正常
             jsonObject.addProperty("error", "0");
@@ -96,7 +133,7 @@ public class FileupLoadController {
 
         } catch (IllegalStateException e) {
             ResponseUtils.renderJson(response, errObj.toString());
-        } catch (IOException e) {
+        } catch (Exception e) {
             ResponseUtils.renderJson(response, errObj.toString());
         }
     }
