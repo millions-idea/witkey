@@ -55,5 +55,6 @@ public class MemberTaoBao extends BaseBean {
 
     //信誉值
     private Integer honor_value;
+    private Integer disable;
 
 }

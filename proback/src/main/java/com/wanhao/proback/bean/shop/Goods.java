@@ -37,10 +37,14 @@ public class Goods extends BaseBean {
     private Integer memid;
     private Double price;
     private Double append_money;
+
+    //下单的淘口令
+    private String tao_kouling;
+
     @Transient
     private TryRequire tryRequire;
     @Transient
     private BuyerRequire buyerRequire;
-
-
+    @Transient
+    private String orderBY;
 }

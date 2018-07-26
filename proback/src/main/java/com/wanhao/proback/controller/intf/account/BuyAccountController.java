@@ -2,6 +2,7 @@ package com.wanhao.proback.controller.intf.account;
 
 import com.google.gson.JsonObject;
 import com.wanhao.proback.annotaion.ISLogin;
+import com.wanhao.proback.bean.member.MemberTaoBao;
 import com.wanhao.proback.service.member.MemberTaoBaoService;
 import com.wanhao.proback.utils.ResponseUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +41,28 @@ public class BuyAccountController {
         }
         ResponseUtils.retnFailMsg(response,jsonObject,"请选择要删除的买号!");
         return;
+    }
+
+
+    /**
+     * 改变买号状态
+     */
+    @ISLogin
+    @RequestMapping(value = "disableAccount")
+    public void disableAccount(HttpServletRequest request, HttpServletResponse response,
+                               Integer account_id){
+        JsonObject jsonObject = new JsonObject();
+        if (account_id!=null){
+            MemberTaoBao taoBao = new MemberTaoBao();
+            Integer disable = taoBao.getDisable();
+            taoBao.setId(account_id);
+            taoBao.setDisable(disable==1?0:1);
+            //保存更新
+            taoBaoService.update(taoBao);
+            ResponseUtils.retnSuccessMsg(response,jsonObject,"修改完成");
+        }else {
+            ResponseUtils.retnFailMsg(response,jsonObject);
+        }
     }
 
 }

@@ -28,11 +28,28 @@ public class GoodsServiceImpl extends BaseServiceImpl<Goods> implements GoodsSer
     @Override
     @Transactional(readOnly = true)
     public List<Goods> getGoods(Goods goods) {
-        if (goods.getPage() != null && goods.getRows() != null) {
+
+        if (goods.getPage() != null && goods.getRows() != null && goods.getOrderBY() != null) {
+            //带排序
+            PageHelper.startPage(goods.getPage(), goods.getRows(), goods.getOrderBY());
+        } else if (goods.getPage() != null && goods.getRows() != null) {
             PageHelper.startPage(goods.getPage(), goods.getRows());
         }
 
         Example example = new Example(Goods.class);
+        Example.Criteria criteria = example.createCriteria();
+        //id
+        if (goods.getId() != null) {
+            criteria.andEqualTo("id", goods.getId());
+        }
+        //会员id
+        if (goods.getMemid() != null) {
+            criteria.andEqualTo("memid", goods.getMemid());
+        }
+        //类型
+        if (goods.getGoods_class_id() != null) {
+            criteria.andEqualTo("goods_class_id", goods.getGoods_class_id());
+        }
 
         return mapper.selectByExample(example);
     }

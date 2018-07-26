@@ -44,6 +44,9 @@ public class Setting extends BaseBean{
     private String goods_default_img;
 
 
+    //完成任务时间限制
+    private Integer do_task_time;
+
     private Double zhijie_fabu_shiyong;
     private Double jianjie_fabu_shiyong;
     private Double zhijie_shenqing_shiyong;

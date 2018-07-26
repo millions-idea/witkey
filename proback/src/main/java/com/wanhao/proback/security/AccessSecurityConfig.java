@@ -92,6 +92,7 @@ public class AccessSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/dist/**")
                 .antMatchers("/js/**")
                 .antMatchers("/img/**")
+                .antMatchers("/common/**")
                 //前台使用
                 .antMatchers("/kaptcha/**")
                 .antMatchers("/area/**")

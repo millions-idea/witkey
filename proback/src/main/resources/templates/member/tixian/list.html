@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="/common/commons-head::commonHeader('提现申请列表')">
+</head>
+
+
+<body>
+
+
+<div style="display: flex;">
+    <div th:replace="~{admin/commons::#left_menu}"></div>
+
+
+    <div style="flex: 1; padding: 20px; margin-left:185px;">
+        <div id="ypmsgbox"></div>
+        <div class="menu" onselectstart="return false" id="destoon_menu">
+            <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                <tr>
+                    <td valign="bottom">
+                        <table cellpadding="0" cellspacing="0">
+                            <tr>
+                                <a href="?moduleid=2&action=check" >提现申请列表</a></td><td class="tab_nav">&nbsp;</td>
+                                <td id="Tab3" class="tab"><a href="?moduleid=2&file=contact" ></a>
+                                </td><td class="tab_nav">&nbsp;</td></tr>
+                        </table>
+                    </td>
+                    <td width="110"><div><img src="admin/image/spacer.gif" width="40" height="24" title="刷新" onclick="window.location.reload();" style="cursor:pointer;" alt=""/><img src="admin/image/spacer.gif" width="20" height="24" title="后退" onclick="history.back(-1);" style="cursor:pointer;" alt=""/><img src="admin/image/spacer.gif" width="20" height="24" title="前进" onclick="history.go(1);" style="cursor:pointer;" alt=""/><img src="admin/image/spacer.gif" width="20" height="24" title="帮助" onclick="Go('http://www.destoon.com/client.php?action=help&product=b2b&mfa=member-index-check');" style="cursor:help;" alt=""/></div></td>
+                </tr>
+            </table>
+        </div>
+
+        <div id="ypcontent"><form th:action="@{/member/toTiXian}" method="post">
+            <div class="tt">会员搜索</div>
+            <table cellpadding="2" cellspacing="1" class="tb">
+                <tr>
+                    <td>&nbsp;
+                        <select name="fields" >
+                            <option value="0" selected=selected>按条件</option>
+                            <option value="2">会员id</option>
+                            <!--<option value="4">姓名</option>-->
+                            <!--<option value="5">手机号码</option>-->
+                        </select>&nbsp;
+
+                        <input type="text" size="30" name="input_val" value="" title="关键词"/>&nbsp;
+
+                        <select name="pass" >
+                            <option value="5" selected=selected>审核状态</option>
+                            <option value="1">付款成功</option>
+                            <option value="2">支付失败</option>
+                            <option value="3">已拒绝</option>
+                        </select>&nbsp;
+
+
+                        <!--<select name="order" >-->
+                        <!--<option value="0" selected=selected>结果排序方式</option>-->
+                        <!--<option value="7">账户资金降序</option>-->
+                        <!--<option value="8">账户资金升序</option>-->
+                        <!--<option value="9">会员联盟币降序</option>-->
+                        <!--<option value="10">会员联盟币升序</option>-->
+                        <!--<option value="11">短信余额降序</option>-->
+                        <!--<option value="12">短信余额升序</option>-->
+                        <!--</select>&nbsp;-->
+                        <input type="submit" value="搜 索" class="btn"/>&nbsp;
+                        <input type="button" value="重 置" class="btn"/>
+                    </td>
+                </tr>
+            </table>
+        </form>
+            <form method="post">
+                <div class="tt">提现申请列表</div>
+                <table cellpadding="2" cellspacing="1" class="tb">
+                    <tr>
+                        <th width="25">
+                            <input type="checkbox" onclick="checkall(this.form);"/>
+                        </th>
+                        <th>会员ID</th>
+                        <th>流水ID</th>
+                        <th>会员用户名</th>
+                        <th>姓名</th>
+                        <th>提现金额</th>
+                        <th>手续费</th>
+                        <th>联系方式</th>
+                        <th>申请时间</th>
+                        <th>申请IP</th>
+                        <th>状态</th>
+                        <!--<th width="80">操作</th>-->
+                    </tr>
+                    <tr th:each="info:${pageinfo.list}"
+                        onmouseover="this.className='on';"
+                        onmouseout="this.className='';"
+                        align="center">
+                        <td>
+                            <input type="checkbox" class="cb_auth"
+                                   name="cb_auth" th:value="${info.id}"/>
+                        </td>
+                        <td class="px11" th:text="${info.memid}">
+                            会员id 666
+                        </td>
+
+                        <td class="px11" th:text="${info.id}">
+                            流水id 333
+                        </td>
+
+                        <td class="px11" th:text="${info.member.username}">
+                            王大锤
+                        </td>
+                        <td class="px11" th:text="${info.member.real_name}">
+                            王浩
+                        </td>
+                        <td class="px11" th:text="${info.money}">
+                            10
+                        </td>
+                        <td class="px11" th:text="${info.shouxu}">
+                            0.1
+                        </td>
+                        <td class="px11" th:text="${info.member.qq}">
+                            77546165
+                        </td>
+
+                        <td class="px11" th:text="${#dates.format(info.shenqing_shijian, 'yyyy-MM-dd HH:mm')}">
+                            2018年7月19日16:22:33
+                        </td>
+                        <td class="px11" th:text="${info.shenqing_ip}">
+                            198.132.22.35
+                        </td>
+                        <td class="px11" th:if="${info.flag}==3">
+                            已拒绝
+                        </td>
+                        <td class="px11" th:if="${info.flag} lt 3" th:text="${info.flag}==1?'付款成功':'未审核'">
+                            未审核
+                        </td>
+                    </tr>
+                </table>
+
+                <table class="tb">
+                    <tr>
+                        <td>
+                            &nbsp;<textarea style="width:300px;height:40px;"
+                                            name="reason" id="reason"
+                                            onfocus="if(this.value=='')this.value='操作原因';"/>
+                            操作原因
+                            </textarea>
+                        </td>
+                        <td>
+                            <input type="checkbox" name="msg" id="msg" value="1" checked/> 消息通知
+                            <input type="checkbox" name="sms" id="sms" value="1"/> 短信通知
+                        </td>
+                    </tr>
+                </table>
+
+                <div class="btns">
+
+                    <div class="btns">
+                        <button type="button"
+                                class="btn"
+                                onclick="doAuth(1);"
+                        >付款成功</button>
+                        &nbsp;
+                        <button type="button"
+                                class="btn" onclick="doAuth(3);">
+                            拒绝申请
+                        </button>
+                        &nbsp;
+
+                        <button type="button" class="btn" onclick="doAuth(2);">
+                            支付失败
+                        </button>
+                    </div>
+
+                </div>
+            </form>
+            <div class="pages" id="pages">
+
+            </div>
+            <script type="text/javascript">
+                Menuon(2);
+
+                //通过认证
+                function doAuth(number) {
+                    var auth_arr = $(".cb_auth:checked");
+
+                    var reason = $("#reason").val();
+
+                    if (auth_arr.length <= 0) {
+                        alert('请选择操作项');
+                        return;
+                    }
+                    var data = [];
+
+                    for(var i=0;i<auth_arr.length;i++){
+                        var auth = auth_arr[i];
+                        var val = auth.value;
+                        data.push(val);
+                        console.log(val);
+                    }
+                    if (data.length<=0){
+                        return;
+                    }
+
+                    //带上原因
+                    var dest = {
+                        data:data,
+                        reason:reason
+                    };
+
+                    var postdata = JSON.stringify(dest);
+                    var url = '/member/tixianAgree';
+                    switch (number) {
+                        case 2:
+                            url = '/member/tixianFail';
+                            break;
+                        case 1:
+                            url = '/member/tixianAgree';
+                            break;
+                        case 3:
+                            url = '/member/tixianDisAgree';
+                            break;
+                    }
+                    //提交
+                    $.ajax({
+                        //接口地址
+                        url: url ,
+                        type: 'POST',
+                        data: postdata,
+                        contentType : 'application/json',
+                        processData : false,
+                        dataType: 'json',
+                        success: function (date) {
+                            //成功的回调
+                            if(date.error == '1'){
+                                alert("操作失败")
+                            }else {
+                                alert("操作成功");
+                                //刷新页面
+                                window.location.reload(true);
+                            }
+                        },
+                        error: function (returndata) {
+                            //请求异常的回调
+                            alert("操作失败")
+                        }
+                    });
+                }
+
+                //分页
+                layui.use('laypage', function () {
+                    var laypage = layui.laypage;
+
+                    laypage.render({
+                        elem: 'pages'
+                        , count: [[${pageinfo.total}]] //数据总数，从服务端得到
+                        ,curr: [[${pageinfo.pageNum}]] //获取起始页
+                        , jump: function (obj, first) {
+                            //首次不执行
+                            if (!first) {
+                                var current = obj.curr;
+                                window.location.href = "/member/toTiXian/?page=" + current;
+                            }
+                        }
+                    });
+                });
+
+
+            </script>
+            <br/>
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>

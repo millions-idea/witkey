@@ -6,6 +6,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import java.util.Date;
 
 /**
@@ -25,8 +26,16 @@ public class TiXian extends BaseBean {
     private String shoukuanren;
     private String shoukuan_fangshi;
     private String shoukuan_zhaghao;
+    //申请IP
+    private String shenqing_ip;
+
+    private String remark;
 
     private Date shenqing_shijian;
     private Date shouli_shijian;
+
+    //不存储
+    @Transient
+    private Member member;
 
 }

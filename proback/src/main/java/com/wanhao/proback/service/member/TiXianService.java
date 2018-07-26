@@ -14,4 +14,11 @@ public interface TiXianService  extends BaseService<TiXian> {
 
     List<TiXian> getDatas(TiXian tiXian);
 
+
+    /**
+     * 今日提现数据
+     * @return
+     */
+    List<TiXian> getTodayList(Integer id);
+
 }

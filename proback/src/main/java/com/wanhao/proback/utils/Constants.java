@@ -61,4 +61,8 @@ public interface Constants {
     String TOKEN = "token";
 
 
+    /**
+     * 幂等
+     */
+    String IDEMPOTENCY = "idempotency";
 }

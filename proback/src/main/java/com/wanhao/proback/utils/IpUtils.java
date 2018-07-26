@@ -68,7 +68,7 @@ public class IpUtils {
             HttpResponse response = HttpUtils.doGet(host, path, method, headers, querys);
             String s = EntityUtils.toString(response.getEntity());
             IpResult ipResult = gson.fromJson(s, IpResult.class);
-            String location = ipResult.getCity()+ipResult.getProvince();
+            String location = ipResult.getProvince()+","+ipResult.getCity();
 
             return location;
         } catch (Exception e) {

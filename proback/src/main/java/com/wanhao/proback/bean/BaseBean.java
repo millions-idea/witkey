@@ -9,7 +9,7 @@ import java.io.Serializable;
 
 /**
  * Created by LiuLiHao on 2018/7/16 11:25.
- * 描述： 基础信息
+ * 描述： 对象基础信息
  * 作者： LiuLiHao
  */
 @Setter

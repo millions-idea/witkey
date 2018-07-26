@@ -11,7 +11,6 @@ import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.UUID;
 
 /**
  * Created by LiuLiHao on 2018/7/19 23:49.
@@ -41,21 +40,21 @@ public class TokenContract {
                     }
                 }
 
-                boolean needSaveSession = token.save();
-                if (needSaveSession){
-                    String uuid = UUID.randomUUID().toString();
-                    request.getSession().setAttribute( "token" , uuid);
-                    logger.debug("进入表单页面，Token值为："+uuid);
-                }
-
-                boolean needRemoveSession = token.remove();
-                if (needRemoveSession) {
-                    if (isRepeatSubmit(request)) {
-                        logger.error("表单重复提交");
-                        throw new FormRepeatException("表单重复提交");
-                    }
-                    request.getSession(false).removeAttribute( "token" );
-                }
+//                boolean needSaveSession = token.save();
+//                if (needSaveSession){
+//                    String uuid = UUID.randomUUID().toString();
+//                    request.getSession().setAttribute(Constants.IDEMPOTENCY, uuid);
+//                    logger.debug("进入表单页面，Token值为："+uuid);
+//                }
+//
+//                boolean needRemoveSession = token.remove();
+//                if (needRemoveSession) {
+//                    if (isRepeatSubmit(request)) {
+//                        logger.error("重复提交");
+//                        throw new FormRepeatException("重复提交");
+//                    }
+//                    request.getSession(false).removeAttribute(Constants.IDEMPOTENCY);
+//                }
             }
 
         } catch (FormRepeatException e){

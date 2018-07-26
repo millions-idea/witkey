@@ -101,6 +101,7 @@ public class Member extends BaseBean {
     private String token;
     private String pay_pass;
     private Integer is_bind_shop;
+    private Double permis_money;
 
     public Member() {
     }

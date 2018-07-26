@@ -4,7 +4,7 @@ import java.lang.annotation.*;
 
 /**
  * Created by LiuLiHao on 2018/7/19 23:46.
- * 描述： 防止表单重复提交
+ * 描述： 防止重复提交
  * 作者： LiuLiHao
  */
 @Retention(RetentionPolicy.RUNTIME)
@@ -16,4 +16,5 @@ public @interface Token {
     boolean save() default false ;
     //移除 Token 值
     boolean remove() default false ;
+
 }

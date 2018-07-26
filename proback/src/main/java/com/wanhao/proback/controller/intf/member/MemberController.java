@@ -4,15 +4,19 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.wanhao.proback.annotaion.ISLogin;
 import com.wanhao.proback.bean.Area;
+import com.wanhao.proback.bean.Setting;
 import com.wanhao.proback.bean.member.Member;
 import com.wanhao.proback.bean.member.MemberBank;
 import com.wanhao.proback.bean.member.MemberTaoBao;
+import com.wanhao.proback.bean.member.TiXian;
 import com.wanhao.proback.bean.shop.Shop;
 import com.wanhao.proback.bean.util.InviteResult;
 import com.wanhao.proback.service.AreaService;
+import com.wanhao.proback.service.SettingService;
 import com.wanhao.proback.service.member.MemberBankService;
 import com.wanhao.proback.service.member.MemberService;
 import com.wanhao.proback.service.member.MemberTaoBaoService;
+import com.wanhao.proback.service.member.TiXianService;
 import com.wanhao.proback.service.shop.ShopService;
 import com.wanhao.proback.utils.*;
 import org.apache.commons.lang.StringUtils;
@@ -22,6 +26,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -664,5 +669,226 @@ public class MemberController {
         jsonObject.addProperty("list",s);
         ResponseUtils.retnSuccessMsg(response,jsonObject,"查询成功");
     }
+
+
+    @Autowired
+    TiXianService tiXianService;
+
+    /**
+     * 提现记录
+     */
+    @ISLogin
+    @RequestMapping(value = "tiXianJiLu",method = RequestMethod.POST)
+    public void tiXianJiLu(HttpServletRequest request, HttpServletResponse response,
+                           Integer memid,String from_date,
+                           String to_date,Integer page){
+        JsonObject jsonObject = new JsonObject();
+        if (memid!=null){
+            TiXian tiXian  = new TiXian();
+            //查询提现记录
+            List<TiXian> list = tiXianService.getDatas(tiXian);
+            if (list!=null && list.size()>0){
+                jsonObject.addProperty("list",GsonUtils.toJson(list));
+                ResponseUtils.retnSuccessMsg(response,jsonObject,"查询成功");
+            }else {
+                ResponseUtils.retnSuccessMsg(response,jsonObject,"没有记录");
+            }
+
+        }else {
+            ResponseUtils.retnSuccessMsg(response,jsonObject,"没有记录");
+        }
+    }
+
+    /**
+     * 增加保证金
+     */
+    @ISLogin
+    @PostMapping(value = "addPermissMoney")
+    public void addPermissMoney(HttpServletRequest request, HttpServletResponse response,
+                                Integer memid,Double add_val){
+        JsonObject jsonObject = new JsonObject();
+        if (IsNullUtils.isNull(memid,add_val)){
+            ResponseUtils.retnFailMsg(response,jsonObject,"参数错误");
+            return;
+        }
+        //判断钱数是否为负数
+        if (add_val<=0){
+            ResponseUtils.retnFailMsg(response,jsonObject,"金额错误");
+            return;
+        }
+        Member member = new Member(memid);
+        //查询数据库的记录
+        Member dbMember = memberService.getMember(member);
+        Double money = dbMember.getMoney();
+        // todo 幂等操作
+
+        Double permis_money = dbMember.getPermis_money();
+        if (money!=null && money>=add_val){
+            //扣款
+            double saveMoney = ComputeUtil.sub(money, add_val);
+            dbMember.setMoney(saveMoney);
+            //加保证金
+            if (permis_money==null)
+                permis_money=0.0;
+            Double savePermiss = ComputeUtil.add(permis_money, add_val);
+            dbMember.setPermis_money(savePermiss);
+            //保存到数据库
+            memberService.updateMember(dbMember);
+            ResponseUtils.retnSuccessMsg(response,jsonObject,"保证金缴纳成功");
+        }else {
+            ResponseUtils.retnFailMsg(response,jsonObject,"保证金缴纳失败");
+        }
+    }
+
+    @Autowired
+    SettingService settingService;
+
+    /**
+     * 提现
+     */
+    @ISLogin
+    @PostMapping(value = "tixian2Account")
+    public void tixian2Account(HttpServletRequest request, HttpServletResponse response,
+                               Double money,Integer memid,
+                               String sk_fangshi){
+        JsonObject jsonObject = new JsonObject();
+        if( !IsNullUtils.isNull(response,money,memid)){
+            if (money<=0){
+                ResponseUtils.retnFailMsg(response,jsonObject,"金额错误");
+                return;
+            }
+
+            //查看是否绑定了银行卡
+            Member member = new Member(memid);
+
+            Member dbMember = memberService.getMember(member);
+            if (dbMember.getIs_real_bank()==null || dbMember.getIs_real_bank()==0){
+                //没有绑定
+                ResponseUtils.retnFailMsg(response,jsonObject,"您还没有绑定银行卡,暂时不能提现");
+                return;
+            }
+
+            //查看提现配置
+            Setting setting = settingService.query();
+            Integer open_tixian = setting.getOpen_tixian();
+            //是否开启提现
+            if (open_tixian==0){
+                ResponseUtils.retnFailMsg(response,jsonObject,"没有开启提现功能...");
+                return;
+            }
+
+            //提现上限  下限
+            Double min_money = setting.getMin_money();
+            if (min_money!=null && min_money>=0){
+                if (money<min_money){
+                    //小于最小金额
+                    ResponseUtils.retnFailMsg(response,jsonObject,"金额错误...");
+                    return;
+                }
+            }
+            Double max_money = setting.getMax_money();
+            if (max_money!=null && max_money>=0){
+                if (money>max_money){
+                    //大于最大金额
+                    ResponseUtils.retnFailMsg(response,jsonObject,"金额错误...");
+                    return;
+                }
+            }
+
+            Integer tixian_count = setting.getTixian_count();
+
+            //查看最近提现次数
+            List<TiXian> todayList = tiXianService.getTodayList(memid);
+            if (IsNullUtils.isNull(todayList,tixian_count) || tixian_count<=todayList.size()){
+                ResponseUtils.retnFailMsg(response,jsonObject,"今日提现已经满了,明天再来吧..");
+                return;
+            }
+
+
+
+            if (dbMember!=null && dbMember.getMoney()!=null){
+                Double dbMoney = dbMember.getMoney();
+                if (dbMoney>=money){
+                    //扣款
+                    double dbResult = ComputeUtil.sub(dbMoney, money);
+                    dbMember.setMoney(dbResult);
+
+                    //增加数据库提现记录
+                    TiXian tiXian = new TiXian();
+                    tiXian.setMoney(money);
+
+                    //计算手续费
+                    Double shouxu = setting.getShouxu();
+                    if (shouxu!=null && shouxu>0){
+                        Double resultShouXu = ComputeUtil.mul(money, shouxu);
+                        tiXian.setShouxu(resultShouXu);
+                    }
+
+                    tiXian.setMemid(memid);
+                    tiXian.setFlag(0);
+                    tiXian.setShoukuanren(member.getReal_name());
+                    tiXian.setShenqing_shijian(new Date());
+                    tiXian.setShoukuan_fangshi(sk_fangshi);
+                    //记录IP
+                    String ipAdrress = IpUtils.getIpAdrress(request);
+                    tiXian.setShenqing_ip(ipAdrress);
+
+                    tiXianService.add(tiXian);
+
+                    //保存
+                    memberService.updateMember(dbMember);
+                    ResponseUtils.retnFailMsg(response,jsonObject,"提现已经提交,等待审核(1工作日左右到账)");
+
+                }else {
+                    //金额不足
+                    ResponseUtils.retnFailMsg(response,jsonObject,"金额不足");
+                }
+            }
+        }
+    }
+
+
+    /**
+     * 是否绑定了银行卡
+     */
+    //@ISLogin
+    @RequestMapping(value = "isbindBank")
+    public void isbindBank(HttpServletRequest request, HttpServletResponse response,
+                           Integer memid){
+        JsonObject jsonObject = new JsonObject();
+        if (memid!=null){
+            MemberBank bank = new MemberBank();
+            bank.setMem_id(memid);
+            List<MemberBank> list = bankService.findByPages(bank);
+            if (list!=null && list.size()>0){
+                MemberBank memberBank = list.get(0);
+                if (memberBank.getIs_auth()!=null && memberBank.getIs_auth()==1){
+                    //已经认证了
+                    jsonObject.addProperty("resultjson",GsonUtils.toJson(memberBank));
+                    ResponseUtils.retnSuccessMsg(response,jsonObject,"绑定成功");
+                    return;
+                }else {
+                    ResponseUtils.retnFailMsg(response,jsonObject,"还没有绑定成功");
+                    return;
+                }
+            }
+        }
+        ResponseUtils.retnFailMsg(response,jsonObject,"还没有绑定成功");
+
+    }
+
+    /**
+     * 获取推广链接
+     */
+//    @RequestMapping(value = "getInviteUrl")
+//    public void getInviteUrl(HttpServletRequest request, HttpServletResponse response,
+//                             Integer memid){
+//        if (memid!=null){
+//            Member member = new Member(memid);
+//
+//            Member dbMember = memberService.getMember(member);
+//            String username = dbMember.getUsername();
+//        }
+//    }
 
 }
