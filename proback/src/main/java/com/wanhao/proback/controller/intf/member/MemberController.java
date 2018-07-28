@@ -874,18 +874,25 @@ public class MemberController {
 
     }
 
-    /**
-     * 获取推广链接
-     */
-//    @RequestMapping(value = "getInviteUrl")
-//    public void getInviteUrl(HttpServletRequest request, HttpServletResponse response,
-//                             Integer memid){
-//        if (memid!=null){
-//            Member member = new Member(memid);
-//
-//            Member dbMember = memberService.getMember(member);
-//            String username = dbMember.getUsername();
-//        }
-//    }
 
+    /**
+     * 查询掌柜列表
+     */
+    @ISLogin
+    @RequestMapping(value = "getShopList")
+    public void getShopList(HttpServletRequest request, HttpServletResponse response,
+                            Integer memid){
+        JsonObject jsonObject = new JsonObject();
+
+        if (memid!=null && memid>0){
+            Shop shop = new Shop();
+            shop.setMem_id(memid);
+
+            List<Shop> shops = shopService.getShops(shop);
+            jsonObject.addProperty("list",GsonUtils.toJson(shops));
+            ResponseUtils.retnSuccessMsg(response,jsonObject,"查询完成");
+        }else {
+            ResponseUtils.retnFailMsg(response,jsonObject);
+        }
+    }
 }

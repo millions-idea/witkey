@@ -38,7 +38,7 @@ public interface Constants {
      * 图片地址  填写对应的服务器地址
      *
      */
-    String IMAGE_PATH = "http://192.168.43.181:8081/images/upload/";
+    String IMAGE_PATH = "http://192.168.0.101:8081/images/upload/";
 
     String[] ages = {
             "18-25",
