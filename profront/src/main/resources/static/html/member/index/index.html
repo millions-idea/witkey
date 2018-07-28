@@ -76,6 +76,7 @@
                 dataType: 'json',
                 success: function (result) {
                     var setting = jQuery.parseJSON(result.setting);
+                    console.log(setting);
                     putStorage("setting",setting);
                     //标题
                     $("#title_content").html(setting.web_name);

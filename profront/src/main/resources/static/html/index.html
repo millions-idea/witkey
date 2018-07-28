@@ -685,7 +685,8 @@
                         dataType: 'json',
                         success: function (result) {
                             var setting = jQuery.parseJSON(result.setting);
-                            setStorage("setting",setting);
+
+                            localStorage.setItem("setting",result.setting);
 
                             //标题
                             $("#title_content").html(setting.web_name);
