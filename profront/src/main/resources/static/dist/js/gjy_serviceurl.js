@@ -22,3 +22,10 @@ function setStorage(key,value){
 function getStorage(key){
     sessionStorage.getItem(key);
 }
+//全局
+function putStorage(key,value){
+    localStorage.setItem(key,value);
+}
+function pullStorage(key){
+    localStorage.getItem(key);
+}

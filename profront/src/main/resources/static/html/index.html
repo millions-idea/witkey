@@ -9,7 +9,8 @@
     <meta name="D-Width-Response" content="class=g-wrap">
     <title>销量联盟 - 提升销量直通车，网商互动平台领跑者。</title>
     <meta name="keywords" content="销量联盟"/>
-    <meta name="description" content="销量联盟是通过安全提高销量帮助商家提升商品排名，为商品打开销路，一个精准营销推广平台。为零信誉低销量的掌柜提供解决方案,新手快速提升信誉,发任务提升信誉，就选销量联盟！"/>
+    <meta name="description"
+          content="销量联盟是通过安全提高销量帮助商家提升商品排名，为商品打开销路，一个精准营销推广平台。为零信誉低销量的掌柜提供解决方案,新手快速提升信誉,发任务提升信誉，就选销量联盟！"/>
     <script type="text/javascript" src="../dist/js/config.js"></script>
     <script type="text/javascript" src="../dist/js/jquery-2.0.0.min.js"></script>
     <script type="text/javascript" src="../dist/js/template7.min.js"></script>
@@ -18,15 +19,18 @@
     <script type="text/javascript" src="../dist/js/ypfunction.js"></script>
     <!--<script type="text/javascript" src="../dist/js/yp.js"></script>-->
     <link rel="stylesheet" type="text/css" href="../dist/css/index.css">
+    <!--配置服务器连接地址 -->
+    <script type="text/javascript" src="/dist/js/gjy_serviceurl.js"></script>
+
 
     <script>
         $(function () {
             // alert(sessionStorage.getItem("member"))
-            if(sessionStorage.getItem("member") != null){
+            if (sessionStorage.getItem("member") != null) {
                 $("#loginbtn").hide();
                 $("#registerbtn").hide();
                 $("#userindex").show();
-            }else{
+            } else {
                 $("#loginbtn").show();
                 $("#registerbtn").show();
                 $("#userindex").hide();
@@ -40,24 +44,27 @@
     <div class="wrap-header" style="width:1100px;margin:0 auto;">
         <!--<a href="/" class="logo"><img alt="销量联盟" th:src="@{/dist/img/logo.png}" height="63"></a>-->
         <div class='version'>
-                <!--登录-->
-                <div class="elielogin" id="loginbtn" onclick="location.href='member/welcome/login.html'">
-                    <i></i>登录
-                </div>
-                <!--注册-->
-                <div class="eliesign" id="registerbtn" onclick="location.href='member/welcome/register.html'">
-                    <i></i>注册
-                </div>
+            <!--登录-->
+            <div class="elielogin" id="loginbtn" onclick="location.href='member/welcome/login.html'">
+                <i></i>登录
+            </div>
+            <!--注册-->
+            <div class="eliesign" id="registerbtn" onclick="location.href='member/welcome/register.html'">
+                <i></i>注册
+            </div>
             <!--<div sec:authorize="isAuthenticated()">-->
-                <!--&lt;!&ndash;登录&ndash;&gt;-->
-                <div class="elielogin" id="userindex" style="width: 100px;display: none" onclick="location.href='member/index/index.html'">
-                    个人中心
-                </div>
+            <!--&lt;!&ndash;登录&ndash;&gt;-->
+            <div class="elielogin" id="userindex" style="width: 100px;display: none"
+                 onclick="location.href='member/index/index.html'">
+                个人中心
+            </div>
             <!--</div>-->
         </div>
         <ul class='fr nav-menu' id='submenu'>
             <li class="cur"><a href="index.html">首页</a></li>
-            <li><a href="javascript:void(0)" onclick="renwu_cat('请选择一个试用类别','/yptask/?catid=4|淘宝试用,/yptask/?catid=5|阿里巴巴试用,/yptask/?catid=40|京东试用,/yptask/?catid=6|拼多多试用,/yptask/?catid=7|蘑菇街试用,/yptask/?catid=8|美丽说试用,/yptask/?catid=41|淘宝访问,/yptask/?catid=51|阿里巴巴访问,/yptask/?catid=401|京东访问');">免费试用</a></li>
+            <li><a href="javascript:void(0)"
+                   onclick="renwu_cat('请选择一个试用类别','/yptask/?catid=4|淘宝试用,/yptask/?catid=5|阿里巴巴试用,/yptask/?catid=40|京东试用,/yptask/?catid=6|拼多多试用,/yptask/?catid=7|蘑菇街试用,/yptask/?catid=8|美丽说试用,/yptask/?catid=41|淘宝访问,/yptask/?catid=51|阿里巴巴访问,/yptask/?catid=401|京东访问');">免费试用</a>
+            </li>
             <li><a id="buyLink" href="/member/fuzhu.php">流量套餐</a></li>
             <li><a href="/member/agent.php">加盟分站</a></li>
             <li><a href="/announce/index.php?typeid=3">新手帮助</a></li>
@@ -96,14 +103,16 @@
                 <div class='s2-txt1'>最专业的网店流量优化提升工具</div>
                 <div class='s2-txt2'>网店推广，流量无忧！</div>
                 <div class='down-com p-download'>
-                    <a href="javascript:" class='fl areaDow' onclick="renwu_cat('请选择要发布的试用类别','/member/my.php?mid=23&action=add&catid=4|淘宝试用,/member/my.php?mid=23&action=add&catid=5|阿里巴巴试用,/member/my.php?mid=23&action=add&catid=40|京东试用,/member/my.php?mid=23&action=add&catid=6|拼多多试用,/member/my.php?mid=23&action=add&catid=7|蘑菇街试用,/member/my.php?mid=23&action=add&catid=8|美丽说试用,/member/my.php?mid=23&action=add&catid=41|淘宝访问,/member/my.php?mid=23&action=add&catid=51|阿里巴巴访问,/member/my.php?mid=23&action=add&catid=401|京东访问');"></a>
+                    <a href="javascript:" class='fl areaDow'
+                       onclick="renwu_cat('请选择要发布的试用类别','/member/my.php?mid=23&action=add&catid=4|淘宝试用,/member/my.php?mid=23&action=add&catid=5|阿里巴巴试用,/member/my.php?mid=23&action=add&catid=40|京东试用,/member/my.php?mid=23&action=add&catid=6|拼多多试用,/member/my.php?mid=23&action=add&catid=7|蘑菇街试用,/member/my.php?mid=23&action=add&catid=8|美丽说试用,/member/my.php?mid=23&action=add&catid=41|淘宝访问,/member/my.php?mid=23&action=add&catid=51|阿里巴巴访问,/member/my.php?mid=23&action=add&catid=401|京东访问');"></a>
                     <span class='fr'>
 多个试用大厅选择<br/>
 试用要求自定义
 </span>
                 </div>
                 <div class='down-com m-download'>
-                    <a class='fl'><img src="/api/qrcode.php?url=http%3A%2F%2F001.topaaa.com%2Fapp.php" width="147" height="147"></a>
+                    <a class='fl'><img src="/api/qrcode.php?url=http%3A%2F%2F001.topaaa.com%2Fapp.php" width="147"
+                                       height="147"></a>
                     <span class='fr'>
 版本：V6.1.8<br/>
 更新：2018-07-14</span>
@@ -128,14 +137,16 @@
                 <div class='ico-com s3-ico2'></div>
                 <div class='ico-com s3-ico3'></div>
                 <div class='down-com p-download'>
-                    <a href="javascript:" class='fl areaDow' onclick="renwu_cat('请选择要发布的试用类别','/member/my.php?mid=23&action=add&catid=4|淘宝试用,/member/my.php?mid=23&action=add&catid=5|阿里巴巴试用,/member/my.php?mid=23&action=add&catid=40|京东试用,/member/my.php?mid=23&action=add&catid=6|拼多多试用,/member/my.php?mid=23&action=add&catid=7|蘑菇街试用,/member/my.php?mid=23&action=add&catid=8|美丽说试用,/member/my.php?mid=23&action=add&catid=41|淘宝访问,/member/my.php?mid=23&action=add&catid=51|阿里巴巴访问,/member/my.php?mid=23&action=add&catid=401|京东访问');"></a>
+                    <a href="javascript:" class='fl areaDow'
+                       onclick="renwu_cat('请选择要发布的试用类别','/member/my.php?mid=23&action=add&catid=4|淘宝试用,/member/my.php?mid=23&action=add&catid=5|阿里巴巴试用,/member/my.php?mid=23&action=add&catid=40|京东试用,/member/my.php?mid=23&action=add&catid=6|拼多多试用,/member/my.php?mid=23&action=add&catid=7|蘑菇街试用,/member/my.php?mid=23&action=add&catid=8|美丽说试用,/member/my.php?mid=23&action=add&catid=41|淘宝访问,/member/my.php?mid=23&action=add&catid=51|阿里巴巴访问,/member/my.php?mid=23&action=add&catid=401|京东访问');"></a>
                     <span class='fr'>
 多个试用大厅选择<br/>
 试用要求自定义
 </span>
                 </div>
                 <div class='down-com m-download'>
-                    <a class='fl'><img src="/api/qrcode.php?url=http%3A%2F%2F001.topaaa.com%2Fapp.php" width="147" height="147"></a>
+                    <a class='fl'><img src="/api/qrcode.php?url=http%3A%2F%2F001.topaaa.com%2Fapp.php" width="147"
+                                       height="147"></a>
                     <span class='fr'>
 版本：V6.1.8<br/>
 更新：2018-07-14</span>
@@ -197,11 +208,16 @@
         <div id="taskList" class="shiyong">
             <div class="c4">
                 <div class="c41">
-                    <div class="c42">            <img src="../dist/img/cat_4.png" align="absmiddle" title="淘宝试用" width="16" height="16"/>
-                        试用编号：2962609        </div>
+                    <div class="c42"><img src="../dist/img/cat_4.png" align="absmiddle" title="淘宝试用" width="16"
+                                          height="16"/>
+                        试用编号：2962609
+                    </div>
                     <div class="c43">
                         <div class="my1">
-                            <img src="http://img.alicdn.com/bao/uploaded/i4/2080228334/TB1AeQzbp9gSKJjSspbXXbeNXXa_!!0-item_pic.jpg_430&#120;430q90.jpg" class="c46" title="公司年会抽奖" data-qtip-img="//img.alicdn.com/bao/uploaded/i4/2080228334/TB1AeQzbp9gSKJjSspbXXbeNXXa_!!0-item_pic.jpg_430&#120;430q90.jpg" data-qtip-img-width="0" data-qtip-img-height="300">
+                            <img src="http://img.alicdn.com/bao/uploaded/i4/2080228334/TB1AeQzbp9gSKJjSspbXXbeNXXa_!!0-item_pic.jpg_430&#120;430q90.jpg"
+                                 class="c46" title="公司年会抽奖"
+                                 data-qtip-img="//img.alicdn.com/bao/uploaded/i4/2080228334/TB1AeQzbp9gSKJjSspbXXbeNXXa_!!0-item_pic.jpg_430&#120;430q90.jpg"
+                                 data-qtip-img-width="0" data-qtip-img-height="300">
                             <div class="none">公司年会抽奖</div>
                         </div>
                         <div class="my2">
@@ -220,232 +236,287 @@
                         </div>
                     </div>
                 </div>
-            </div>                        <div class="c4">
-            <div class="c41">
-                <div class="c42">            <img src="http://001.topaaa.com/skin/ypmili/css/img/cat_401.png" align="absmiddle" title="京东访问" width="16" height="16"/>
-                    试用编号：2959614        </div>
-                <div class="c43">
-                    <div class="my1">
-                        <img src="http://img13.360buyimg.com/n1/jfs/t778/101/1379807742/393366/84751dc4/5535eb43Na85b282d.jpg" class="c46" title="睡衣女" data-qtip-img="//img11.360buyimg.com/n1/jfs/t9040/60/552515757/104795/3110425f/59aa28eeN8ff2f04e.jpg" data-qtip-img-width="0" data-qtip-img-height="300">
-                        <div class="none">睡衣女</div>
+            </div>
+            <div class="c4">
+                <div class="c41">
+                    <div class="c42"><img src="http://001.topaaa.com/skin/ypmili/css/img/cat_401.png" align="absmiddle"
+                                          title="京东访问" width="16" height="16"/>
+                        试用编号：2959614
                     </div>
-                    <div class="my2">
-                        <ul>
-                            <li></li>
-                            <li>
-                                金额：<span class="f_red" title="宝贝的下单金额">0</span> 元
-                            </li>
-                            <li>
-                                奖励：<span class="f_red" title="完成试用后，您能获得的试用奖励">1.2</span> 元
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="my3">
-                        <a class="qrw_btn button border-blue">等待您领取</a>
+                    <div class="c43">
+                        <div class="my1">
+                            <img src="http://img13.360buyimg.com/n1/jfs/t778/101/1379807742/393366/84751dc4/5535eb43Na85b282d.jpg"
+                                 class="c46" title="睡衣女"
+                                 data-qtip-img="//img11.360buyimg.com/n1/jfs/t9040/60/552515757/104795/3110425f/59aa28eeN8ff2f04e.jpg"
+                                 data-qtip-img-width="0" data-qtip-img-height="300">
+                            <div class="none">睡衣女</div>
+                        </div>
+                        <div class="my2">
+                            <ul>
+                                <li></li>
+                                <li>
+                                    金额：<span class="f_red" title="宝贝的下单金额">0</span> 元
+                                </li>
+                                <li>
+                                    奖励：<span class="f_red" title="完成试用后，您能获得的试用奖励">1.2</span> 元
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="my3">
+                            <a class="qrw_btn button border-blue">等待您领取</a>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>                        <div class="c4">
-            <div class="c41">
-                <div class="c42">            <img src="http://001.topaaa.com/skin/ypmili/css/img/cat_4.png" align="absmiddle" title="淘宝试用" width="16" height="16"/>
-                    试用编号：2963266        </div>
-                <div class="c43">
-                    <div class="my1">
-                        <img src="http://img.alicdn.com/imgextra/i3/2110035048/TB2AgAPhGmWQ1JjSZPhXXXCJFXa_!!2110035048.jpg_430&#120;430q90.jpg" class="c46" title="新生儿礼盒" data-qtip-img="//img.alicdn.com/imgextra/i3/2110035048/TB2AgAPhGmWQ1JjSZPhXXXCJFXa_!!2110035048.jpg_430&#120;430q90.jpg" data-qtip-img-width="0" data-qtip-img-height="300">
-                        <div class="none">新生儿礼盒</div>
+            <div class="c4">
+                <div class="c41">
+                    <div class="c42"><img src="http://001.topaaa.com/skin/ypmili/css/img/cat_4.png" align="absmiddle"
+                                          title="淘宝试用" width="16" height="16"/>
+                        试用编号：2963266
                     </div>
-                    <div class="my2">
-                        <ul>
-                            <li></li>
-                            <li>
-                                金额：<span class="f_red" title="宝贝的下单金额">189</span> 元
-                            </li>
-                            <li>
-                                奖励：<span class="f_red" title="完成试用后，您能获得的试用奖励">12.5</span> 元
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="my3">
-                        <a class="qrw_btn button border-blue">等待您领取</a>
-                    </div>
-                </div>
-            </div>
-        </div>                        <div class="c4">
-            <div class="c41">
-                <div class="c42">            <img src="http://001.topaaa.com/skin/ypmili/css/img/cat_4.png" align="absmiddle" title="淘宝试用" width="16" height="16"/>
-                    试用编号：2961022        </div>
-                <div class="c43">
-                    <div class="my1">
-                        <img src="http://gd2.alicdn.com/imgextra/i4/TB1doTBi9_I8KJjy0FoYXGFnVXa_M2.SS2_400&#120;400.jpg" class="c46" title="春装新款潮流女装" data-qtip-img="//gd2.alicdn.com/imgextra/i4/TB1doTBi9_I8KJjy0FoYXGFnVXa_M2.SS2_400&#120;400.jpg" data-qtip-img-width="0" data-qtip-img-height="300">
-                        <div class="none">春装新款潮流女装</div>
-                    </div>
-                    <div class="my2">
-                        <ul>
-                            <li></li>
-                            <li>
-                                金额：<span class="f_red" title="宝贝的下单金额">200</span> 元
-                            </li>
-                            <li>
-                                奖励：<span class="f_red" title="完成试用后，您能获得的试用奖励">7.1</span> 元
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="my3">
-                        <a class="qrw_btn button border-blue">等待您领取</a>
+                    <div class="c43">
+                        <div class="my1">
+                            <img src="http://img.alicdn.com/imgextra/i3/2110035048/TB2AgAPhGmWQ1JjSZPhXXXCJFXa_!!2110035048.jpg_430&#120;430q90.jpg"
+                                 class="c46" title="新生儿礼盒"
+                                 data-qtip-img="//img.alicdn.com/imgextra/i3/2110035048/TB2AgAPhGmWQ1JjSZPhXXXCJFXa_!!2110035048.jpg_430&#120;430q90.jpg"
+                                 data-qtip-img-width="0" data-qtip-img-height="300">
+                            <div class="none">新生儿礼盒</div>
+                        </div>
+                        <div class="my2">
+                            <ul>
+                                <li></li>
+                                <li>
+                                    金额：<span class="f_red" title="宝贝的下单金额">189</span> 元
+                                </li>
+                                <li>
+                                    奖励：<span class="f_red" title="完成试用后，您能获得的试用奖励">12.5</span> 元
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="my3">
+                            <a class="qrw_btn button border-blue">等待您领取</a>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>                        <div class="c4 act">
-            <div class="c41">
-                <div class="c42">            <img src="http://001.topaaa.com/skin/ypmili/css/img/cat_41.png" align="absmiddle" title="淘宝访问" width="16" height="16"/>
-                    试用编号：2959944        </div>
-                <div class="c43">
-                    <div class="my1">
-                        <img src="http://img.alicdn.com/bao/uploaded/i1/TB1m0&#120;mJpXXXXc3XXXXXXXXXXXX_!!0-item_pic.jpg_430&#120;430q90.jpg" class="c46" title="秋裤女外穿" data-qtip-img="//img.alicdn.com/bao/uploaded/i1/TB1m0&#120;mJpXXXXc3XXXXXXXXXXXX_!!0-item_pic.jpg_430&#120;430q90.jpg" data-qtip-img-width="0" data-qtip-img-height="300">
-                        <div class="none">秋裤女外穿</div>
+            <div class="c4">
+                <div class="c41">
+                    <div class="c42"><img src="http://001.topaaa.com/skin/ypmili/css/img/cat_4.png" align="absmiddle"
+                                          title="淘宝试用" width="16" height="16"/>
+                        试用编号：2961022
                     </div>
-                    <div class="my2">
-                        <ul>
-                            <li></li>
-                            <li>
-                                金额：<span class="f_red" title="宝贝的下单金额">0</span> 元
-                            </li>
-                            <li>
-                                奖励：<span class="f_red" title="完成试用后，您能获得的试用奖励">1.3</span> 元
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="my3">
-                        <a class="qrw_btn button border-blue">等待您领取</a>
-                    </div>
-                </div>
-            </div>
-        </div>                        <div class="c4">
-            <div class="c41">
-                <div class="c42">            <img src="http://001.topaaa.com/skin/ypmili/css/img/cat_41.png" align="absmiddle" title="淘宝访问" width="16" height="16"/>
-                    试用编号：2964025        </div>
-                <div class="c43">
-                    <div class="my1">
-                        <img src="http://img.alicdn.com/bao/uploaded/i4/2241504128/TB1Bv.Sb7fb_uJkSnfoXXb_epXa_!!0-item_pic.jpg_430&#120;430q90.jpg" class="c46" title="夜店性感女装低胸" data-qtip-img="//img.alicdn.com/bao/uploaded/i4/2241504128/TB1Bv.Sb7fb_uJkSnfoXXb_epXa_!!0-item_pic.jpg_430&#120;430q90.jpg" data-qtip-img-width="0" data-qtip-img-height="300">
-                        <div class="none">夜店性感女装低胸</div>
-                    </div>
-                    <div class="my2">
-                        <ul>
-                            <li></li>
-                            <li>
-                                金额：<span class="f_red" title="宝贝的下单金额">0</span> 元
-                            </li>
-                            <li>
-                                奖励：<span class="f_red" title="完成试用后，您能获得的试用奖励">2.2</span> 元
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="my3">
-                        <a class="qrw_btn button border-blue">等待您领取</a>
+                    <div class="c43">
+                        <div class="my1">
+                            <img src="http://gd2.alicdn.com/imgextra/i4/TB1doTBi9_I8KJjy0FoYXGFnVXa_M2.SS2_400&#120;400.jpg"
+                                 class="c46" title="春装新款潮流女装"
+                                 data-qtip-img="//gd2.alicdn.com/imgextra/i4/TB1doTBi9_I8KJjy0FoYXGFnVXa_M2.SS2_400&#120;400.jpg"
+                                 data-qtip-img-width="0" data-qtip-img-height="300">
+                            <div class="none">春装新款潮流女装</div>
+                        </div>
+                        <div class="my2">
+                            <ul>
+                                <li></li>
+                                <li>
+                                    金额：<span class="f_red" title="宝贝的下单金额">200</span> 元
+                                </li>
+                                <li>
+                                    奖励：<span class="f_red" title="完成试用后，您能获得的试用奖励">7.1</span> 元
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="my3">
+                            <a class="qrw_btn button border-blue">等待您领取</a>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>                        <div class="c4">
-            <div class="c41">
-                <div class="c42">            <img src="http://001.topaaa.com/skin/ypmili/css/img/cat_4.png" align="absmiddle" title="淘宝试用" width="16" height="16"/>
-                    试用编号：2962369        </div>
-                <div class="c43">
-                    <div class="my1">
-                        <img src="http://img.alicdn.com/imgextra/i4/681185851/TB2taQZaUgQMeJjy0FjXXaExFXa_!!681185851.jpg_430&#120;430q90.jpg" class="c46" title="肉松饼整箱" data-qtip-img="//img.alicdn.com/imgextra/i4/681185851/TB2taQZaUgQMeJjy0FjXXaExFXa_!!681185851.jpg_430&#120;430q90.jpg" data-qtip-img-width="0" data-qtip-img-height="300">
-                        <div class="none">肉松饼整箱</div>
+            <div class="c4 act">
+                <div class="c41">
+                    <div class="c42"><img src="http://001.topaaa.com/skin/ypmili/css/img/cat_41.png" align="absmiddle"
+                                          title="淘宝访问" width="16" height="16"/>
+                        试用编号：2959944
                     </div>
-                    <div class="my2">
-                        <ul>
-                            <li></li>
-                            <li>
-                                金额：<span class="f_red" title="宝贝的下单金额">39.8</span> 元
-                            </li>
-                            <li>
-                                奖励：<span class="f_red" title="完成试用后，您能获得的试用奖励">12.5</span> 元
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="my3">
-                        <a class="qrw_btn button border-blue">等待您领取</a>
-                    </div>
-                </div>
-            </div>
-        </div>                        <div class="c4">
-            <div class="c41">
-                <div class="c42">            <img src="http://001.topaaa.com/skin/ypmili/css/img/cat_401.png" align="absmiddle" title="京东访问" width="16" height="16"/>
-                    试用编号：2959554        </div>
-                <div class="c43">
-                    <div class="my1">
-                        <img src="@{http://img10.360buyimg.com/n1/jfs/t4423/345/1979806393/357202/943e8b32/58e9843eN59103c1f.jpg" class="c46" title="睡衣女" data-qtip-img="//img10.360buyimg.com/n1/jfs/t4423/345/1979806393/357202/943e8b32/58e9843eN59103c1f.jpg" data-qtip-img-width="0" data-qtip-img-height="300">
-                        <div class="none">睡衣女</div>
-                    </div>
-                    <div class="my2">
-                        <ul>
-                            <li></li>
-                            <li>
-                                金额：<span class="f_red" title="宝贝的下单金额">0</span> 元
-                            </li>
-                            <li>
-                                奖励：<span class="f_red" title="完成试用后，您能获得的试用奖励">1.2</span> 元
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="my3">
-                        <a class="qrw_btn button border-blue">等待您领取</a>
+                    <div class="c43">
+                        <div class="my1">
+                            <img src="http://img.alicdn.com/bao/uploaded/i1/TB1m0&#120;mJpXXXXc3XXXXXXXXXXXX_!!0-item_pic.jpg_430&#120;430q90.jpg"
+                                 class="c46" title="秋裤女外穿"
+                                 data-qtip-img="//img.alicdn.com/bao/uploaded/i1/TB1m0&#120;mJpXXXXc3XXXXXXXXXXXX_!!0-item_pic.jpg_430&#120;430q90.jpg"
+                                 data-qtip-img-width="0" data-qtip-img-height="300">
+                            <div class="none">秋裤女外穿</div>
+                        </div>
+                        <div class="my2">
+                            <ul>
+                                <li></li>
+                                <li>
+                                    金额：<span class="f_red" title="宝贝的下单金额">0</span> 元
+                                </li>
+                                <li>
+                                    奖励：<span class="f_red" title="完成试用后，您能获得的试用奖励">1.3</span> 元
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="my3">
+                            <a class="qrw_btn button border-blue">等待您领取</a>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>                        <div class="c4">
-            <div class="c41">
-                <div class="c42">            <img src="@{http://001.topaaa.com/skin/ypmili/css/img/cat_6.png" align="absmiddle" title="拼多多试用" width="16" height="16"/>
-                    试用编号：2967403        </div>
-                <div class="c43">
-                    <div class="my1">
-                        <img src="@{http://t07img.yangkeduo.com/images/2018-03-31/7cba81547a901ae5ae51595063656dbd.jpeg" class="c46" title="裤裙阔腿裤套装女夏新款学生休闲宽松七分裤运动女装" data-qtip-img="//t07img.yangkeduo.com/images/2018-03-31/7cba81547a901ae5ae51595063656dbd.jpeg" data-qtip-img-width="0" data-qtip-img-height="300">
-                        <div class="none">裤裙阔腿裤套装女夏新款学生休闲宽松七分裤运动女装</div>
+            <div class="c4">
+                <div class="c41">
+                    <div class="c42"><img src="http://001.topaaa.com/skin/ypmili/css/img/cat_41.png" align="absmiddle"
+                                          title="淘宝访问" width="16" height="16"/>
+                        试用编号：2964025
                     </div>
-                    <div class="my2">
-                        <ul>
-                            <li></li>
-                            <li>
-                                金额：<span class="f_red" title="宝贝的下单金额">100</span> 元
-                            </li>
-                            <li>
-                                奖励：<span class="f_red" title="完成试用后，您能获得的试用奖励">2.2</span> 元
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="my3">
-                        <a class="qrw_btn button border-blue">试用品已发放</a>
-                    </div>
-                </div>
-            </div>
-        </div>                        <div class="c4 act">
-            <div class="c41">
-                <div class="c42">            <img src="@{http://001.topaaa.com/skin/ypmili/css/img/cat_4.png" align="absmiddle" title="淘宝试用" width="16" height="16"/>
-                    试用编号：2955451        </div>
-                <div class="c43">
-                    <div class="my1">
-                        <img src="http://img.alicdn.com/bao/uploaded/i2/TB1_ApJRpXXXXciaXXXXXXXXXXX_!!0-item_pic.jpg_430&#120;430q90.jpg" class="c46" title="女装" data-qtip-img="//img.alicdn.com/bao/uploaded/i2/TB1_ApJRpXXXXciaXXXXXXXXXXX_!!0-item_pic.jpg_430&#120;430q90.jpg" data-qtip-img-width="0" data-qtip-img-height="300">
-                        <div class="none">女装</div>
-                    </div>
-                    <div class="my2">
-                        <ul>
-                            <li></li>
-                            <li>
-                                金额：<span class="f_red" title="宝贝的下单金额">60</span> 元
-                            </li>
-                            <li>
-                                奖励：<span class="f_red" title="完成试用后，您能获得的试用奖励">5</span> 元
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="my3">
-                        <a class="qrw_btn button border-blue">试用品已发放</a>
+                    <div class="c43">
+                        <div class="my1">
+                            <img src="http://img.alicdn.com/bao/uploaded/i4/2241504128/TB1Bv.Sb7fb_uJkSnfoXXb_epXa_!!0-item_pic.jpg_430&#120;430q90.jpg"
+                                 class="c46" title="夜店性感女装低胸"
+                                 data-qtip-img="//img.alicdn.com/bao/uploaded/i4/2241504128/TB1Bv.Sb7fb_uJkSnfoXXb_epXa_!!0-item_pic.jpg_430&#120;430q90.jpg"
+                                 data-qtip-img-width="0" data-qtip-img-height="300">
+                            <div class="none">夜店性感女装低胸</div>
+                        </div>
+                        <div class="my2">
+                            <ul>
+                                <li></li>
+                                <li>
+                                    金额：<span class="f_red" title="宝贝的下单金额">0</span> 元
+                                </li>
+                                <li>
+                                    奖励：<span class="f_red" title="完成试用后，您能获得的试用奖励">2.2</span> 元
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="my3">
+                            <a class="qrw_btn button border-blue">等待您领取</a>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>                    </div>
+            <div class="c4">
+                <div class="c41">
+                    <div class="c42"><img src="http://001.topaaa.com/skin/ypmili/css/img/cat_4.png" align="absmiddle"
+                                          title="淘宝试用" width="16" height="16"/>
+                        试用编号：2962369
+                    </div>
+                    <div class="c43">
+                        <div class="my1">
+                            <img src="http://img.alicdn.com/imgextra/i4/681185851/TB2taQZaUgQMeJjy0FjXXaExFXa_!!681185851.jpg_430&#120;430q90.jpg"
+                                 class="c46" title="肉松饼整箱"
+                                 data-qtip-img="//img.alicdn.com/imgextra/i4/681185851/TB2taQZaUgQMeJjy0FjXXaExFXa_!!681185851.jpg_430&#120;430q90.jpg"
+                                 data-qtip-img-width="0" data-qtip-img-height="300">
+                            <div class="none">肉松饼整箱</div>
+                        </div>
+                        <div class="my2">
+                            <ul>
+                                <li></li>
+                                <li>
+                                    金额：<span class="f_red" title="宝贝的下单金额">39.8</span> 元
+                                </li>
+                                <li>
+                                    奖励：<span class="f_red" title="完成试用后，您能获得的试用奖励">12.5</span> 元
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="my3">
+                            <a class="qrw_btn button border-blue">等待您领取</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="c4">
+                <div class="c41">
+                    <div class="c42"><img src="http://001.topaaa.com/skin/ypmili/css/img/cat_401.png" align="absmiddle"
+                                          title="京东访问" width="16" height="16"/>
+                        试用编号：2959554
+                    </div>
+                    <div class="c43">
+                        <div class="my1">
+                            <img src="@{http://img10.360buyimg.com/n1/jfs/t4423/345/1979806393/357202/943e8b32/58e9843eN59103c1f.jpg"
+                                 class="c46" title="睡衣女"
+                                 data-qtip-img="//img10.360buyimg.com/n1/jfs/t4423/345/1979806393/357202/943e8b32/58e9843eN59103c1f.jpg"
+                                 data-qtip-img-width="0" data-qtip-img-height="300">
+                            <div class="none">睡衣女</div>
+                        </div>
+                        <div class="my2">
+                            <ul>
+                                <li></li>
+                                <li>
+                                    金额：<span class="f_red" title="宝贝的下单金额">0</span> 元
+                                </li>
+                                <li>
+                                    奖励：<span class="f_red" title="完成试用后，您能获得的试用奖励">1.2</span> 元
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="my3">
+                            <a class="qrw_btn button border-blue">等待您领取</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="c4">
+                <div class="c41">
+                    <div class="c42"><img src="@{http://001.topaaa.com/skin/ypmili/css/img/cat_6.png" align="absmiddle"
+                                          title="拼多多试用" width="16" height="16"/>
+                        试用编号：2967403
+                    </div>
+                    <div class="c43">
+                        <div class="my1">
+                            <img src="@{http://t07img.yangkeduo.com/images/2018-03-31/7cba81547a901ae5ae51595063656dbd.jpeg"
+                                 class="c46" title="裤裙阔腿裤套装女夏新款学生休闲宽松七分裤运动女装"
+                                 data-qtip-img="//t07img.yangkeduo.com/images/2018-03-31/7cba81547a901ae5ae51595063656dbd.jpeg"
+                                 data-qtip-img-width="0" data-qtip-img-height="300">
+                            <div class="none">裤裙阔腿裤套装女夏新款学生休闲宽松七分裤运动女装</div>
+                        </div>
+                        <div class="my2">
+                            <ul>
+                                <li></li>
+                                <li>
+                                    金额：<span class="f_red" title="宝贝的下单金额">100</span> 元
+                                </li>
+                                <li>
+                                    奖励：<span class="f_red" title="完成试用后，您能获得的试用奖励">2.2</span> 元
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="my3">
+                            <a class="qrw_btn button border-blue">试用品已发放</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="c4 act">
+                <div class="c41">
+                    <div class="c42"><img src="@{http://001.topaaa.com/skin/ypmili/css/img/cat_4.png" align="absmiddle"
+                                          title="淘宝试用" width="16" height="16"/>
+                        试用编号：2955451
+                    </div>
+                    <div class="c43">
+                        <div class="my1">
+                            <img src="http://img.alicdn.com/bao/uploaded/i2/TB1_ApJRpXXXXciaXXXXXXXXXXX_!!0-item_pic.jpg_430&#120;430q90.jpg"
+                                 class="c46" title="女装"
+                                 data-qtip-img="//img.alicdn.com/bao/uploaded/i2/TB1_ApJRpXXXXciaXXXXXXXXXXX_!!0-item_pic.jpg_430&#120;430q90.jpg"
+                                 data-qtip-img-width="0" data-qtip-img-height="300">
+                            <div class="none">女装</div>
+                        </div>
+                        <div class="my2">
+                            <ul>
+                                <li></li>
+                                <li>
+                                    金额：<span class="f_red" title="宝贝的下单金额">60</span> 元
+                                </li>
+                                <li>
+                                    奖励：<span class="f_red" title="完成试用后，您能获得的试用奖励">5</span> 元
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="my3">
+                            <a class="qrw_btn button border-blue">试用品已发放</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     <div class='wrap-box'>
         <p class="line"><span>平台公告</span></p>
@@ -573,7 +644,8 @@
 <!-- 底部 -->
 <div class='yp-download'>
     <h3><span id="yp-download-num">1,618,368</span> 家网店都在用销量联盟推广，快速提升店铺流量，你还在等什么？</h3>
-    <a href="/member/" class='areaDow'><img src="http://001.topaaa.com/skin/ypmili/tpl2017/css/img/foot-download.png"></a>
+    <a href="/member/" class='areaDow'><img
+            src="http://001.topaaa.com/skin/ypmili/tpl2017/css/img/foot-download.png"></a>
 </div>
 <div id='footer'>
     <ul class='foot_list'>
@@ -604,11 +676,33 @@
                         wrapLink.style.display = 'none';
                     }
                 })()
+
+                $(function () {
+                    //读取全局配置
+                    $.ajax({
+                        url: request_url + "intf_setting/getSetting",
+                        type: "post",
+                        dataType: 'json',
+                        success: function (result) {
+                            var setting = jQuery.parseJSON(result.setting);
+                            setStorage("setting",setting);
+
+                            //标题
+                            $("#title_content").html(setting.web_name);
+                            //logo
+                            $("#web_logo").attr("src",setting.web_logo);
+                            //app_logo
+                            $("#app_logo").attr("src",setting.app_logo);
+                        }
+                    });
+
+                })
             </script>
         </li>
     </ul>
     <div class='comName'>
-        (c)2013-2018 销量联盟 www.topaaa.com All Rights Reserved    </div>
+        (c)2013-2018 销量联盟 www.topaaa.com All Rights Reserved
+    </div>
 </div>
 <style>
     .download-app {
@@ -620,6 +714,7 @@
         height: 90px;
         z-index: 99999;
     }
+
     .download-app-layer {
         position: fixed;
         bottom: 0;
@@ -633,12 +728,14 @@
 <div id="download-app">
     <div class="download-app">
         <a href="/app.php" target="_blank">
-            <img style="position: absolute;top:10px;left: 0" src="../img/app_logo.png" width="70" height="70">
+            <img style="position: absolute;top:10px;left: 0" id="app_logo" src="../img/app_logo.png" width="70" height="70">
             <span style="position: absolute;top:0;left: 100px;color: #f4d83e;font-size: 26px;line-height: 90px">下载销量联盟APP，随时、随地发布试用、申请试用！</span>
-            <img style="position: absolute;top:10px;right: 130px" src="http://001.topaaa.com/skin/ypmili/css/img/andriod_ios.png">
-            <img style="position: absolute;top:10px;right: 40px"  width="70" height="70">
+            <img style="position: absolute;top:10px;right: 130px"
+                 src="http://001.topaaa.com/skin/ypmili/css/img/andriod_ios.png">
+            <img style="position: absolute;top:10px;right: 40px" width="70" height="70">
         </a>
-        <img onclick="$('#download-app').fadeOut(500)" style="position: absolute;top:10px;right: 0;cursor: pointer" src="http://001.topaaa.com/skin/ypmili/css/img/close.png" width="24" height="24">
+        <img onclick="$('#download-app').fadeOut(500)" style="position: absolute;top:10px;right: 0;cursor: pointer"
+             src="http://001.topaaa.com/skin/ypmili/css/img/close.png" width="24" height="24">
     </div>
     <div class="download-app-layer"></div>
 </div>
@@ -655,7 +752,37 @@
             <span>QQ在线咨询</span>
         </a>
         <script id="yptip_qq" type="text/template7">
-            <p style="width:100%;background-color:#0098ff;font-size:16px;text-align:center;color:#fff;height:34px;line-height:34px;">客服团队</p><p style="line-height:40px;">客服潇潇：<a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=261369834&site=qq&menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=2:261369834:51" alt="点击这里给我发消息" title="点击这里给我发消息" /></a> <span style="line-height:1.5;margin-left:10px;">客服靓靓：</span><a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=261369834&site=qq&menu=yes" style="line-height:1.5;"><img border="0" src="http://wpa.qq.com/pa?p=2:261369834:51" alt="点击这里给我发消息" title="点击这里给我发消息" /></a> </p><p style="line-height:30px;">客服恋恋：<a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=261369834&site=qq&menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=2:261369834:51" alt="点击这里给我发消息" title="点击这里给我发消息" /></a> <span style="line-height:1.5;margin-left:10px;">客服萌萌：</span><a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=261369834&site=qq&menu=yes" style="line-height:1.5;"><img border="0" src="http://wpa.qq.com/pa?p=2:261369834:51" alt="点击这里给我发消息" title="点击这里给我发消息" /></a> </p><p><br /></p><p style="width:100%;background-color:#0098ff;font-size:16px;text-align:center;color:#fff;height:34px;line-height:34px;">合作渠道</p><p style="line-height:40px;">业务合作：<a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=261369834&site=qq&menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=2:261369834:51" alt="点击这里给我发消息" title="点击这里给我发消息" /></a> <span style="line-height:1.5;margin-left:10px;">代理加盟：</span><a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=261369834&site=qq&menu=yes" style="line-height:1.5;"><img border="0" src="http://wpa.qq.com/pa?p=2:261369834:51" alt="点击这里给我发消息" title="点击这里给我发消息" /></a> </p>        </script>
+            <p style="width:100%;background-color:#0098ff;font-size:16px;text-align:center;color:#fff;height:34px;line-height:34px;">
+                客服团队</p><p style="line-height:40px;">客服潇潇：<a target="_blank"
+                                                             href="http://wpa.qq.com/msgrd?v=3&uin=261369834&site=qq&menu=yes"><img
+                    border="0" src="http://wpa.qq.com/pa?p=2:261369834:51" alt="点击这里给我发消息" title="点击这里给我发消息"/></a> <span
+                    style="line-height:1.5;margin-left:10px;">客服靓靓：</span><a target="_blank"
+                                                                             href="http://wpa.qq.com/msgrd?v=3&uin=261369834&site=qq&menu=yes"
+                                                                             style="line-height:1.5;"><img border="0"
+                                                                                                           src="http://wpa.qq.com/pa?p=2:261369834:51"
+                                                                                                           alt="点击这里给我发消息"
+                                                                                                           title="点击这里给我发消息"/></a>
+            </p><p style="line-height:30px;">客服恋恋：<a target="_blank"
+                                                     href="http://wpa.qq.com/msgrd?v=3&uin=261369834&site=qq&menu=yes"><img
+                    border="0" src="http://wpa.qq.com/pa?p=2:261369834:51" alt="点击这里给我发消息" title="点击这里给我发消息"/></a> <span
+                    style="line-height:1.5;margin-left:10px;">客服萌萌：</span><a target="_blank"
+                                                                             href="http://wpa.qq.com/msgrd?v=3&uin=261369834&site=qq&menu=yes"
+                                                                             style="line-height:1.5;"><img border="0"
+                                                                                                           src="http://wpa.qq.com/pa?p=2:261369834:51"
+                                                                                                           alt="点击这里给我发消息"
+                                                                                                           title="点击这里给我发消息"/></a>
+            </p><p><br/></p><p
+                    style="width:100%;background-color:#0098ff;font-size:16px;text-align:center;color:#fff;height:34px;line-height:34px;">
+                合作渠道</p><p style="line-height:40px;">业务合作：<a target="_blank"
+                                                             href="http://wpa.qq.com/msgrd?v=3&uin=261369834&site=qq&menu=yes"><img
+                    border="0" src="http://wpa.qq.com/pa?p=2:261369834:51" alt="点击这里给我发消息" title="点击这里给我发消息"/></a> <span
+                    style="line-height:1.5;margin-left:10px;">代理加盟：</span><a target="_blank"
+                                                                             href="http://wpa.qq.com/msgrd?v=3&uin=261369834&site=qq&menu=yes"
+                                                                             style="line-height:1.5;"><img border="0"
+                                                                                                           src="http://wpa.qq.com/pa?p=2:261369834:51"
+                                                                                                           alt="点击这里给我发消息"
+                                                                                                           title="点击这里给我发消息"/></a>
+            </p>        </script>
         <script>
             function multi_qq() {
                 $('.layim-friend618').click();
@@ -663,7 +790,10 @@
         </script>
         <a href="/app.php" target="_blank" class="qq-a" style="height: 130px">
             <div class="qq-container" style="height: 130px"></div>
-            <div style="width: 95px;height: 95px"><img class="img-qq" src="/api/qrcode.php?url=http%3A%2F%2F001.topaaa.com%2Fapp.php" style="width: 95px;height: 95px;max-width: 95px;top: 5px;left: 5px"></div>
+            <div style="width: 95px;height: 95px"><img class="img-qq"
+                                                       src="/api/qrcode.php?url=http%3A%2F%2F001.topaaa.com%2Fapp.php"
+                                                       style="width: 95px;height: 95px;max-width: 95px;top: 5px;left: 5px">
+            </div>
             <span>下载APP</span>
         </a>
         <div class="im-tel">

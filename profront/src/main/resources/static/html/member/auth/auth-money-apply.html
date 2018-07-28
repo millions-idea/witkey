@@ -26,6 +26,11 @@
     <link rel="stylesheet" href="http://001.topaaa.com/file/script/layim/css/layui.css">
     <script src="http://001.topaaa.com/file/script/layim/layui.js"></script>
     <script src="http://001.topaaa.com/file/script/layim/func.js"></script>
+
+    <script src="https://cdn.bootcss.com/react/16.4.0/umd/react.development.js"></script>
+    <script src="https://cdn.bootcss.com/react-dom/16.4.0/umd/react-dom.development.js"></script>
+    <script src="https://cdn.bootcss.com/babel-standalone/6.26.0/babel.min.js"></script>
+
 </head>
 <BODY class=rwdt_bg>
 <DIV id=body>
@@ -56,19 +61,35 @@
                         <td class="tab_nav">&nbsp;</td>
                         <td class="tab"><a id="action_setting" href="auth-bank-tixian.html"><span>帐号设置</span></a></td>
                     </TR></TBODY></TABLE></DIV>
-            <FORM action=cash.php method=post><INPUT name=action type=hidden value=confirm>
-                <TABLE class=tb cellSpacing=1 cellPadding=6>
-                    <TBODY>
-                    <TR>
+            <form method=post><INPUT name=action type=hidden value=confirm>
+                <table class=tb cellSpacing=1 cellPadding=6>
+                    <tbody>
+                    <tr>
                         <TD class=tl>我的帐户</TD>
-                        <TD class=tr>可用余额 <SPAN class=f_red>8664.48</SPAN> 元</TD></TR>
+                        <td class=tr>可用余额
+                            <span class='f_red' id="account_money">8664.48</span> 元
+                        </td>
+                    </tr>
                     <TR>
                         <TD class=tl>提现说明</TD>
-                        <TD class="tr f_gray">- 24小时可提现次数1次<BR>- 单次提现最大金额500元<BR>- 提现费率1%<BR>-
-                            提现费率最小值1元<BR>- 提现费率封顶值50元<BR></TD></TR>
+                        <TD class="tr f_gray" id="desc_tixian">
+                            - 24小时可提现次数1次
+                            <BR>
+                            - 单次提现最大金额500元
+                            <BR>
+                            - 提现费率1%
+                            <BR>
+                            - 提现费率最小值1元
+                            <BR>
+                            - 提现费率封顶值50元
+                            <BR>
+                        </TD>
+                    </TR>
                     <TR>
                         <TD class=tl><SPAN class=f_red>*</SPAN>提现金额</TD>
-                        <TD class=tr><INPUT name=amount type=text size=10></TD></TR>
+                        <TD class=tr><input name='amount' type='number' size=10/>
+                        </TD>
+                    </TR>
                     <TR>
                         <TD class=tl><SPAN class=f_red>*</SPAN>提现方式</TD>
                         <td class=tr>
@@ -82,18 +103,50 @@
                         <TD class=tl></TD>
                         <TD
                                 class=tr><INPUT class=btn type=submit value=" 确 定 ">&nbsp;&nbsp;&nbsp;&nbsp;<INPUT name=reset class=btn type=reset value=" 重 置 ">
-                        </TD></TR></TBODY></TABLE></FORM>
+                        </TD></TR></tbody></table></form>
             <SCRIPT>
                 $(function () {
                     set_nav("action", "sb0");
                 });
             </SCRIPT>
         </DIV></DIV>
-    <SCRIPT>
+
+    <SCRIPT type="text/babel">
         $(function () {
             set_nav("cash", "on");
             //alert("action_")
             set_nav("action_", "sb0");
+
+            class Desc extends React.Component {
+                render() {
+                    //读取配置
+                    let setting = pullStorage("setting");
+
+                    return (
+                        <div>
+                            - 24小时可提现次数{setting.tixian_count}次
+                            <br/>
+                            - 单次提现最大金额{setting.max_money}元
+                            <br/>
+                            - 提现费率{setting.shouxu}%
+                            <br/>
+                            - 提现费率最小值1元
+                            <br/>
+                            - 提现费率封顶值{setting.max_shouxu}元
+                            <br/>
+                        </div>
+                    )
+                }
+            }
+
+            ReactDOM.render(<Desc/>, document.getElementById('desc_tixian'));
+
+            //account_money
+            var mon = userresult_json.money;
+            if (mon != undefined) {
+                $("#account_money").html(mon);
+            }
+
         });
     </SCRIPT>
 
@@ -123,10 +176,6 @@
                 <img src="http://001.topaaa.com/skin/ypmili/css/img/rz/8.png">
             </div>
             <DIV style="CLEAR: both"></DIV></DIV></DIV></DIV><LINK
-        href="申请提现_销量联盟_files/layui.css" rel=stylesheet>
-<SCRIPT src="申请提现_销量联盟_files/layui.js"></SCRIPT>
-
-<SCRIPT src="申请提现_销量联盟_files/func.js"></SCRIPT>
 
 <DIV class=main-im>
     <DIV class=open-im id=open_im style="DISPLAY: none"></DIV>
