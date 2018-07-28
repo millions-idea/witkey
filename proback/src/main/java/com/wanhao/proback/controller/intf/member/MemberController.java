@@ -1,5 +1,6 @@
 package com.wanhao.proback.controller.intf.member;
 
+import com.github.pagehelper.PageInfo;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.wanhao.proback.annotaion.ISLogin;
@@ -678,13 +679,35 @@ public class MemberController {
                            String to_date,Integer page,
                            String bank_type){
         JsonObject jsonObject = new JsonObject();
+        double sumMoney = 0.0;
+        double sumShouXu = 0.0;
+
         if (memid!=null){
             TiXian tiXian  = new TiXian();
             //查询提现记录
             List<TiXian> list = tiXianService.getDatas(tiXian);
             if (list!=null && list.size()>0){
-                jsonObject.addProperty("list",GsonUtils.toJson(list));
-                //todo 把所有的金额加起来
+                for (TiXian xian : list) {
+                    //金额
+                    Double money = xian.getMoney();
+                    if (money!=null && money>0){
+                        sumMoney = ComputeUtil.add(sumMoney,money);
+                    }
+                    //手续
+                    Double shouxu = xian.getShouxu();
+                    if (shouxu!=null && shouxu>0){
+                        sumShouXu = ComputeUtil.add(sumShouXu,shouxu);
+                    }
+                }
+
+                //返回数据
+                jsonObject.addProperty("sumMoney",sumMoney);
+                jsonObject.addProperty("sumShouXu",sumShouXu);
+                //分页对象
+                PageInfo<TiXian> info = new PageInfo<>(list);
+
+                jsonObject.addProperty("pageinfo",GsonUtils.toJson(info));
+
 
                 ResponseUtils.retnSuccessMsg(response,jsonObject,"查询成功");
             }else {
