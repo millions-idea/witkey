@@ -29,6 +29,10 @@
     <!--日期处理-->
     <script type="text/javascript" src="../../../dist/js/moment.js"></script>
 
+    <link rel="stylesheet" href="../../../dist/layui/css/layui.css">
+    <script type="text/javascript" src="../../../dist/layui/layui.js"></script>
+
+
     <script src="https://cdn.bootcss.com/react/16.4.0/umd/react.development.js"></script>
     <script src="https://cdn.bootcss.com/react-dom/16.4.0/umd/react-dom.development.js"></script>
     <script src="https://cdn.bootcss.com/babel-standalone/6.26.0/babel.min.js"></script>
@@ -92,7 +96,11 @@
 
         </table>
     </div>
-    <div id="page" class="pages"></div>
+        <!--居中分页-->
+    <div id="pages" class="pages" style="display: flex;justify-content: center">
+
+    </div>
+
     <script>
         $(function () {
             set_nav("action_record", "sb0");
@@ -124,15 +132,41 @@
                 success: function (result) {
                     if (result.error == 0) {
                         //解析结果
-                        var datas = jQuery.parseJSON(result.list);
-                        let sumMoney  =0;
-                        let sumShouXu =0;
+                        var pageinfo = jQuery.parseJSON(result.pageinfo);
+                        var datas = pageinfo.list;
+                        let sumMoney = result.sumMoney;
+                        let sumShouXu = result.sumShouXu;
+
+                        //当前页
+                        let pageNum = pageinfo.pageNum;
+                        //数据
+                        let list = pageinfo.list;
+
+                        //分页
+                        layui.use('laypage', function () {
+                            let laypage = layui.laypage;
+
+                            laypage.render({
+                                elem: 'pages',
+                                theme: 'center'
+                                , count: pageinfo.total  //数据总数，从服务端得到
+                                , curr: pageNum //获取起始页
+                                , jump: function (obj, first) {
+                                    //首次不执行
+                                    if (!first) {
+                                        let current = obj.curr;
+                                        let url = "auth-bank-txrecord.html?page=" + current;
+
+                                        window.location.href = url;
+                                    }
+                                }
+                            });
+                        });
+
 
                         for (let i = 0; i < datas.length; i++) {
                             //时间解析
                             let org_time = datas[i].shenqing_shijian;
-                            sumMoney += datas[i].money;
-                            sumShouXu+=datas[i].shouxu;
 
                             if (org_time != undefined && org_time!=null){
                                 datas[i].shenqing_shijian =
