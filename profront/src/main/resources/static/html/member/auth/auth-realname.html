@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+
+    <link rel="stylesheet" type="text/css" href="../../../dist/css/index-skin.css">
+    <link rel="stylesheet" type="text/css" href="../../../dist/css/index-tp.css">
+
+    <script type="text/javascript" src="../../../dist/js/lang.js"></script>
+    <script type="text/javascript" src="../../../dist/js/config.js"></script>
+    <script type="text/javascript" src="../../../dist/js/jquery-2.0.0.min.js"></script>
+    <script type="text/javascript" src="../../../dist/js/common.js"></script>
+
+    <script type="text/javascript" src="../../../dist/js/admin.js"></script>
+    <script type="text/javascript" src="../../../dist/js/page.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="../../../dist/css/jq-tip.css">
+    <script type="text/javascript" src="../../../dist/js/jq-tip.js"></script>
+    <script type="text/javascript" src="../../../dist/js/layer.js"></script>
+
+    <script type="text/javascript" src="../../../dist/js/jquery.form.js"></script>
+    <script type="text/javascript" src="../../../dist/js/template7.min.js"></script>
+    <script type="text/javascript" src="../../../dist/js/cm.js"></script>
+    <script type="text/javascript" src="../../../dist/js/ypfunction.js"></script>
+
+    <link rel="stylesheet" href="http://001.topaaa.com/file/script/layim/css/layui.css">
+    <script src="http://001.topaaa.com/file/script/layim/layui.js"></script>
+    <script src="http://001.topaaa.com/file/script/layim/func.js"></script>
+    <!--配置服务器连接地址 -->
+    <script type="text/javascript" src="../../../dist/js/gjy_serviceurl.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            var userresult_json = eval("("+sessionStorage.getItem("member")+")");
+
+            var stateindex_top_username = userresult_json.username
+                +"<b></b>";
+            $("#index_top_username").html(stateindex_top_username);
+
+            var stateindex_user_member_result = "<p>"+userresult_json.username+"</p>"
+                +"<p>"+userresult_json.vipmodel+"</p>";
+            $("#user_member_result").html(stateindex_user_member_result);
+
+            $("#realname").html(userresult_json.real_name);
+        })
+    </script>
+</head>
+
+<body class="rwdt_bg">
+<div id="body">
+    <div id="body_header"></div>
+    <script>
+        $("#body_header").load("../public/public-top.html");
+    </script>
+    <div id="content_wrapper">
+        <div id="content_body_title"></div>
+        <script>
+            $("#content_body_title").load("../public/public-body-title.html");
+        </script>
+        <div id="ypcon" class="validate">
+    <div class="yptip">
+        <p>请上传身份证正面、反面、手持身份证照片和生活照。</p><p><span style="color:#E53333;">后台说明：此项设置在管理后台可以开启或关闭，可以开启商家审核或试客审核。分站管理员具有可以审核自己会员的权限，这个权限主站可以分配。</span></p>        </div>
+    <div class="menu">
+        <table cellpadding="0" cellspacing="0">
+            <tr>
+                <td class="tab_on"><a id="Tab0" href="?action=truename"><span>1、提交证件</span></a></td>
+                <td class="tab_nav">&nbsp;</td>
+                <td class="tab"><a id="Tab1" href="?action=truename"><span>2、通过认证</span></a></td>
+            </tr>
+        </table>
+    </div>
+    <div id="dform">
+        <input type="hidden" name="action" value="truename"/>
+        <table cellpadding="6" cellspacing="1" class="tb">
+            <thead><tr><th colspan="2"></th></tr></thead>
+            <tbody>
+            <tr>
+                <td class="tl"><span class="f_red">*</span> 真实姓名</td>
+                <td class="tr">
+                    <!--<input name="realname" id="realname" type="text" size="60">-->
+                    <p id="realname"></p>
+                    <span id="dname" class="f_red"></span>
+                </td>
+            </tr>
+            <tr>
+                <td class="tl"><span class="f_red">*</span> 身份证号码</td>
+                <td class="tr">
+                    <input name="idcard" id="idcard" type="text" size="60">
+                    <span id="didcard" class="f_red"></span>
+                </td>
+            </tr>
+            <tr>
+                <td class="tl"><span class="f_red">*</span> 身份证正面</td>
+                <td class="tr">
+                    <div class="thumb_upload">
+                        <div class="thumb_upload_item">
+                            <!--存放文件-->
+                            <input id="lefile1" type="file" name="file" style="display:none">
+
+                            <!--记录图片路径-->
+                            <input type="hidden" id="path1" name="path1"/>
+
+                            <div class="thumb">
+                                <img src="../../../dist/index/img/waitpic.png"
+                                     id="file1" title="预览图片"
+                                     width="100"
+                                     height="100"
+                                     onclick="makeForm(1)">
+                            </div>
+
+                            <div class="buttons">
+                                <img src="../../../dist/index/img/img_upload.gif"
+                                     title="上传" onclick="makeForm(1)">
+
+                                <img src="../../../dist/index/img/img_select.gif" title="预览" onclick="_preview(Dd('showthumbthumb1').src, 1);">
+                            </div>
+                        </div>
+                        <div class="eg">
+                            <img src="../../../dist/index/img/v1.jpg"/></div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td class="tl"><span class="f_red">*</span> 身份证反面</td>
+                <td class="tr">
+                    <div class="thumb_upload">
+                        <div class="thumb_upload_item">
+
+                            <!--存放文件-->
+                            <input id="lefile2" type="file" name="file" style="display:none">
+                            <!--记录图片路径-->
+                            <input type="hidden" id="path2" name="path2"/>
+
+                            <div class="thumb">
+                                <img src="../../../dist/index/img/waitpic.png"
+                                     id="file2" title="预览图片"
+                                     width="100"
+                                     height="100"
+                                     onclick="makeForm(2)">
+                            </div>
+
+                            <div class="buttons">
+                                <img src="../../../dist/index/img/img_upload.gif" title="上传"
+                                     onclick="makeForm(2)">
+                                <img src="../../../dist/index/img/img_select.gif"
+                                     title="预览" onclick="_preview(Dd('showthumbthumb2').src, 1);">
+
+                            </div>
+                        </div>
+                        <div class="eg"><img src="../../../dist/index/img/v2.jpg"/></div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td class="tl"><span class="f_red">*</span> 手持身份证</td>
+                <td class="tr">
+                    <div class="thumb_upload">
+                        <div class="thumb_upload_item">
+
+                            <!--存放文件-->
+                            <input onchange="changeImg(this);" id="lefile3" type="file" name="file" style="display:none">
+                            <!--记录图片路径-->
+                            <input type="hidden" id="path3" name="path3"/>
+
+                            <div class="thumb">
+                                <img src="../../../dist/index/img/waitpic.png"
+                                     id="file3" title="预览图片"
+                                     width="100"
+                                     height="100"
+                                     onclick="makeForm(3)">
+                            </div>
+
+                            <div class="buttons">
+                                <img src="../../../dist/index/img/img_upload.gif" title="上传"
+                                     onclick="makeForm(3)">
+                                <img src="../../../dist/index/img/img_select.gif" title="预览"
+                                     onclick="_preview(Dd('showthumbthumb3').src, 1);">
+
+                            </div>
+                        </div>
+                        <div class="eg"><img src="../../../dist/index/img/v3.jpg"/></div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td class="tl">认证说明</td>
+                <td class="tr lh18">
+                    请上传个人身份证的电子版本，以便网站核实认证<br/>
+                    证件上的姓名必须与填写的真实姓名一致<br/>
+                </td>
+            </tr>
+            <tr>
+                <td class="tl">&nbsp;</td>
+                <td class="tr" height="30"><input type="button" name="submit" value=" 确 定 " class="btn" onclick="okbtn_click()"/>&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" value=" 返 回 " class="btn" onclick="history.back(-1);"/>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <script>
+            function okbtn_click() {
+
+                var params = {};
+                params.realname = $("#realname").text();
+                params.idcard =  $("#idcard").val();
+                params.url1 = $("#path1").val();
+                params.url2 = $("#path2").val();
+                params.url3 = $("#path3").val();
+                $.ajax({
+                    url:request_url+"intf_member/realName",
+                    type:"post",
+                    data:params,
+                    dataType:'json',
+                    headers: {
+                        "mobile":userresult_json.mobile,
+                        "token":userresult_json.token
+                    },
+                    success:function(result){
+                        if(result.error == 0){
+                            alert(result.message);
+                        }else{
+                            alert(result.message);
+                        }
+                    }
+                });
+            }
+        </script>
+    </div>
+    <script type="text/javascript" src="http://001.topaaa.com/file/script/clear.js"></script>
+    <script type="text/javascript">
+    //检查填写完毕
+
+    function isnull(val) {
+        var str = val.replace(/(^\s*)|(\s*$)/g, '');//去除空格;
+        if (str == '' || str == undefined || str == null) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    function Dd(i) {
+        return document.getElementById(i);
+    }
+    function check() {
+        if (isnull( Dd('realname').value )){
+            alert('请填写姓名')
+            return false;
+        }
+
+        if (isnull( Dd('idcard').value )){
+            alert('请填写姓名')
+            return false;
+        }
+
+        if (isnull( Dd('path1').value )){
+            alert('请上传图片')
+            return false;
+        }
+        if (isnull( Dd('path2').value )){
+            alert('请上传图片')
+            return false;
+        }
+        if (isnull( Dd('path3').value )){
+            alert('请上传图片')
+            return false;
+        }
+        return true;
+    }
+    $(function () {
+        set_nav('Tab0','sb0');
+    });
+</script>
+</div>
+</div>
+    <div style="clear:both;"></div>
+    <div id="footer">
+        <div id="footer_top">
+            <div id="foot_top_1">
+                <a href="/about/index.php?itemid=10">代理加盟</a><span>  |  </span>
+                <a href="/about/index.php?itemid=9">辅助业务</a><span>  |  </span>
+                <a href="/about/index.php?itemid=8">网站活动</a><span>  |  </span>
+                <a href="/about/index.php?itemid=7">联系客服</a><span>  |  </span>
+                <a href="/about/index.php?itemid=6">联盟网规</a><span>  |  </span>
+                <a href="/about/index.php?itemid=1">关于我们</a><span>  |  </span>
+                <a href="/about/index.php?itemid=3">联系方式</a><span>  |  </span>
+                <a href="/about/index.php?itemid=4">使用协议</a><span>  |  </span>
+                <a href="/about/index.php?itemid=5">版权隐私</a><span>  |  </span>
+            </div>
+            <div id="copy_right">
+                (c)2013-2018 销量联盟 www.topaaa.com All Rights Reserved        </div>
+            <div style="width:1024px;text-align: center;margin: 20px auto 0;">
+                <img src="http://001.topaaa.com/skin/ypmili/css/img/rz/1.png">
+                <img src="http://001.topaaa.com/skin/ypmili/css/img/rz/2.png">
+                <img src="http://001.topaaa.com/skin/ypmili/css/img/rz/3.png">
+                <img src="http://001.topaaa.com/skin/ypmili/css/img/rz/4.png">
+                <img src="http://001.topaaa.com/skin/ypmili/css/img/rz/5.png">
+                <img src="http://001.topaaa.com/skin/ypmili/css/img/rz/6.png">
+                <img src="http://001.topaaa.com/skin/ypmili/css/img/rz/7.png">
+                <img src="http://001.topaaa.com/skin/ypmili/css/img/rz/8.png">
+            </div>
+            <div style="clear:both;"></div>
+        </div>
+    </div>
+</div>
+
+<!--上传图片 -->
+<script type="text/javascript" src="../../../dist/js/gjy_uploadpic.js"></script>
+<div class="main-im">
+    <div id="open_im" class="open-im" style="display: none;"></div>
+    <div class="im_main" id="im_main">
+        <div id="close_im" class="close-im"><a class="you" title="点击关闭" style="cursor: pointer"></a></div>
+        <a onclick="multi_qq()" class="im-qq qq-a">
+            <div class="qq-container"></div>
+            <div class="qq-hover-c"><img class="img-qq" src="http://001.topaaa.com/skin/ypmili/css/img/qq.png"></div>
+            <span>QQ在线咨询</span>
+        </a>
+        <script id="yptip_qq" type="text/template7">
+            <p style="width:100%;background-color:#0098ff;font-size:16px;text-align:center;color:#fff;height:34px;line-height:34px;">客服团队</p><p style="line-height:40px;">客服潇潇：<a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=261369834&site=qq&menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=2:261369834:51" alt="点击这里给我发消息" title="点击这里给我发消息" /></a> <span style="line-height:1.5;margin-left:10px;">客服靓靓：</span><a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=261369834&site=qq&menu=yes" style="line-height:1.5;"><img border="0" src="http://wpa.qq.com/pa?p=2:261369834:51" alt="点击这里给我发消息" title="点击这里给我发消息" /></a> </p><p style="line-height:30px;">客服恋恋：<a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=261369834&site=qq&menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=2:261369834:51" alt="点击这里给我发消息" title="点击这里给我发消息" /></a> <span style="line-height:1.5;margin-left:10px;">客服萌萌：</span><a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=261369834&site=qq&menu=yes" style="line-height:1.5;"><img border="0" src="http://wpa.qq.com/pa?p=2:261369834:51" alt="点击这里给我发消息" title="点击这里给我发消息" /></a> </p><p><br /></p><p style="width:100%;background-color:#0098ff;font-size:16px;text-align:center;color:#fff;height:34px;line-height:34px;">合作渠道</p><p style="line-height:40px;">业务合作：<a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=261369834&site=qq&menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=2:261369834:51" alt="点击这里给我发消息" title="点击这里给我发消息" /></a> <span style="line-height:1.5;margin-left:10px;">代理加盟：</span><a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=261369834&site=qq&menu=yes" style="line-height:1.5;"><img border="0" src="http://wpa.qq.com/pa?p=2:261369834:51" alt="点击这里给我发消息" title="点击这里给我发消息" /></a> </p>        </script>
+        <script>
+            function multi_qq() {
+                $('.layim-friend618').click();
+            }
+        </script>
+        <a href="/app.php" target="_blank" class="qq-a" style="height: 130px">
+            <div class="qq-container" style="height: 130px"></div>
+            <div style="width: 95px;height: 95px"><img class="img-qq" src="/api/qrcode.php?url=http%3A%2F%2F001.topaaa.com%2Fapp.php" style="width: 95px;height: 95px;max-width: 95px;top: 5px;left: 5px"></div>
+            <span>下载APP</span>
+        </a>
+        <div class="im-tel">
+            <div><a href="/announce/index.php?typeid=2" target="_blank">如何发布试用</a></div>
+            <div><a href="/announce/index.php?typeid=3" target="_blank">如何申请试用</a></div>
+            <div><a href="/about/index.php?itemid=6" target="_blank">销量联盟网规</a></div>
+            <div><a href="/announce/index.php?typeid=1" target="_blank" class="jsbz">网站公告</a></div>
+        </div>
+        <div class="im-footer" style="position:relative">
+            <div class="go-top"><a class="you" title="返回顶部" style="cursor: pointer"></a></div>
+            <div style="clear:both"></div>
+        </div>
+    </div>
+    <script>
+        $(function () {
+            $(".go-top").click(function () {
+                $('html,body').animate({scrollTop: 0}, 800);
+            });
+            $("#close_im").click(function () {
+                $("#im_main").fadeOut(500, function () {
+                    $("#open_im").fadeIn(500);
+                });
+            });
+            $("#open_im").click(function () {
+                $("#open_im").fadeOut(500, function () {
+                    $("#im_main").fadeIn(500);
+                });
+            });
+        });
+    </script>
+</div></body>
+</html>

@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en" >
+
+<head>
+    <meta charset="UTF-8">
+    <title>销量联盟----商家</title>
+    <link rel="stylesheet" type="text/css" href="../../../dist/css/index-skin.css">
+    <link rel="stylesheet" type="text/css" href="../../../dist/css/index-tp.css">
+
+    <script type="text/javascript" src="../../../dist/js/lang.js"></script>
+    <script type="text/javascript" src="../../../dist/js/config.js"></script>
+    <script type="text/javascript" src="../../../dist/js/jquery-2.0.0.min.js"></script>
+    <script type="text/javascript" src="../../../dist/js/common.js"></script>
+
+    <script type="text/javascript" src="../../../dist/js/admin.js"></script>
+    <script type="text/javascript" src="../../../dist/js/page.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="../../../dist/css/jq-tip.css">
+    <script type="text/javascript" src="../../../dist/js/jq-tip.js"></script>
+    <script type="text/javascript" src="../../../dist/js/layer.js"></script>
+
+    <script type="text/javascript" src="../../../dist/js/jquery.form.js"></script>
+    <script type="text/javascript" src="../../../dist/js/template7.min.js"></script>
+    <script type="text/javascript" src="../../../dist/js/cm.js"></script>
+    <script type="text/javascript" src="../../../dist/js/ypfunction.js"></script>
+
+    <link rel="stylesheet" href="http://001.topaaa.com/file/script/layim/css/layui.css">
+    <script src="http://001.topaaa.com/file/script/layim/layui.js"></script>
+    <script src="http://001.topaaa.com/file/script/layim/func.js"></script>
+    <script>
+        $(document).ready(function () {
+            var userresult_json = eval("("+sessionStorage.getItem("member")+")");
+
+            var stateindex_top_username = userresult_json.username
+                +"<b></b>";
+            $("#index_top_username").html(stateindex_top_username);
+
+            var stateindex_user_member_result = "<p>"+userresult_json.username+"</p>"
+            +"<p>"+userresult_json.vipmodel+"</p>";
+            $("#user_member_result").html(stateindex_user_member_result);
+
+            var stateindex_middle_user_result = userresult_json.username+"("+userresult_json.vipmodel+")";
+            $("#index_middle_userresult").html(stateindex_middle_user_result);
+
+            var stateindex_middle_money = userresult_json.money+"<span class='per415'>元</span>";
+            $("#index_middle_money").html(stateindex_middle_money);
+
+            if(userresult_json.is_real_name == 1){
+                $("#realnameimg").attr("class","suess");
+            }
+            // if(userresult_json.is_real_mobile == 1){
+            //     $("#mobilestartimg").attr("class","suess");
+            // }
+            if(userresult_json.is_real_bank == 1){
+                $("#bankstartimg").attr("class","suess");
+            }
+            if(userresult_json.pass_exam == 1){
+                $("#newuserexamimg").attr("class","suess");
+            }
+            if(userresult_json.is_bind_buy_account == 1){
+                $("#buynumberimg").attr("class","suess");
+            }
+
+            if(userresult_json.is_seller == 1){
+                $("#user_per311").hide();
+                $("#shoper_per311").show();
+            }
+
+
+        })
+    </script>
+</head>
+
+<body class="rwdt_bg">
+<div id="body">
+    <div id="body_header"></div>
+    <script>
+        $("#body_header").load("../public/public-top.html");
+    </script>
+    <div id="content_wrapper">
+        <div id="content_body_title"></div>
+        <script>
+            $("#content_body_title").load("../public/public-body-title.html");
+        </script>
+        <div class="personal1">
+        <div class="personal2">
+            <div class="personal3">
+                <div class="per32 ez-fl"><a href="/member/avatar.php">
+                    <img src="http://001.topaaa.com/api/avatar/show.php?username=temp2018&amp;size=large" height="100" width="100"></a>
+                </div>
+                <div class="per31 ez-fl">
+                    <div class="per_nav">
+                        <ul>
+                            <li class="yhm" id="index_middle_userresult">
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="per311">
+                        <ul id="user_per311">
+                            <!--买号各种认证开始-->
+                            <!--判断认证-->
+                            <!--th:if="${session.member.is_real_name} ne '1'"-->
+                            <li >
+                                <a href="../auth/auth-realname.html" class="b" target="_blank">实名认证
+                                    <em id="realnameimg" class="error"
+                                        title="请先通过实名认证"></em>
+                                </a>
+                            </li>
+
+
+                            <!--th:if="${session.member.is_real_mobile} ne '1'"-->
+                            <!--<li >-->
+                                <!--<a href="../auth/auth-mobile-start.html" class="b" target="_blank">手机认证-->
+                                    <!--<em id="mobilestartimg" class="error"-->
+                                        <!--title="请先通过手机认证">-->
+                                    <!--</em>-->
+                                <!--</a>-->
+                            <!--</li>-->
+                            <!--th:if="${session.member.is_real_bank} ne '1'"-->
+                            <li >
+                                <a href="../auth/auth-bank-start.html" class="b"
+                                   target="_blank">银行卡认证
+                                    <em class="error" id="bankstartimg" title="请先通过银行卡认证"></em>
+                                </a>
+                            </li>
+
+                            <!--各种认证结束-->
+
+                            <!--商家认证-->
+                            <!--试客认证-->
+                            <li>
+                                <a href="/member/exam.php" class="b" target="_blank">新手考试<em class="error" id="newuserexamimg" title="请先通过新手考试"></em></a>
+                            </li>
+                            <!--允许申请试用-->
+                            <li>
+                                <a href="../bind/bind-buy-taobao.html"
+                                   class="b" target="_blank">绑定买号
+                                    <em class="error" title="请先绑定买号" id="buynumberimg">
+
+                                </em></a></li>
+                        </ul>
+
+                        <ul id="shoper_per311" style="display: none;">
+                            <li >
+                                <a href="../shoper/shoper-bindshop.html" class="b"
+                                   target="_blank">绑定店铺
+                                    <em class="error" id="bindshop" title="请先绑定店铺"></em>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="per321 ez-fl">
+                    <div class="per322">
+                        <a href="/member/yptaskview.php?pro=2"><img src="../../../dist/index/img/per6.jpg" alt="" class="ez-mc ez-db"></a><br>
+                        <span>&nbsp;可处理试用&nbsp;<span class="per312">
+                        </span></span>
+                    </div>
+                    <div class="per322">
+                        <a href="/member/yptaskview.php?tousu=1"><img src="../../../dist/index/img/per7.jpg" alt="" class="ez-mc ez-db"></a><br>
+                        <span>&nbsp;可处理投诉&nbsp;<span class="per312">
+                        </span></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="per4">
+                <div class="per41">
+                    <div class="per411 ez-fl">
+                        <span class="per412">
+                            &nbsp;&nbsp;&nbsp;&nbsp;资金</span>
+                        <span class="per414" id="index_middle_money">0<span class="per415">元</span></span>
+                        <span class="per416">（0.00元锁定）</span>
+                        <span class="per417"><a href="/member/charge.php?action=pay">充值</a>
+                            &nbsp;&nbsp;&nbsp;&nbsp;  |   &nbsp;&nbsp;&nbsp;&nbsp;
+                            <a href="/member/cash.php">提现</a> &nbsp;&nbsp;&nbsp;&nbsp; |     &nbsp;&nbsp;&nbsp;&nbsp;  <a href="/member/record.php">明细</a></span>
+                    </div>
+                    <div class="per421 ">
+                        <span class="per412">&nbsp;&nbsp;&nbsp;&nbsp;联盟币</span>
+                        <span class="per414">0.00<span class="per415">个</span></span>
+                        <span class="per417"><a href="/member/credit.php?action=buy">购买</a>    &nbsp;&nbsp;&nbsp;&nbsp;  |   &nbsp;&nbsp;&nbsp;&nbsp;    <a href="/member/credit.php?action=sell">回收</a>  &nbsp;&nbsp;&nbsp;&nbsp; |     &nbsp;&nbsp;&nbsp;&nbsp;  <a href="/member/credit.php">明细</a></span>
+                    </div>
+                </div>
+                <div class="per42">
+                    <div class="per43">
+                        <a href="/member/baozhengjin.php" class="per431" title="保证金管理"></a><a href="/member/agent.php" class="per432" title="成为分站站长，获得更多收益"></a><a href="/member/grade.php" class="per433" title="升级VIP，享受更多权限"></a><a href="javascript:renwu_cat('请选择要发布的试用类别',
+                        '/member/my.php?mid=23&action=add&catid=4|淘宝试用,/member/my.php?mid=23&action=add&catid=5|阿里巴巴试用,/member/my.php?mid=23&action=add&catid=40|京东试用,/member/my.php?mid=23&action=add&catid=6|拼多多试用,/member/my.php?mid=23&action=add&catid=7|蘑菇街试用,/member/my.php?mid=23&action=add&catid=8|美丽说试用,/member/my.php?mid=23&action=add&catid=41|淘宝访问,/member/my.php?mid=23&action=add&catid=51|阿里巴巴访问,/member/my.php?mid=23&action=add&catid=401|京东访问')" class="per434" title="网店没销量，发布试用提升信誉"></a><a href="/member/credit.php?action=invite" class="per435" title="我要推广赚钱"></a>
+                    </div>
+                    <ul class="per44">
+                        <li><a href="/member/baozhengjin.php" title="保证金管理">保证金</a></li>
+                        <li><a href="/member/agent.php" title="成为分站站长，获得更多收益">成为分站站长</a></li>
+                        <li><a href="/member/grade.php" title="升级VIP，享受更多权限">升级VIP</a></li>
+                        <li><a href="javascript:renwu_cat('请选择要发布的试用类别','/member/my.php?mid=23&action=add&catid=4|淘宝试用,/member/my.php?mid=23&action=add&catid=5|阿里巴巴试用,/member/my.php?mid=23&action=add&catid=40|京东试用,/member/my.php?mid=23&action=add&catid=6|拼多多试用,/member/my.php?mid=23&action=add&catid=7|蘑菇街试用,/member/my.php?mid=23&action=add&catid=8|美丽说试用,/member/my.php?mid=23&action=add&catid=41|淘宝访问,/member/my.php?mid=23&action=add&catid=51|阿里巴巴访问,/member/my.php?mid=23&action=add&catid=401|京东访问')" title="网店没销量，发布试用提升信誉">我要提升信誉</a></li>
+                        <li><a href="/member/credit.php?action=invite" title="我要推广赚钱">我要推广赚钱</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <script>
+        $(function () {
+            set_nav("member", "on");
+        });
+    </script>
+    <div style="clear:both;"></div>
+    <div id="footer">
+        <div id="footer_top">
+            <div id="foot_top_1">
+                <a href="/about/index.php?itemid=10">代理加盟</a><span>  |  </span>
+                <a href="/about/index.php?itemid=9">辅助业务</a><span>  |  </span>
+                <a href="/about/index.php?itemid=8">网站活动</a><span>  |  </span>
+                <a href="/about/index.php?itemid=7">联系客服</a><span>  |  </span>
+                <a href="/about/index.php?itemid=6">联盟网规</a><span>  |  </span>
+                <a href="/about/index.php?itemid=1">关于我们</a><span>  |  </span>
+                <a href="/about/index.php?itemid=3">联系方式</a><span>  |  </span>
+                <a href="/about/index.php?itemid=4">使用协议</a><span>  |  </span>
+                <a href="/about/index.php?itemid=5">版权隐私</a><span>  |  </span>
+            </div>
+            <div id="copy_right">
+                (c)2013-2018 销量联盟 www.topaaa.com All Rights Reserved        </div>
+            <div style="width:1024px;text-align: center;margin: 20px auto 0;">
+                <img src="http://001.topaaa.com/skin/ypmili/css/img/rz/1.png">
+                <img src="http://001.topaaa.com/skin/ypmili/css/img/rz/2.png">
+                <img src="http://001.topaaa.com/skin/ypmili/css/img/rz/3.png">
+                <img src="http://001.topaaa.com/skin/ypmili/css/img/rz/4.png">
+                <img src="http://001.topaaa.com/skin/ypmili/css/img/rz/5.png">
+                <img src="http://001.topaaa.com/skin/ypmili/css/img/rz/6.png">
+                <img src="http://001.topaaa.com/skin/ypmili/css/img/rz/7.png">
+                <img src="http://001.topaaa.com/skin/ypmili/css/img/rz/8.png">
+            </div>
+            <div style="clear:both;"></div>
+        </div>
+    </div>
+
+    <input id="member_id" type="hidden" th:value="${session.member.id}" />
+    <input id="member_username" type="hidden" th:value="${session.member.username}" />
+
+</div>
+<link rel="stylesheet" href="http://001.topaaa.com/file/script/layim/css/layui.css">
+<script src="http://001.topaaa.com/file/script/layim/layui.js"></script>
+<script src="http://001.topaaa.com/file/script/layim/func.js"></script>
+<div class="main-im">
+    <div id="open_im" class="open-im" style="display: none;"></div>
+    <div class="im_main" id="im_main">
+        <div id="close_im" class="close-im"><a class="you" title="点击关闭" style="cursor: pointer"></a></div>
+        <a onclick="multi_qq()" class="im-qq qq-a">
+            <div class="qq-container"></div>
+            <div class="qq-hover-c"><img class="img-qq" src="http://001.topaaa.com/skin/ypmili/css/img/qq.png"></div>
+            <span>QQ在线咨询</span>
+        </a>
+        <script id="yptip_qq" type="text/template7">
+            <p style="width:100%;background-color:#0098ff;font-size:16px;text-align:center;color:#fff;height:34px;line-height:34px;">客服团队</p><p style="line-height:40px;">客服潇潇：<a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=261369834&site=qq&menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=2:261369834:51" alt="点击这里给我发消息" title="点击这里给我发消息" /></a> <span style="line-height:1.5;margin-left:10px;">客服靓靓：</span><a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=261369834&site=qq&menu=yes" style="line-height:1.5;"><img border="0" src="http://wpa.qq.com/pa?p=2:261369834:51" alt="点击这里给我发消息" title="点击这里给我发消息" /></a> </p><p style="line-height:30px;">客服恋恋：<a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=261369834&site=qq&menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=2:261369834:51" alt="点击这里给我发消息" title="点击这里给我发消息" /></a> <span style="line-height:1.5;margin-left:10px;">客服萌萌：</span><a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=261369834&site=qq&menu=yes" style="line-height:1.5;"><img border="0" src="http://wpa.qq.com/pa?p=2:261369834:51" alt="点击这里给我发消息" title="点击这里给我发消息" /></a> </p><p><br /></p><p style="width:100%;background-color:#0098ff;font-size:16px;text-align:center;color:#fff;height:34px;line-height:34px;">合作渠道</p><p style="line-height:40px;">业务合作：<a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=261369834&site=qq&menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=2:261369834:51" alt="点击这里给我发消息" title="点击这里给我发消息" /></a> <span style="line-height:1.5;margin-left:10px;">代理加盟：</span><a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=261369834&site=qq&menu=yes" style="line-height:1.5;"><img border="0" src="http://wpa.qq.com/pa?p=2:261369834:51" alt="点击这里给我发消息" title="点击这里给我发消息" /></a> </p>        </script>
+        <script>
+            function multi_qq() {
+                $('.layim-friend618').click();
+            }
+        </script>
+        <a href="/app.php" target="_blank" class="qq-a" style="height: 130px">
+            <div class="qq-container" style="height: 130px"></div>
+            <div style="width: 95px;height: 95px"><img class="img-qq" src="/api/qrcode.php?url=http%3A%2F%2F001.topaaa.com%2Fapp.php" style="width: 95px;height: 95px;max-width: 95px;top: 5px;left: 5px"></div>
+            <span>下载APP</span>
+        </a>
+        <div class="im-tel">
+            <div><a href="/announce/index.php?typeid=2" target="_blank">如何发布试用</a></div>
+            <div><a href="/announce/index.php?typeid=3" target="_blank">如何申请试用</a></div>
+            <div><a href="/about/index.php?itemid=6" target="_blank">销量联盟网规</a></div>
+            <div><a href="/announce/index.php?typeid=1" target="_blank" class="jsbz">网站公告</a></div>
+        </div>
+        <div class="im-footer" style="position:relative">
+            <div class="go-top"><a class="you" title="返回顶部" style="cursor: pointer"></a></div>
+            <div style="clear:both"></div>
+        </div>
+    </div>
+    <script>
+        $(function () {
+            $(".go-top").click(function () {
+                $('html,body').animate({scrollTop: 0}, 800);
+            });
+            $("#close_im").click(function () {
+                $("#im_main").fadeOut(500, function () {
+                    $("#open_im").fadeIn(500);
+                });
+            });
+            $("#open_im").click(function () {
+                $("#open_im").fadeOut(500, function () {
+                    $("#im_main").fadeIn(500);
+                });
+            });
+        });
+    </script>
+</div></body>
+</html>

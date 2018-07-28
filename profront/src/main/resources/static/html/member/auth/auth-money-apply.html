@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+
+    <link rel="stylesheet" type="text/css" href="../../../dist/css/index-skin.css">
+    <link rel="stylesheet" type="text/css" href="../../../dist/css/index-tp.css">
+
+    <script type="text/javascript" src="../../../dist/js/lang.js"></script>
+    <script type="text/javascript" src="../../../dist/js/config.js"></script>
+    <script type="text/javascript" src="../../../dist/js/jquery-2.0.0.min.js"></script>
+    <script type="text/javascript" src="../../../dist/js/common.js"></script>
+
+    <script type="text/javascript" src="../../../dist/js/admin.js"></script>
+    <script type="text/javascript" src="../../../dist/js/page.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="../../../dist/css/jq-tip.css">
+    <script type="text/javascript" src="../../../dist/js/jq-tip.js"></script>
+    <script type="text/javascript" src="../../../dist/js/layer.js"></script>
+
+    <script type="text/javascript" src="../../../dist/js/jquery.form.js"></script>
+    <script type="text/javascript" src="../../../dist/js/template7.min.js"></script>
+    <script type="text/javascript" src="../../../dist/js/cm.js"></script>
+    <script type="text/javascript" src="../../../dist/js/ypfunction.js"></script>
+
+    <link rel="stylesheet" href="http://001.topaaa.com/file/script/layim/css/layui.css">
+    <script src="http://001.topaaa.com/file/script/layim/layui.js"></script>
+    <script src="http://001.topaaa.com/file/script/layim/func.js"></script>
+</head>
+<BODY class=rwdt_bg>
+<DIV id=body>
+    <div id="body_header"></div>
+    <script>
+        $("#body_header").load("../public/public-top.html");
+    </script>
+    <DIV id=content_wrapper>
+        <div id="content_body_title"></div>
+        <script>
+            $("#content_body_title").load("../public/public-body-title.html");
+        </script>
+        <DIV id=ypcon>
+            <DIV class=yptip>
+                <P><SPAN style="COLOR: #e53333">后台说明：</SPAN><SPAN
+                        style="COLOR: #e53333">管理员可以设置</SPAN><SPAN
+                        style="COLOR: #e53333">是否开启提现、24小时提现次数、单次提现最小金额、单次提现最大金额、提现费率、费率最小值、费率封顶值</SPAN></P>
+                <P><SPAN
+                        style="COLOR: #e53333">提现流程：会员申请提现，管理员在后台受理，可以看到会员的用户名、姓名、提现金额、手续费、联系方式、申请时间、申请IP。</SPAN></P>
+                <P><SPAN style="COLOR: #e53333">管理员可以设置拒绝申请、支付失败、付款成功 。</SPAN></P></DIV>
+            <DIV class=menu>
+                <TABLE cellSpacing=0 cellPadding=0>
+                    <TBODY>
+                    <TR>
+                        <td class="tab"><a id="action_" href="auth-money-apply.html"><span>申请提现</span></a></td>
+                        <td class="tab_nav">&nbsp;</td>
+                        <td class="tab"><a id="action_record" href="auth-bank-txrecord.html"><span>提现记录</span></a></td>
+                        <td class="tab_nav">&nbsp;</td>
+                        <td class="tab"><a id="action_setting" href="auth-bank-tixian.html"><span>帐号设置</span></a></td>
+                    </TR></TBODY></TABLE></DIV>
+            <FORM action=cash.php method=post><INPUT name=action type=hidden value=confirm>
+                <TABLE class=tb cellSpacing=1 cellPadding=6>
+                    <TBODY>
+                    <TR>
+                        <TD class=tl>我的帐户</TD>
+                        <TD class=tr>可用余额 <SPAN class=f_red>8664.48</SPAN> 元</TD></TR>
+                    <TR>
+                        <TD class=tl>提现说明</TD>
+                        <TD class="tr f_gray">- 24小时可提现次数1次<BR>- 单次提现最大金额500元<BR>- 提现费率1%<BR>-
+                            提现费率最小值1元<BR>- 提现费率封顶值50元<BR></TD></TR>
+                    <TR>
+                        <TD class=tl><SPAN class=f_red>*</SPAN>提现金额</TD>
+                        <TD class=tr><INPUT name=amount type=text size=10></TD></TR>
+                    <TR>
+                        <TD class=tl><SPAN class=f_red>*</SPAN>提现方式</TD>
+                        <td class=tr>
+                        <select name="bank">
+                            <option value="支付宝">支付宝</option>
+                            <option value="银行卡">银行卡</option>
+                        </select>
+                        </td>
+                    </TR>
+                    <TR>
+                        <TD class=tl></TD>
+                        <TD
+                                class=tr><INPUT class=btn type=submit value=" 确 定 ">&nbsp;&nbsp;&nbsp;&nbsp;<INPUT name=reset class=btn type=reset value=" 重 置 ">
+                        </TD></TR></TBODY></TABLE></FORM>
+            <SCRIPT>
+                $(function () {
+                    set_nav("action", "sb0");
+                });
+            </SCRIPT>
+        </DIV></DIV>
+    <SCRIPT>
+        $(function () {
+            set_nav("cash", "on");
+            //alert("action_")
+            set_nav("action_", "sb0");
+        });
+    </SCRIPT>
+
+    <DIV style="CLEAR: both"></DIV>
+    <DIV id=footer>
+        <DIV id=footer_top>
+            <DIV id=foot_top_1><A
+                    href="http://001.topaaa.com/about/index.php?itemid=10">代理加盟</A><SPAN> |
+</SPAN><A href="http://001.topaaa.com/about/index.php?itemid=9">辅助业务</A><SPAN> |
+</SPAN><A href="http://001.topaaa.com/about/index.php?itemid=8">网站活动</A><SPAN> |
+</SPAN><A href="http://001.topaaa.com/about/index.php?itemid=7">联系客服</A><SPAN> |
+</SPAN><A href="http://001.topaaa.com/about/index.php?itemid=6">联盟网规</A><SPAN> |
+</SPAN><A href="http://001.topaaa.com/about/index.php?itemid=1">关于我们</A><SPAN> |
+</SPAN><A href="http://001.topaaa.com/about/index.php?itemid=3">联系方式</A><SPAN> |
+</SPAN><A href="http://001.topaaa.com/about/index.php?itemid=4">使用协议</A><SPAN> |
+</SPAN><A href="http://001.topaaa.com/about/index.php?itemid=5">版权隐私</A><SPAN> |
+</SPAN></DIV>
+            <DIV id=copy_right>(c)2013-2018 销量联盟 www.topaaa.com All Rights Reserved </DIV>
+            <div style="width:1024px;text-align: center;margin: 20px auto 0;">
+                <img src="http://001.topaaa.com/skin/ypmili/css/img/rz/1.png">
+                <img src="http://001.topaaa.com/skin/ypmili/css/img/rz/2.png">
+                <img src="http://001.topaaa.com/skin/ypmili/css/img/rz/3.png">
+                <img src="http://001.topaaa.com/skin/ypmili/css/img/rz/4.png">
+                <img src="http://001.topaaa.com/skin/ypmili/css/img/rz/5.png">
+                <img src="http://001.topaaa.com/skin/ypmili/css/img/rz/6.png">
+                <img src="http://001.topaaa.com/skin/ypmili/css/img/rz/7.png">
+                <img src="http://001.topaaa.com/skin/ypmili/css/img/rz/8.png">
+            </div>
+            <DIV style="CLEAR: both"></DIV></DIV></DIV></DIV><LINK
+        href="申请提现_销量联盟_files/layui.css" rel=stylesheet>
+<SCRIPT src="申请提现_销量联盟_files/layui.js"></SCRIPT>
+
+<SCRIPT src="申请提现_销量联盟_files/func.js"></SCRIPT>
+
+<DIV class=main-im>
+    <DIV class=open-im id=open_im style="DISPLAY: none"></DIV>
+    <DIV class=im_main id=im_main>
+        <DIV class=close-im id=close_im><A title=点击关闭 class=you
+                                           style="CURSOR: pointer"></A></DIV><A class="im-qq qq-a" onclick=multi_qq()>
+        <DIV class=qq-container></DIV>
+        <DIV class=qq-hover-c><IMG class=img-qq
+                                   src="申请提现_销量联盟_files/qq.png"></DIV><SPAN>QQ在线咨询</SPAN> </A>
+        <SCRIPT id=yptip_qq type=text/template7>
+            <p style="width:100%;background-color:#0098ff;font-size:16px;text-align:center;color:#fff;height:34px;line-height:34px;">客服团队</p><p style="line-height:40px;">客服潇潇：<a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=261369834&site=qq&menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=2:261369834:51" alt="点击这里给我发消息" title="点击这里给我发消息" /></a> <span style="line-height:1.5;margin-left:10px;">客服靓靓：</span><a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=261369834&site=qq&menu=yes" style="line-height:1.5;"><img border="0" src="http://wpa.qq.com/pa?p=2:261369834:51" alt="点击这里给我发消息" title="点击这里给我发消息" /></a> </p><p style="line-height:30px;">客服恋恋：<a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=261369834&site=qq&menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=2:261369834:51" alt="点击这里给我发消息" title="点击这里给我发消息" /></a> <span style="line-height:1.5;margin-left:10px;">客服萌萌：</span><a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=261369834&site=qq&menu=yes" style="line-height:1.5;"><img border="0" src="http://wpa.qq.com/pa?p=2:261369834:51" alt="点击这里给我发消息" title="点击这里给我发消息" /></a> </p><p><br /></p><p style="width:100%;background-color:#0098ff;font-size:16px;text-align:center;color:#fff;height:34px;line-height:34px;">合作渠道</p><p style="line-height:40px;">业务合作：<a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=261369834&site=qq&menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=2:261369834:51" alt="点击这里给我发消息" title="点击这里给我发消息" /></a> <span style="line-height:1.5;margin-left:10px;">代理加盟：</span><a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=261369834&site=qq&menu=yes" style="line-height:1.5;"><img border="0" src="http://wpa.qq.com/pa?p=2:261369834:51" alt="点击这里给我发消息" title="点击这里给我发消息" /></a> </p>        </SCRIPT>
+
+        <SCRIPT>
+            function multi_qq() {
+                $('.layim-friend618').click();
+            }
+        </SCRIPT>
+        <A class=qq-a style="HEIGHT: 130px" href="http://001.topaaa.com/app.php"
+           target=_blank>
+            <DIV class=qq-container style="HEIGHT: 130px"></DIV>
+            <DIV style="HEIGHT: 95px; WIDTH: 95px"><IMG class=img-qq
+                                                        style="MAX-WIDTH: 95px; HEIGHT: 95px; WIDTH: 95px; LEFT: 5px; TOP: 5px"
+                                                        src="申请提现_销量联盟_files/qrcode.png"></DIV><SPAN>下载APP</SPAN> </A>
+        <DIV class=im-tel>
+            <DIV><A href="http://001.topaaa.com/announce/index.php?typeid=2"
+                    target=_blank>如何发布试用</A></DIV>
+            <DIV><A href="http://001.topaaa.com/announce/index.php?typeid=3"
+                    target=_blank>如何申请试用</A></DIV>
+            <DIV><A href="http://001.topaaa.com/about/index.php?itemid=6"
+                    target=_blank>销量联盟网规</A></DIV>
+            <DIV><A class=jsbz href="http://001.topaaa.com/announce/index.php?typeid=1"
+                    target=_blank>网站公告</A></DIV></DIV>
+        <DIV class=im-footer style="POSITION: relative">
+            <DIV class=go-top><A title=返回顶部 class=you style="CURSOR: pointer"></A></DIV>
+            <DIV style="CLEAR: both"></DIV></DIV></DIV>
+    <SCRIPT>
+        $(function () {
+            $(".go-top").click(function () {
+                $('html,body').animate({scrollTop: 0}, 800);
+            });
+            $("#close_im").click(function () {
+                $("#im_main").fadeOut(500, function () {
+                    $("#open_im").fadeIn(500);
+                });
+            });
+            $("#open_im").click(function () {
+                $("#open_im").fadeOut(500, function () {
+                    $("#im_main").fadeIn(500);
+                });
+            });
+        });
+    </SCRIPT>
+</DIV></BODY></HTML>

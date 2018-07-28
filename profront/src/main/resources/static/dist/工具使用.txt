@@ -1,0 +1,3 @@
+日期解析
+let org_time = datas[i].regist_time;
+datas[i].regist_time = moment(org_time,'MMM DD,YYYY HH:mm:ss A','en').format('YYYY-MM-DD HH:mm:ss');

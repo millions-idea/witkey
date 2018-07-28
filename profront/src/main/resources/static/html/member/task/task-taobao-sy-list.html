@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>试用列表</title>
+    <meta charset="UTF-8">
+    <title>间接推荐人</title>
+    <link rel="stylesheet" type="text/css" href="../../../dist/css/index-skin.css">
+    <link rel="stylesheet" type="text/css" href="../../../dist/css/index-tp.css">
+
+    <script type="text/javascript" src="../../../dist/js/lang.js"></script>
+    <script type="text/javascript" src="../../../dist/js/config.js"></script>
+    <script type="text/javascript" src="../../../dist/js/jquery-2.0.0.min.js"></script>
+    <script type="text/javascript" src="../../../dist/js/common.js"></script>
+
+    <script type="text/javascript" src="../../../dist/js/admin.js"></script>
+    <script type="text/javascript" src="../../../dist/js/page.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="../../../dist/css/jq-tip.css">
+    <script type="text/javascript" src="../../../dist/js/jq-tip.js"></script>
+    <script type="text/javascript" src="../../../dist/js/layer.js"></script>
+
+    <script type="text/javascript" src="../../../dist/js/jquery.form.js"></script>
+    <script type="text/javascript" src="../../../dist/js/template7.min.js"></script>
+    <script type="text/javascript" src="../../../dist/js/cm.js"></script>
+    <script type="text/javascript" src="../../../dist/js/ypfunction.js"></script>
+    <!--日期处理-->
+    <script type="text/javascript" src="../../../dist/js/moment.js"></script>
+
+    <link rel="stylesheet" href="http://001.topaaa.com/file/script/layim/css/layui.css">
+    <!--配置服务器连接地址 -->
+    <script type="text/javascript" src="../../../dist/js/gjy_serviceurl.js"></script>
+
+    <script src="https://cdn.bootcss.com/react/16.4.0/umd/react.development.js"></script>
+    <script src="https://cdn.bootcss.com/react-dom/16.4.0/umd/react-dom.development.js"></script>
+    <script src="https://cdn.bootcss.com/babel-standalone/6.26.0/babel.min.js"></script>
+
+    <link rel="stylesheet" href="../../../dist/layui/css/layui.css">
+    <script type="text/javascript" src="../../../dist/layui/layui.js"></script>
+
+    <style type="text/css">
+        #pages {
+            display: flex;
+            justify-content: center;
+        }
+
+        .layui-laypage-center {
+
+        }
+    </style>
+
+</head>
+
+
+<BODY class=rwdt_bg>
+<DIV id=body>
+    <DIV id=top_yc></DIV>
+    <DIV class="ui-header ibj-header clean">
+        <DIV class=ui-header-top id=j-header-top>
+            <DIV class="grid zbj-grid">
+                <DIV class="fl ui-header-greet">
+                    <DIV class="header_top_left trends">
+                        <UL class=line>
+                            <LI class=gg><A
+                                    href="http://001.topaaa.com/announce/index.php?itemid=9">试客做单特别注意</A></LI>
+                            <LI class=gg><A
+                                    href="http://001.topaaa.com/announce/index.php?itemid=10">开启QQ临时会话，双方及时沟通</A>
+                            </LI>
+                            <LI class=gg><A href="http://001.topaaa.com/announce/index.php?itemid=1">重要通告
+                                注册后必看</A></LI>
+                            <LI class=gg><A
+                                    href="http://001.topaaa.com/announce/index.php?itemid=2">销量联盟商家支付佣金表</A></LI>
+                            <LI class=gg><A
+                                    href="http://001.topaaa.com/announce/index.php?itemid=3">销量联盟商家注册流程</A></LI>
+                            <LI class=gg><A
+                                    href="http://001.topaaa.com/announce/index.php?itemid=4">销量联盟试客注册流程</A></LI>
+                            <LI class=gg><A
+                                    href="http://001.topaaa.com/announce/index.php?itemid=5">销量联盟考试题库</A></LI>
+                            <LI class=gg><A
+                                    href="http://001.topaaa.com/announce/index.php?itemid=6">试客申请试用注意事项</A></LI>
+                            <LI class=gg><A
+                                    href="http://001.topaaa.com/announce/index.php?itemid=7">手机单付款教程</A></LI>
+                            <LI class=gg><A
+                                    href="http://001.topaaa.com/announce/index.php?itemid=8">买号出售说明</A>
+                            </LI>
+                        </UL>
+                    </DIV>
+                </DIV>
+                <DIV class="fr ui-header-nav">
+                    <DIV class=ui-dropdown><SPAN
+                            style="HEIGHT: 35px; PADDING-BOTTOM: 0px; PADDING-TOP: 0px; PADDING-LEFT: 10px; LINE-HEIGHT: 35px; PADDING-RIGHT: 10px"><A
+                            href="http://001.topaaa.com/app.php" target=_blank>下载APP</A> </SPAN></DIV>
+                    <DIV class=ui-dropdown><SPAN
+                            style="HEIGHT: 35px; PADDING-BOTTOM: 0px; PADDING-TOP: 0px; PADDING-LEFT: 10px; LINE-HEIGHT: 35px; PADDING-RIGHT: 10px"><A
+                            href="http://001.topaaa.com/announce/index.php?itemid=10">开启QQ临时会话</A>
+</SPAN></DIV>
+                    <DIV class=ui-dropdown><SPAN
+                            style="HEIGHT: 35px; PADDING-BOTTOM: 0px; PADDING-TOP: 0px; PADDING-LEFT: 10px; LINE-HEIGHT: 35px; PADDING-RIGHT: 10px"><A
+                            href="http://001.topaaa.com/announce/index.php?typeid=3">新手帮助</A> </SPAN></DIV>
+                    <DIV class=ui-dropdown><SPAN class=ui-dropdown-hd href="#none"><A
+                            class="login-after username" style="DISPLAY: inline"
+                            href="http://001.topaaa.com/member/">yp12345678<B></B> </A></SPAN>
+                        <DIV class="ui-dropdown-menu nouserinfo">
+                            <UL class="list-unstyled unstyled ui-account">
+                                <LI class=item-account><A class="fr zbj-tooltip"
+                                                          href="http://001.topaaa.com/member/record.php" tool-text="详细"
+                                                          tool-map="top">详细</A> <SPAN class=fr><A
+                                        class="blue item-withdraw"
+                                        href="http://001.topaaa.com/member/charge.php?action=pay">充值</A> <A
+                                        class="blue item-withdraw" href="http://001.topaaa.com/member/cash.php">提现</A>
+  </SPAN>资金： <SPAN class=highlight><SPAN
+                                        class="my-balance-holder highlight">34658.31</SPAN></SPAN></LI>
+                                <LI class=item-account><A class="fr zbj-tooltip"
+                                                          href="http://001.topaaa.com/member/credit.php" tool-text="详细"
+                                                          tool-map="top">详细</A> <SPAN class=fr><A
+                                        class="blue item-withdraw"
+                                        href="http://001.topaaa.com/member/credit.php?action=buy">充值</A> <A
+                                        class="blue item-withdraw" href="http://001.topaaa.com/member/">兑换</A>
+  </SPAN>联盟币： <SPAN class=highlight><SPAN
+                                        class="my-balance-holder highlight">11562.00</SPAN></SPAN></LI>
+                                <LI class=item-account>会员组： <SPAN class=highlight><SPAN
+                                        class="my-balance-holder highlight" style="MARGIN-RIGHT: 10px">金牌试客会员</SPAN>
+  </SPAN><A href="http://001.topaaa.com/member/grade.php">升级</A></LI>
+                                <LI class=item-ft><A title=退出登录 class="fr item-logout"
+                                                     href="http://001.topaaa.com/member/logout.php">退出</A> <A
+                                        class=item-myfav
+                                        href="http://001.topaaa.com/member/edit.php">账号设置</A></LI>
+                            </UL>
+                        </DIV>
+                    </DIV>
+                    <DIV class=ui-dropdown id=j-need-invite><A class=ui-dropdown-hd
+                                                               href="http://001.topaaa.com/yptask/?catid=5#">我是试客<B></B></A>
+                        <UL class="unstyled fr ui-dropdown-menu ui-menu-fix">
+                            <LI><A
+                                    onclick="renwu_cat('请选择要申请的试用类别','/yptask/?catid=4|淘宝试用,/yptask/?catid=5|阿里巴巴试用,/yptask/?catid=40|京东试用,/yptask/?catid=6|拼多多试用,/yptask/?catid=7|蘑菇街试用,/yptask/?catid=8|美丽说试用,/yptask/?catid=41|淘宝访问,/yptask/?catid=51|阿里巴巴访问,/yptask/?catid=401|京东访问');">免费试用</A>
+                            </LI>
+                            <LI><A title=已申请的试用 class=highlight
+                                   href="http://001.topaaa.com/member/yptaskview.php?pro=2">试用中心</A></LI>
+                            <LI><A href="http://001.topaaa.com/member/taobaohao.php">绑定买号</A></LI>
+                            <LI><A
+                                    href="http://001.topaaa.com/member/yptaskview.php?tousu=1">我的投诉</A></LI>
+                        </UL>
+                    </DIV>
+                </DIV>
+            </DIV>
+        </DIV>
+    </DIV><!--logo开始-->
+    <DIV class=clean id=header>
+        <DIV class=header_main>
+            <DIV id=ypmsgbox></DIV>
+            <DIV class=header_left><A href="http://001.topaaa.com/"><IMG alt=销量联盟
+                                                                         src="任务_销量联盟_files/logo.png"></A></DIV>
+            <DIV class=header_right>
+                <DIV class=avatar><IMG src="任务_销量联盟_files/defaultx48.jpg"></DIV>
+                <DIV class=username>
+                    <P>yp12345678</P>
+                    <P>金牌试客会员</P></DIV>
+                <DIV class=logout><A href="http://001.topaaa.com/member/logout.php">退出</A>
+                </DIV>
+            </DIV>
+        </DIV>
+    </DIV><!--where= status=3 AND pro=0 AND addtime<=1532504673 AND catid=5-->
+    <DIV class=hyzx>
+        <DIV class=hyzx_dh>
+            <DIV class=hyzx_nav>
+                <DIV class="menu persoanal_0">
+                    <DIV class=personal><A href="http://001.topaaa.com/">首 页</A></DIV>
+                    <DIV class="personal nav"><A id=yptask>免费试用</A>
+                        <UL class=sub><A title=淘宝试用
+                                         id=yptask234
+                                         href="javascript:;">淘宝试用</A>
+                            <A title=阿里巴巴试用
+                               id=yptask235
+                               href="http://001.topaaa.com/yptask/?catid=5">阿里巴巴试用</A>
+                            <A
+                                    title=京东试用 id=yptask2340
+                                    href="http://001.topaaa.com/yptask/?catid=40">京东试用</A> <A title=拼多多试用
+                                                                                              id=yptask236
+                                                                                              href="http://001.topaaa.com/yptask/?catid=6">拼多多试用</A>
+                            <A
+                                    title=蘑菇街试用 id=yptask237
+                                    href="http://001.topaaa.com/yptask/?catid=7">蘑菇街试用</A> <A title=美丽说试用
+                                                                                              id=yptask238
+                                                                                              href="http://001.topaaa.com/yptask/?catid=8">美丽说试用</A>
+                            <A
+                                    title=淘宝访问 id=yptask2341
+                                    href="http://001.topaaa.com/yptask/?catid=41">淘宝访问</A> <A title=阿里巴巴访问
+                                                                                              id=yptask2351
+                                                                                              href="http://001.topaaa.com/yptask/?catid=51">阿里巴巴访问</A>
+                            <A
+                                    title=京东访问 id=yptask23401
+                                    href="http://001.topaaa.com/yptask/?catid=401">京东访问</A></UL>
+                    </DIV>
+                    <DIV class="personal nav"><A id=record
+                                                 href="http://001.topaaa.com/member/record.php">资金管理</A>
+                        <UL class=sub>
+                            <LI><A href="http://001.topaaa.com/member/charge.php?action=pay">资金充值</A></LI>
+                            <LI><A href="http://001.topaaa.com/member/cash.php">资金提现</A></LI>
+                            <LI><A href="http://001.topaaa.com/member/record.php">资金流水</A></LI>
+                        </UL>
+                    </DIV>
+                    <DIV class="personal nav"><A id=taobaohao
+                                                 href="http://001.topaaa.com/member/taobaohao.php">买号管理</A>
+                        <UL class=sub>
+                            <LI><A href="http://001.topaaa.com/member/taobaohao.php">买号管理</A></LI>
+                            <LI><A href="http://001.topaaa.com/member/taobaohao.php?action=add">绑定买号</A>
+                            </LI>
+                        </UL>
+                    </DIV>
+                    <DIV class=personal><A id=fuzhu
+                                           href="http://001.topaaa.com/member/fuzhu.php">流量套餐</A></DIV>
+                    <DIV class=personal><A id=kuaidi
+                                           href="http://001.topaaa.com/member/kuaidi.php?action=add">代发快递</A></DIV>
+                    <DIV class=personal><A id=inviter
+                                           href="http://001.topaaa.com/member/inviter.php">推广奖励</A></DIV>
+                    <DIV class="personal nav"><A id=agent
+                                                 href="http://001.topaaa.com/member/agent.php">加盟分站</A>
+                        <UL class=sub>
+                            <LI><A href="http://001.topaaa.com/member/agent.php">加盟分站</A></LI>
+                            <LI><A href="http://001.topaaa.com/about/index.php?itemid=10">加盟政策</A></LI>
+                            <LI><A href="http://001.topaaa.com/extend/joinus.php">加入我们</A></LI>
+                        </UL>
+                    </DIV>
+                    <DIV class="personal nav"><A id=yptask_my>试用中心</A>
+                        <UL class=sub>
+                            <LI><A
+                                    href="http://001.topaaa.com/member/yptaskview.php?pro=2">已申请试用</A></LI>
+                        </UL>
+                    </DIV>
+                    <DIV class="personal nav"><A>会员中心</A>
+                        <UL class=sub>
+                            <LI><A href="http://001.topaaa.com/member/">会员中心</A></LI>
+                            <LI><A href="http://001.topaaa.com/member/edit.php">修改资料</A></LI>
+                            <LI><A href="http://001.topaaa.com/member/blacklist.php">黑名单</A></LI>
+                            <LI><A
+                                    href="http://001.topaaa.com/member/grade.php">会员升级</A></LI>
+                        </UL>
+                    </DIV>
+                </DIV>
+            </DIV>
+        </DIV>
+    </DIV>
+    <!--<INPUT id=catid type=hidden value=5> <INPUT id=w type=hidden>-->
+    <DIV id=content>
+        <DIV id=moveContent>
+            <DIV>
+                <DIV class=yptip_dating></DIV>
+                <div id=slide-cat>
+                    <UL>
+                        <LI style="HEIGHT: 40px">商品类目：</LI>
+                        <LI><A class=act onclick="goodClass(0)"
+                               href="javascript:;">全部类目</A></LI>
+                        <LI><A onclick="goodClass(1)"
+                                href="javascript:;">潮流女装</A></LI>
+                        <LI><A onclick="goodClass(2)"
+                                href="javascript:;">时尚男装</A></LI>
+                        <LI><A onclick="goodClass(3)"
+                                href="javascript:;">鞋子箱包</A></LI>
+                        <LI><A onclick="goodClass(4)"
+                                href="javascript:;">数码家电</A></LI>
+                        <LI><A onclick="goodClass(5)"
+                                href="javascript:;">美食特产</A></LI>
+                        <LI><A onclick="goodClass(6)"
+                                href="javascript:;">居家日用</A></LI>
+                        <LI><A onclick="goodClass(7)"
+                                href="javascript:;">母婴用品</A></LI>
+                        <LI><A onclick="goodClass(8)"
+                                href="javascript:;">护肤彩妆</A></LI>
+                        <LI><A onclick="goodClass(9)"
+                                href="javascript:;">珠宝配饰</A></LI>
+                        <LI><A onclick="goodClass(10)"
+                                href="javascript:;">家装家纺</A></LI>
+                        <LI><A onclick="goodClass(11)"
+                                href="javascript:;">车品车饰</A></LI>
+                        <LI><A onclick="goodClass(12)"
+                                href="javascript:;">运动户外</A></LI>
+                        <LI><A onclick="goodClass(13)"
+                                href="javascript:;">家庭保健</A></LI>
+                        <LI><A onclick="goodClass(14)"
+                                href="javascript:;">中老年用</A></LI>
+                        <LI><A onclick="goodClass(15)"
+                                href="javascript:;">其他类目</A></LI>
+                    </UL>
+                    <ul>
+                        <LI>商品排序：</LI>
+                        <LI><A class=act
+                               onclick="orderBy(1);"
+                               href="javascript:;">最新 ↓
+                        </A></LI>
+                        <LI>
+                            <A onclick="orderBy(2);" href="javascript:;">
+                                价值
+                                ↓ </A></LI>
+                        <li><A onclick="orderBy(3);" href="javascript:;">奖励
+                            ↓ </A></li>
+                        <li>
+
+                            <form class='yptasksearch'  method=post><input
+                                    name=itemid class=c32
+                                    id='taskinfo' onfocus="if(value=='试用编号搜索...'){value=''}"
+                                    onblur="if(value=='') {value='试用编号搜索...'}"
+                                    type=text value=试用编号搜索...>
+
+                                <button id='taskid' type='button' onclick="findById()">
+                                    搜索
+                                </button>
+                            </form>
+                        </li>
+                        <li class=fr><A onclick=switch_grid()>切换视图</A></li>
+                        <li class=fr><A id=autorefresh>自动刷新</A></li>
+                    </ul>
+                </div>
+                <div class=cle></div>
+                <div id=taobao-lists>
+                    <div id=taskList>
+                        <div class=cle></div>
+
+
+                    </div>
+                </div>
+                <DIV class=cle></DIV>
+            </DIV>
+        </DIV>
+    </DIV>
+
+    <!--分页-->
+    <div id='pages'>
+    </div>
+
+    <STYLE>#dialog {
+        BORDER-TOP: #fff 1px solid;
+        BORDER-RIGHT: #fff 1px solid;
+        WIDTH: 520px;
+        BORDER-BOTTOM: #fff 1px solid;
+        PADDING-BOTTOM: 20px;
+        PADDING-TOP: 20px;
+        PADDING-LEFT: 20px;
+        BORDER-LEFT: #fff 1px solid;
+        DISPLAY: none;
+        PADDING-RIGHT: 20px;
+        BACKGROUND-COLOR: #fff
+    }
+    </STYLE>
+    <!-- 对话框 -->
+    <DIV id=dialog>
+        <DIV class=tip></DIV>
+        <DIV><A class=accurl onclick="jierenwu('13062411179');"><EM
+                class=iyellow>13062411179</EM> <SPAN class=xin6></SPAN></A><A class=accurl
+                                                                              onclick="jierenwu('思思之狂');"><EM
+                class=iyellow>思思之狂</EM><SPAN
+                class=xin3></SPAN></A>
+            <DIV class=cle></DIV>
+            <DIV class=addtaobaohao><A
+                    href="http://001.topaaa.com/member/taobaohao.php?action=add">添加买号</A></DIV>
+        </DIV>
+        <DIV class=cle></DIV>
+    </DIV><!-- end对话框 --><INPUT id=yptask_itemid type=hidden>
+    <INPUT id=yptask_ischeck type=hidden>
+
+
+    <SCRIPT type="text/babel">
+        //排序
+        function orderBy(num) {
+            let order = "";
+            switch (num) {
+                case 1:
+                    order = "?order_by=1";
+                    break;
+                case 2:
+                    order = "?order_by=2";
+                    break;
+                case 3:
+                    order = "?order_by=3";
+                    break;
+            }
+            window.location.href = "task-taobao-sy-list.html" + order;
+        }
+
+        //分类查询
+        function goodClass(type){
+            window.location.href = "task-taobao-sy-list.html?class_type=" + type;
+        }
+
+        //按照id搜索
+        function findById(){
+            let id = $("#taskinfo").val();
+            window.location.href = "task-taobao-sy-list.html?good_id=" + id;
+        }
+
+        $(function () {
+            set_nav("yptask", "on");
+            //从页面刚进来加载
+            loadData();
+        });
+
+
+        /**
+         * 加载数据
+         * @param obj
+         */
+        function loadData(obj) {
+            //请求数据
+            let params = {};
+            params.memid = userresult_json.id;
+            //获取地址栏参数
+            let Request = new Object();
+            Request = GetRequest();
+            let order;
+            //排序
+            order = Request['order_by'];
+            if (order != undefined && order != null) {
+                params.order_by = order;
+            }
+            //页数
+            let url_page = Request['page'];
+            if (url_page != undefined && url_page != null) {
+                params.page = url_page;
+            }
+
+            //商品类型
+            let class_type = Request['class_type'];
+            if (class_type != undefined && class_type != null) {
+                params.class_type = class_type;
+            }
+            //id
+            let good_id = Request['good_id'];
+            if (good_id != undefined && good_id != null) {
+                params.good_id = good_id;
+            }
+
+            $.ajax({
+                url: request_url + "intf_shop/loadUserTaskList",
+                type: "post",
+                data: params,
+                dataType: 'json',
+                headers: {
+                    "mobile": userresult_json.mobile,
+                    "token": userresult_json.token
+                },
+                success: function (result) {
+                    if (result.error == 0) {
+                        console.log(result);
+                        //下线列表
+                        let pageinfo = jQuery.parseJSON(result.pageInfo);
+                        //当前页
+                        let pageNum = pageinfo.pageNum;
+                        //数据
+                        let list = pageinfo.list;
+
+                        //分页
+                        layui.use('laypage', function () {
+                            let laypage = layui.laypage;
+
+                            laypage.render({
+                                elem: 'pages',
+                                theme: 'center'
+                                , count: pageinfo.total  //数据总数，从服务端得到
+                                , curr: pageNum //获取起始页
+                                , jump: function (obj, first) {
+                                    //首次不执行
+                                    if (!first) {
+                                        let current = obj.curr;
+                                        let url = "task-taobao-sy-list.html?page=" + current;
+
+                                        if (order != undefined && order != null) {
+                                            url += '&order_by=' + order;
+                                        }
+                                        if (class_type != undefined && class_type != null) {
+                                            url += '&class_type=' +class_type;
+                                        }
+
+                                        window.location.href = url;
+                                    }
+                                }
+                            });
+                        });
+
+
+                        //时间转化
+                        for (let i = 0; i < list.length; i++) {
+                            let org_time = list[i].pub_time;
+                            if (undefined != org_time && org_time != null) {
+                                list[i].pub_time =
+                                    moment(org_time, 'MMM DD,YYYY HH:mm:ss A', 'en').format('YYYY-MM-DD HH:mm:ss');
+                            }
+                        }
+
+                        const element = <div id="taskList">{
+                            list.map((data, index) =>
+
+                                <div className='c4'>
+                                    <div className='c41'>
+                                        <div className='c42'>
+                                        <span className='addtime'>
+                                            发布时间：{data.pub_time}
+                                        </span>
+                                            <img width='16'
+                                                 height='16'
+                                                 title='阿里巴巴试用'
+                                                 align='absMiddle'
+                                                 src="/dist/img/cat_5.png"/>
+                                            试用编号：
+                                            100
+                                        </div>
+                                        <div className='c43'>
+                                            <div className='my1'>
+                                                <img className='c46'
+                                                     src="/dist/img/13-23-52-87-2.png.thumb.png"
+                                                     data-qtip-img-height="300"
+                                                     data-qtip-img-width="0"
+                                                     data-qtip-img="/dist/img/201803/15/13-23-52-87-2.png.thumb.png"/>
+
+                                                <div>
+                                                    {data.search_word}
+                                                </div>
+                                            </div>
+                                            <div className='my2'>
+                                                <ul>
+                                                    <li>发布商家：
+                                                        <span className='f_red'>
+                                                       {data.username}
+                                                    </span>
+                                                        <span className='vip'><img
+                                                            title='1级VIP客户'
+                                                            src="/dist/img/vip1.gif"/>
+                                                </span>
+                                                    </li>
+                                                    <li><span className='shiyong_hide'>试用</span>金额：
+                                                        <span title='试用的下单金额'
+                                                              className='f_red'>
+                                                        {data.price}
+                                                    </span> 元
+                                                    </li>
+                                                    <li><span className='shiyong_hide'>悬赏</span>
+                                                        奖励：<span title='完成试用后，您能获得的试用奖励'
+                                                                 className='f_red'>
+                                                        {data.append_money}
+                                                    </span> 元
+                                                    </li>
+                                                </ul>
+
+                                                <div className='requirements'>
+
+                                                    {/*条件部分
+
+                                                    .ired, .iorange, .iyellow,
+                                                    .igreen, .icyan, .iblue,
+                                                    .iviolet, .igray, .inone
+
+                                                    */}
+
+                                                    {
+                                                        data.requires.map(function (name, index) {
+                                                            return (
+                                                                <em title='任务金额的返款方式'
+                                                                    className={data.color_class[index]}>
+                                                                    {name}
+                                                                </em>
+                                                            )
+                                                        })
+
+                                                    }
+                                                </div>
+                                            </div>
+                                            <div className='my3'>
+                                                <a className="qrw_btn button border-blue"
+                                                itemid="2967788"
+                                                   goods_id='100'
+                                                ischeck="0">
+                                                申请试用
+                                            </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            )
+                        }</div>;
+
+
+                        // 渲染虚拟DOM
+                        ReactDOM.render(element, document.getElementById('taobao-lists'))
+
+                    } else {
+                        alert(result.message);
+                    }
+                }
+            });
+        }
+    </SCRIPT>
+
+    <SCRIPT type=text/javascript>
+        function jierenwu(xiaohao) {
+            $.ajax({
+                type: 'POST',
+                url: '/yptask/acc.php',
+                data: {
+                    itemid: $("#yptask_itemid").val(),
+                    taobaohao: xiaohao
+                },
+                success: function (response) {
+                    if (response == 'success') {
+                        layer.confirm('申请成功，是否继续申请？', {
+                            btn: ['继续申请', '前往试用管理'] //按钮
+                        }, function (index) {
+                            window.location.reload();
+                        }, function () {
+                            if ($("#yptask_ischeck").val() == '1') window.location = '/member/yptaskview.php?pro=1';
+                            else window.location = '/member/yptaskview.php?pro=2';
+                        });
+                    } else {
+                        layer.alert(response);
+                    }
+                }
+            });
+        }
+
+        $(function () {
+            $('.qrw_btn').click(function () {
+                var itemid = ($(this).attr("itemid"));
+                $("#yptask_itemid").val(itemid);
+                var ischeck = ($(this).attr("ischeck"));
+                $("#yptask_ischeck").val(ischeck);
+                $("#dialog .tip").html('请在下面选择一个买号申请试用');
+                layer.open({
+                    type: 1,
+                    title: '请选择一个买号申请免费试用',
+                    area: ['auto', 'auto'],
+                    shadeClose: true,
+                    content: $('#dialog')
+                });
+            });
+        });
+        // 设置一个div作为遮罩层，当显示对话框时填满浏览器窗口
+        $('<div id="qtip-blanket">')
+            .css({
+                position: 'fixed',
+                top: 0, // Use document scrollTop so it's on-screen even if the window is scrolled
+                left: 0,
+                height: '100%',//height: $(document).height(), // Span the full document height...
+                width: '100%', // ...and full width
+                opacity: 0.2, // 设置遮罩层透明
+                backgroundColor: 'black',
+                zIndex: 5000  // tootip 的Zindex都是在 6000以上 为了确保 遮罩层在对话框一下，设置为5000
+            })
+            .appendTo(document.body) // 增加到文档中
+            .hide(0); // 初始化的时候隐藏
+        //自动刷新
+        $(function () {
+            // var switch_grid = get_cookie('switch_grid');
+            // if (!switch_grid) {
+            //     $('#taskList').addClass('shiyong');
+            //     $("[data-qtip-img]").qtip({
+            //         position: {my: 'center bottom', at: 'top center', adjust: {x: 10}},
+            //         style: {classes: 'qtip-bootstrap'}
+            //     });
+            // }
+            // var autorefresh = getCookie('autorefresh');
+            // var autorefreshid = 0;
+            // $('#autorefresh').click(function () {
+            //     if ($('#autorefresh').text() == '自动刷新') {
+            //         setCookie('autorefresh', 1);
+            //         location.reload();
+            //     } else {
+            //         if (autorefreshid) clearInterval(autorefreshid);
+            //         setCookie('autorefresh', 0);
+            //         $('#autorefresh').text('自动刷新').attr('title', '点击自动刷新');
+            //     }
+            // });
+            // if (autorefresh == 1) {
+            //     $('#autorefresh').text('取消自动刷新').attr('title', '点击取消自动刷新');
+            //     autorefreshid = setTimeout('location.reload()', 10000);
+            // }
+        });
+
+        function switch_grid() {
+            $('#taskList').toggleClass('shiyong');
+            setTimeout(function () {
+                if ($('#taskList').hasClass('shiyong')) {
+                    set_cookie('switch_grid', '');
+                    $("[data-qtip-img]").qtip({
+                        position: {my: 'center bottom', at: 'top center', adjust: {x: 10}},
+                        style: {classes: 'qtip-bootstrap'}
+                    });
+                } else {
+                    set_cookie('switch_grid', 1);
+                    qtip_init();
+                }
+            }, 100);
+        }
+    </SCRIPT>
+
+
+    <DIV style="CLEAR: both"></DIV>
+    <DIV id=footer>
+        <DIV id=footer_top>
+            <DIV id=foot_top_1><A
+                    href="http://001.topaaa.com/about/index.php?itemid=10">代理加盟</A><SPAN> |
+</SPAN><A href="http://001.topaaa.com/about/index.php?itemid=9">辅助业务</A><SPAN> |
+</SPAN><A href="http://001.topaaa.com/about/index.php?itemid=8">网站活动</A><SPAN> |
+</SPAN><A href="http://001.topaaa.com/about/index.php?itemid=7">联系客服</A><SPAN> |
+</SPAN><A href="http://001.topaaa.com/about/index.php?itemid=6">联盟网规</A><SPAN> |
+</SPAN><A href="http://001.topaaa.com/about/index.php?itemid=1">关于我们</A><SPAN> |
+</SPAN><A href="http://001.topaaa.com/about/index.php?itemid=3">联系方式</A><SPAN> |
+</SPAN><A href="http://001.topaaa.com/about/index.php?itemid=4">使用协议</A><SPAN> |
+</SPAN><A href="http://001.topaaa.com/about/index.php?itemid=5">版权隐私</A><SPAN> |
+</SPAN></DIV>
+            <DIV id=copy_right>(c)2013-2018 销量联盟 www.topaaa.com All Rights Reserved</DIV>
+            <DIV style="WIDTH: 1024px; TEXT-ALIGN: center; MARGIN: 20px auto 0px"><IMG
+                    src="任务_销量联盟_files/1.png"> <IMG src="任务_销量联盟_files/2.png"> <IMG
+                    src="任务_销量联盟_files/3.png"> <IMG src="任务_销量联盟_files/4.png"> <IMG
+                    src="任务_销量联盟_files/5.png"> <IMG src="任务_销量联盟_files/6.png"> <IMG
+                    src="任务_销量联盟_files/7.png"> <IMG src="任务_销量联盟_files/8.png"></DIV>
+            <DIV style="CLEAR: both"></DIV>
+        </DIV>
+    </DIV>
+</DIV>
+<LINK
+        href="任务_销量联盟_files/layui.css" rel=stylesheet>
+<SCRIPT src="任务_销量联盟_files/layui.js"></SCRIPT>
+
+<SCRIPT src="任务_销量联盟_files/func.js"></SCRIPT>
+
+
+<DIV class=main-im>
+    <DIV class=open-im id=open_im style="DISPLAY: none"></DIV>
+    <DIV class=im_main id=im_main>
+        <DIV class=close-im id=close_im><A title=点击关闭 class=you
+                                           style="CURSOR: pointer"></A></DIV>
+        <A class="im-qq qq-a" onclick=multi_qq()>
+            <DIV class=qq-container></DIV>
+            <DIV class=qq-hover-c><IMG class=img-qq
+                                       src="任务_销量联盟_files/qq.png"></DIV>
+            <SPAN>QQ在线咨询</SPAN> </A>
+
+        <DIV class=im-tel>
+            <DIV><A href="http://001.topaaa.com/announce/index.php?typeid=2"
+                    target=_blank>如何发布试用</A></DIV>
+            <DIV><A href="http://001.topaaa.com/announce/index.php?typeid=3"
+                    target=_blank>如何申请试用</A></DIV>
+            <DIV><A href="http://001.topaaa.com/about/index.php?itemid=6"
+                    target=_blank>销量联盟网规</A></DIV>
+            <DIV><A class=jsbz href="http://001.topaaa.com/announce/index.php?typeid=1"
+                    target=_blank>网站公告</A></DIV>
+        </DIV>
+        <DIV class=im-footer style="POSITION: relative">
+            <DIV class=go-top><A title=返回顶部 class=you style="CURSOR: pointer"></A></DIV>
+            <DIV style="CLEAR: both"></DIV>
+        </DIV>
+    </DIV>
+    <SCRIPT>
+        $(function () {
+            $(".go-top").click(function () {
+                $('html,body').animate({scrollTop: 0}, 800);
+            });
+            $("#close_im").click(function () {
+                $("#im_main").fadeOut(500, function () {
+                    $("#open_im").fadeIn(500);
+                });
+            });
+            $("#open_im").click(function () {
+                $("#open_im").fadeOut(500, function () {
+                    $("#im_main").fadeIn(500);
+                });
+            });
+        });
+    </SCRIPT>
+</DIV>
+<SCRIPT type=text/javascript>
+    show_task('moduleid=23&html=index');
+</SCRIPT>
+</BODY>
+</HTML>

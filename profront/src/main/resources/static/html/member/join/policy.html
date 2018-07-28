@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+
+    <link rel="stylesheet" type="text/css" href="../../../dist/css/index-skin.css">
+    <link rel="stylesheet" type="text/css" href="../../../dist/css/index-tp.css">
+
+    <script type="text/javascript" src="../../../dist/js/lang.js"></script>
+    <script type="text/javascript" src="../../../dist/js/config.js"></script>
+    <script type="text/javascript" src="../../../dist/js/jquery-2.0.0.min.js"></script>
+    <script type="text/javascript" src="../../../dist/js/common.js"></script>
+
+    <script type="text/javascript" src="../../../dist/js/admin.js"></script>
+    <script type="text/javascript" src="../../../dist/js/page.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="../../../dist/css/jq-tip.css">
+    <script type="text/javascript" src="../../../dist/js/jq-tip.js"></script>
+    <script type="text/javascript" src="../../../dist/js/layer.js"></script>
+
+    <script type="text/javascript" src="../../../dist/js/jquery.form.js"></script>
+    <script type="text/javascript" src="../../../dist/js/template7.min.js"></script>
+    <script type="text/javascript" src="../../../dist/js/cm.js"></script>
+    <script type="text/javascript" src="../../../dist/js/ypfunction.js"></script>
+
+    <link rel="stylesheet" href="http://001.topaaa.com/file/script/layim/css/layui.css">
+    <script src="http://001.topaaa.com/file/script/layim/layui.js"></script>
+    <script src="http://001.topaaa.com/file/script/layim/func.js"></script>
+    <!--配置服务器连接地址 -->
+    <script type="text/javascript" src="../../../dist/js/gjy_serviceurl.js"></script>
+    <script>
+        $(function () {
+
+        })
+    </script>
+</head>
+
+<body class="rwdt_bg">
+<div id="body">
+    <div id="body_header"></div>
+    <script>
+        $("#body_header").load("../public/public-top.html");
+    </script>
+    <style>
+    .topBanner {
+        width: 100%;
+        height: 50px;
+        line-height: 50px;
+        font-size: 14px;
+        background: #eee;
+        border-bottom: 5px solid #1478C8;
+    }
+    .topBanner .topMenu {
+        width: 1200px;
+        margin: 0 auto;
+        height: 50px;
+    }
+    .topBanner .topMenu .mbx {
+        float: left;
+        left: 10px;
+        color: #333;
+    }
+    .topBanner .topMenu .mbx a {
+        color: #333;
+    }
+    .topBanner .topMenu .bor {
+        float: right;
+    }
+    .topBanner .topMenu .bor ul li {
+        float: left;
+        margin-right: 10px;
+    }
+    .topBanner .topMenu li a.item {
+        display: inline-block;
+        padding: 0px 8px;
+        height: 32px;
+        line-height: 32px;
+        color: #434A54;
+    }
+    .topBanner .topMenu li a.itemcur {
+        display: inline-block;
+        padding: 0px 8px;
+        height: 32px;
+        line-height: 32px;
+        color: #FFF;
+        background: #1987DA;
+        border-radius: 5px;
+    }
+    .item {
+        position: static
+    }
+    .arcticle_h {
+        width: 1160px;
+        margin: 20px auto;
+        padding: 20px;
+        border: 1px dashed #99C1F5;
+        border-radius: 5px;
+        box-shadow: 0px 0px 10px #57A0FF;
+        background: #fff;
+    }
+    .article_title {
+        margin: 0px auto 30px;
+        text-align: center;
+        font-size: 16px;
+        padding-top: 10px;
+    }
+    .article_title h2{
+        font-size: 20px;
+        font-weight: bold;
+    }
+    .article_body {
+        margin: 0px auto;
+        font-size: 16px;
+        padding-bottom: 30px;
+        line-height: 30px;
+    }
+</style>
+    <div class="topBanner">
+        <div class="topMenu">
+            <div class="mbx"><a href="/">主页</a> &gt; <a href="/">代理加盟</a> &gt; </div>
+            <div class="bor">
+                <ul>
+                    <li><a id="webpage10" href="/about/index.php?itemid=10" class="item">代理加盟</a></li>
+                    <li><a id="webpage9" href="/about/index.php?itemid=9" class="item">辅助业务</a></li>
+                    <li><a id="webpage8" href="/about/index.php?itemid=8" class="item">网站活动</a></li>
+                    <li><a id="webpage7" href="/about/index.php?itemid=7" class="item">联系客服</a></li>
+                    <li><a id="webpage6" href="/about/index.php?itemid=6" class="item">联盟网规</a></li>
+                    <li><a id="webpage1" href="/about/index.php?itemid=1" class="item">关于我们</a></li>
+                    <li><a id="webpage3" href="/about/index.php?itemid=3" class="item">联系方式</a></li>
+                    <li><a id="webpage4" href="/about/index.php?itemid=4" class="item">使用协议</a></li>
+                    <li><a id="webpage5" href="/about/index.php?itemid=5" class="item">版权隐私</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="arcticle_h">
+        <div class="article_title">
+            <h2>代理加盟</h2>
+        </div>
+        <div class="article_body">
+            <!--<p>作者：pengge</p>-->
+            <div>合作共赢资源共享 月入十万元</div>
+            <div>&nbsp;</div>
+            <div>梦想与激情同在 成功与我们同行</div>
+            <div>&nbsp;</div>
+            <div>加盟咨询请联系本站管理QQ</div>
+            <div>&nbsp;</div>
+            <div>平台合作代理问答：</div>
+            <div>&nbsp;</div>
+            <div>问：加盟网站需要准备些什么？</div>
+            <div>答：加盟平台会给您准备好一个您自己网站的一个客服QQ号就足够了，有资源，有人脉！有信心！即可获得一个您自己的进行试用平台。</div>
+            <div>问：如果做了分站的话，那我的用户和你们的用户名会有冲突吗？</div>
+            <div>答：你做为我们的分站以后你的网站和我们网站完全是分开的，你网站的信息和我们网站的信息完全是分开的，会员只要通过分站的网址注册会员后系统即自动绑定到分站会员，并无任何冲突。</div>
+            <div>&nbsp;</div>
+            <div>问：如分站试客申请退款维权该如何办？</div>
+            <div>答：平台网对商家承诺凡是平台上遇到退款事宜，所有损失都由总部全额赔付，无需分站承担。</div>
+            <div>&nbsp;</div>
+            <div>问：我代理了网站是新平台没有人气会不会没有人来发任务申请试用?</div>
+            <div>答：系统采用所有网站任务综合共享，利润自动分配功能，只要你分站开通，系统自动共享所有网站的任务，所有会员可以在平台上面任意申请和发布试用，不用担心平台开始初期没有任务在平台上面。</div>
+            <div>&nbsp;</div>
+            <div>问：加盟网站后利润怎么到账呢？</div>
+            <div>答：平台系统采用自动分配，每个代理商都会有一个独立的代理账号，系统将利润及时分配到代理账号的账户里面，即可按照平台提现方法提现就可以转入支付宝账户里了。</div>
+            <div>&nbsp;</div>
+            <div>&nbsp;问：具体我们代理收入项目有哪些呢？</div>
+            <div>答：只要是通过您网站域名进入注册的会员凡是，发布试用，和申请试用，利润都是有收益的，详情见下面详细分析：</div>
+            <div>&nbsp;</div>
+            <div>**加盟网站利润政策**&nbsp;</div>
+            <div>&nbsp;</div>
+            <div>1.在个人网站所注册的商家会员，每发布一个任务代理站可获得0.7个元宝提成（除浏览单任务以外）</div>
+            <div>&nbsp;</div>
+            <div>2.在个人网站所注册的试客会员，每发布一个任务代理站可获得试客佣金的百分之6%作为代理商提成</div>
+            <div>&nbsp;</div>
+            <div>所有分站提成到账时间为，会员任务操作双方完成后系统自动分配到账，在账户中提现到支付宝收款。</div>
+            <div>&nbsp;</div>
+            <div>以上条例如无法接受者请勿咨询加盟</div>
+            <div>&nbsp;</div>    </div>
+    </div>
+    <script>
+        $(function(){
+            set_nav("webpage10","itemcur");
+        });
+    </script>
+    <div style="clear:both;"></div>
+    <div id="footer">
+        <div id="footer_top">
+            <div id="foot_top_1">
+                <a href="/about/index.php?itemid=10">代理加盟</a><span>  |  </span>
+                <a href="/about/index.php?itemid=9">辅助业务</a><span>  |  </span>
+                <a href="/about/index.php?itemid=8">网站活动</a><span>  |  </span>
+                <a href="/about/index.php?itemid=7">联系客服</a><span>  |  </span>
+                <a href="/about/index.php?itemid=6">联盟网规</a><span>  |  </span>
+                <a href="/about/index.php?itemid=1">关于我们</a><span>  |  </span>
+                <a href="/about/index.php?itemid=3">联系方式</a><span>  |  </span>
+                <a href="/about/index.php?itemid=4">使用协议</a><span>  |  </span>
+                <a href="/about/index.php?itemid=5">版权隐私</a><span>  |  </span>
+            </div>
+            <div id="copy_right">
+                (c)2013-2018 销量联盟 www.topaaa.com All Rights Reserved        </div>
+            <div style="width:1024px;text-align: center;margin: 20px auto 0;">
+                <img src="http://001.topaaa.com/skin/ypmili/css/img/rz/1.png">
+                <img src="http://001.topaaa.com/skin/ypmili/css/img/rz/2.png">
+                <img src="http://001.topaaa.com/skin/ypmili/css/img/rz/3.png">
+                <img src="http://001.topaaa.com/skin/ypmili/css/img/rz/4.png">
+                <img src="http://001.topaaa.com/skin/ypmili/css/img/rz/5.png">
+                <img src="http://001.topaaa.com/skin/ypmili/css/img/rz/6.png">
+                <img src="http://001.topaaa.com/skin/ypmili/css/img/rz/7.png">
+                <img src="http://001.topaaa.com/skin/ypmili/css/img/rz/8.png">
+            </div>
+            <div style="clear:both;"></div>
+        </div>
+    </div>
+</div>
+<link rel="stylesheet" href="http://001.topaaa.com/file/script/layim/css/layui.css">
+<script src="http://001.topaaa.com/file/script/layim/layui.js"></script>
+<script src="http://001.topaaa.com/file/script/layim/func.js"></script>
+<div class="main-im">
+    <div id="open_im" class="open-im" style="display: none;"></div>
+    <div class="im_main" id="im_main">
+        <div id="close_im" class="close-im"><a class="you" title="点击关闭" style="cursor: pointer"></a></div>
+        <a onclick="multi_qq()" class="im-qq qq-a">
+            <div class="qq-container"></div>
+            <div class="qq-hover-c"><img class="img-qq" src="http://001.topaaa.com/skin/ypmili/css/img/qq.png"></div>
+            <span>QQ在线咨询</span>
+        </a>
+        <script id="yptip_qq" type="text/template7">
+            <p style="width:100%;background-color:#0098ff;font-size:16px;text-align:center;color:#fff;height:34px;line-height:34px;">客服团队</p><p style="line-height:40px;">客服潇潇：<a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=261369834&site=qq&menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=2:261369834:51" alt="点击这里给我发消息" title="点击这里给我发消息" /></a> <span style="line-height:1.5;margin-left:10px;">客服靓靓：</span><a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=261369834&site=qq&menu=yes" style="line-height:1.5;"><img border="0" src="http://wpa.qq.com/pa?p=2:261369834:51" alt="点击这里给我发消息" title="点击这里给我发消息" /></a> </p><p style="line-height:30px;">客服恋恋：<a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=261369834&site=qq&menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=2:261369834:51" alt="点击这里给我发消息" title="点击这里给我发消息" /></a> <span style="line-height:1.5;margin-left:10px;">客服萌萌：</span><a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=261369834&site=qq&menu=yes" style="line-height:1.5;"><img border="0" src="http://wpa.qq.com/pa?p=2:261369834:51" alt="点击这里给我发消息" title="点击这里给我发消息" /></a> </p><p><br /></p><p style="width:100%;background-color:#0098ff;font-size:16px;text-align:center;color:#fff;height:34px;line-height:34px;">合作渠道</p><p style="line-height:40px;">业务合作：<a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=261369834&site=qq&menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=2:261369834:51" alt="点击这里给我发消息" title="点击这里给我发消息" /></a> <span style="line-height:1.5;margin-left:10px;">代理加盟：</span><a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=261369834&site=qq&menu=yes" style="line-height:1.5;"><img border="0" src="http://wpa.qq.com/pa?p=2:261369834:51" alt="点击这里给我发消息" title="点击这里给我发消息" /></a> </p>        </script>
+        <script>
+            function multi_qq() {
+                $('.layim-friend618').click();
+            }
+        </script>
+        <a href="/app.php" target="_blank" class="qq-a" style="height: 130px">
+            <div class="qq-container" style="height: 130px"></div>
+            <div style="width: 95px;height: 95px"><img class="img-qq" src="/api/qrcode.php?url=http%3A%2F%2F001.topaaa.com%2Fapp.php" style="width: 95px;height: 95px;max-width: 95px;top: 5px;left: 5px"></div>
+            <span>下载APP</span>
+        </a>
+        <div class="im-tel">
+            <div><a href="/announce/index.php?typeid=2" target="_blank">如何发布试用</a></div>
+            <div><a href="/announce/index.php?typeid=3" target="_blank">如何申请试用</a></div>
+            <div><a href="/about/index.php?itemid=6" target="_blank">销量联盟网规</a></div>
+            <div><a href="/announce/index.php?typeid=1" target="_blank" class="jsbz">网站公告</a></div>
+        </div>
+        <div class="im-footer" style="position:relative">
+            <div class="go-top"><a class="you" title="返回顶部" style="cursor: pointer"></a></div>
+            <div style="clear:both"></div>
+        </div>
+    </div>
+    <script>
+        $(function () {
+            $(".go-top").click(function () {
+                $('html,body').animate({scrollTop: 0}, 800);
+            });
+            $("#close_im").click(function () {
+                $("#im_main").fadeOut(500, function () {
+                    $("#open_im").fadeIn(500);
+                });
+            });
+            $("#open_im").click(function () {
+                $("#open_im").fadeOut(500, function () {
+                    $("#im_main").fadeIn(500);
+                });
+            });
+        });
+    </script>
+</div></body>
+</html>

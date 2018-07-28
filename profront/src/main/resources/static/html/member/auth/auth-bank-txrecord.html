@@ -1,0 +1,262 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="../../../dist/css/index-skin.css">
+    <link rel="stylesheet" type="text/css" href="../../../dist/css/index-tp.css">
+
+    <script type="text/javascript" src="../../../dist/js/lang.js"></script>
+    <script type="text/javascript" src="../../../dist/js/config.js"></script>
+    <script type="text/javascript" src="../../../dist/js/jquery-2.0.0.min.js"></script>
+    <script type="text/javascript" src="../../../dist/js/common.js"></script>
+
+    <script type="text/javascript" src="../../../dist/js/admin.js"></script>
+    <script type="text/javascript" src="../../../dist/js/page.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="../../../dist/css/jq-tip.css">
+    <script type="text/javascript" src="../../../dist/js/jq-tip.js"></script>
+    <script type="text/javascript" src="../../../dist/js/layer.js"></script>
+
+    <script type="text/javascript" src="../../../dist/js/jquery.form.js"></script>
+    <script type="text/javascript" src="../../../dist/js/template7.min.js"></script>
+    <script type="text/javascript" src="../../../dist/js/cm.js"></script>
+    <script type="text/javascript" src="../../../dist/js/ypfunction.js"></script>
+    <link rel="stylesheet" href="http://001.topaaa.com/file/script/layim/css/layui.css">
+    <script src="http://001.topaaa.com/file/script/layim/layui.js"></script>
+    <script src="http://001.topaaa.com/file/script/layim/func.js"></script>
+    <!--配置服务器连接地址 -->
+    <script type="text/javascript" src="../../../dist/js/gjy_serviceurl.js"></script>
+    <!--日期处理-->
+    <script type="text/javascript" src="../../../dist/js/moment.js"></script>
+
+    <script src="https://cdn.bootcss.com/react/16.4.0/umd/react.development.js"></script>
+    <script src="https://cdn.bootcss.com/react-dom/16.4.0/umd/react-dom.development.js"></script>
+    <script src="https://cdn.bootcss.com/babel-standalone/6.26.0/babel.min.js"></script>
+
+</head>
+<body class="rwdt_bg">
+<div id="body">
+    <div id="body_header"></div>
+    <script>
+        $("#body_header").load("../public/public-top.html");
+    </script>
+<div id="content_wrapper">
+    <div id="content_body_title"></div>
+    <script>
+        $("#content_body_title").load("../public/public-body-title.html");
+    </script>
+    <div id="ypcon">
+    <div class="yptip">
+        <p><span style="color:#E53333;">后台说明：</span><span style="color:#E53333;">管理员可以设置</span><span style="color:#E53333;">是否开启提现、24小时提现次数、单次提现最小金额、单次提现最大金额、提现费率、费率最小值、费率封顶值</span></p><p><span style="color:#E53333;">提现流程：会员申请提现，管理员在后台受理，可以看到会员的用户名、姓名、提现金额、手续费、联系方式、申请时间、申请IP。</span></p><p><span style="color:#E53333;">管理员可以设置拒绝申请、支付失败、付款成功 。</span></p>        </div>
+    <div class="menu">
+        <table cellpadding="0" cellspacing="0">
+            <tr>
+                <td class="tab"><a id="action_" href="auth-money-apply.html"><span>申请提现</span></a></td>
+                <td class="tab_nav">&nbsp;</td>
+                <td class="tab"><a id="action_record" href="auth-bank-txrecord.html"><span>提现记录</span></a></td>
+                <td class="tab_nav">&nbsp;</td>
+                <td class="tab"><a id="action_setting" href="auth-bank-tixian.html"><span>帐号设置</span></a></td>
+            </tr>
+        </table>
+    </div>
+    <form action="?">
+        <input type="hidden" name="action" value="record"/>
+        <div class="tt">
+            <!--<select name="bank" id="bank_type">-->
+                <!--<option value="0">收款方式</option>-->
+                <!--<option value="中国工商银行" >中国工商银行</option>;-->
+                <!--<option value="中国农业银行" >中国农业银行</option>;-->
+                <!--<option value="中国建设银行" >中国建设银行</option>;-->
+                <!--<option value="中国交通银行" >中国交通银行</option>;-->
+                <!--<option value="中国银行" >中国银行</option>;-->
+            <!--</select>-->
+            &nbsp;
+            <script type="text/javascript" src="http://001.topaaa.com/file/script/calendar.js">
+            </script>
+            <input type="text" name="fromtime" id="fromtime" value=""
+                   style="width: 140px;"
+                   size="10" onfocus="ca_show('fromtime', this, '-');"
+                   readonly ondblclick="this.value='';"/>
+            <img src="http://001.topaaa.com/file/image/calendar.gif"
+                 align="absmiddle" onclick="ca_show('fromtime', this, '-');"
+                 style="cursor:pointer;"/> 至
+            <input type="text" name="totime" style="width: 140px;" id="totime" value="" size="10" onfocus="ca_show('totime', this, '-');" readonly ondblclick="this.value='';"/> <img src="http://001.topaaa.com/file/image/calendar.gif" align="absmiddle" onclick="ca_show('totime', this, '-');" style="cursor:pointer;"/>                &nbsp;
+
+            <input type="submit" value=" 搜 索 " class="btn"/>&nbsp;
+            <input type="button" value=" 重 置 " class="btn" onclick="Go('?action=record');"/>
+        </div>
+    </form>
+    <div class="bd">
+        <table cellpadding="1" cellspacing="0" class="tb" id="list_content">
+
+
+        </table>
+    </div>
+    <div id="page" class="pages"></div>
+    <script>
+        $(function () {
+            set_nav("action_record", "sb0");
+        });
+    </script>
+</div>
+</div>
+    <script type="text/babel">
+        $(function () {
+            set_nav("cash", "on");
+            //alert("action_record")
+            set_nav("action_record", "sb0");
+
+            //条件查询
+            let bank_type = $("#bank_type").val();
+
+            let params = {};
+            params.memid = userresult_json.id;
+
+            $.ajax({
+                url: request_url + "intf_member/tiXianJiLu",
+                type: "post",
+                data: params,
+                dataType: 'json',
+                headers: {
+                    "mobile": userresult_json.mobile,
+                    "token": userresult_json.token
+                },
+                success: function (result) {
+                    if (result.error == 0) {
+                        //解析结果
+                        var datas = jQuery.parseJSON(result.list);
+                        let sumMoney  =0;
+                        let sumShouXu =0;
+
+                        for (let i = 0; i < datas.length; i++) {
+                            //时间解析
+                            let org_time = datas[i].shenqing_shijian;
+                            sumMoney += datas[i].money;
+                            sumShouXu+=datas[i].shouxu;
+
+                            if (org_time != undefined && org_time!=null){
+                                datas[i].shenqing_shijian =
+                                    moment(org_time, 'MMM DD,YYYY HH:mm:ss A', 'en').format('YYYY-MM-DD HH:mm:ss');
+                            }
+
+                            let org_shouli = datas[i].shouli_shijian;
+                            if (org_shouli != undefined && org_shouli!=null){
+                                datas[i].shouli_shijian =
+                                    moment(org_shouli, 'MMM DD,YYYY HH:mm:ss A', 'en').format('YYYY-MM-DD HH:mm:ss');
+                            }
+
+                        }
+
+                        var lis = [];
+                        lis.push(
+                            <tr align="center">
+                                <th>流水号</th>
+                                <th>金额</th>
+                                <th>手续费</th>
+                                <th>收款方式</th>
+                                <th>收款帐号</th>
+                                <th>收款人</th>
+                                <th width="130">申请时间</th>
+                                <th width="130">受理时间</th>
+                                <th>状态</th>
+                            </tr>
+                        );
+                        datas.forEach((data, index) => lis.push(
+                            <tr align="center">
+                                <td height='30' className='px11'>{data.id}</td>
+                                <td className="px11 f_red">{data.money}</td>
+                                <td className="px11 f_blue">{data.shouxu}</td>
+                                <td>{data.shoukuan_fangshi}</td>
+                                <td className='px11'>{data.shoukuan_zhaghao}</td>
+                                <td>{data.shoukuanren}</td>
+                                <td className="px11 f_gray">{data.shenqing_shijian}</td>
+                                <td className="px11 f_gray">{data.shouli_shijian}</td>
+                                <td>
+                                    <span>{data.flag==1?'付款成功':'失败'}</span>
+                                </td>
+                        </tr>
+                    ));
+                        lis.push(
+                            <tr align="center">
+                                <td height="35"><strong>小计</strong></td>
+                                <td className="px11 f_red">{sumMoney}</td>
+                                <td className="px11 f_blue">{sumShouXu}</td>
+                                <td colSpan="6">&nbsp;</td>
+                            </tr>
+                        );
+                        const ul = <tbody>{lis}</tbody>;
+                        ReactDOM.render(ul, document.getElementById('list_content'))
+
+                    }
+                }
+            });
+        });
+    </script>
+    <div style="clear:both;"></div>
+    <div id="footer">
+        <div id="footer_top">
+            <div id="foot_top_1">
+                <a href="/about/index.php?itemid=10">代理加盟</a><span>  |  </span>
+                <a href="/about/index.php?itemid=9">辅助业务</a><span>  |  </span>
+                <a href="/about/index.php?itemid=8">网站活动</a><span>  |  </span>
+                <a href="/about/index.php?itemid=7">联系客服</a><span>  |  </span>
+                <a href="/about/index.php?itemid=6">联盟网规</a><span>  |  </span>
+                <a href="/about/index.php?itemid=1">关于我们</a><span>  |  </span>
+                <a href="/about/index.php?itemid=3">联系方式</a><span>  |  </span>
+                <a href="/about/index.php?itemid=4">使用协议</a><span>  |  </span>
+                <a href="/about/index.php?itemid=5">版权隐私</a><span>  |  </span>
+            </div>
+            <div id="copy_right">
+                (c)2013-2018 销量联盟 www.topaaa.com All Rights Reserved        </div>
+            <div style="width:1024px;text-align: center;margin: 20px auto 0;">
+                <img src="http://001.topaaa.com/skin/ypmili/css/img/rz/1.png">
+                <img src="http://001.topaaa.com/skin/ypmili/css/img/rz/2.png">
+                <img src="http://001.topaaa.com/skin/ypmili/css/img/rz/3.png">
+                <img src="http://001.topaaa.com/skin/ypmili/css/img/rz/4.png">
+                <img src="http://001.topaaa.com/skin/ypmili/css/img/rz/5.png">
+                <img src="http://001.topaaa.com/skin/ypmili/css/img/rz/6.png">
+                <img src="http://001.topaaa.com/skin/ypmili/css/img/rz/7.png">
+                <img src="http://001.topaaa.com/skin/ypmili/css/img/rz/8.png">
+            </div>
+            <div style="clear:both;"></div>
+        </div>
+    </div>
+</div>
+
+<div class="main-im">
+    <div id="open_im" class="open-im" style="display: none;"></div>
+    <div class="im_main" id="im_main">
+        <div id="close_im" class="close-im"><a class="you" title="点击关闭" style="cursor: pointer"></a></div>
+        <a onclick="multi_qq()" class="im-qq qq-a">
+            <div class="qq-container"></div>
+            <div class="qq-hover-c"><img class="img-qq" src="http://001.topaaa.com/skin/ypmili/css/img/qq.png"></div>
+            <span>QQ在线咨询</span>
+        </a>
+        <script id="yptip_qq" type="text/template7">
+            <p style="width:100%;background-color:#0098ff;font-size:16px;text-align:center;color:#fff;height:34px;line-height:34px;">客服团队</p><p style="line-height:40px;">客服潇潇：<a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=261369834&site=qq&menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=2:261369834:51" alt="点击这里给我发消息" title="点击这里给我发消息" /></a> <span style="line-height:1.5;margin-left:10px;">客服靓靓：</span><a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=261369834&site=qq&menu=yes" style="line-height:1.5;"><img border="0" src="http://wpa.qq.com/pa?p=2:261369834:51" alt="点击这里给我发消息" title="点击这里给我发消息" /></a> </p><p style="line-height:30px;">客服恋恋：<a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=261369834&site=qq&menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=2:261369834:51" alt="点击这里给我发消息" title="点击这里给我发消息" /></a> <span style="line-height:1.5;margin-left:10px;">客服萌萌：</span><a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=261369834&site=qq&menu=yes" style="line-height:1.5;"><img border="0" src="http://wpa.qq.com/pa?p=2:261369834:51" alt="点击这里给我发消息" title="点击这里给我发消息" /></a> </p><p><br /></p><p style="width:100%;background-color:#0098ff;font-size:16px;text-align:center;color:#fff;height:34px;line-height:34px;">合作渠道</p><p style="line-height:40px;">业务合作：<a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=261369834&site=qq&menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=2:261369834:51" alt="点击这里给我发消息" title="点击这里给我发消息" /></a> <span style="line-height:1.5;margin-left:10px;">代理加盟：</span><a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=261369834&site=qq&menu=yes" style="line-height:1.5;"><img border="0" src="http://wpa.qq.com/pa?p=2:261369834:51" alt="点击这里给我发消息" title="点击这里给我发消息" /></a> </p>        </script>
+        <script>
+            function multi_qq() {
+                $('.layim-friend618').click();
+            }
+        </script>
+        <a href="/app.php" target="_blank" class="qq-a" style="height: 130px">
+            <div class="qq-container" style="height: 130px"></div>
+            <div style="width: 95px;height: 95px"><img class="img-qq" src="/api/qrcode.php?url=http%3A%2F%2F001.topaaa.com%2Fapp.php" style="width: 95px;height: 95px;max-width: 95px;top: 5px;left: 5px"></div>
+            <span>下载APP</span>
+        </a>
+        <div class="im-tel">
+            <div><a href="/announce/index.php?typeid=2" target="_blank">如何发布试用</a></div>
+            <div><a href="/announce/index.php?typeid=3" target="_blank">如何申请试用</a></div>
+            <div><a href="/about/index.php?itemid=6" target="_blank">销量联盟网规</a></div>
+            <div><a href="/announce/index.php?typeid=1" target="_blank" class="jsbz">网站公告</a></div>
+        </div>
+        <div class="im-footer" style="position:relative">
+            <div class="go-top"><a class="you" title="返回顶部" style="cursor: pointer"></a></div>
+            <div style="clear:both"></div>
+        </div>
+    </div>
+    <script>
+
+    </script>
+</div></body>
+</html>

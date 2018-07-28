@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+
+    <link rel="stylesheet" type="text/css" href="../../../dist/css/index-skin.css">
+    <link rel="stylesheet" type="text/css" href="../../../dist/css/index-tp.css">
+
+    <script type="text/javascript" src="../../../dist/js/lang.js"></script>
+    <script type="text/javascript" src="../../../dist/js/config.js"></script>
+    <script type="text/javascript" src="../../../dist/js/jquery-2.0.0.min.js"></script>
+    <script type="text/javascript" src="../../../dist/js/common.js"></script>
+
+    <script type="text/javascript" src="../../../dist/js/admin.js"></script>
+    <script type="text/javascript" src="../../../dist/js/page.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="../../../dist/css/jq-tip.css">
+    <script type="text/javascript" src="../../../dist/js/jq-tip.js"></script>
+    <script type="text/javascript" src="../../../dist/js/layer.js"></script>
+
+    <script type="text/javascript" src="../../../dist/js/jquery.form.js"></script>
+    <script type="text/javascript" src="../../../dist/js/template7.min.js"></script>
+    <script type="text/javascript" src="../../../dist/js/cm.js"></script>
+    <script type="text/javascript" src="../../../dist/js/ypfunction.js"></script>
+
+    <link rel="stylesheet" href="http://001.topaaa.com/file/script/layim/css/layui.css">
+    <script src="http://001.topaaa.com/file/script/layim/layui.js"></script>
+    <script src="http://001.topaaa.com/file/script/layim/func.js"></script>
+</head>
+<body class="rwdt_bg">
+<div id="body">
+    <div id="body_header"></div>
+    <script>
+        $("#body_header").load("../public/public-top.html");
+    </script>
+    <div id="content_wrapper">
+        <div id="content_body_title"></div>
+        <script>
+            $("#content_body_title").load("../public/public-body-title.html");
+        </script>
+    <div id="ypcon">
+    <div class="menu">
+        <table cellpadding="0" cellspacing="0">
+            <tr>
+                <td class="tab"><a id="charge" href="auth-money-recharge.html"><span>资金充值</span></a></td>
+                <td class="tab"><a id="action" href="auth-money-record.html"><span>资金流水</span></a></td>
+                <td class="tab"><a id="action_pay" href="auth-money-messageff.html"><span>信息付费</span></a></td>
+            </tr>
+        </table>
+    </div>
+    <form action="?">
+        <input type="hidden" name="action" value=""/>
+        <div class="tt">
+            <select name="fields" ><option value="0" selected=selected>按条件</option><option value="1">金额</option><option value="2">银行</option><option value="3">事由</option><option value="4">备注</option></select>&nbsp;
+            <input type="text" size="20" name="kw" value="" title="关键词"/>
+            <select name="type">
+                <option value="0">类型</option>
+                <option value="1" >收入</option>
+                <option value="2" >支出</option>
+            </select>
+            <script type="text/javascript" src="http://001.topaaa.com/file/script/calendar.js"></script><input type="text" name="fromtime" id="fromtime" value="" size="10" onfocus="ca_show('fromtime', this, '-');" readonly ondblclick="this.value='';"/> <img src="http://001.topaaa.com/file/image/calendar.gif" align="absmiddle" onclick="ca_show('fromtime', this, '-');" style="cursor:pointer;"/> 至 <input type="text" name="totime" id="totime" value="" size="10" onfocus="ca_show('totime', this, '-');" readonly ondblclick="this.value='';"/> <img src="http://001.topaaa.com/file/image/calendar.gif" align="absmiddle" onclick="ca_show('totime', this, '-');" style="cursor:pointer;"/>&nbsp;
+            <input type="submit" value=" 搜 索 " class="btn"/>&nbsp;
+            <input type="button" value=" 重 置 " class="btn" onclick="Go('?action=');"/>
+        </div>
+    </form>
+    <div class="bd">
+        <table cellpadding="1" cellspacing="0" class="tb">
+            <tr>
+                <th>流水号</th>
+                <th>收入</th>
+                <th>支出</th>
+                <th>余额</th>
+                <th>银行</th>
+                <th style="min-width: 130px">发生时间</th>
+                <th style="min-width: 150px">事由</th>
+                <th style="min-width: 150px">备注</th>
+            </tr>
+            <tr align="center">
+                <td height="35"><strong>小计</strong></td>
+                <td class="px11 f_blue">0</td>
+                <td class="px11 f_red">0</td>
+                <td colspan="5">&nbsp;</td>
+            </tr>
+        </table>
+        <div id="page" class="pages"></div>
+    </div>
+</div>
+</div>
+</div>
+<script>
+    $(function(){set_nav("action","sb0");});
+    $(function(){set_nav("record","on");});
+</script>
+<div style="clear:both;"></div>
+<div id="footer">
+    <div id="footer_top">
+        <div id="foot_top_1">
+            <a href="/about/index.php?itemid=10">代理加盟</a><span>  |  </span>
+            <a href="/about/index.php?itemid=9">辅助业务</a><span>  |  </span>
+            <a href="/about/index.php?itemid=8">网站活动</a><span>  |  </span>
+            <a href="/about/index.php?itemid=7">联系客服</a><span>  |  </span>
+            <a href="/about/index.php?itemid=6">联盟网规</a><span>  |  </span>
+            <a href="/about/index.php?itemid=1">关于我们</a><span>  |  </span>
+            <a href="/about/index.php?itemid=3">联系方式</a><span>  |  </span>
+            <a href="/about/index.php?itemid=4">使用协议</a><span>  |  </span>
+            <a href="/about/index.php?itemid=5">版权隐私</a><span>  |  </span>
+        </div>
+        <div id="copy_right">
+            (c)2013-2018 销量联盟 www.topaaa.com All Rights Reserved        </div>
+        <div style="width:1024px;text-align: center;margin: 20px auto 0;">
+            <img src="http://001.topaaa.com/skin/ypmili/css/img/rz/1.png">
+            <img src="http://001.topaaa.com/skin/ypmili/css/img/rz/2.png">
+            <img src="http://001.topaaa.com/skin/ypmili/css/img/rz/3.png">
+            <img src="http://001.topaaa.com/skin/ypmili/css/img/rz/4.png">
+            <img src="http://001.topaaa.com/skin/ypmili/css/img/rz/5.png">
+            <img src="http://001.topaaa.com/skin/ypmili/css/img/rz/6.png">
+            <img src="http://001.topaaa.com/skin/ypmili/css/img/rz/7.png">
+            <img src="http://001.topaaa.com/skin/ypmili/css/img/rz/8.png">
+        </div>
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+<link rel="stylesheet" href="http://001.topaaa.com/file/script/layim/css/layui.css">
+<script src="http://001.topaaa.com/file/script/layim/layui.js"></script>
+<script src="http://001.topaaa.com/file/script/layim/func.js"></script>
+<div class="main-im">
+    <div id="open_im" class="open-im" style="display: none;"></div>
+    <div class="im_main" id="im_main">
+        <div id="close_im" class="close-im"><a class="you" title="点击关闭" style="cursor: pointer"></a></div>
+        <a onclick="multi_qq()" class="im-qq qq-a">
+            <div class="qq-container"></div>
+            <div class="qq-hover-c"><img class="img-qq" src="http://001.topaaa.com/skin/ypmili/css/img/qq.png"></div>
+            <span>QQ在线咨询</span>
+        </a>
+        <script id="yptip_qq" type="text/template7">
+            <p style="width:100%;background-color:#0098ff;font-size:16px;text-align:center;color:#fff;height:34px;line-height:34px;">客服团队</p><p style="line-height:40px;">客服潇潇：<a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=261369834&site=qq&menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=2:261369834:51" alt="点击这里给我发消息" title="点击这里给我发消息" /></a> <span style="line-height:1.5;margin-left:10px;">客服靓靓：</span><a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=261369834&site=qq&menu=yes" style="line-height:1.5;"><img border="0" src="http://wpa.qq.com/pa?p=2:261369834:51" alt="点击这里给我发消息" title="点击这里给我发消息" /></a> </p><p style="line-height:30px;">客服恋恋：<a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=261369834&site=qq&menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=2:261369834:51" alt="点击这里给我发消息" title="点击这里给我发消息" /></a> <span style="line-height:1.5;margin-left:10px;">客服萌萌：</span><a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=261369834&site=qq&menu=yes" style="line-height:1.5;"><img border="0" src="http://wpa.qq.com/pa?p=2:261369834:51" alt="点击这里给我发消息" title="点击这里给我发消息" /></a> </p><p><br /></p><p style="width:100%;background-color:#0098ff;font-size:16px;text-align:center;color:#fff;height:34px;line-height:34px;">合作渠道</p><p style="line-height:40px;">业务合作：<a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=261369834&site=qq&menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=2:261369834:51" alt="点击这里给我发消息" title="点击这里给我发消息" /></a> <span style="line-height:1.5;margin-left:10px;">代理加盟：</span><a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=261369834&site=qq&menu=yes" style="line-height:1.5;"><img border="0" src="http://wpa.qq.com/pa?p=2:261369834:51" alt="点击这里给我发消息" title="点击这里给我发消息" /></a> </p>        </script>
+        <script>
+            function multi_qq() {
+                $('.layim-friend618').click();
+            }
+        </script>
+        <a href="/app.php" target="_blank" class="qq-a" style="height: 130px">
+            <div class="qq-container" style="height: 130px"></div>
+            <div style="width: 95px;height: 95px"><img class="img-qq" src="/api/qrcode.php?url=http%3A%2F%2F001.topaaa.com%2Fapp.php" style="width: 95px;height: 95px;max-width: 95px;top: 5px;left: 5px"></div>
+            <span>下载APP</span>
+        </a>
+        <div class="im-tel">
+            <div><a href="/announce/index.php?typeid=2" target="_blank">如何发布试用</a></div>
+            <div><a href="/announce/index.php?typeid=3" target="_blank">如何申请试用</a></div>
+            <div><a href="/about/index.php?itemid=6" target="_blank">销量联盟网规</a></div>
+            <div><a href="/announce/index.php?typeid=1" target="_blank" class="jsbz">网站公告</a></div>
+        </div>
+        <div class="im-footer" style="position:relative">
+            <div class="go-top"><a class="you" title="返回顶部" style="cursor: pointer"></a></div>
+            <div style="clear:both"></div>
+        </div>
+    </div>
+    <script>
+        $(function () {
+            $(".go-top").click(function () {
+                $('html,body').animate({scrollTop: 0}, 800);
+            });
+            $("#close_im").click(function () {
+                $("#im_main").fadeOut(500, function () {
+                    $("#open_im").fadeIn(500);
+                });
+            });
+            $("#open_im").click(function () {
+                $("#open_im").fadeOut(500, function () {
+                    $("#im_main").fadeIn(500);
+                });
+            });
+        });
+    </script>
+</div></body>
+</html>

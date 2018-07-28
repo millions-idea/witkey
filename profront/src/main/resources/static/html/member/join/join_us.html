@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+
+    <link rel="stylesheet" type="text/css" href="../../../dist/css/index-skin.css">
+    <link rel="stylesheet" type="text/css" href="../../../dist/css/index-tp.css">
+
+    <script type="text/javascript" src="../../../dist/js/lang.js"></script>
+    <script type="text/javascript" src="../../../dist/js/config.js"></script>
+    <script type="text/javascript" src="../../../dist/js/jquery-2.0.0.min.js"></script>
+    <script type="text/javascript" src="../../../dist/js/common.js"></script>
+
+    <script type="text/javascript" src="../../../dist/js/admin.js"></script>
+    <script type="text/javascript" src="../../../dist/js/page.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="../../../dist/css/jq-tip.css">
+    <script type="text/javascript" src="../../../dist/js/jq-tip.js"></script>
+    <script type="text/javascript" src="../../../dist/js/layer.js"></script>
+
+    <script type="text/javascript" src="../../../dist/js/jquery.form.js"></script>
+    <script type="text/javascript" src="../../../dist/js/template7.min.js"></script>
+    <script type="text/javascript" src="../../../dist/js/cm.js"></script>
+    <script type="text/javascript" src="../../../dist/js/ypfunction.js"></script>
+
+    <link rel="stylesheet" href="http://001.topaaa.com/file/script/layim/css/layui.css">
+    <script src="http://001.topaaa.com/file/script/layim/layui.js"></script>
+    <script src="http://001.topaaa.com/file/script/layim/func.js"></script>
+    <!--配置服务器连接地址 -->
+    <script type="text/javascript" src="../../../dist/js/gjy_serviceurl.js"></script>
+    <script>
+        $(function () {
+
+        })
+    </script>
+</head>
+
+<body class="rwdt_bg">
+<div id="body">
+    <div id="body_header"></div>
+    <script>
+        $("#body_header").load("../public/public-top.html");
+    </script>
+<div class="hyzx">
+    <div id="content_body_title"></div>
+    <script>
+        $("#content_body_title").load("../public/public-body-title.html");
+    </script>
+</div><link rel="stylesheet" href="../../../dist/css/skin_css/animate.css">
+    <link rel="stylesheet" href="../../../dist/css/skin_css/join.css">
+    <script>
+        $(function () {
+            var numHeight1 = $(".stepList1").offset().top,
+                numHeight2 = $(".stepList2").offset().top,
+                numHeight3 = $(".stepList3").offset().top,
+                numHeight4 = $(".stepList4").offset().top,
+                numHeight5 = $(".stepList5").offset().top;
+            var heightTop2 = numHeight2 - $(window).height(),
+                heightTop3 = numHeight3 - $(window).height(),
+                heightTop4 = numHeight4 - $(window).height(),
+                heightTop5 = numHeight5 - $(window).height();
+            function initAnimate1() {
+                $(".stepList1 .stepRight").addClass("animated bounceInDown");
+                $(".stepList1 .stepLeft").addClass("animated bounceInUp");
+            }
+            function initAnimate2() {
+                $(".stepList2 .stepRight").addClass("animated fadeInRight");
+                $(".stepList2 .stepLeft").addClass("animated fadeInLeft");
+            }
+            function initAnimate3() {
+                $(".stepList3 .stepRight").addClass("animated bounceInLeft");
+                $(".stepList3 .stepLeft").addClass("animated bounceInRight");
+            }
+            function initAnimate4() {
+                $(".stepList4 .stepRight").addClass("animated fadeInLeft");
+                $(".stepList4 .stepLeft").addClass("animated fadeInRight");
+            }
+            function initAnimate5() {
+                $(".stepList5 .stepRight").addClass("animated fadeInRight");
+                $(".stepList5 .stepLeft").addClass("animated fadeInLeft");
+            }
+            if (numHeight1 > $(window).height()) {
+                $(window).scroll(function () {
+                    if ($(window).scrollTop() >= numHeight1 - $(window).height()) {
+                        initAnimate1()
+                    }
+                    if ($(window).scrollTop() >= heightTop2) {
+                        initAnimate2()
+                    }
+                    if ($(window).scrollTop() >= heightTop3) {
+                        initAnimate3()
+                    }
+                    if ($(window).scrollTop() >= heightTop4) {
+                        initAnimate4()
+                    }
+                    if ($(window).scrollTop() >= heightTop5) {
+                        initAnimate5()
+                    }
+                })
+            } else {
+                initAnimate1();
+                $(window).scroll(function () {
+                    if ($(window).scrollTop() >= heightTop2) {
+                        initAnimate2()
+                    }
+                    if ($(window).scrollTop() >= heightTop3) {
+                        initAnimate3()
+                    }
+                    if ($(window).scrollTop() >= heightTop4) {
+                        initAnimate4()
+                    }
+                    if ($(window).scrollTop() >= heightTop5) {
+                        initAnimate5()
+                    }
+                })
+            }
+        });
+    </script>
+    <div class="joinus">
+        <div class="banner" style="position: relative;width: 100%;overflow: hidden;height: 550px">
+            <div class="img"></div>
+            <div style="position: relative;width: 1200px;min-width: 1200px;height: 550px;margin: 0 auto">
+                <span id="sitename">销量联盟</span>
+                <a onclick="multi_qq()">立即加入</a>
+            </div>
+        </div>
+        <div style="width: 1200px;min-width: 1200px;margin: 0 auto">
+            <div class="flowStep">
+                <h1>加入流程</h1>
+                <div class="container">
+                    <div class="flows flowsFirst">
+                        <em>1</em>
+                        <span>选择岗位</span>
+                    </div>
+                    <img src="../../../dist/css/img/joinus_img/right123.png">
+                    <div class="flows">
+                        <em>2</em>
+                        <span>提交审核</span>
+                    </div>
+                    <img src="../../../dist/css/img/joinus_img/right123.png">
+                    <div class="flows">
+                        <em>3</em>
+                        <span>开通权限</span>
+                    </div>
+                    <img src="../../../dist/css/img/joinus_img/right123.png">
+                    <div class="flows">
+                        <em>4</em>
+                        <span>立即赚钱</span>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </div>
+            <div class="step">
+                <div class="container">
+                    <h1>岗位内容</h1>
+                    <ul>
+                        <li class="stepList1">
+                            <div class="stepLeft ">
+                                <img src="../../../dist/css/img/joinus_img/c1.jpg">
+                            </div>
+                            <div class="stepRight">
+                                <h2>试客</h2>
+                                <p>
+                                    <em>官方扶持：</em>
+                                    <span>零门槛加盟，永久免费会员。<a href="/member/register.php">立即注册，免费申请任务</a>!</span>
+                                </p>
+                                <div class="clear"></div>
+                                <p>
+                                    <em>薪资待遇：</em>
+                                    <span>进入销量联盟试用大厅，在线抢申请试用，赚取海量奖励。发展下级会员，赚取<strong>20%</strong>VIP推荐提成。</span>
+                                </p>
+                                <div class="clear"></div>
+                            </div>
+                        </li>
+                        <li class="stepList2">
+                            <div class="stepLeft ">
+                                <img src="../../../dist/css/img/joinus_img/c2.jpg">
+                            </div>
+                            <div class="stepRight">
+                                <h2>外宣</h2>
+                                <p>
+                                    <em>官方扶持：</em>
+                                    <span>网络营销培训 <i>+</i> 一对一销售指导。</span>
+                                </p>
+                                <div class="clear"></div>
+                                <p>
+                                    <em>薪资待遇：</em>
+                                    <span>通过自身资源、网络营销、外部宣传等方式，发展下级会员，赚取<strong>50%</strong>VIP推荐提成。</span>
+                                </p>
+                                <div class="clear"></div>
+                            </div>
+                        </li>
+                        <li class="stepList3">
+                            <div class="stepLeft ">
+                                <img src="../../../dist/css/img/joinus_img/c3.jpg">
+                            </div>
+                            <div class="stepRight">
+                                <h2>工作室</h2>
+                                <p>
+                                    <em>官方扶持：</em>
+                                    <span>做单享受商家返款权限，优先抢接活动单，支持批量申请任务，提现秒到账。</span>
+                                </p>
+                                <div class="clear"></div>
+                                <p>
+                                    <em>薪资待遇：</em>
+                                    <span>订单奖励上涨<strong>25%</strong>，发展下级会员，赚取<strong>20%</strong>VIP推荐提成。</span>
+                                </p>
+                                <div class="clear"></div>
+                            </div>
+                        </li>
+                        <li class="stepList4">
+                            <div class="stepLeft ">
+                                <img src="../../../dist/css/img/joinus_img/c4.jpg">
+                            </div>
+                            <div class="stepRight">
+                                <h2>地区总代</h2>
+                                <p>
+                                    <em>官方扶持：</em>
+                                    <span>网络营销培训 <i>+</i> 一对一销售指导。做单享受商家返款权限，优先抢接活动单，支持批量申请任务，提现秒到账。</span>
+                                <div class="clear"></div>
+                                </p>
+                                <p>
+                                    <em>薪资待遇：</em>
+                                    <span>订单奖励上涨<strong>25%</strong>，发展下级会员，赚取<strong>50%</strong>VIP推荐提成。</span>
+                                <div class="clear"></div>
+                                </p>
+                            </div>
+                        </li>
+                        <li class="stepList5">
+                            <div class="stepLeft ">
+                                <img src="../../../dist/css/img/joinus_img/c5.jpg">
+                            </div>
+                            <div class="stepRight">
+                                <h2>全国总代</h2>
+                                <p>
+                                    <em>官方扶持：</em>
+                                    <span>全国总代 =（分站 <i>+</i> 试客 <i>+</i>外宣 <i>+</i> 工作室 <i>+</i> 地区总代）<i>&times;&nbsp;</i><strong>加强版</strong></span>
+                                </p>
+                                <div class="clear"></div>
+                                <p>
+                                    <em>薪资待遇：</em>
+                                    <span>需联系业务经理交谈，<a onclick="multi_qq()">点我联系</a></span>
+                                </p>
+                                <div class="clear"></div>
+                            </div>
+                        </li>
+                    </ul>
+                    <div id="butn" onclick="multi_qq()">来吧，加入我们</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(function () {
+            set_nav("joinus", "on");
+        });
+    </script>
+    <div style="clear:both;"></div>
+    <div id="footer">
+        <div id="footer_top">
+            <div id="foot_top_1">
+                <a href="/about/index.php?itemid=10">代理加盟</a><span>  |  </span>
+                <a href="/about/index.php?itemid=9">辅助业务</a><span>  |  </span>
+                <a href="/about/index.php?itemid=8">网站活动</a><span>  |  </span>
+                <a href="/about/index.php?itemid=7">联系客服</a><span>  |  </span>
+                <a href="/about/index.php?itemid=6">联盟网规</a><span>  |  </span>
+                <a href="/about/index.php?itemid=1">关于我们</a><span>  |  </span>
+                <a href="/about/index.php?itemid=3">联系方式</a><span>  |  </span>
+                <a href="/about/index.php?itemid=4">使用协议</a><span>  |  </span>
+                <a href="/about/index.php?itemid=5">版权隐私</a><span>  |  </span>
+            </div>
+            <div id="copy_right">
+                (c)2013-2018 销量联盟 www.topaaa.com All Rights Reserved        </div>
+            <div style="width:1024px;text-align: center;margin: 20px auto 0;">
+                <img src="http://001.topaaa.com/skin/ypmili/css/img/rz/1.png">
+                <img src="http://001.topaaa.com/skin/ypmili/css/img/rz/2.png">
+                <img src="http://001.topaaa.com/skin/ypmili/css/img/rz/3.png">
+                <img src="http://001.topaaa.com/skin/ypmili/css/img/rz/4.png">
+                <img src="http://001.topaaa.com/skin/ypmili/css/img/rz/5.png">
+                <img src="http://001.topaaa.com/skin/ypmili/css/img/rz/6.png">
+                <img src="http://001.topaaa.com/skin/ypmili/css/img/rz/7.png">
+                <img src="http://001.topaaa.com/skin/ypmili/css/img/rz/8.png">
+            </div>
+            <div style="clear:both;"></div>
+        </div>
+    </div>
+</div>
+<link rel="stylesheet" href="http://001.topaaa.com/file/script/layim/css/layui.css">
+<script src="http://001.topaaa.com/file/script/layim/layui.js"></script>
+<script src="http://001.topaaa.com/file/script/layim/func.js"></script>
+<div class="main-im">
+    <div id="open_im" class="open-im" style="display: none;"></div>
+    <div class="im_main" id="im_main">
+        <div id="close_im" class="close-im"><a class="you" title="点击关闭" style="cursor: pointer"></a></div>
+        <a onclick="multi_qq()" class="im-qq qq-a">
+            <div class="qq-container"></div>
+            <div class="qq-hover-c"><img class="img-qq" src="http://001.topaaa.com/skin/ypmili/css/img/qq.png"></div>
+            <span>QQ在线咨询</span>
+        </a>
+        <script id="yptip_qq" type="text/template7">
+            <p style="width:100%;background-color:#0098ff;font-size:16px;text-align:center;color:#fff;height:34px;line-height:34px;">客服团队</p><p style="line-height:40px;">客服潇潇：<a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=261369834&site=qq&menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=2:261369834:51" alt="点击这里给我发消息" title="点击这里给我发消息" /></a> <span style="line-height:1.5;margin-left:10px;">客服靓靓：</span><a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=261369834&site=qq&menu=yes" style="line-height:1.5;"><img border="0" src="http://wpa.qq.com/pa?p=2:261369834:51" alt="点击这里给我发消息" title="点击这里给我发消息" /></a> </p><p style="line-height:30px;">客服恋恋：<a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=261369834&site=qq&menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=2:261369834:51" alt="点击这里给我发消息" title="点击这里给我发消息" /></a> <span style="line-height:1.5;margin-left:10px;">客服萌萌：</span><a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=261369834&site=qq&menu=yes" style="line-height:1.5;"><img border="0" src="http://wpa.qq.com/pa?p=2:261369834:51" alt="点击这里给我发消息" title="点击这里给我发消息" /></a> </p><p><br /></p><p style="width:100%;background-color:#0098ff;font-size:16px;text-align:center;color:#fff;height:34px;line-height:34px;">合作渠道</p><p style="line-height:40px;">业务合作：<a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=261369834&site=qq&menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=2:261369834:51" alt="点击这里给我发消息" title="点击这里给我发消息" /></a> <span style="line-height:1.5;margin-left:10px;">代理加盟：</span><a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=261369834&site=qq&menu=yes" style="line-height:1.5;"><img border="0" src="http://wpa.qq.com/pa?p=2:261369834:51" alt="点击这里给我发消息" title="点击这里给我发消息" /></a> </p>        </script>
+        <script>
+            function multi_qq() {
+                $('.layim-friend618').click();
+            }
+        </script>
+        <a href="/app.php" target="_blank" class="qq-a" style="height: 130px">
+            <div class="qq-container" style="height: 130px"></div>
+            <div style="width: 95px;height: 95px"><img class="img-qq" src="/api/qrcode.php?url=http%3A%2F%2F001.topaaa.com%2Fapp.php" style="width: 95px;height: 95px;max-width: 95px;top: 5px;left: 5px"></div>
+            <span>下载APP</span>
+        </a>
+        <div class="im-tel">
+            <div><a href="/announce/index.php?typeid=2" target="_blank">如何发布试用</a></div>
+            <div><a href="/announce/index.php?typeid=3" target="_blank">如何申请试用</a></div>
+            <div><a href="/about/index.php?itemid=6" target="_blank">销量联盟网规</a></div>
+            <div><a href="/announce/index.php?typeid=1" target="_blank" class="jsbz">网站公告</a></div>
+        </div>
+        <div class="im-footer" style="position:relative">
+            <div class="go-top"><a class="you" title="返回顶部" style="cursor: pointer"></a></div>
+            <div style="clear:both"></div>
+        </div>
+    </div>
+    <script>
+        $(function () {
+            $(".go-top").click(function () {
+                $('html,body').animate({scrollTop: 0}, 800);
+            });
+            $("#close_im").click(function () {
+                $("#im_main").fadeOut(500, function () {
+                    $("#open_im").fadeIn(500);
+                });
+            });
+            $("#open_im").click(function () {
+                $("#open_im").fadeOut(500, function () {
+                    $("#im_main").fadeIn(500);
+                });
+            });
+        });
+    </script>
+</div></body>
+</html>

@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+
+    <link rel="stylesheet" type="text/css" href="../../../dist/css/index-skin.css">
+    <link rel="stylesheet" type="text/css" href="../../../dist/css/index-tp.css">
+
+    <script type="text/javascript" src="../../../dist/js/lang.js"></script>
+    <script type="text/javascript" src="../../../dist/js/config.js"></script>
+    <script type="text/javascript" src="../../../dist/js/jquery-2.0.0.min.js"></script>
+    <script type="text/javascript" src="../../../dist/js/common.js"></script>
+
+    <script type="text/javascript" src="../../../dist/js/admin.js"></script>
+    <script type="text/javascript" src="../../../dist/js/page.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="../../../dist/css/jq-tip.css">
+    <script type="text/javascript" src="../../../dist/js/jq-tip.js"></script>
+    <script type="text/javascript" src="../../../dist/js/layer.js"></script>
+
+    <script type="text/javascript" src="../../../dist/js/jquery.form.js"></script>
+    <script type="text/javascript" src="../../../dist/js/template7.min.js"></script>
+    <script type="text/javascript" src="../../../dist/js/cm.js"></script>
+    <script type="text/javascript" src="../../../dist/js/ypfunction.js"></script>
+
+    <link rel="stylesheet" href="http://001.topaaa.com/file/script/layim/css/layui.css">
+    <script src="http://001.topaaa.com/file/script/layim/layui.js"></script>
+    <script src="http://001.topaaa.com/file/script/layim/func.js"></script>
+    <!--配置服务器连接地址 -->
+    <script type="text/javascript" src="../../../dist/js/gjy_serviceurl.js"></script>
+    <script>
+        $(function () {
+
+        })
+    </script>
+</head>
+
+<div id="body">
+    <div id="body_header"></div>
+    <script>
+        $("#body_header").load("../public/public-top.html");
+    </script>
+<div id="content_wrapper">
+    <div id="content_body_title"></div>
+    <script>
+        $("#content_body_title").load("../public/public-body-title.html");
+    </script>
+    <script type="text/javascript" src="/file/script/yptaskmember.js"></script>
+    <script>
+        $(function () {
+            $(".side_head").click(function () {
+                $(this).next().slideToggle("normal");
+            });
+        });
+    </script>
+    <style>
+        .tr {
+            line-height: 24px;
+        }
+        #submit {
+            border: none;
+        }
+        .side_a a.n, .side_b a.n {
+            font-size: 12px;
+        }
+    </style>
+    <div id="ypcon" class="ypagent">
+        <table cellpadding="0" cellspacing="0" width="100%">
+            <tbody>
+            <tr>
+                <td valign="top" class="side">
+                    <div class="agent_side">
+                        <div class="side_head">
+                            <div>会员管理</div>
+                        </div>
+                        <div class="side_body">
+                            <ul>
+                                <li class="side_a" id="user">
+                                    <a href="?action=user" class="n">会员管理</a>
+                                </li>
+                                <li class="side_a" id="check_xiaohao">
+                                    <a href="?action=check_xiaohao" class="n">审核买号</a>
+                                </li>
+                                <li class="side_a" id="vname">
+                                    <a href="?action=vname" class="n">实名认证</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="side_head">
+                            <div>试用中心</div>
+                        </div>
+                        <div class="side_body">
+                            <ul>
+                                <li class="side_a" id="view_yptask_shangjia">
+                                    <a href="?action=view_yptask_shangjia" class="n">商家试用</a>
+                                </li>
+                                <li class="side_a" id="view_yptask_shuashou">
+                                    <a href="?action=view_yptask_shuashou" class="n">试客任务</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="side_head">
+                            <div>网站设置</div>
+                        </div>
+                        <div class="side_body">
+                            <ul>
+                                <li class="side_a" id="setting_site">
+                                    <a href="?action=setting&op=site" class="n">网站设置</a>
+                                </li>
+                                <li class="side_a" id="setting_yptask">
+                                    <a href="?action=setting&op=yptask" class="n">试用设置</a>
+                                </li>
+                                <li class="side_a" id="setting_tuiguang">
+                                    <a href="?action=setting&op=tuiguang" class="n">推广设置</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="side_head">
+                            <div>财务管理</div>
+                        </div>
+                        <div class="side_body">
+                            <ul>
+                                <li class="side_a">
+                                    <a class="n" href="/member/credit.php?kw=%B4%FA%C0%ED%C9%CC%CA%D5%C8%EB" style="cursor:pointer" target="_blank">我的收入</a>
+                                </li>
+                                <li class="side_a" id="credit_sell">
+                                    <a href="?action=credit_sell" class="n">联盟币兑换</a>
+                                </li>
+                                <li class="side_a">
+                                    <a href="/member/cash.php?action=setting" class="n" target="_blank">提现设置</a>
+                                </li>
+                                <li class="side_a">
+                                    <a href="/member/cash.php" class="n" target="_blank">申请提现</a>
+                                </li>
+                                <li class="side_a">
+                                    <a href="/member/cash.php?action=record" class="n" target="_blank">提现记录</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </td>
+                <td valign="top" class="main" style="padding:0">
+                    <div class="yptip">
+                        <p><span>代理商可以设置独立的域名、独立的网站标题、关键词、描述等。</span></p><p><span>分站站长可以管理自己网站的会员、设置独立的发任务费用、接任务费用、会费和推广奖励。</span></p><p><span>分站会员可以跨站登录、跨站接任务。任何分站的会员，用自己的推广链接推荐的会员，都会属于这个分站。</span></p><p><span style="color:#E53333;">后台说明：管理员可以添加审核代理商，设置独立域名，可开启或关闭代理商的权限有：</span></p><p><span><span style="color:#E53333;">会员管理、锁定会员、授权登录、奖惩金币、标记交会费、审核掌柜/买号、实名认证、银行卡认证、查看商家任务、查看试客任务、网站设置、网站背景、金币兑换</span><br /></span></p>                </div>
+                    <!--不是代理商-->
+                    <form method="post" action="/member/agent.php?action=apply" onsubmit="return check()">
+                        <table cellspacing="1" cellpadding="6" class="tb">
+                            <tr>
+                                <td class="tl">推荐人要求</td>
+                                <td class="tr" style="color:#f00">10</td>
+                            </tr>
+                            <tr>
+                                <td class="tl">我的推荐人</td>
+                                <td class="tr">1</td>
+                            </tr>
+                            <tr>
+                                <td class="tl">完成试用要求</td>
+                                <td class="tr" style="color:#f00">10</td>
+                            </tr>
+                            <tr>
+                                <td class="tl">我完成的试用</td>
+                                <td class="tr">163</td>
+                            </tr>
+                            <tr>
+                                <td class="tl">您的网站域名</td>
+                                <td class="tr">
+                                    www.ddd.com                                                            </td>
+                            </tr>
+                            <tr>
+                                <td class="tl">申请资格</td>
+                                <td class="tr">
+                                    您没有申请资格
+                                </td>
+                            </tr>
+                        </table>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+    <script type="text/javascript">
+        set_nav("", 'on');
+        set_nav("agent", 'on');
+    </script>
+    <div style="clear:both;"></div>
+    <div id="footer">
+        <div id="footer_top">
+            <div id="foot_top_1">
+                <a href="/about/index.php?itemid=10">代理加盟</a><span>  |  </span>
+                <a href="/about/index.php?itemid=9">辅助业务</a><span>  |  </span>
+                <a href="/about/index.php?itemid=8">网站活动</a><span>  |  </span>
+                <a href="/about/index.php?itemid=7">联系客服</a><span>  |  </span>
+                <a href="/about/index.php?itemid=6">联盟网规</a><span>  |  </span>
+                <a href="/about/index.php?itemid=1">关于我们</a><span>  |  </span>
+                <a href="/about/index.php?itemid=3">联系方式</a><span>  |  </span>
+                <a href="/about/index.php?itemid=4">使用协议</a><span>  |  </span>
+                <a href="/about/index.php?itemid=5">版权隐私</a><span>  |  </span>
+            </div>
+            <div id="copy_right">
+                (c)2013-2018 销量联盟 www.topaaa.com All Rights Reserved        </div>
+            <div style="width:1024px;text-align: center;margin: 20px auto 0;">
+                <img src="http://001.topaaa.com/skin/ypmili/css/img/rz/1.png">
+                <img src="http://001.topaaa.com/skin/ypmili/css/img/rz/2.png">
+                <img src="http://001.topaaa.com/skin/ypmili/css/img/rz/3.png">
+                <img src="http://001.topaaa.com/skin/ypmili/css/img/rz/4.png">
+                <img src="http://001.topaaa.com/skin/ypmili/css/img/rz/5.png">
+                <img src="http://001.topaaa.com/skin/ypmili/css/img/rz/6.png">
+                <img src="http://001.topaaa.com/skin/ypmili/css/img/rz/7.png">
+                <img src="http://001.topaaa.com/skin/ypmili/css/img/rz/8.png">
+            </div>
+            <div style="clear:both;"></div>
+        </div>
+    </div>
+</div>
+<link rel="stylesheet" href="http://001.topaaa.com/file/script/layim/css/layui.css">
+<script src="http://001.topaaa.com/file/script/layim/layui.js"></script>
+<script src="http://001.topaaa.com/file/script/layim/func.js"></script>
+<div class="main-im">
+    <div id="open_im" class="open-im" style="display: none;"></div>
+    <div class="im_main" id="im_main">
+        <div id="close_im" class="close-im"><a class="you" title="点击关闭" style="cursor: pointer"></a></div>
+        <a onclick="multi_qq()" class="im-qq qq-a">
+            <div class="qq-container"></div>
+            <div class="qq-hover-c"><img class="img-qq" src="http://001.topaaa.com/skin/ypmili/css/img/qq.png"></div>
+            <span>QQ在线咨询</span>
+        </a>
+        <script id="yptip_qq" type="text/template7">
+            <p style="width:100%;background-color:#0098ff;font-size:16px;text-align:center;color:#fff;height:34px;line-height:34px;">客服团队</p><p style="line-height:40px;">客服潇潇：<a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=261369834&site=qq&menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=2:261369834:51" alt="点击这里给我发消息" title="点击这里给我发消息" /></a> <span style="line-height:1.5;margin-left:10px;">客服靓靓：</span><a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=261369834&site=qq&menu=yes" style="line-height:1.5;"><img border="0" src="http://wpa.qq.com/pa?p=2:261369834:51" alt="点击这里给我发消息" title="点击这里给我发消息" /></a> </p><p style="line-height:30px;">客服恋恋：<a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=261369834&site=qq&menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=2:261369834:51" alt="点击这里给我发消息" title="点击这里给我发消息" /></a> <span style="line-height:1.5;margin-left:10px;">客服萌萌：</span><a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=261369834&site=qq&menu=yes" style="line-height:1.5;"><img border="0" src="http://wpa.qq.com/pa?p=2:261369834:51" alt="点击这里给我发消息" title="点击这里给我发消息" /></a> </p><p><br /></p><p style="width:100%;background-color:#0098ff;font-size:16px;text-align:center;color:#fff;height:34px;line-height:34px;">合作渠道</p><p style="line-height:40px;">业务合作：<a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=261369834&site=qq&menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=2:261369834:51" alt="点击这里给我发消息" title="点击这里给我发消息" /></a> <span style="line-height:1.5;margin-left:10px;">代理加盟：</span><a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=261369834&site=qq&menu=yes" style="line-height:1.5;"><img border="0" src="http://wpa.qq.com/pa?p=2:261369834:51" alt="点击这里给我发消息" title="点击这里给我发消息" /></a> </p>        </script>
+        <script>
+            function multi_qq() {
+                $('.layim-friend618').click();
+            }
+        </script>
+        <a href="/app.php" target="_blank" class="qq-a" style="height: 130px">
+            <div class="qq-container" style="height: 130px"></div>
+            <div style="width: 95px;height: 95px"><img class="img-qq" src="/api/qrcode.php?url=http%3A%2F%2F001.topaaa.com%2Fapp.php" style="width: 95px;height: 95px;max-width: 95px;top: 5px;left: 5px"></div>
+            <span>下载APP</span>
+        </a>
+        <div class="im-tel">
+            <div><a href="/announce/index.php?typeid=2" target="_blank">如何发布试用</a></div>
+            <div><a href="/announce/index.php?typeid=3" target="_blank">如何申请试用</a></div>
+            <div><a href="/about/index.php?itemid=6" target="_blank">销量联盟网规</a></div>
+            <div><a href="/announce/index.php?typeid=1" target="_blank" class="jsbz">网站公告</a></div>
+        </div>
+        <div class="im-footer" style="position:relative">
+            <div class="go-top"><a class="you" title="返回顶部" style="cursor: pointer"></a></div>
+            <div style="clear:both"></div>
+        </div>
+    </div>
+    <script>
+        $(function () {
+            $(".go-top").click(function () {
+                $('html,body').animate({scrollTop: 0}, 800);
+            });
+            $("#close_im").click(function () {
+                $("#im_main").fadeOut(500, function () {
+                    $("#open_im").fadeIn(500);
+                });
+            });
+            $("#open_im").click(function () {
+                $("#open_im").fadeOut(500, function () {
+                    $("#im_main").fadeIn(500);
+                });
+            });
+        });
+    </script>
+</div></body>
+</html>

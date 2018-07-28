@@ -4755,7 +4755,7 @@ a.sb0 {
 
 /*会员升级*/
 .grade_banner {
-    background: url(/dist/index/img/grade.jpg) no-repeat center;
+    background: url(../index/img/grade.jpg) no-repeat center;
     height: 369px;
 }
 
@@ -5437,7 +5437,7 @@ span.jt {
     height: 986px;
     min-width: 1024px;
     background-color: #fc9b10;
-    background: url(/dist/index/img/extension.jpg) no-repeat center top;
+    background: url(../../dist/img/extension.jpg) no-repeat center top;
     color: #626262;
 }
 
@@ -5492,9 +5492,10 @@ span.jt {
 
 .paihangbang {
     position: absolute;
-    left: 140px;
-    top: 650px;
+    left: 104px;
+    top: 640px;
     color: #fc9c3a;
+    width: 400px;
 }
 
 .paihangbang table tr:first-child {
@@ -5510,8 +5511,8 @@ span.jt {
 
 .paihangbang tr td:first-child {
     background: #25b7c4;
-    width: 35px;
-    height: 18px;
+    width: 50px;
+    height: 24px;
     color: #fff;
 }
 
@@ -5565,4 +5566,18 @@ span.jt {
     padding: 0 5px;
     font-size: 12px !important;
     color: #999;
+}
+
+.wrap_flex{
+    display: flex;
+    width: 400px;
+}
+.flex_mid{
+    flex: 1;
+}
+.no-blue{
+    color: #fc9c3a !important;
+    font-size: 15px;
+    font-weight: bold;
+    background: none !important;
 }

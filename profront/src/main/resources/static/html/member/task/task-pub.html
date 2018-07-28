@@ -1,0 +1,2310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta charset="UTF-8">
+    <title>任务发布</title>
+    <link rel="stylesheet" type="text/css" href="../../../dist/css/index-skin.css">
+    <link rel="stylesheet" type="text/css" href="../../../dist/css/index-tp.css">
+
+    <script type="text/javascript" src="../../../dist/js/lang.js"></script>
+    <script type="text/javascript" src="../../../dist/js/config.js"></script>
+    <script type="text/javascript" src="../../../dist/js/jquery-2.0.0.min.js"></script>
+    <script type="text/javascript" src="../../../dist/js/common.js"></script>
+
+    <script type="text/javascript" src="../../../dist/js/admin.js"></script>
+    <script type="text/javascript" src="../../../dist/js/page.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="../../../dist/css/jq-tip.css">
+    <script type="text/javascript" src="../../../dist/js/jq-tip.js"></script>
+    <script type="text/javascript" src="../../../dist/js/layer.js"></script>
+
+    <script type="text/javascript" src="../../../dist/js/jquery.form.js"></script>
+    <script type="text/javascript" src="../../../dist/js/template7.min.js"></script>
+    <script type="text/javascript" src="../../../dist/js/cm.js"></script>
+    <script type="text/javascript" src="../../../dist/js/ypfunction.js"></script>
+    <!--日期处理-->
+    <script type="text/javascript" src="../../../dist/js/moment.js"></script>
+
+    <link rel="stylesheet" href="http://001.topaaa.com/file/script/layim/css/layui.css">
+    <!--配置服务器连接地址 -->
+    <script type="text/javascript" src="../../../dist/js/gjy_serviceurl.js"></script>
+
+    <script src="https://cdn.bootcss.com/react/16.4.0/umd/react.development.js"></script>
+    <script src="https://cdn.bootcss.com/react-dom/16.4.0/umd/react-dom.development.js"></script>
+    <script src="https://cdn.bootcss.com/babel-standalone/6.26.0/babel.min.js"></script>
+
+    <link rel="stylesheet" href="../../../dist/layui/css/layui.css">
+    <script type="text/javascript" src="../../../dist/layui/layui.js"></script>
+    <script type="text/javascript" src="../../../dist/js/jquery-ui.min.js"></script>
+
+    <style type="text/css">
+
+    </style>
+
+</head>
+<body class="rwdt_bg">
+<div id="body" style="opacity: 1;">
+    <div id="top_yc"></div>
+    <div class="ui-header ibj-header clean">
+        <div class="ui-header-top" id="j-header-top">
+            <div class="grid zbj-grid">
+                <div class="fl ui-header-greet">
+                    <div class="header_top_left trends">
+                        <ul class="line">
+
+
+                            <li class="gg" style="margin-top: -6.92682px;">
+                                <a href="http://001.topaaa.com/announce/index.php?itemid=7">手机单付款教程</a>
+                            </li>
+                            <li class="gg">
+                                <a href="http://001.topaaa.com/announce/index.php?itemid=8">买号出售说明</a>
+                            </li>
+                            <li class="gg" style="margin-top: 0px;">
+                                <a href="http://001.topaaa.com/announce/index.php?itemid=9">试客做单特别注意</a>
+                            </li>
+                            <li class="gg" style="margin-top: 0px;">
+                                <a href="http://001.topaaa.com/announce/index.php?itemid=10">开启QQ临时会话，双方及时沟通</a>
+                            </li>
+                            <li class="gg" style="margin-top: 0px;">
+                                <a href="http://001.topaaa.com/announce/index.php?itemid=1">重要通告 注册后必看</a>
+                            </li>
+                            <li class="gg" style="margin-top: 0px;">
+                                <a href="http://001.topaaa.com/announce/index.php?itemid=2">销量联盟商家支付佣金表</a>
+                            </li>
+                            <li class="gg" style="margin-top: 0px;">
+                                <a href="http://001.topaaa.com/announce/index.php?itemid=3">销量联盟商家注册流程</a>
+                            </li>
+                            <li class="gg" style="margin-top: 0px;">
+                                <a href="http://001.topaaa.com/announce/index.php?itemid=4">销量联盟试客注册流程</a>
+                            </li>
+                            <li class="gg" style="margin-top: 0px;">
+                                <a href="http://001.topaaa.com/announce/index.php?itemid=5">销量联盟考试题库</a>
+                            </li>
+                            <li class="gg" style="margin-top: 0px;">
+                                <a href="http://001.topaaa.com/announce/index.php?itemid=6">试客申请试用注意事项</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="fr ui-header-nav">
+                    <div class="ui-dropdown">
+                        <span style="height: 35px;line-height: 35px;padding: 0 10px;">
+                            <a href="http://001.topaaa.com/app.php" target="_blank">下载APP</a>
+                        </span>
+                    </div>
+                    <div class="ui-dropdown">
+                        <span style="height: 35px;line-height: 35px;padding: 0 10px;">
+                            <a href="http://001.topaaa.com/announce/index.php?itemid=10">开启QQ临时会话</a>
+                        </span>
+                    </div>
+                    <div class="ui-dropdown">
+                        <span style="height: 35px;line-height: 35px;padding: 0 10px;">
+                            <a href="http://001.topaaa.com/announce/index.php?typeid=2">新手帮助</a>
+                        </span>
+                    </div>
+                    <div class="ui-dropdown">
+                    <span href="#none" class="ui-dropdown-hd">
+                        <a class="login-after username" href="http://001.topaaa.com/member/" style="display: inline;">yp1234567<b></b>
+                        </a>
+                    </span>
+                        <div class="ui-dropdown-menu nouserinfo">
+                            <ul class="list-unstyled unstyled ui-account">
+                                <li class="item-account">
+                                    <a tool-map="top" tool-text="详细" class="fr zbj-tooltip"
+                                       href="http://001.topaaa.com/member/record.php">详细</a>
+                                    <span class="fr">
+                                <a class="blue item-withdraw" href="http://001.topaaa.com/member/charge.php?action=pay">充值</a>
+                                <a class="blue item-withdraw" href="http://001.topaaa.com/member/cash.php">提现</a>
+                            </span>
+                                    资金：
+                                    <span class="highlight"><span
+                                            class="my-balance-holder highlight">11383.65</span></span>
+                                </li>
+                                <li class="item-account">
+                                    <a tool-map="top" tool-text="详细" class="fr zbj-tooltip"
+                                       href="http://001.topaaa.com/member/credit.php">详细</a>
+                                    <span class="fr">
+                                    <a class="blue item-withdraw"
+                                       href="http://001.topaaa.com/member/credit.php?action=buy">充值</a>
+                                    <a class="blue item-withdraw" href="http://001.topaaa.com/member/">兑换</a>
+                                </span>
+                                    联盟币：
+                                    <span class="highlight"><span
+                                            class="my-balance-holder highlight">47.54</span></span>
+                                </li>
+                                <li class="item-account">
+                                    会员组：
+                                    <span class="highlight">
+                                        <span class="my-balance-holder highlight"
+                                              style="margin-right:10px">荣誉商家会员</span>
+                                    </span>
+                                    <a href="http://001.topaaa.com/member/grade.php">升级</a>
+                                </li>
+                                <li class="item-ft">
+                                    <a class="fr item-logout" href="http://001.topaaa.com/member/logout.php"
+                                       data-hasqtip="0" oldtitle="退出登录" title="">退出</a>
+                                    <a class="item-myfav" href="http://001.topaaa.com/member/edit.php">账号设置</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="ui-dropdown">
+                        <a href="http://001.topaaa.com/member/my.php?mid=23&amp;action=add&amp;catid=4#"
+                           class="ui-dropdown-hd">我是商家<b></b></a>
+                        <ul class="unstyled fr ui-dropdown-menu ui-menu-fix">
+                            <li>
+                                <a onclick="renwu_cat(&#39;请选择要发布的试用类别&#39;,&#39;/member/my.php?mid=23&amp;action=add&amp;catid=4|淘宝试用,/member/my.php?mid=23&amp;action=add&amp;catid=5|阿里巴巴试用,/member/my.php?mid=23&amp;action=add&amp;catid=40|京东试用,/member/my.php?mid=23&amp;action=add&amp;catid=6|拼多多试用,/member/my.php?mid=23&amp;action=add&amp;catid=7|蘑菇街试用,/member/my.php?mid=23&amp;action=add&amp;catid=8|美丽说试用,/member/my.php?mid=23&amp;action=add&amp;catid=41|淘宝访问,/member/my.php?mid=23&amp;action=add&amp;catid=51|阿里巴巴访问,/member/my.php?mid=23&amp;action=add&amp;catid=401|京东访问&#39;);">发布试用</a>
+                            </li>
+                            <li><a href="http://001.topaaa.com/member/my.php?mid=23&amp;pro=0" class="highlight"
+                                   data-hasqtip="1" oldtitle="已发布的试用" title="">试用中心</a></li>
+                            <li>
+                                <a href="http://001.topaaa.com/member/taobaohao.php?action=add&amp;isshangjia=1">绑定掌柜</a>
+                            </li>
+                            <li><a href="http://001.topaaa.com/member/my.php?mid=23&amp;tousu=1">我的投诉</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--logo开始-->
+    <div id="header" class="clean">
+        <div class="header_main">
+            <div id="ypmsgbox"></div>
+            <div class="header_left">
+                <a href="http://001.topaaa.com/"><img src="./发布任务-1_files/logo.png" alt="销量联盟"></a>
+            </div>
+            <div class="header_right">
+                <div class="avatar"><img src="./发布任务-1_files/show.php"></div>
+                <div class="username">
+                    <p>yp1234567</p>
+                    <p>荣誉商家会员</p>
+                </div>
+                <div class="logout">
+                    <a href="http://001.topaaa.com/member/logout.php">退出</a></div>
+            </div>
+        </div>
+    </div>
+    <div class="hyzx">
+        <div class="hyzx_dh">
+            <div class="hyzx_nav">
+                <div class="menu persoanal_0">
+                    <div class="personal"><a href="http://001.topaaa.com/">首 页</a></div>
+                    <div class="personal nav">
+                        <a id="yptask">免费试用</a>
+                        <ul class="sub">
+                            <a id="yptask234" href="http://001.topaaa.com/yptask/?catid=4" data-hasqtip="2"
+                               oldtitle="淘宝试用" title="">淘宝试用</a>
+                            <a id="yptask235" href="http://001.topaaa.com/yptask/?catid=5" data-hasqtip="3"
+                               oldtitle="阿里巴巴试用" title="">阿里巴巴试用</a>
+                            <a id="yptask2340" href="http://001.topaaa.com/yptask/?catid=40" data-hasqtip="4"
+                               oldtitle="京东试用" title="">京东试用</a>
+                            <a id="yptask236" href="http://001.topaaa.com/yptask/?catid=6" data-hasqtip="5"
+                               oldtitle="拼多多试用" title="">拼多多试用</a>
+                            <a id="yptask237" href="http://001.topaaa.com/yptask/?catid=7" data-hasqtip="6"
+                               oldtitle="蘑菇街试用" title="">蘑菇街试用</a>
+                            <a id="yptask238" href="http://001.topaaa.com/yptask/?catid=8" data-hasqtip="7"
+                               oldtitle="美丽说试用" title="">美丽说试用</a>
+                            <a id="yptask2341" href="http://001.topaaa.com/yptask/?catid=41" data-hasqtip="8"
+                               oldtitle="淘宝访问" title="">淘宝访问</a>
+                            <a id="yptask2351" href="http://001.topaaa.com/yptask/?catid=51" data-hasqtip="9"
+                               oldtitle="阿里巴巴访问" title="">阿里巴巴访问</a>
+                            <a id="yptask23401" href="http://001.topaaa.com/yptask/?catid=401" data-hasqtip="10"
+                               oldtitle="京东访问" title="">京东访问</a>
+                        </ul>
+                    </div>
+                    <div class="personal nav">
+                        <a id="record" href="http://001.topaaa.com/member/record.php">资金管理</a>
+                        <ul class="sub">
+                            <li><a href="http://001.topaaa.com/member/charge.php?action=pay">资金充值</a></li>
+                            <li><a href="http://001.topaaa.com/member/cash.php">资金提现</a></li>
+                            <li><a href="http://001.topaaa.com/member/record.php">资金流水</a></li>
+                        </ul>
+                    </div>
+                    <div class="personal nav">
+                        <a id="taobaohao" href="http://001.topaaa.com/member/taobaohao.php?isshangjia=1">掌柜管理</a>
+                        <ul class="sub">
+                            <li>
+                                <a href="http://001.topaaa.com/member/taobaohao.php?isshangjia=1">掌柜管理</a>
+                            </li>
+                            <li>
+                                <a href="http://001.topaaa.com/member/taobaohao.php?action=add&amp;isshangjia=1">绑定掌柜</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="personal"><a id="fuzhu" href="http://001.topaaa.com/member/fuzhu.php">流量套餐</a></div>
+                    <div class="personal"><a id="kuaidi"
+                                             href="http://001.topaaa.com/member/kuaidi.php?action=add">代发快递</a></div>
+                    <div class="personal"><a id="inviter" href="http://001.topaaa.com/member/inviter.php">推广奖励</a></div>
+                    <div class="personal nav">
+                        <a id="agent" href="http://001.topaaa.com/member/agent.php">加盟分站</a>
+                        <ul class="sub">
+                            <li>
+                                <a href="http://001.topaaa.com/member/agent.php">加盟分站</a>
+                            </li>
+                            <li>
+                                <a href="http://001.topaaa.com/about/index.php?itemid=10">加盟政策</a>
+                            </li>
+                            <li>
+                                <a href="http://001.topaaa.com/extend/joinus.php">加入我们</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="personal nav">
+                        <a id="yptask_my">试用中心</a>
+                        <ul class="sub">
+                            <li>
+                                <a href="javascript:renwu_cat(&#39;请选择要发布的试用类别&#39;,&#39;/member/my.php?mid=23&amp;action=add&amp;catid=4|淘宝试用,/member/my.php?mid=23&amp;action=add&amp;catid=5|阿里巴巴试用,/member/my.php?mid=23&amp;action=add&amp;catid=40|京东试用,/member/my.php?mid=23&amp;action=add&amp;catid=6|拼多多试用,/member/my.php?mid=23&amp;action=add&amp;catid=7|蘑菇街试用,/member/my.php?mid=23&amp;action=add&amp;catid=8|美丽说试用,/member/my.php?mid=23&amp;action=add&amp;catid=41|淘宝访问,/member/my.php?mid=23&amp;action=add&amp;catid=51|阿里巴巴访问,/member/my.php?mid=23&amp;action=add&amp;catid=401|京东访问&#39;)">发布免费试用</a>
+                            </li>
+                            <li><a href="http://001.topaaa.com/member/my.php?mid=23&amp;pro=0">已发试用管理</a></li>
+                            <li><a href="http://001.topaaa.com/member/my.php?mid=23&amp;action=yptasktmp">试用模板管理</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="personal nav">
+                        <a>会员中心</a>
+                        <ul class="sub">
+                            <li><a href="http://001.topaaa.com/member/">会员中心</a></li>
+                            <li><a href="http://001.topaaa.com/member/edit.php">修改资料</a></li>
+                            <li><a href="http://001.topaaa.com/member/blacklist.php">黑名单</a></li>
+                            <li><a href="http://001.topaaa.com/member/grade.php">会员升级</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        catid = parseInt('4');
+
+        //function
+        function zengpai_disable(v) {
+            $('#zengpaitxt').parent().find('input').removeAttr('disabled');
+            $('#zengpaiprice').parent().find('input').removeAttr('disabled');
+            $('#zengpaitxt').parent().find('input').each(function (index) {
+                if (index < v) return true;
+                $('#zengpaitxt').parent().find('input').eq(index).val('').attr('disabled', 'disabled');
+                $('#zengpaiprice').parent().find('input').eq(index).val('').attr('disabled', 'disabled');
+            });
+        }
+    </script>
+    <script>
+        //禁止地区多选、商品主图多个
+        var areaid, zhutu_num, shaitu_num;
+        $(function () {
+            areaid = $('[area=1]').length;
+            zhutu_num = $('[zhutu=1]').length;
+            shaitu_num = $('[shaitu=1]').length;
+            var add_or_del = $('<span onclick="ele_add(this)" class="ele_add">增加</span><span onclick="ele_del(this)" class="ele_del">删除</span>');
+            $('#dban_area, #dzhutu, #dshaitu').before(add_or_del);
+            $('#dcurl').before('<span onclick="get_zhutu(this,\'4\')" class="ele_add">获取主图</span>');
+        });
+
+        function get_zhutu(th, catid) {
+            $(th).text('获取中');
+            var url = $('#curl').val();
+            url = url.replace(/x/g, '|x|');
+            url = url.replace(/X/g, '|X|');
+            $.ajax({
+                type: 'post',
+                url: '/member/my.php?mid=23&action=get_zhutu&catid=' + catid,
+                data: {
+                    url: url
+                },
+                cache: false,
+                success: function (data) {
+                    if (data.indexOf('error') >= 0) {
+                        layer.open({
+                            content: data.replace('error', ''),
+                            btn: ['确定']
+                        });
+                    } else {
+                        $('#thumb_zhutu_1').parent().parent().find('.img_upload_item:gt(0)').remove();
+                        $('#thumb_zhutu_1').val(data);
+                        $('#showthumb_zhutu_1').attr('src', data);
+                    }
+                    $(th).text('获取主图');
+                }
+            });
+        }
+
+        function ele_add(obj) {
+            var ele_name = $(obj).parent().find('input:eq(0)').attr('name');
+            if (ele_name == 'post_fields[ban_area]') {
+                area_add(obj);
+            } else if (ele_name == 'post_fields[zhutu]') {
+                zhutu_add(obj);
+            } else if (ele_name == 'post_fields[shaitu]') {
+                shaitu_add(obj);
+            }
+            qtip_init();
+        }
+
+        function ele_del(obj) {
+            var ele_name = $(obj).parent().find('input:eq(0)').attr('name');
+            if (ele_name == 'post_fields[ban_area]') {
+                area_del(obj);
+            } else if (ele_name == 'post_fields[zhutu]') {
+                zhutu_del(obj);
+            } else if (ele_name == 'post_fields[shaitu]') {
+                shaitu_del(obj);
+            }
+            qtip_init();
+        }
+
+        function area_add(obj) {
+            areaid = parseInt(areaid);
+            if (areaid >= 5) {
+                layer.alert('禁止地区最多不能超过5个');
+                return false;
+            }
+            areaid++;
+            $.ajax({
+                type: 'post',
+                url: '/ajax.php',
+                data: {
+                    action: 'area',
+                    area_title: '请选择',
+                    area_id: areaid,
+                    areaid: 0
+                },
+                cache: false,
+                success: function (data) {
+                    area_title[areaid] = '请选择';
+                    area_extend[areaid] = '';
+                    area_areaid[areaid] = '0';
+                    area_deep[areaid] = '0';
+                    areaid = areaid.toString();
+                    data = '<input area="1" id="areaid_' + areaid + '" value="0" type="hidden"><span id="load_area_' + areaid + '">' + data + '</span>';
+                    $(obj).prev().after(data);
+                }
+            });
+        }
+
+        function area_del(obj) {
+            areaid = parseInt(areaid);
+            if (areaid <= 1) return false;
+            $('#load_area_' + areaid + ',#areaid_' + areaid).remove();
+            areaid--;
+        }
+
+        function zhutu_add(obj) {
+            zhutu_num = parseInt(zhutu_num);
+            if (zhutu_num >= 5) {
+                layer.alert('商品主图最多不能超过5个');
+                return false;
+            }
+            zhutu_num++;
+            zhutu_num = zhutu_num.toString();
+            var upload_item = '<div class="img_upload_item"> <input zhutu="1" id="thumb_zhutu_' + zhutu_num + '" type="hidden"> <span> <img src="http://001.topaaa.com/skin/ypmili/image/waitpic.png" id="showthumb_zhutu_' + zhutu_num + '" alt="" onclick="if(this.src.indexOf(\'waitpic.png\') == -1){_preview(Dd(\'showthumb_zhutu_' + zhutu_num + '\').src, 1);}else{Dalbum(\'_zhutu_' + zhutu_num + '\',23,100,100, Dd(\'thumb_zhutu_' + zhutu_num + '\').value, true, \'yptask_add\');}" height="100" width="100"> </span> <span> <img title="上传" src="/member/image/img_upload.gif" onclick="Dalbum(\'_zhutu_' + zhutu_num + '\',23,100,100, Dd(\'thumb_zhutu_' + zhutu_num + '\').value, true, \'yptask_add\');" height="12" width="12">&nbsp;&nbsp; <img title="预览" src="/member/image/img_select.gif" onclick="_preview(Dd(\'showthumb_zhutu_' + zhutu_num + '\').src, 1);" height="12" width="12">&nbsp;&nbsp; <img title="删除" src="/member/image/img_delete.gif" onclick="img_delete(Dd(\'thumb_zhutu_' + zhutu_num + '\').value);delAlbum(\'_zhutu_' + zhutu_num + '\',\'wait\');" height="12" width="12"> </span> </div>';
+            $(obj).prev().append(upload_item);
+        }
+
+        function zhutu_del(obj) {
+            zhutu_num = parseInt(zhutu_num);
+            if (zhutu_num <= 1) return false;
+            $('#thumb_zhutu_' + zhutu_num).parent().remove();
+            zhutu_num--;
+        }
+
+        //晒图********************************************
+        function shaitu_add(obj) {
+            shaitu_num = parseInt(shaitu_num);
+            if (shaitu_num >= 5) {
+                layer.alert('晒图最多不能超过5个');
+                return false;
+            }
+            shaitu_num++;
+            shaitu_num = shaitu_num.toString();
+            var upload_item = '<div class="img_upload_item"> <input shaitu="1" id="thumb_shaitu_' + shaitu_num + '" type="hidden"> <span> <img src="http://001.topaaa.com/skin/ypmili/image/waitpic.png" id="showthumb_shaitu_' + shaitu_num + '" alt="" onclick="if(this.src.indexOf(\'waitpic.png\') == -1){_preview(Dd(\'showthumb_shaitu_' + shaitu_num + '\').src, 1);}else{Dalbum(\'_shaitu_' + shaitu_num + '\',23,100,100, Dd(\'thumb_shaitu_' + shaitu_num + '\').value, true, \'yptask_add\');}" height="100" width="100"> </span> <span> <img title="上传" src="/member/image/img_upload.gif" onclick="Dalbum(\'_shaitu_' + shaitu_num + '\',23,100,100, Dd(\'thumb_shaitu_' + shaitu_num + '\').value, true, \'yptask_add\');" height="12" width="12">&nbsp;&nbsp; <img title="预览" src="/member/image/img_select.gif" onclick="_preview(Dd(\'showthumb_shaitu_' + shaitu_num + '\').src, 1);" height="12" width="12">&nbsp;&nbsp; <img title="删除" src="/member/image/img_delete.gif" onclick="img_delete(Dd(\'thumb_shaitu_' + shaitu_num + '\').value);delAlbum(\'_shaitu_' + shaitu_num + '\',\'wait\');" height="12" width="12"> </span> </div>';
+            $(obj).prev().append(upload_item);
+        }
+
+        function shaitu_del(obj) {
+            shaitu_num = parseInt(shaitu_num);
+            if (shaitu_num <= 1) return false;
+            $('#thumb_shaitu_' + shaitu_num).parent().remove();
+            shaitu_num--;
+        }
+
+        //发布试用
+        $(function () {
+            $("#dform").submit(function () {
+                //多张主图
+                var zhutu = new Array();
+                $('[zhutu=1]').each(function () {
+                    zhutu.push($(this).val());
+                });
+                var zhutu_new = new Array();
+                var i;
+                for (i = 0; i < zhutu.length; i++) {
+                    if (zhutu[i] != '') zhutu_new.push(zhutu[i]);
+                }
+                var t1 = $('#thumb_zhutu_1').val();
+                $('#thumb_zhutu_1').val(zhutu_new.join('|'));
+                //多张晒图
+                var shaitu = new Array();
+                $('[shaitu=1]').each(function () {
+                    shaitu.push($(this).val());
+                });
+                var shaitu_new = new Array();
+                for (i = 0; i < shaitu.length; i++) {
+                    if (shaitu[i] != '') shaitu_new.push(shaitu[i]);
+                }
+                var t2 = $('#thumb_shaitu_1').val();
+                $('#thumb_shaitu_1').val(shaitu_new.join('|'));
+                //多选地区
+                var ban_area = new Array();
+                $('[area=1]').each(function () {
+                    ban_area.push($(this).val());
+                });
+                var ban_area_new = new Array();
+                for (i = 0; i < ban_area.length; i++) {
+                    if (ban_area[i] > 0 && $.inArray(ban_area[i], ban_area_new) == -1) ban_area_new.push(ban_area[i]);
+                }
+                var t3 = $('#areaid_1').val();
+                if (ban_area_new.length == 0) $('#areaid_1').val(0);
+                else $('#areaid_1').val(ban_area_new.join());
+                var options = {
+                    contentType: "application/x-www-form-urlencoded;charset=utf-8",
+                    success: showResponse
+                };
+                //增拍*************************************************************
+                var zengpaitxt = $('#zengpaitxt').val();
+                var zengpaiprice = $('#zengpaiprice').val();
+                var zengpai = $("[name='post_fields[zengpai]']:checked").val();
+                if (zengpai) {
+                    var str1, str2;
+                    str1 = str2 = '';
+                    for (i = 0; i < zengpai; i++) {
+                        str1 += $('#zengpaitxt').parent().find('input').eq(i).val() + '|';
+                        str2 += $('#zengpaiprice').parent().find('input').eq(i).val() + '|';
+                    }
+                    str1 = str1.substring(0, str1.length - 1);
+                    str2 = str2.substring(0, str2.length - 1);
+                    $('#zengpaitxt').val(str1);
+                    $('#zengpaiprice').val(str2);
+                }
+                //增拍*************************************************************
+                $('#dform').ajaxSubmit(options);
+                $('#zengpaitxt').val(zengpaitxt);
+                $('#zengpaiprice').val(zengpaiprice);
+                $('#thumb_zhutu_1').val(t1);
+                $('#thumb_shaitu_1').val(t2);
+                $('#areaid_1').val(t3);
+                return false;
+            });
+        });
+
+        function showResponse(response) {
+            var is_mobile = $('.ui-page').size();
+            if (is_mobile) {
+                if (response == 'success') {
+                    layer.open({
+                        content: '发布成功，是否继续发布？',
+                        btn: ['继续发布', '前往试用中心'],
+                        yes: function (index) {
+                            layer.close(index);
+                        }, no: function () {
+                            window.location.href = '/member/my.php?mid=23&pro=0';
+                        }
+                    });
+                } else {
+                    var arr = response.split('|');
+                    layer.open({
+                        content: arr[0],
+                        btn: ['确定'],
+                        yes: function (index) {
+                            if (arr.hasOwnProperty('1')) {
+                                $(arr[1]).parent().parent().addClass('error');
+                                var index_click = $(arr[1]).parent().parent().parent().parent().parent().index();
+                                change_fabu(index_click);
+                                $('html,body').animate({scrollTop: $(arr[1]).offset().top - 150}, 800);
+                            }
+                            layer.close(index);
+                        }
+                    });
+                }
+            } else {
+                if (response == "success") {
+                    layer.confirm('发布成功，是否继续发布？', {
+                        btn: ['继续发布', '前往试用中心'] //按钮
+                    }, function (index) {
+                        layer.close(pro5_index);
+                        layer.close(index);
+                    }, function () {
+                        window.location.href = '/member/my.php?mid=23&pro=0';
+                    });
+                } else {
+                    //alert(response);
+                    arr = response.split('|');
+                    layer.alert(arr[0], function (index) {
+                        if (arr.hasOwnProperty('1')) {
+                            $(arr[1]).parent().parent().addClass('error');
+                            var index_click = $(arr[1]).parent().parent().parent().parent().parent().index();
+                            change_fabu(index_click);
+                            $('html,body').animate({scrollTop: $(arr[1]).offset().top - 220}, 800);
+                        }
+                        layer.close(index);
+                    });
+                }
+            }
+        }
+    </script>
+    <script>
+        $(function () {
+            $("#tname option[value='宾爵奴旗舰店']").attr('selected', 'selected');
+
+            //试用保险
+            function insurance() {
+                var value = $('[name="post_fields[insurance]"]:checked').val();
+                var price = $("#price").val();
+                if (isNaN(price)) price = 0;
+                if (price == '') price = 0;
+                price = parseFloat(price);
+                var insurance1 = parseFloat('3');
+                var insurance2 = parseFloat('1.5');
+                if (value == 0) {
+                    $('#dinsurance').text('');
+                } else if (value == 1) {
+                    $('#dinsurance').text('需交保费：' + (price * insurance1 / 100).toFixed(2) + '元');
+                } else if (value == 2) {
+                    $('#dinsurance').text('需交保费：' + (price * insurance2 / 100).toFixed(2) + '元');
+                }
+            }
+
+            insurance();
+            $('[name="post_fields[insurance]"]').click(function () {
+                insurance();
+            });
+            //初始化表单
+            $('[name="post_fields[ischeck]"][value="0"]').attr('checked', 'checked');
+            $('#ischeck').parent().parent().hide();
+            if (catid == 6 || catid == 106) {
+                $('#issearch_3, [for=issearch_3]').hide();
+                $('[for=issearch_4]').text('分享链接或扫二维码');
+                $('#dcurl').parent().prev().find('.title').text('商品链接或宝贝ID');
+            }
+            //自动隐藏显示
+            $('[data-autohide]:checked').each(function () {
+                if ($(this).val() == '0') {
+                    $.each($(this).data('autohide').split(','), function (i, item) {
+                        $('#d' + item).parent().parent().hide();
+                    });
+                }
+            });
+            $('[data-autohide]').click(function () {
+                if ($(this).val() == '0') {
+                    $.each($(this).data('autohide').split(','), function (i, item) {
+                        $('#d' + item).parent().parent().slideUp();
+                    });
+                } else {
+                    $.each($(this).data('autohide').split(','), function (i, item) {
+                        $('#d' + item).parent().parent().slideDown();
+                    });
+                }
+            });
+            var lifan = "#isyuancheng,#refundmethod,#refundtime";
+            if ($("[name='post_fields[isyakuan]']:checked").val() == 1) {//押款
+                $(lifan).parent().parent().hide();
+                $(lifan).find("input").attr("checked", false);
+                $('#money').parent().show();
+            } else {//商家返款
+                $('#yk_money').parent().hide();
+            }
+            //增拍宝贝
+            //$("html,body").animate({scrollTop:$("#zengpai").offset().top},400);
+            var zengpai_num = $("[name='post_fields[zengpai]']:last").val();
+            if (zengpai_num) {
+                $("#zengpaitxt").attr('placeholder', '第1件增拍宝贝的标题');
+                $("#zengpaiprice").attr('placeholder', '第1件增拍宝贝的价格');
+                var input_html = '<input type="text" size="20" class="input_line" placeholder="第###件增拍宝贝的@@@">';
+                for (var i = 1; i < zengpai_num; i++) {
+                    $("#zengpaitxt").parent().append(input_html.replace('###', i + 1).replace('@@@', '标题'));
+                    $("#zengpaiprice").parent().append(input_html.replace('###', i + 1).replace('@@@', '价格'));
+                }
+                var v = $("input[name='post_fields[zengpai]']:checked").val();
+                if (v == 0) {
+                    $('#dzengpaitxt, #dzengpaiprice').parent().parent().hide();
+                }
+                zengpai_disable(v);
+                var zengpaitxt = $('#zengpaitxt').val().split('|');
+                var zengpaiprice = $('#zengpaiprice').val().split('|');
+                for (v in zengpaitxt) {
+                    var i = 0;
+                    $('#zengpaitxt').parent().find('input').each(function () {
+                        $(this).val(zengpaitxt[i]);
+                        i++;
+                    });
+                    var i = 0;
+                    $('#zengpaiprice').parent().find('input').each(function () {
+                        $(this).val(zengpaiprice[i]);
+                        i++;
+                    });
+                }
+            }
+            //切换试用分类
+            $("#catid_1").change(function () {
+                window.location.href = "/member/my.php?mid=23&action=add&catid=" + $(this).val();
+            });
+            //京东买号
+        });
+        //VIP选项
+        $(function () {
+            var fields_base = new Array(
+                "need_bi_san_jia",
+                "need_chat",
+                "need_look_comment",
+                "need_add_buy_cart",
+                "need_col_goods",
+                "yuyue_xiadan",
+                "zhiding_pinglun",
+                "comment_content",
+                "bask_img",
+
+                0
+            );
+            var fields_add = new Array(
+                "post_fields[ischeck]",
+                "post_fields[limit_xiaohao_zhanggui]",
+                "post_fields[ban_area]",
+                "post_fields[isshangbao]",
+                "post_fields[xiaohaoyaoqiu]",
+                "post_fields[xiaohao_taoqizhi]",
+                "post_fields[xiaohao_sex][]",
+                "post_fields[xiaohao_age][]",
+                "post_fields[xiaohao_cat][]",
+                0
+            );
+
+            var vip_fields = fields_base.concat(fields_add);
+            $("label[for]").mousedown(function () {
+                $(this).prev().mousedown();
+            });
+            $('#fields_base,#fields_add').find('input,textarea').mousedown(function () {
+                var name = $(this).attr('name');
+                console.log(name);
+                console.log(vip_fields);
+
+                if (name && $.inArray(name, vip_fields) == -1) {
+                    layer.open({
+                        type: 1,
+                        area: ['350px', '140px'], //宽高
+                        content: '<div class="yplayer" style="text-align: center">此选项是VIP选项，请升级<a style="color: #197cfd;margin-left: 20px;" href="/member/grade.php"  target="_blank">[点击升级]</a></div>'
+                    });
+                    return false;
+                }
+            });
+        });
+    </script>
+    <script>
+        //定义附加佣金
+        var fieds = {
+            'post_fields[istianmaoguanzhu]': '0.10',
+            'post_fields[sanjialiao]': '0.30',
+            'post_fields[isshangbao]': '0.20',
+            'post_fields[xiaohaoyaoqiu]': '0.40',
+            'post_fields[fubaobei]': '0.20',
+            'post_fields[fubaobeiliao]': '0.20',
+            'post_fields[fukuanjietu]': '0.50',
+            'post_fields[iscomment]': '0.40',
+            'post_fields[isqueren]': '0.30',
+            'post_fields[isshaitu]': '0.40',
+            'post_fields[addcomment]': '0.50',
+            'post_fields[del_dingdan]': '0.20',
+            end: 0
+        };
+        $(function () {
+            var inputs = ".fields_item input,.fields_item select,.fields_item textarea,#txtFCount2";
+            //禁用表单
+            basecomm();
+            lianmengbi();
+            yakuan();
+            $(inputs).change(function () {
+                basecomm();
+                lianmengbi();
+                yakuan();
+            });
+            $(inputs).keyup(function () {
+                basecomm();
+                lianmengbi();
+                yakuan();
+            });
+            $('[name="tmpl[kwd][n][]"]').keyup(function () {
+                basecomm();
+                lianmengbi();
+                yakuan();
+            });
+            //增拍
+            $("input[name='post_fields[zengpai]']").change(function () {
+                var v = $(this).val();
+                if (v == '0') $('#zengpaitxt, #zengpaiprice').parent().parent().slideUp();
+                else $('#zengpaitxt, #zengpaiprice').parent().parent().slideDown();
+                zengpai_disable(v);
+            });
+
+            //远程付款
+            $("input[name='post_fields[isyuancheng]']").change(function () {
+                if ($(this).val() == 1) {
+                    $("#refundmethod").find("input").prop("checked", false);
+                    $("#refundmethod").parent().parent().slideUp(500);
+                }
+                else {
+                    $("#refundmethod").parent().parent().slideDown(500);
+                }
+            });
+
+            //是否押款
+            $("input[name='post_fields[isyakuan]']").change(function () {
+                if ($(this).val() == 1) {//平台返款试用
+                    $('#yk_money').parent().slideDown(500);
+                    $('#isyuancheng input[value="0"]').attr("checked", 'checked');
+                    $('#isyuancheng').parent().parent().slideUp(500);
+                } else {//商家返款任务
+                    $('#isyuancheng').parent().parent().slideDown(500);
+                    $('#yk_money').parent().slideUp(500);
+                }
+            });
+        });
+
+        //计算金币
+        function lianmengbi() {
+            var fee_add = parseFloat('0');
+            var tasknum = 0;
+            $('[name="tmpl[kwd][n][]"]').each(function () {
+                tasknum += parseInt($(this).val());
+            });
+            if (!tasknum) $("#fee_add").text(fee_add.toFixed(2))
+            else {
+                $("#fee_add").
+                text(fee_add.toFixed(2) + " X " + tasknum + " = " + (fee_add * tasknum).toFixed(2))
+            }
+        }
+
+        //计算押款宝贝金额
+        function yakuan() {
+            var yk_money = 0;
+            var price = $("#price").val();
+            var basecoin = $("#basecoin").val();
+            var tasknum = 0;
+            $('[name="tmpl[kwd][n][]"]').each(function () {
+                tasknum += parseInt($(this).val());
+            });
+            var addmoney = $("#addmoney").val();
+            if (isNaN(price)) price = 0;
+            if (isNaN(basecoin)) basecoin = 0;
+            if (isNaN(addmoney)) addmoney = 0;
+            if (price == '') price = 0;
+            if (basecoin == '') basecoin = 0;
+            if (addmoney == '') addmoney = 0;
+            //增拍价格
+            var zengpaiprice = 0;
+            $('#zengpaiprice').parent().find('input').not(':disabled').each(function () {
+                var val = $(this).val();
+                if (val == '') val = 0;
+                zengpaiprice += parseFloat(val);
+            });
+            yk_money = (parseFloat(price) + parseFloat(basecoin) + parseFloat(addmoney)) * tasknum + zengpaiprice * tasknum;
+            $("#yk_money").text(yk_money.toFixed(2));
+        }
+
+        //计算基本佣金
+        function basecomm() {
+            var inputs = ".fields_item input, .fields_item select";
+            var taskcomm = 0;
+            $(inputs).each(function () {
+                if ($(this).attr("checked") && $(this).val() != '' && $(this).attr("type") == "radio") {
+                    if ($(this).attr("addcomm")) {
+                        taskcomm += parseFloat($(this).attr("addcomm"));
+                    } else {
+                        var k = $(this).attr("name");
+                        if (fieds.hasOwnProperty(k)) taskcomm += fieds[k] * $(this).val();
+                    }
+                }
+            });
+            //根据价格计算基本佣金
+            var addmoney = parseFloat($("#addmoney").val());
+            if (isNaN(addmoney)) addmoney = 0;
+            if (addmoney == '') addmoney = 0;
+            var price2comm = 0;
+            var price = $("#price").val();
+            if (!isNaN(price)) {
+                //增拍价格
+                var zengpaiprice = 0;
+                $('#zengpaiprice').parent().find('input').not(':disabled').each(function () {
+                    var val = $(this).val();
+                    if (val == '') val = 0;
+                    zengpaiprice += parseFloat(val);
+                });
+                price = parseFloat(price) + zengpaiprice;
+                var price_comm_price = new Array();
+                price_comm_price[0] = parseFloat("200");
+                price_comm_price[1] = parseFloat("400");
+                price_comm_price[2] = parseFloat("600");
+                var price_comm_comm = new Array();
+                price_comm_comm[0] = parseFloat("2");
+                price_comm_comm[1] = parseFloat("4");
+                price_comm_comm[2] = parseFloat("6");
+                var i;
+                for (i = 0; i < price_comm_price.length; i++) {
+                    if (price < price_comm_price[i]) break;
+                }
+                if (i >= price_comm_price.length) {
+                    i--;
+                }
+                price2comm = price_comm_comm[i];
+            }
+            taskcomm = parseFloat(taskcomm);
+            $("#yongjin").text((price2comm + taskcomm + addmoney).toFixed(2));
+            $("#basecoin").val((price2comm + taskcomm).toFixed(2));
+        }
+
+        //只允许输入整数
+        function clearNoInt(event, obj) {
+            //响应鼠标事件，允许左右方向键移动
+            event = window.event || event;
+            if (event.keyCode == 37 || event.keyCode == 39) {
+                return;
+            }
+            obj.value = obj.value.replace(/[^\d]/g, "");
+        }
+
+        //只允许输入数组和小数点
+        function clearNoNum(event, obj) {
+            //响应鼠标事件，允许左右方向键移动
+            event = window.event || event;
+            if (event.keyCode == 37 || event.keyCode == 39) {
+                return;
+            }
+            //先把非数字的都替换掉，除了数字和.
+            obj.value = obj.value.replace(/[^\d.]/g, "");
+            //必须保证第一个为数字而不是.
+            obj.value = obj.value.replace(/^\./g, "");
+            //保证只有出现一个.而没有多个.
+            obj.value = obj.value.replace(/\.{2,}/g, ".");
+            //保证.只出现一次，而不能出现两次以上
+            obj.value = obj.value.replace(".", "$#$").replace(/\./g, "").replace("$#$", ".");
+        }
+
+        function checkNum(obj) {
+            //为了去除最后一个.
+            obj.value = obj.value.replace(/\.$/g, "");
+        }
+
+        //判断是否数字
+        function isNum(num) {
+            var reNum = /^\d*$/;
+            return (reNum.test(num));
+        }
+    </script>
+    <script type="text/javascript" src="./发布任务-1_files/yptask_add.php"></script>
+    <div id="content">
+        <form id="default" action="http://001.topaaa.com/member/my.php?mid=23&amp;action=add&amp;catid=4" method="post"
+              target="_self">
+            <input type="hidden" name="default">
+        </form>
+        <iframe name="send" id="send" style="display:none;" src="./发布任务-1_files/saved_resource.html"></iframe>
+        <form method="post" action="http://001.topaaa.com/member/my.php" id="dform" target="send">
+            <input type="hidden" name="submit" value="1">
+            <input type="hidden" name="action" value="add">
+            <input type="hidden" name="mid" value="23">
+            <input type="hidden" name="itemid" value="0">
+            <input type="hidden" name="forward"
+                   value="http://001.topaaa.com/member/my.php?mid=23&amp;action=add&amp;catid=4">
+            <input type="hidden" name="post_fields[basecoin]" id="basecoin" value="2.40">
+            <div id="body_main">
+                <div class="div">
+                    <div id="menu_div">
+                        <a href="javacript:void(0);" class="on">1. 商品信息</a>
+                        <a href="javacript:void(0);">2. 试用要求</a>
+                        <a href="javacript:void(0);">3. 买家要求</a>
+                        <a href="javacript:void(0);">4. 发布统计</a>
+                        <span>
+                        <a onclick="$(&#39;#default input&#39;).val(1);$(&#39;#default&#39;).submit();">默认发布选项</a>
+                        <a onclick="$(&#39;#default input&#39;).val(0);$(&#39;#default&#39;).submit();">上次发布选项</a>
+                    </span>
+                    </div>
+                    <div class="fabu">
+                        <div class="fabu1" id="product">
+                            <div class="pt"><span class="h40"><span class="h41"></span>商品信息：</span></div>
+                            <table data-role="table" class="fields_item">
+                                <thead>
+                                <tr>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td class="tl"><span class="f_red">*</span> <span class="title">所属分类</span></td>
+                                    <td class="tr">
+                                        <select name="catetype"  id="catid_1">
+                                            <option value="4" selected="">
+                                                淘宝试用
+                                            </option>
+                                            <option value="5">
+                                                阿里巴巴试用
+                                            </option>
+                                            <option value="40">
+                                                京东试用
+                                            </option>
+                                            <option value="6">
+                                                拼多多试用
+                                            </option>
+                                            <option value="7">
+                                                蘑菇街试用
+                                            </option>
+                                            <option value="8">
+                                                美丽说试用
+                                            </option>
+                                            <option value="41">
+                                                淘宝访问
+                                            </option>
+                                            <option value="51">
+                                                阿里巴巴访问
+                                            </option>
+                                            <option value="401">
+                                                京东访问
+                                            </option>
+                                        </select>
+                                        <span id="dcatid" class="f_red"></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="tl">
+                                        <span class="f_red">*</span><span class="title">掌柜</span>
+                                    </td>
+                                    <!--店铺-->
+                                    <td class="tr"  id="shops">
+                                        <select name="post_fields[tname]" id="tname">
+                                            <option value="贝阳数码专营店">贝阳数码专营店</option>
+
+                                        </select>
+                                        <span id="dtname" class="f_red"></span>
+                                        <span class="note">就是您想提升信誉的掌柜，申请试用的朋友用来确认您的身份，<a
+                                                href="http://001.topaaa.com/member/taobaohao.php?isshangjia=1"
+                                                target="_blank">【点击管理掌柜】</a></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="tl"><span class="title">宝贝分类</span></td>
+                                    <td class="tr"><select name="goods_class_id" id="goods_cat">
+                                        <option value="">请选择</option>
+                                        <option value="1" selected="">潮流女装</option>
+                                        <option value="2">时尚男装</option>
+                                        <option value="3">鞋子箱包</option>
+                                        <option value="4">数码家电</option>
+                                        <option value="5">美食特产</option>
+                                        <option value="6">居家日用</option>
+                                        <option value="7">母婴用品</option>
+                                        <option value="8">护肤彩妆</option>
+                                        <option value="9">珠宝配饰</option>
+                                        <option value="10">家装家纺</option>
+                                        <option value="11">车品车饰</option>
+                                        <option value="12">运动户外</option>
+                                        <option value="13">家庭保健</option>
+                                        <option value="14">中老年用</option>
+                                        <option value="15">其他类目</option>
+                                    </select> <span class="f_red" id="dgoods_cat">
+
+                                    </span><span class="note"></span></td>
+                                </tr>
+                                <tr>
+                                    <td class="tl">
+                                        <span class="title">商品链接地址</span>
+                                    </td>
+                                    <td class="tr">
+                                        <input type="text" name="post_fields[curl]" id="curl"
+                                                          value="https://detail.tmall.com/item.htm?id=573608039566&amp;ali_refid=a3_420432_1006:1151618708:N:%E7%9F%AD%E8%A3%A4:cb621e6332454b535b00d88abc699c13&amp;ali_trackid=1_cb621e6332454b535b00d88abc699c13&amp;spm=a230r.1.14.37"
+                                                          size="30">
+                                        <span onclick="get_zhutu(this,&#39;4&#39;);"
+                                                                           class="ele_add">获取主图</span><span
+                                            class="f_red" id="dcurl">
+
+                                    </span><span class="note">填写您要对方购买的商品地址，尽量使用不同商品来发布试用</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="tl"><span class="title">商品主图</span></td>
+                                    <td class="tr">
+                                        <div class="img_upload">
+
+                                            <div class="img_upload_item"><input zhutu="1" type="hidden"
+                                                                                value="//img.alicdn.com/imgextra/i4/3501683305/TB2xpsvDTlYBeNjSszcXXbwhFXa_!!3501683305-0-item_pic.jpg_430x430q90.jpg"
+                                                                                name="post_fields[zhutu]"
+                                                                                id="thumb_zhutu_1"> <span> <img
+                                                    src="/dist/index/img/waitpic.png"
+                                                    id="showthumb_zhutu_1" alt=""
+
+                                                    onclick="if(this.src.indexOf(&#39;waitpic.png&#39;) == -1)
+                                                    {_preview(Dd(&#39;showthumb_zhutu_1&#39;).src, 1);}else{Dalbum(&#39;_zhutu_1&#39;,23,0,0, Dd(&#39;thumb_zhutu_1&#39;).value, true, &#39;yptask_add&#39;);}"
+                                                    height="100" width="100" data-hasqtip="11" oldtitle="预览图片" title=""> </span>
+
+                                                <span> <img src="/dist/index/img/img_upload.gif"
+                                                            onclick="Dalbum(&#39;_zhutu_1&#39;,23,0,0, Dd(&#39;thumb_zhutu_1&#39;).value, true, &#39;yptask_add&#39;);"
+                                                            height="12" width="12" data-hasqtip="12" oldtitle="上传"
+                                                            title="">&nbsp;&nbsp; <img
+                                                        src="/dist/index/img/img_select.gif"
+                                                        onclick="_preview(Dd(&#39;showthumb_zhutu_1&#39;).src, 1);"
+                                                        height="12" width="12" data-hasqtip="13" oldtitle="预览" title="">&nbsp;&nbsp; <img
+                                                        src="/dist/index/img/img_delete.gif"
+                                                        onclick="delAlbum(&#39;_zhutu_1&#39;,&#39;wait&#39;);"
+                                                        height="12" width="12" data-hasqtip="14" oldtitle="删除" title=""> </span>
+                                            </div>
+                                        </div>
+                                        <span onclick="ele_add(this)" class="ele_add">增加</span><span
+                                            onclick="ele_del(this)" class="ele_del">删除</span><span class="f_red"
+                                                                                                   id="dzhutu"></span><span
+                                            class="note">方便试客查找，图片格式JPG，300KB以下。</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="tl"><span class="f_red">*
+                                    </span> <span class="title">商品价格</span></td>
+                                    <td class="tr">
+                                        <input type="text" name="post_fields[price]"
+                                               id="price" value="99.00"
+                                               size="30"
+                                               onkeyup="clearNoNum(event,this)"
+                                               onblur="checkNum(this)">
+                                        <span class="f_red"
+                                              id="dprice"></span><span
+                                            class="note">此价格为您发布的宝贝改价后包括邮费的总价，试客购买商品时支付给您的价钱总和，远程付款填写0</span></td>
+                                </tr>
+
+                                <tr>
+                                    <td class="tl"><span class="f_red">*
+                                    </span> <span class="title">淘口令</span></td>
+                                    <td class="tr">
+                                        <input type="text" name="post_fields[taokouling]"
+                                               id="taokouling" value="99"
+                                               size="30"
+                                               onkeyup="clearNoNum(event,this)"
+                                               onblur="checkNum(this)">
+                                        <span class="f_red"
+                                             ></span><span
+                                            class="note"></span></td>
+                                </tr>
+
+                                <tr>
+                                    <td class="tl"><span class="title">下单类型</span></td>
+                                    <td class="tr"><span id="issearch">
+                                        <input type="radio" name="post_fields[issearch]"
+                                                                              value="1" id="issearch_0"
+                                                                              checked="">
+                                        <label for="issearch_0">普通搜索</label>
+
+                                        <input type="radio" name="post_fields[issearch]" value="2"
+                                                                                id="issearch_1">
+                                        <label for="issearch_1">直通车搜索</label></span>
+
+                                        <input type="radio" name="post_fields[issearch]" value="3"
+                                               id="issearch_2">
+                                        <label for="issearch_2">淘口令搜索</label></span>
+
+                                        <span class="f_red"
+                                                                                        id="dissearch"></span><span
+                                            class="note">要求试客的下单类型</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="tl"><span class="title">搜索词</span></td>
+                                    <td class="tr"><p class="tmpl_kwd"><input type="text" name="tmpl[kwd][v][]" value="" id="search_content"
+                                                                              size="30" class="input_line"> <span
+                                            class="label">任务数量：</span><input onchange="cal_money()" type="number"
+                                                                             min="1" name="tmpl[kwd][n][]" value="1"
+                                                                             size="10" class="input_line"></p><span
+                                            class="f_red" id="dkwd"></span><a href="javascript:add_kwd()"
+                                                                              class="ele_add">增加搜索词</a><span
+                                            class="f_red" id="dkwd"></span><a href="javascript:del_kwd()"
+                                                                              class="ele_add">删除搜索词</a></td>
+                                </tr>
+                                <tr>
+                                    <td class="tl"><span class="title">商品规格</span></td>
+                                    <td class="tr"><input type="text" name="post_fields[sku]" id="sku" value="件"
+                                                          size="30"> <span class="f_red" id="dsku"></span><span
+                                            class="note">要提升销量的宝贝的规格、分类</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="tl"><span class="f_red">*</span>
+                                        <span class="title">返款方式</span></td>
+                                    <td class="tr"><span id="isyakuan">
+                                        <input type="radio" name="post_fields[isyakuan]"
+                                                                              value="1" id="isyakuan_0"
+                                                                              checked=""> <label
+                                            for="isyakuan_0">平台返款</label>
+
+                                        <input type="radio"
+                                            name="post_fields[isyakuan]" value="0"
+                                            id="isyakuan_1"> <label
+                                            for="isyakuan_1">商家返款</label>
+                                    </span>
+                                        <span class="f_red" id="disyakuan"></span>
+                                        <span class="note">任务金额的返款方式</span>
+                                    </td>
+                                </tr>
+                                <tr style="display: none;">
+                                    <td class="tl"><span class="title">付款方式</span></td>
+                                    <td class="tr"><span id="isyuancheng"><input type="radio"
+                                                                                 name="post_fields[isyuancheng]"
+                                                                                 value="0" id="isyuancheng_0"> <label
+                                            for="isyuancheng_0">拍下付款</label><input type="radio"
+                                                                                   name="post_fields[isyuancheng]"
+                                                                                   value="1" id="isyuancheng_1"> <label
+                                            for="isyuancheng_1">远程付款</label><input type="radio"
+                                                                                   name="post_fields[isyuancheng]"
+                                                                                   value="2" id="isyuancheng_2"> <label
+                                            for="isyuancheng_2">商家代付</label></span> <span class="f_red"
+                                                                                          id="disyuancheng"></span><span
+                                            class="note"></span></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <div class="sudiv none">
+                                <input onclick="btnCilentAdd(this)" class="button fr btnCilentAdd" value="下一步：试用要求"
+                                       type="button">
+                            </div>
+                        </div>
+                        <div class="fabu2" id="fields_base">
+                            <div class="pt"><span class="h40"><span class="h41"></span>试用要求：</span></div>
+                            <table data-role="table" class="fields_item">
+                                <thead>
+                                <tr>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td class="tl"><span class="title">设备要求</span></td>
+                                    <td class="tr">
+                                        <span id="ismobile">
+                                             <input type="radio" name="device"
+                                                    value="1" id="device_1"
+                                                    data-autohide="shaitu"/>
+                                            <label for="device_1">手机</label>
+
+                                            <input type="radio" name="device"
+                                                   value="0" id="device_0" checked="checked"
+                                                   data-autohide="shaitu"/>
+                                            <label for="device_0">电脑</label>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="tl"><span class="title">货比三家</span></td>
+                                    <td class="tr">
+                                       <span id="isbisanjia">
+
+                                                <input type="radio" name="need_bi_san_jia"
+                                                       value="1" id="bisanjia_1"
+                                                       data-autohide="shaitu">
+                                                <label for="bisanjia_1">需要</label>
+
+                                                <input type="radio" name="need_bi_san_jia"
+                                                       value="0" id="bisanjia_0" checked="checked"
+                                                       data-autohide="shaitu">
+                                                <label for="bisanjia_0">不需要</label>
+                                                </span>
+
+                                            <span class="f_red"></span>
+                                            <span class="note">
+                                            选中增加 <b>0.4</b> 元奖励
+                                            </span>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td class="tl"><span class="title">拍前聊天</span></td>
+                                    <td class="tr">
+                                        <span id="ispaiqianliao">
+                                             <input type="radio" name="need_chat"
+                                                    value="1" id="need_chat_1"
+                                                    data-autohide="shaitu">
+                                                <label for="need_chat_1">需要</label>
+
+                                                <input type="radio" name="need_chat"
+                                                       value="0" id="need_chat_0" checked="checked"
+                                                       data-autohide="shaitu">
+                                                <label for="need_chat_0">不需要</label>
+
+                                    </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="tl"><span class="title">浏览评价</span></td>
+                                    <td class="tr">
+                                        <span id="liulanpingjia">
+                                             <input type="radio" name="need_look_comment"
+                                                    value="1" id="need_look_comment_1"
+                                                    data-autohide="shaitu">
+                                                <label for="need_look_comment_1">需要</label>
+
+                                                <input type="radio" name="need_look_comment"
+                                                       value="0" id="need_look_comment_0" checked="checked"
+                                                       data-autohide="shaitu">
+                                                <label for="need_look_comment_0">不需要</label>
+
+                                    </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="tl"><span class="title">加购物车</span></td>
+                                    <td class="tr">
+                                        <span id="isgouwuche">
+                                             <input type="radio" name="need_add_buy_cart"
+                                                    value="1" id="need_add_buy_cart_1"
+                                                    data-autohide="shaitu">
+                                        <label for="need_add_buy_cart_1">需要</label>
+
+                                        <input type="radio" name="need_add_buy_cart"
+                                               value="0" id="need_add_buy_cart_0" checked="checked"
+                                               data-autohide="shaitu">
+                                        <label for="need_add_buy_cart_0">不需要</label>
+
+                                        </span>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="tl"><span class="title">收藏宝贝</span></td>
+                                    <td class="tr">
+                                        <span id="isshoucang">
+                                             <input type="radio" name="need_col_goods"
+                                                    value="1" id="need_col_goods_1"
+                                                    data-autohide="shaitu">
+                                            <label for="need_col_goods_1">需要</label>
+
+                                            <input type="radio" name="need_col_goods"
+                                                   value="0" id="need_col_goods_0" checked=""
+                                                   data-autohide="shaitu">
+                                            <label for="need_col_goods_0">不需要</label>
+
+                                    </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="tl"><span class="title">预约下单</span></td>
+                                    <td class="tr">
+                                        <span id="yuyue">
+                                             <input type="radio" name="yuyue_xiadan"
+                                                    value="1" id="yuyue_xiadan_1"
+                                                    data-autohide="shaitu">
+                                                <label for="yuyue_xiadan_1">1天后下单</label>
+
+                                                <input type="radio" name="yuyue_xiadan"
+                                                       value="0" id="yuyue_xiadan_2" checked=""
+                                                       data-autohide="shaitu">
+                                                <label for="yuyue_xiadan_1">2天后下单</label>
+                                                 <input type="radio" name="yuyue_xiadan"
+                                                        value="0" id="yuyue_xiadan_3" checked=""
+                                                        data-autohide="shaitu">
+                                                <label for="yuyue_xiadan_3">3天后下单</label>
+                                        </span>
+                                        <span class="f_red"></span>
+                                        <span class="note">
+                                        增加 一天需要增加<b>0.5</b> 元奖励
+                                        </span>
+                                </tr>
+
+                                <tr>
+                                    <td class="tl"><span class="title">指定评价</span></td>
+                                    <td class="tr"><span id="iscomment">
+                                        <input type="radio"
+                                          name="zhiding_pinglun" value="1"
+                                           id="iscomment_0" checked="checked"
+                                            data-autohide="comment"> <label
+                                            for="iscomment_0">需要</label>
+                                        <input type="radio"
+                                                name="zhiding_pinglun" value="0"
+                                             id="iscomment_1" data-autohide="comment"> <label
+                                            for="iscomment_1">不需要</label></span>
+                                        <span class="f_red"
+                                            id="discomment"></span><span
+                                            class="note">选中增加 <b>0.4</b> 元奖励</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="tl">
+                                        <span class="title">评价内容</span></td>
+                                    <td class="tr">
+                                        <textarea name="comment_content"
+                                                  id="comment" rows="2"
+                                                  cols="80">东西很好!</textarea>
+                                        <span class="f_red"
+                                              id="dcomment"></span>
+                                        <span class="note"></span></td>
+                                </tr>
+
+                                <tr>
+                                    <td class="tl"><span class="title">晒图</span></td>
+                                    <td class="tr">
+                                        <span id="isshaitu">
+
+                                        <input type="radio" name="bask_img"
+                                             value="1" id="isshaitu_0"
+                                             data-autohide="shaitu">
+                                            <label for="isshaitu_0">需要</label>
+
+                                            <input type="radio" name="bask_img"
+                                                   value="0" id="isshaitu_1" checked="checked"
+                                              data-autohide="shaitu">
+                                            <label for="isshaitu_1">不需要</label>
+                                        </span>
+
+                                        <span class="f_red" id="disshaitu"></span>
+                                        <span class="note">
+                                            选中增加 <b>0.4</b> 元奖励
+                                        </span>
+
+                                    </td>
+                                </tr>
+                                <tr style="display: none;">
+                                    <td class="tl"><span class="title">晒图图片</span></td>
+                                    <td class="tr">
+                                        <div class="img_upload">
+                                            <div class="img_upload_item">
+                                                <input shaitu="1" type="hidden"
+                                                       value="http://001.topaaa.com/file/upload/201807/13/11-43-22-91-2.jpg.thumb.jpg"
+                                                       name="post_fields[shaitu]"
+                                                        id="thumb_shaitu_1"> <span> <img
+                                                    src="/dist/index/img/waitpic.png"
+                                                    id="showthumb_shaitu_1" alt=""
+                                                    onclick="if(this.src.indexOf(&#39;waitpic.png&#39;) == -1){_preview(Dd(&#39;showthumb_shaitu_1&#39;).src, 1);}else{Dalbum(&#39;_shaitu_1&#39;,23,0,0, Dd(&#39;thumb_shaitu_1&#39;).value, true, &#39;yptask_add&#39;);}"
+                                                    height="100" width="100" data-hasqtip="15" oldtitle="预览图片" title=""> </span>
+                                                <span>
+                                                    <img src="/dist/index/img/img_upload.gif"
+                                                            onclick="Dalbum(&#39;_shaitu_1&#39;,23,0,0, Dd(&#39;thumb_shaitu_1&#39;).value, true, &#39;yptask_add&#39;);"
+                                                            height="12" width="12" data-hasqtip="16" oldtitle="上传"
+                                                            title="">&nbsp;&nbsp; <img
+                                                        src="/dist/index/img/img_select.gif"
+                                                        onclick="_preview(Dd(&#39;showthumb_shaitu_1&#39;).src, 1);"
+                                                        height="12" width="12" data-hasqtip="17" oldtitle="预览" title="">&nbsp;&nbsp; <img
+                                                        src="/dist/index/img/img_delete.gif"
+                                                        onclick="delAlbum(&#39;_shaitu_1&#39;,&#39;wait&#39;);"
+                                                        height="12" width="12" data-hasqtip="18" oldtitle="删除" title=""> </span>
+                                            </div>
+                                        </div>
+                                        <span onclick="ele_add(this)" class="ele_add">增加</span><span
+                                            onclick="ele_del(this)" class="ele_del">删除</span><span class="f_red"
+                                                                                                   id="dshaitu"></span><span
+                                            class="note"></span></td>
+                                </tr>
+                                <tr>
+                                    <td class="tl"><span class="f_red">*</span> <span class="title">要求确认时间</span></td>
+                                    <td class="tr"><span id="ctime"><input type="radio" name="post_fields[ctime]"
+                                                                           value="0" id="ctime_0" checked=""> <label
+                                            for="ctime_0">马上确认</label><input type="radio" name="post_fields[ctime]"
+                                                                             value="1" id="ctime_1"> <label
+                                            for="ctime_1">1天</label><input type="radio" name="post_fields[ctime]"
+                                                                           value="2" id="ctime_2"> <label for="ctime_2">2天</label><input
+                                            type="radio" name="post_fields[ctime]" value="3" id="ctime_3"> <label
+                                            for="ctime_3">3天</label><input type="radio" name="post_fields[ctime]"
+                                                                           value="4" id="ctime_4"> <label for="ctime_4">4天</label><input
+                                            type="radio" name="post_fields[ctime]" value="5" id="ctime_5"> <label
+                                            for="ctime_5">5天</label><input type="radio" name="post_fields[ctime]"
+                                                                           value="8" id="ctime_6"> <label for="ctime_6">按物流确认</label><input
+                                            type="radio" name="post_fields[ctime]" value="9" id="ctime_7"> <label
+                                            for="ctime_7">系统自动确认</label></span> <span class="f_red"
+                                                                                      id="dctime"></span><span
+                                            class="note">马上确认则必须立刻发货，属于虚拟商品任务</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="tl"><span class="title">任务回收时间</span></td>
+                                    <td class="tr"><span id="cancletime"><input type="radio"
+                                                                                name="post_fields[cancletime]" value="2"
+                                                                                id="cancletime_0"> <label
+                                            for="cancletime_0">2小时</label><input type="radio"
+                                                                                 name="post_fields[cancletime]"
+                                                                                 value="4" id="cancletime_1"> <label
+                                            for="cancletime_1">4小时</label><input type="radio"
+                                                                                 name="post_fields[cancletime]"
+                                                                                 value="8" id="cancletime_2"> <label
+                                            for="cancletime_2">8小时</label><input type="radio"
+                                                                                 name="post_fields[cancletime]"
+                                                                                 value="12" id="cancletime_3"> <label
+                                            for="cancletime_3">12小时</label><input type="radio"
+                                                                                  name="post_fields[cancletime]"
+                                                                                  value="24" id="cancletime_4"> <label
+                                            for="cancletime_4">24小时</label><input type="radio"
+                                                                                  name="post_fields[cancletime]"
+                                                                                  value="48" id="cancletime_5"
+                                                                                  checked=""> <label for="cancletime_5">48小时</label><input
+                                            type="radio" name="post_fields[cancletime]" value="999"
+                                            id="cancletime_6"> <label for="cancletime_6">当天24点</label></span> <span
+                                            class="f_red" id="dcancletime"></span><span class="note">超过设定时间后没人接任务，此任务会被自动回收，并返还扣除的金币</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="tl"><span class="title">留言提醒</span></td>
+                                    <td class="tr">
+                                        <textarea name="post_fields[msg]" id="msg"
+                                                  rows="2" cols="80"
+                                                  placeholder="请输入对买家的留言提醒"
+                                                  maxlength="200">
+                                        </textarea> <span class="f_red"
+                                                                                                 id="dmsg"></span><span
+                                            class="note"></span></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <div class="sudiv none">
+                                <input onclick="btnCilentAdd(this)" class="button fl btnCilentAdd" value="上一步：商品信息"
+                                       type="button">
+                                <input onclick="btnCilentAdd(this)" class="button fr btnCilentAdd" value="下一步：买家要求"
+                                       type="button">
+                            </div>
+                        </div>
+                        <div class="fabu3" id="fields_add">
+                            <div class="pt"><span class="h40"><span class="h41"></span>买家要求：</span></div>
+                            <table data-role="table" class="fields_item">
+                                <thead>
+                                <tr>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr style="display: none;">
+                                    <td class="tl"><span class="f_red">*</span> <span class="title">需要审核</span></td>
+                                    <td class="tr"><span id="ischeck"><input type="radio" name="post_fields[ischeck]"
+                                                                             value="0" id="ischeck_0" checked="checked"> <label
+                                            for="ischeck_0">无需审核</label><input type="radio" name="post_fields[ischeck]"
+                                                                               value="1" id="ischeck_1"> <label
+                                            for="ischeck_1">需要审核</label></span> <span class="f_red"
+                                                                                      id="discheck"></span><span
+                                            class="note">任务是否需要您审核通过才能进行</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="tl"><span class="title">接任务限制</span></td>
+                                    <td class="tr"><span id="limit_xiaohao_zhanggui"><input type="radio"
+                                                                                            name="post_fields[limit_xiaohao_zhanggui]"
+                                                                                            value="0"
+                                                                                            id="limit_xiaohao_zhanggui_0"
+                                                                                            checked=""> <label
+                                            for="limit_xiaohao_zhanggui_0">不限制</label><input type="radio"
+                                                                                             name="post_fields[limit_xiaohao_zhanggui]"
+                                                                                             value="1"
+                                                                                             id="limit_xiaohao_zhanggui_1"> <label
+                                            for="limit_xiaohao_zhanggui_1">1天</label><input type="radio"
+                                                                                            name="post_fields[limit_xiaohao_zhanggui]"
+                                                                                            value="3"
+                                                                                            id="limit_xiaohao_zhanggui_2"> <label
+                                            for="limit_xiaohao_zhanggui_2">3天</label><input type="radio"
+                                                                                            name="post_fields[limit_xiaohao_zhanggui]"
+                                                                                            value="5"
+                                                                                            id="limit_xiaohao_zhanggui_3"> <label
+                                            for="limit_xiaohao_zhanggui_3">5天</label><input type="radio"
+                                                                                            name="post_fields[limit_xiaohao_zhanggui]"
+                                                                                            value="10"
+                                                                                            id="limit_xiaohao_zhanggui_4"> <label
+                                            for="limit_xiaohao_zhanggui_4">10天</label><input type="radio"
+                                                                                             name="post_fields[limit_xiaohao_zhanggui]"
+                                                                                             value="15"
+                                                                                             id="limit_xiaohao_zhanggui_5"> <label
+                                            for="limit_xiaohao_zhanggui_5">15天</label><input type="radio"
+                                                                                             name="post_fields[limit_xiaohao_zhanggui]"
+                                                                                             value="30"
+                                                                                             id="limit_xiaohao_zhanggui_6"> <label
+                                            for="limit_xiaohao_zhanggui_6">30天</label></span> <span class="f_red"
+                                                                                                    id="dlimit_xiaohao_zhanggui"></span><span
+                                            class="note">多少天内，同一个买号禁止申请同一个掌柜的任务</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="tl"><span class="title">禁止地区</span></td>
+                                    <td class="tr"><input area="1" name="post_fields[ban_area]" id="areaid_1"
+                                                          type="hidden" value="36"><span id="load_area_1"><select
+                                            onchange="load_area(this.value, 1);" name="ban_area"><option
+                                            value="0">请选择</option><option value="1">北京</option><option
+                                            value="2">上海</option><option value="3">天津</option><option
+                                            value="4">重庆</option><option value="5" selected="">河北</option><option
+                                            value="6">山西</option><option value="7">内蒙古</option><option
+                                            value="8">辽宁</option><option value="9">吉林</option><option
+                                            value="10">黑龙江</option><option value="11">江苏</option><option
+                                            value="12">浙江</option><option value="13">安徽</option><option
+                                            value="14">福建</option><option value="15">江西</option><option
+                                            value="16">山东</option><option value="17">河南</option><option
+                                            value="18">湖北</option><option value="19">湖南</option><option
+                                            value="20">广东</option><option value="21">广西</option><option
+                                            value="22">海南</option><option value="23">四川</option><option
+                                            value="24">贵州</option><option value="25">云南</option><option
+                                            value="26">西藏</option><option value="27">陕西</option><option
+                                            value="28">甘肃</option><option value="29">青海</option><option
+                                            value="30">宁夏</option><option value="31">新疆</option><option
+                                            value="32">台湾</option><option value="33">香港</option><option
+                                            value="34">澳门</option></select> <select onchange="load_area(this.value, 1);"
+                                                                                    name="ban_area"><option value="0">请选择</option><option
+                                            value="35">石家庄市</option><option value="36" selected="">唐山市</option><option
+                                            value="37">秦皇岛市</option><option value="38">邯郸市</option><option value="39">邢台市</option><option
+                                            value="40">保定市</option><option value="41">张家口市</option><option value="42">承德市</option><option
+                                            value="43">沧州市</option><option value="44">廊坊市</option><option
+                                            value="45">衡水市</option></select> </span>
+                                        <script type="text/javascript">var area_title = new Array;
+                                        area_title[1] = '请选择';
+                                        var area_extend = new Array;
+                                        area_extend[1] = 'name="ban_area"';
+                                        var area_areaid = new Array;
+                                        area_areaid[1] = '36';
+                                        var area_deep = new Array;
+                                        area_deep[1] = '0';</script>
+                                        <script type="text/javascript" src="./发布任务-1_files/area.js.下载"></script>
+                                        <span onclick="ele_add(this)" class="ele_add">增加</span><span
+                                                onclick="ele_del(this)" class="ele_del">删除</span><span class="f_red"
+                                                                                                       id="dban_area"></span><span
+                                                class="note">禁止某一地区的试客申请</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="tl"><span class="title">是否商保会员</span></td>
+                                    <td class="tr"><span id="isshangbao"><input type="radio"
+                                                                                name="post_fields[isshangbao]" value="0"
+                                                                                id="isshangbao_0" checked=""> <label
+                                            for="isshangbao_0">不需要</label><input type="radio"
+                                                                                 name="post_fields[isshangbao]"
+                                                                                 value="1" id="isshangbao_1"> <label
+                                            for="isshangbao_1">需要</label></span> <span class="f_red"
+                                                                                       id="disshangbao"></span><span
+                                            class="note">是否只允许缴纳保证金的试客申请，选中增加 <b>0.2元</b> 奖励</span></td>
+                                </tr>
+
+                                <tr>
+                                    <td class="tl"><span class="title">是否使用花呗付款</span></td>
+                                    <td class="tr"><span id="ishuabei">
+                                        <input type="radio"
+                                               name="post_fields[huabei]" value="0"
+                                               id="ishuabei_0" checked=""> <label
+                                            for="ishuabei_0">不需要</label>
+
+                                        <input type="radio"
+                                               name="post_fields[huabei]"
+                                               value="1" id="ishuabei_1"> <label
+                                            for="ishuabei_1">需要</label></span>
+                                        <span class="f_red"></span>
+
+                                        <span class="note">是否允许使用花呗的试客申请(手续费商家自负)</span>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td class="tl"><span class="title">买号信用要求</span></td>
+                                    <td class="tr"><span id="xiaohaoyaoqiu"><input type="radio"
+                                                                                   name="post_fields[xiaohaoyaoqiu]"
+                                                                                   value="0" id="xiaohaoyaoqiu_0"
+                                                                                   checked=""> <label
+                                            for="xiaohaoyaoqiu_0">不限信誉</label>
+
+                                         <input type="radio" name="post_fields[xiaohaoyaoqiu]"
+                                                value="1"
+                                                id="xiaohaoyaoqiu_10">
+                                        <label for="xiaohaoyaoqiu_10">1心</label>
+
+                                         <input type="radio" name="post_fields[xiaohaoyaoqiu]"
+                                                value="2"
+                                                id="xiaohaoyaoqiu_11">
+                                        <label for="xiaohaoyaoqiu_11">2心</label>
+
+                                        <input type="radio" name="post_fields[xiaohaoyaoqiu]"
+                                                                                     value="3"
+                                                                                     id="xiaohaoyaoqiu_1">
+                                        <label for="xiaohaoyaoqiu_1">3心</label>
+
+                                        <input type="radio"
+                                                                                   name="post_fields[xiaohaoyaoqiu]"
+                                                                                   value="4"
+                                                                                   id="xiaohaoyaoqiu_2"> <label
+                                            for="xiaohaoyaoqiu_2">4心</label><input type="radio"
+                                                                                   name="post_fields[xiaohaoyaoqiu]"
+                                                                                   value="5"
+                                                                                   id="xiaohaoyaoqiu_3"> <label
+                                            for="xiaohaoyaoqiu_3">5心</label><input type="radio"
+                                                                                   name="post_fields[xiaohaoyaoqiu]"
+                                                                                   value="6"
+                                                                                   id="xiaohaoyaoqiu_4"> <label
+                                            for="xiaohaoyaoqiu_4">1钻</label><input type="radio"
+                                                                                   name="post_fields[xiaohaoyaoqiu]"
+                                                                                   value="7"
+                                                                                   id="xiaohaoyaoqiu_5"> <label
+                                            for="xiaohaoyaoqiu_5">2钻</label><input type="radio"
+                                                                                   name="post_fields[xiaohaoyaoqiu]"
+                                                                                   value="8"
+                                                                                   id="xiaohaoyaoqiu_6"> <label
+                                            for="xiaohaoyaoqiu_6">3钻</label><input type="radio"
+                                                                                   name="post_fields[xiaohaoyaoqiu]"
+                                                                                   value="9"
+                                                                                   id="xiaohaoyaoqiu_7"> <label
+                                            for="xiaohaoyaoqiu_7">4钻</label><input type="radio"
+                                                                                   name="post_fields[xiaohaoyaoqiu]"
+                                                                                   value="10"
+                                                                                   id="xiaohaoyaoqiu_8"> <label
+                                            for="xiaohaoyaoqiu_8">5钻</label><input type="radio"
+                                                                                   name="post_fields[xiaohaoyaoqiu]"
+                                                                                   value="11"
+                                                                                   id="xiaohaoyaoqiu_9"> <label
+                                            for="xiaohaoyaoqiu_9">冠级</label></span> <span class="f_red"
+                                                                                          id="dxiaohaoyaoqiu"></span><span
+                                            class="note">增加一级增加 <b>0.4</b> 元奖励</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="tl"><span class="title">买号淘气值要求</span></td>
+                                    <td class="tr"><span id="xiaohao_taoqizhi"><input type="radio"
+                                                                                      name="post_fields[xiaohao_taoqizhi]"
+                                                                                      value="0" id="xiaohao_taoqizhi_0"
+                                                                                      checked=""> <label
+                                            for="xiaohao_taoqizhi_0">不限</label><input type="radio"
+                                                                                      name="post_fields[xiaohao_taoqizhi]"
+                                                                                      value="100"
+                                                                                      id="xiaohao_taoqizhi_1"> <label
+                                            for="xiaohao_taoqizhi_1">100以上</label><input type="radio"
+                                                                                         name="post_fields[xiaohao_taoqizhi]"
+                                                                                         value="200"
+                                                                                         id="xiaohao_taoqizhi_2"> <label
+                                            for="xiaohao_taoqizhi_2">200以上</label><input type="radio"
+                                                                                         name="post_fields[xiaohao_taoqizhi]"
+                                                                                         value="300"
+                                                                                         id="xiaohao_taoqizhi_3"> <label
+                                            for="xiaohao_taoqizhi_3">300以上</label><input type="radio"
+                                                                                         name="post_fields[xiaohao_taoqizhi]"
+                                                                                         value="400"
+                                                                                         id="xiaohao_taoqizhi_4"> <label
+                                            for="xiaohao_taoqizhi_4">400以上</label><input type="radio"
+                                                                                         name="post_fields[xiaohao_taoqizhi]"
+                                                                                         value="500"
+                                                                                         id="xiaohao_taoqizhi_5"> <label
+                                            for="xiaohao_taoqizhi_5">500以上</label><input type="radio"
+                                                                                         name="post_fields[xiaohao_taoqizhi]"
+                                                                                         value="600"
+                                                                                         id="xiaohao_taoqizhi_6"> <label
+                                            for="xiaohao_taoqizhi_6">600以上</label><input type="radio"
+                                                                                         name="post_fields[xiaohao_taoqizhi]"
+                                                                                         value="700"
+                                                                                         id="xiaohao_taoqizhi_7"> <label
+                                            for="xiaohao_taoqizhi_7">700以上</label><input type="radio"
+                                                                                         name="post_fields[xiaohao_taoqizhi]"
+                                                                                         value="800"
+                                                                                         id="xiaohao_taoqizhi_8"> <label
+                                            for="xiaohao_taoqizhi_8">800以上</label></span> <span class="f_red"
+                                                                                                id="dxiaohao_taoqizhi"></span><span
+                                            class="note"></span></td>
+                                </tr>
+                                <tr>
+                                    <td class="tl"><span class="title">买号性别要求</span></td>
+                                    <td class="tr"><span id="xiaohao_sex"><input type="checkbox"
+                                                                                 name="post_fields[xiaohao_sex][]"
+                                                                                 value="1" id="xiaohao_sex_0"> <label
+                                            for="xiaohao_sex_0">男号</label><input type="checkbox"
+                                                                                 name="post_fields[xiaohao_sex][]"
+                                                                                 value="2" id="xiaohao_sex_1"> <label
+                                            for="xiaohao_sex_1">女号</label></span> <span class="f_red"
+                                                                                        id="dxiaohao_sex"></span><span
+                                            class="note"></span></td>
+                                </tr>
+                                <tr>
+                                    <td class="tl"><span class="title">买号年龄段要求</span></td>
+                                    <td class="tr"><span id="xiaohao_age"><input type="checkbox"
+                                                                                 name="post_fields[xiaohao_age][]"
+                                                                                 value="1" id="xiaohao_age_0"> <label
+                                            for="xiaohao_age_0">18-25岁</label><input type="checkbox"
+                                                                                     name="post_fields[xiaohao_age][]"
+                                                                                     value="2"
+                                                                                     id="xiaohao_age_1"> <label
+                                            for="xiaohao_age_1">26-30岁</label><input type="checkbox"
+                                                                                     name="post_fields[xiaohao_age][]"
+                                                                                     value="3"
+                                                                                     id="xiaohao_age_2"> <label
+                                            for="xiaohao_age_2">31-35岁</label><input type="checkbox"
+                                                                                     name="post_fields[xiaohao_age][]"
+                                                                                     value="4"
+                                                                                     id="xiaohao_age_3"> <label
+                                            for="xiaohao_age_3">36-40岁</label><input type="checkbox"
+                                                                                     name="post_fields[xiaohao_age][]"
+                                                                                     value="5"
+                                                                                     id="xiaohao_age_4"> <label
+                                            for="xiaohao_age_4">41-50岁</label><input type="checkbox"
+                                                                                     name="post_fields[xiaohao_age][]"
+                                                                                     value="6"
+                                                                                     id="xiaohao_age_5"> <label
+                                            for="xiaohao_age_5">51岁以上</label></span> <span class="f_red"
+                                                                                           id="dxiaohao_age"></span><span
+                                            class="note"></span></td>
+                                </tr>
+                                <tr>
+                                    <td class="tl"><span class="title">买号常购类目</span></td>
+                                    <td class="tr"><span id="xiaohao_cat"><input type="checkbox"
+                                                                                 name="post_fields[xiaohao_cat][]"
+                                                                                 value="1" id="xiaohao_cat_0"> <label
+                                            for="xiaohao_cat_0">潮流女装</label><input type="checkbox"
+                                                                                   name="post_fields[xiaohao_cat][]"
+                                                                                   value="2" id="xiaohao_cat_1"> <label
+                                            for="xiaohao_cat_1">时尚男装</label><input type="checkbox"
+                                                                                   name="post_fields[xiaohao_cat][]"
+                                                                                   value="3" id="xiaohao_cat_2"> <label
+                                            for="xiaohao_cat_2">鞋子箱包</label><input type="checkbox"
+                                                                                   name="post_fields[xiaohao_cat][]"
+                                                                                   value="4" id="xiaohao_cat_3"> <label
+                                            for="xiaohao_cat_3">数码家电</label><input type="checkbox"
+                                                                                   name="post_fields[xiaohao_cat][]"
+                                                                                   value="5" id="xiaohao_cat_4"> <label
+                                            for="xiaohao_cat_4">美食特产</label><input type="checkbox"
+                                                                                   name="post_fields[xiaohao_cat][]"
+                                                                                   value="6" id="xiaohao_cat_5"> <label
+                                            for="xiaohao_cat_5">居家日用</label><input type="checkbox"
+                                                                                   name="post_fields[xiaohao_cat][]"
+                                                                                   value="7" id="xiaohao_cat_6"> <label
+                                            for="xiaohao_cat_6">母婴用品</label><input type="checkbox"
+                                                                                   name="post_fields[xiaohao_cat][]"
+                                                                                   value="8" id="xiaohao_cat_7"> <label
+                                            for="xiaohao_cat_7">护肤彩妆</label><input type="checkbox"
+                                                                                   name="post_fields[xiaohao_cat][]"
+                                                                                   value="9" id="xiaohao_cat_8"> <label
+                                            for="xiaohao_cat_8">珠宝配饰</label><input type="checkbox"
+                                                                                   name="post_fields[xiaohao_cat][]"
+                                                                                   value="10" id="xiaohao_cat_9"> <label
+                                            for="xiaohao_cat_9">家装家纺</label><input type="checkbox"
+                                                                                   name="post_fields[xiaohao_cat][]"
+                                                                                   value="11"
+                                                                                   id="xiaohao_cat_10"> <label
+                                            for="xiaohao_cat_10">车品车饰</label><input type="checkbox"
+                                                                                    name="post_fields[xiaohao_cat][]"
+                                                                                    value="12"
+                                                                                    id="xiaohao_cat_11"> <label
+                                            for="xiaohao_cat_11">运动户外</label><input type="checkbox"
+                                                                                    name="post_fields[xiaohao_cat][]"
+                                                                                    value="13"
+                                                                                    id="xiaohao_cat_12"> <label
+                                            for="xiaohao_cat_12">家庭保健</label><input type="checkbox"
+                                                                                    name="post_fields[xiaohao_cat][]"
+                                                                                    value="14"
+                                                                                    id="xiaohao_cat_13"> <label
+                                            for="xiaohao_cat_13">中老年用</label><input type="checkbox"
+                                                                                    name="post_fields[xiaohao_cat][]"
+                                                                                    value="15"
+                                                                                    id="xiaohao_cat_14"> <label
+                                            for="xiaohao_cat_14">其他类目</label></span> <span class="f_red"
+                                                                                           id="dxiaohao_cat"></span><span
+                                            class="note">买号常购类目限制</span></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <div class="sudiv none">
+                                <input onclick="btnCilentAdd(this)" class="button fl btnCilentAdd" value="上一步：试用要求"
+                                       type="button">
+                                <input onclick="btnCilentAdd(this)" class="button fr btnCilentAdd" value="下一步：发布统计"
+                                       type="button">
+                            </div>
+                        </div>
+                        <div class="fabu4">
+                            <div class="pt">
+<span class="h40">
+<span class="h41"></span>发布统计：
+</span>
+                            </div>
+                            <table data-role="table" class="fields_item">
+                                <thead>
+                                <tr>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="">
+                                    <td class="tl"><span class="f_red">*</span> <span class="title">追加佣金(元)</span></td>
+                                    <td class="tr"><input type="text" name="post_fields[addmoney]" id="addmoney"
+                                                          value="5.00" size="30" onkeyup="clearNoNum(event,this)"
+                                                          onblur="checkNum(this)"> <span class="f_red"
+                                                                                         id="daddmoney"></span><span
+                                            class="note">追加资金越多，更易被试客申请，效率越高！</span></td>
+                                </tr>
+                                <tr class="">
+                                    <td class="tl"><span class="title">任务发布时间</span></td>
+                                    <td class="tr"><input type="text" name="post_fields[add_time]" id="add_time"
+                                                          value="2018-07-27 21:17:07" size="30" readonly="" lay-key="1">
+                                        <span class="f_red" id="dadd_time"></span><span class="note"></span></td>
+                                </tr>
+                                <script type="text/javascript" src="./发布任务-1_files/laydate.js.下载"></script>
+                                <script>
+                                    laydate.render({
+                                        elem: '#add_time'
+                                        , type: 'datetime'
+                                        , btns: ['now', 'confirm']
+                                        , value: '2018-07-27 21:17:07'
+                                    });
+                                </script>
+                                <tr class="">
+                                    <td class="tl"><span class="title">任务发布间隔</span></td>
+                                    <td class="tr"><input type="text" name="post_fields[add_interval]" id="add_interval"
+                                                          value="1" size="30"> <span class="f_red"
+                                                                                     id="dadd_interval"></span><span
+                                            class="note">单位：分钟（间隔多长时间发布一个任务）</span></td>
+                                </tr>
+                                <tr class="">
+                                    <td class="tl"><span class="title">任务保险</span></td>
+                                    <td class="tr"><span id="insurance"><input type="radio"
+                                                                               name="post_fields[insurance]" value="0"
+                                                                               id="insurance_0" checked=""> <label
+                                            for="insurance_0">不需要</label><input type="radio"
+                                                                                name="post_fields[insurance]" value="1"
+                                                                                id="insurance_1"> <label
+                                            for="insurance_1">全保(全额赔付)</label><input type="radio"
+                                                                                     name="post_fields[insurance]"
+                                                                                     value="2" id="insurance_2"> <label
+                                            for="insurance_2">半保(50%赔付)</label></span> <span class="f_red"
+                                                                                             id="dinsurance"></span><span
+                                            class="note">试客退款，平台赔付。</span></td>
+                                </tr>
+                                <tr class="">
+                                    <td class="tl"><span class="f_red">*</span> <span class="title">是否保存模版</span></td>
+                                    <td class="tr"><span id="istmp"><input type="radio" name="post_fields[istmp]"
+                                                                           value="1" id="istmp_0"> <label for="istmp_0">保存</label><input
+                                            type="radio" name="post_fields[istmp]" value="0" id="istmp_1"
+                                            checked=""> <label for="istmp_1">不保存</label></span> <span class="f_red"
+                                                                                                      id="distmp"></span><span
+                                            class="note"></span></td>
+                                </tr>
+                                <tr class="">
+                                    <td class="tl"><span class="title">模板名称</span></td>
+                                    <td class="tr"><input type="text" name="post_fields[tmp_name]" id="tmp_name"
+                                                          value="" size="30"> <span class="f_red" id="dtmp_name"></span><span
+                                            class="note"></span></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <div class="sudiv none">
+                                <input onclick="btnCilentAdd(this)" class="button fl btnCilentAdd" value="上一步：买家要求"
+                                       type="button">
+                                <input class="button fr abtn7 btnCilentAdd" value="立即发布" onclick="pubTask();" type="button">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="tongji" data-role="navbar" class="tongji_fixed">
+                    <ul>
+                        <li>
+                            试用奖励：<b id="yongjin" class="f_red">7.40</b> 元
+                        </li>
+                        <li>试用押款：<b id="yk_money" class="f_red">106.40</b> 元</li>
+                        <li>
+                            我的余额：<b class="f_red">11383.65</b> 联盟币 <a
+                                href="http://001.topaaa.com/member/charge.php?action=pay" target="_blank"
+                                class="f_blue">【充值】</a>
+                        </li>
+                    </ul>
+                    <div class="sudiv">
+                        <input onclick="btnCilentAdd(this)" class="button fr btnCilentAdd" value="下一步：试用要求"
+                               type="button">
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <script>
+        $(function () {
+            set_nav("yptask_my_add", "on");
+        });
+        jQuery.fn.extend({
+            slideRightShow: function (speed, callback) {
+                return this.each(function () {
+                    $(this).show('slide', {direction: 'right'}, speed, callback);
+                });
+            },
+            slideLeftHide: function (speed, callback) {
+                return this.each(function () {
+                    $(this).hide('slide', {direction: 'left'}, speed, callback);
+                });
+            },
+            slideRightHide: function (speed, callback) {
+                return this.each(function () {
+                    $(this).hide('slide', {direction: 'right'}, speed, callback);
+                });
+            },
+            slideLeftShow: function (speed, callback) {
+                return this.each(function () {
+                    $(this).show('slide', {direction: 'left'}, speed, callback);
+                });
+            }
+        });
+
+        function btnCilentAdd(th) {
+            var diff = 1;
+            if ($(th).hasClass('fl')) diff = -1
+            $('#menu_div>a').eq($('#menu_div>a.on').index() + diff).click();
+            if ($('#body_main').offset().top - $(window).scrollTop() <= 0) {
+                $('html, body').animate({scrollTop: $('#body_main').offset().top - 35}, 500);
+            }
+        }
+
+        var flag = 0;
+        var bott = 0;
+        $(function () {
+            flag = 0;
+            bott = $(document).height() - $('#tongji').offset().top - $('#tongji').height() - 42;
+            tongji_fixed();
+            $(window).scroll(function () {
+                tongji_fixed();
+            });
+            $('#menu_div>a').click(function () {
+                var index_click = $(this).index();
+                change_fabu(index_click);
+            });
+        });
+
+        function change_fabu(index_click) {
+            var index = $('#menu_div>a.on').index();
+            $('.fabu').height($('.fabu').height());
+            var height_click = $('.fabu>div').eq(index_click).height();
+            if (index == index_click) return false;
+            $('#menu_div>a').removeClass('on');
+            $('#menu_div>a').eq(index_click).addClass('on');
+            if (index < index_click) {
+                $('.fabu>div').slideLeftHide(250).eq(index_click).slideRightShow(250);
+                $('.fabu').animate({height: height_click}, function () {
+                    $('.fabu').removeAttr('style');
+                    tongji_fixed();
+                });
+            } else {
+                $('.fabu>div').slideRightHide(250).eq(index_click).slideLeftShow(250);
+                $('.fabu').animate({height: height_click}, function () {
+                    $('.fabu').removeAttr('style');
+                    tongji_fixed();
+                });
+            }
+            setTimeout(function () {
+                $('#tongji .sudiv').fadeOut(125, function () {
+                    $('#tongji .sudiv').html($('.fabu>div').eq(index_click).find('.sudiv').html());
+                    $('#tongji .sudiv').fadeIn(125)
+                });
+            }, 250);
+        }
+
+        function tongji_fixed() {
+            var totalheight = $(window).height() + $(window).scrollTop();
+            var documentheight = $(document).height();
+            var tongji_height = $('#tongji').height();
+            if (flag) documentheight += bott;
+            var diff = documentheight - totalheight;
+            if (diff <= bott) {
+                $('#tongji').removeClass('tongji_fixed');
+                flag = 0;
+            } else {
+                $('#tongji').addClass('tongji_fixed');
+                flag = 1;
+            }
+        }
+    </script>
+    <div style="clear:both;"></div>
+    <div id="footer">
+        <div id="footer_top">
+            <div id="foot_top_1">
+                <a href="http://001.topaaa.com/about/index.php?itemid=10">代理加盟</a><span>  |  </span>
+                <a href="http://001.topaaa.com/about/index.php?itemid=9">辅助业务</a><span>  |  </span>
+                <a href="http://001.topaaa.com/about/index.php?itemid=8">网站活动</a><span>  |  </span>
+                <a href="http://001.topaaa.com/about/index.php?itemid=7">联系客服</a><span>  |  </span>
+                <a href="http://001.topaaa.com/about/index.php?itemid=6">联盟网规</a><span>  |  </span>
+                <a href="http://001.topaaa.com/about/index.php?itemid=1">关于我们</a><span>  |  </span>
+                <a href="http://001.topaaa.com/about/index.php?itemid=3">联系方式</a><span>  |  </span>
+                <a href="http://001.topaaa.com/about/index.php?itemid=4">使用协议</a><span>  |  </span>
+                <a href="http://001.topaaa.com/about/index.php?itemid=5">版权隐私</a><span>  |  </span>
+            </div>
+            <div id="copy_right">
+                (c)2013-2018 销量联盟 www.topaaa.com All Rights Reserved
+            </div>
+            <div style="width:1024px;text-align: center;margin: 20px auto 0;">
+                <img src="./发布任务-1_files/1.png">
+                <img src="./发布任务-1_files/2.png">
+                <img src="./发布任务-1_files/3.png">
+                <img src="./发布任务-1_files/4.png">
+                <img src="./发布任务-1_files/5.png">
+                <img src="./发布任务-1_files/6.png">
+                <img src="./发布任务-1_files/7.png">
+                <img src="./发布任务-1_files/8.png">
+            </div>
+            <div style="clear:both;"></div>
+        </div>
+    </div>
+</div>
+<script>
+</script>
+<div class="main-im">
+    <div id="open_im" class="open-im" style="display: none;"></div>
+    <div class="im_main" id="im_main">
+        <div id="close_im" class="close-im"><a class="you" style="cursor: pointer" data-hasqtip="21" oldtitle="点击关闭"
+                                               title=""></a></div>
+        <a onclick="multi_qq()" class="im-qq qq-a">
+            <div class="qq-container"></div>
+            <div class="qq-hover-c"><img class="img-qq" src="./发布任务-1_files/qq.png"></div>
+            <span>QQ在线咨询</span>
+        </a>
+        <script id="yptip_qq" type="text/template7">
+            <p style="width:100%;background-color:#0098ff;font-size:16px;text-align:center;color:#fff;height:34px;line-height:34px;">
+                客服团队</p><p style="line-height:40px;">客服潇潇：<a target="_blank"
+                                                             href="http://wpa.qq.com/msgrd?v=3&uin=261369834&site=qq&menu=yes"><img
+                    border="0" src="http://wpa.qq.com/pa?p=2:261369834:51" alt="点击这里给我发消息" title="点击这里给我发消息"/></a> <span
+                    style="line-height:1.5;margin-left:10px;">客服靓靓：</span><a target="_blank"
+                                                                             href="http://wpa.qq.com/msgrd?v=3&uin=261369834&site=qq&menu=yes"
+                                                                             style="line-height:1.5;"><img border="0"
+                                                                                                           src="http://wpa.qq.com/pa?p=2:261369834:51"
+                                                                                                           alt="点击这里给我发消息"
+                                                                                                           title="点击这里给我发消息"/></a>
+            </p><p style="line-height:30px;">客服恋恋：<a target="_blank"
+                                                     href="http://wpa.qq.com/msgrd?v=3&uin=261369834&site=qq&menu=yes"><img
+                    border="0" src="http://wpa.qq.com/pa?p=2:261369834:51" alt="点击这里给我发消息" title="点击这里给我发消息"/></a> <span
+                    style="line-height:1.5;margin-left:10px;">客服萌萌：</span><a target="_blank"
+                                                                             href="http://wpa.qq.com/msgrd?v=3&uin=261369834&site=qq&menu=yes"
+                                                                             style="line-height:1.5;"><img border="0"
+                                                                                                           src="http://wpa.qq.com/pa?p=2:261369834:51"
+                                                                                                           alt="点击这里给我发消息"
+                                                                                                           title="点击这里给我发消息"/></a>
+            </p><p><br/></p><p
+                    style="width:100%;background-color:#0098ff;font-size:16px;text-align:center;color:#fff;height:34px;line-height:34px;">
+                合作渠道</p><p style="line-height:40px;">业务合作：<a target="_blank"
+                                                             href="http://wpa.qq.com/msgrd?v=3&uin=261369834&site=qq&menu=yes"><img
+                    border="0" src="http://wpa.qq.com/pa?p=2:261369834:51" alt="点击这里给我发消息" title="点击这里给我发消息"/></a> <span
+                    style="line-height:1.5;margin-left:10px;">代理加盟：</span><a target="_blank"
+                                                                             href="http://wpa.qq.com/msgrd?v=3&uin=261369834&site=qq&menu=yes"
+                                                                             style="line-height:1.5;"><img border="0"
+                                                                                                           src="http://wpa.qq.com/pa?p=2:261369834:51"
+                                                                                                           alt="点击这里给我发消息"
+                                                                                                           title="点击这里给我发消息"/></a>
+            </p>        </script>
+        <script>
+            function multi_qq() {
+                $('.layim-friend618').click();
+            }
+        </script>
+        <a href="http://001.topaaa.com/app.php" target="_blank" class="qq-a" style="height: 130px">
+            <div class="qq-container" style="height: 130px"></div>
+            <div style="width: 95px;height: 95px"><img class="img-qq" src="./发布任务-1_files/qrcode.php"
+                                                       style="width: 95px;height: 95px;max-width: 95px;top: 5px;left: 5px">
+            </div>
+            <span>下载APP</span>
+        </a>
+        <div class="im-tel">
+            <div><a href="http://001.topaaa.com/announce/index.php?typeid=2" target="_blank">如何发布试用</a></div>
+            <div><a href="http://001.topaaa.com/announce/index.php?typeid=3" target="_blank">如何申请试用</a></div>
+            <div><a href="http://001.topaaa.com/about/index.php?itemid=6" target="_blank">销量联盟网规</a></div>
+            <div><a href="http://001.topaaa.com/announce/index.php?typeid=1" target="_blank" class="jsbz">网站公告</a></div>
+        </div>
+        <div class="im-footer" style="position:relative">
+            <div class="go-top"><a class="you" style="cursor: pointer" data-hasqtip="22" oldtitle="返回顶部" title=""></a>
+            </div>
+            <div style="clear:both"></div>
+        </div>
+    </div>
+
+    <!-- react -->
+    <script type="text/babel">
+
+        //发布任务
+        function pubTask() {
+            //请求一级列表
+            let params = {};
+            params.memid = userresult_json.id;
+
+            params.shop_id = 1;
+
+            params.catetype = $("#catid_1").val();
+            params.goods_class_id = $("#goods_cat").val();
+            params.link_url = $("#curl").val();
+            params.goods_img = $("#thumb_zhutu_1").val();
+            params.price = $("#price").val();
+
+            params.search_type = $("input[name='post_fields[issearch]']:checked").val();
+            //搜索内容
+            params.search_word = $("#search_content").val();
+
+            params.goods_format = $("#sku").val();
+
+            params.return_type = $("input[name='post_fields[isyakuan]']:checked").val();
+            if ( params.return_type==0){
+                //获取商家付款方式
+                params.yuancheng_type = $("input[name='post_fields[yuancheng_type]']:checked").val();
+            }
+            //使用要求
+            params.device = $("input[name='device']:checked").val();
+            params.need_bi_san_jia = $("input[name='need_bi_san_jia']:checked").val();
+            params.need_chat = $("input[name='need_chat']:checked").val();
+            params.need_look_comment = $("input[name='need_look_comment']:checked").val();
+            params.need_add_buy_cart = $("input[name='need_add_buy_cart']:checked").val();
+            params.need_col_goods = $("input[name='need_col_goods']:checked").val();
+            params.yuyue_xiadan = $("input[name='yuyue_xiadan']:checked").val();
+            params.zhiding_pinglun = $("input[name='zhiding_pinglun']:checked").val();
+            params.comment_content =  $("#comment").val();
+
+            params.bask_img = $("input[name='bask_img']:checked").val();
+            params.confirm_time_type = $("input[name='ctime']:checked").val();
+            params.task_rec_time = $("input[name='cancletime']:checked").val();
+            params.remark =  $("#msg").val();
+
+            //买家要求
+            params.day_limit = $("input[name='post_fields[limit_xiaohao_zhanggui]']:checked").val();
+            params.shangbao_limit = $("input[name='post_fields[isshangbao]']:checked").val();
+            params.is_huabei = $("input[name='post_fields[huabei]']:checked").val();
+            params.honor_limit = $("input[name='post_fields[xiaohaoyaoqiu]']:checked").val();
+            params.taoqi_limit = $("input[name='post_fields[xiaohao_taoqizhi]']:checked").val();
+
+            //性别要求
+            params.gender_limit=[];
+            $("input[name='post_fields[xiaohao_sex][]']:checked").each(function(i, n){
+                let temp = $(this).val();
+                params.gender_limit.push(temp);
+            });
+
+            //年龄限制
+            params.age_limit=[];
+            $("input[name='post_fields[xiaohao_age][]']:checked").each(function(i, n){
+                let temp = $(this).val();
+                params.age_limit.push(temp);
+            });
+
+            //常购类别
+            params.always_buy_class = [];
+            $("input[name='post_fields[xiaohao_cat][]']:checked").each(function(i, n){
+                let temp = $(this).val();
+                params.always_buy_class.push(temp);
+            });
+
+            //发布统计
+            params.append_money =  $("#addmoney").val();
+
+            //任务保险
+            params.task_safe = $("input[name='post_fields[insurance]']:checked").val();
+            params.save_template = $("input[name='post_fields[istmp]']:checked").val();
+            params.template_name =$("#tmpname").val();
+
+            console.log(params);
+
+            $.ajax({
+                url: request_url + "intf_shop/pubTask",
+                type: "post",
+                data: params,
+                dataType: 'json',
+                headers: {
+                    "mobile": userresult_json.mobile,
+                    "token": userresult_json.token
+                },
+                success: function (result) {
+                    if (result.error == 0) {
+                        alert(result.message);
+                    }else{
+                        alert(result.message);
+                    }
+                }
+            });
+
+        }
+        class ShopList extends React.Component {
+            constructor(props) {
+                super(props);
+            }
+
+            //改变选择框值
+            changShop = (event)=>{
+                let shop = event.target.value;
+                alert(shop);
+                //保存到storage
+                setStorage("select_shop",shop);
+            }
+            render () {
+                let shops = this.props.shops;
+                return (
+                    <select onChange={this.changShop}>{
+                        shops.map((name, index) =>
+                            <option value={name} key={index}>{name}</option>
+                        )
+                    }
+                    </select>
+                )
+            }
+        }
+
+        //获取店铺列表
+        let shops = ['a','c','d','e'];
+
+        ReactDOM.render(<ShopList shops={shops}/>, document.getElementById('shops'))
+
+
+    </script>
+
+</div>
+<div class="layui-layer layui-layer-page layui-box layui-layim layer-anim-02" id="layui-layer100001" type="page"
+     times="100001" showtime="0" contype="string"
+     style="z-index: 19991015; width: 260px; height: 520px; top: 258px; left: 1650px; background-image: url(&quot;http://001.topaaa.com/file/script/layim/css/modules/layim/skin/2.jpg&quot;); margin-left: -20px;">
+    <div class="layui-layer-title" style="cursor: move;">&#8203;</div>
+    <div id="layui-layim" class="layui-layer-content" style="height: 477px;">
+        <div class="layui-layim-main">
+            <div class="layui-layim-info">
+                <div class="layui-layim-user">yp1234567 神秘地区</div>
+                <div class="layui-layim-status"><span class="layui-icon layim-status-online" layim-event="status"
+                                                      lay-type="show"></span>
+                    <ul class="layui-anim layim-menu-box">
+                        <li class="layim-this" layim-event="status" lay-type="online"><i class="layui-icon"></i><cite
+                                class="layui-icon layim-status-online"></cite>在线
+                        </li>
+                        <li layim-event="status" lay-type="hide"><i class="layui-icon"></i><cite
+                                class="layui-icon layim-status-hide"></cite>隐身
+                        </li>
+                    </ul>
+                </div>
+                <input class="layui-layim-remark" placeholder="编辑签名" value=""></div>
+            <ul class="layui-unselect layui-layim-tab layim-tab-two">
+                <li class="layui-icon layim-this" title="联系人" layim-event="tab" lay-type="friend"></li>
+                <li class="layui-icon layim-hide" title="群组" layim-event="tab" lay-type="group"></li>
+                <li class="layui-icon" title="历史会话" layim-event="tab" lay-type="history"></li>
+            </ul>
+            <ul class="layui-unselect layim-tab-content layui-show layim-list-friend">
+                <li><h5 layim-event="spread" lay-type="true"><i class="layui-icon"></i><span>人工客服</span><em>(<cite
+                        class="layim-count"> 1</cite>)</em></h5>
+                    <ul class="layui-layim-list  layui-show">
+                        <li layim-event="chat" data-type="friend" data-index="0" class="layim-friend618 "><img
+                                src="./发布任务-1_files/kefu.png"><span>销量联盟 - 售前咨询</span>
+                            <p>有问题，随时咨询我</p><span class="layim-msg-status">new</span></li>
+                    </ul>
+                </li>
+                <li><h5 layim-event="spread" lay-type="true"><i class="layui-icon"></i><span>机器人客服</span><em>(<cite
+                        class="layim-count"> 4</cite>)</em></h5>
+                    <ul class="layui-layim-list  layui-show">
+                        <li layim-event="chat" data-type="friend" data-index="1" class="layim-friend-1 "><img
+                                src="./发布任务-1_files/kefu1.png"><span>客服 - 潇潇</span>
+                            <p>销量联盟智能机器人</p><span class="layim-msg-status">new</span></li>
+                        <li layim-event="chat" data-type="friend" data-index="1" class="layim-friend-2 "><img
+                                src="./发布任务-1_files/kefu2.png"><span>客服 - 靓靓 </span>
+                            <p>销量联盟智能机器人</p><span class="layim-msg-status">new</span></li>
+                        <li layim-event="chat" data-type="friend" data-index="1" class="layim-friend-3 "><img
+                                src="./发布任务-1_files/kefu3.jpg"><span>客服 - 恋恋</span>
+                            <p>销量联盟智能机器人</p><span class="layim-msg-status">new</span></li>
+                        <li layim-event="chat" data-type="friend" data-index="1" class="layim-friend-4 "><img
+                                src="./发布任务-1_files/kefu4.jpg"><span>客服 - 萌萌</span>
+                            <p>销量联盟智能机器人</p><span class="layim-msg-status">new</span></li>
+                    </ul>
+                </li>
+            </ul>
+            <ul class="layui-unselect layim-tab-content ">
+                <li>
+                    <ul class="layui-layim-list layui-show layim-list-group">
+                        <li class="layim-null">暂无群组</li>
+                    </ul>
+                </li>
+            </ul>
+            <ul class="layui-unselect layim-tab-content ">
+                <li>
+                    <ul class="layui-layim-list layui-show layim-list-history">
+                        <li class="layim-null">暂无历史会话</li>
+                    </ul>
+                </li>
+            </ul>
+            <ul class="layui-unselect layim-tab-content">
+                <li>
+                    <ul class="layui-layim-list layui-show" id="layui-layim-search"></ul>
+                </li>
+            </ul>
+            <ul class="layui-unselect layui-layim-tool">
+                <li class="layui-icon layim-tool-search" layim-event="search" title="搜索"></li>
+                <li class="layui-icon layim-tool-skin" layim-event="skin" title="更换背景"></li>
+            </ul>
+            <div class="layui-layim-search"><input><label class="layui-icon" layim-event="closeSearch">&#4103;</label>
+            </div>
+        </div>
+    </div>
+    <span class="layui-layer-setwin">
+    <a class="layui-layer-ico layui-layer-close layui-layer-close1" href="javascript:;"></a>
+</span></div>
+<div class="layui-layer-move"></div>
+</body>
+</html>
+

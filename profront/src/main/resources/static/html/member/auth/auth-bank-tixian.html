@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+
+    <link rel="stylesheet" type="text/css" href="../../../dist/css/index-skin.css">
+    <link rel="stylesheet" type="text/css" href="../../../dist/css/index-tp.css">
+
+    <script type="text/javascript" src="../../../dist/js/lang.js"></script>
+    <script type="text/javascript" src="../../../dist/js/config.js"></script>
+    <script type="text/javascript" src="../../../dist/js/jquery-2.0.0.min.js"></script>
+    <script type="text/javascript" src="../../../dist/js/common.js"></script>
+
+    <script type="text/javascript" src="../../../dist/js/admin.js"></script>
+    <script type="text/javascript" src="../../../dist/js/page.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="../../../dist/css/jq-tip.css">
+    <script type="text/javascript" src="../../../dist/js/jq-tip.js"></script>
+    <script type="text/javascript" src="../../../dist/js/layer.js"></script>
+
+    <script type="text/javascript" src="../../../dist/js/jquery.form.js"></script>
+    <script type="text/javascript" src="../../../dist/js/template7.min.js"></script>
+    <script type="text/javascript" src="../../../dist/js/cm.js"></script>
+    <script type="text/javascript" src="../../../dist/js/ypfunction.js"></script>
+
+    <link rel="stylesheet" href="http://001.topaaa.com/file/script/layim/css/layui.css">
+    <script src="http://001.topaaa.com/file/script/layim/layui.js"></script>
+    <script src="http://001.topaaa.com/file/script/layim/func.js"></script>
+    <script>
+        $(function () {
+            $(".strong_username_jj").html(userresult_json.real_name);
+
+
+
+        })
+    </script>
+</head>
+
+
+<body class="rwdt_bg">
+<div id="body">
+    <div id="body_header"></div>
+    <script>
+        $("#body_header").load("../public/public-top.html");
+    </script>
+<div id="content_wrapper">
+    <div id="content_body_title"></div>
+    <script>
+        $("#content_body_title").load("../public/public-body-title.html");
+    </script>
+    <div id="ypcon">
+    <div class="yptip">
+        <p><span style="color:#E53333;">后台说明：</span><span style="color:#E53333;">管理员可以设置</span><span style="color:#E53333;">是否开启提现、24小时提现次数、单次提现最小金额、单次提现最大金额、提现费率、费率最小值、费率封顶值</span></p><p><span style="color:#E53333;">提现流程：会员申请提现，管理员在后台受理，可以看到会员的用户名、姓名、提现金额、手续费、联系方式、申请时间、申请IP。</span></p><p><span style="color:#E53333;">管理员可以设置拒绝申请、支付失败、付款成功 。</span></p>        </div>
+    <div class="menu">
+        <table cellpadding="0" cellspacing="0">
+            <tr>
+                <td class="tab"><a id="action_" href="auth-money-apply.html"><span>申请提现</span></a></td>
+                <td class="tab_nav">&nbsp;</td>
+                <td class="tab"><a id="action_record" href="auth-bank-txrecord.html"><span>提现记录</span></a></td>
+                <td class="tab_nav">&nbsp;</td>
+                <td class="tab"><a id="action_setting" href="auth-bank-tixian.html"><span>帐号设置</span></a></td>
+            </tr>
+        </table>
+    </div>
+    <form method="post" action="cash.php" onsubmit="smt()">
+        <input type="hidden" name="action" value="setting"/>
+        <table cellspacing="1" cellpadding="6" class="tb">
+            <tr>
+                <td class="tl"> 说明</td>
+                <td class="tr">
+                    <span class="f_red">设置后禁止自行修改，如需修改请联系管理员</span>
+                </td>
+            </tr>
+            <tr>
+                <td class="tl"><span class="f_red">*</span>支付宝</td>
+                <td class="tr"><input type="text" size="30" name="zhifubao" id="zhifubao" value=""/> [注意] 此帐号开户名必须为 <strong class="strong_username_jj">***</strong></td>
+            </tr>
+            <!--<tr>
+                <td class="tl"> <span class="f_red none">*</span>财付通</td>
+                <td class="tr"><input type="text" size="30" name="caifutong" value=""/> [注意] 此帐号开户名必须为 <strong>刘浩</strong></td>
+            </tr>-->
+            <tr>
+                <td class="tl"><span class="f_red">*</span>收款银行</td>
+                <td class="tr"><select id="bank" name="bank"><option value="">请选择</option><option value="中国工商银行">中国工商银行</option><option value="中国农业银行">中国农业银行</option><option value="中国建设银行">中国建设银行</option><option value="中国交通银行">中国交通银行</option><option value="中国银行">中国银行</option></select></td>
+            </tr>
+            <tr>
+                <td class="tl"><span class="f_red">*</span>收款帐号</td>
+                <td class="tr"><input id="account" type="text" size="30" name="account" value=""/> [注意] 此帐号开户名必须为 <strong class="strong_username_jj">***</strong></td>
+            </tr>
+            <tr>
+                <td class="tl"><span class="f_red">*</span>开户行</td>
+                <td class="tr"><input area="1" name="bank_area" id="areaid_1" type="hidden" value="0"/><span id="load_area_1"><select onchange="load_area(this.value, 1);" ><option value="0">请选择</option><option value="1">北京</option><option value="2">上海</option><option value="3">天津</option><option value="4">重庆</option><option value="5">河北</option><option value="6">山西</option><option value="7">内蒙古</option><option value="8">辽宁</option><option value="9">吉林</option><option value="10">黑龙江</option><option value="11">江苏</option><option value="12">浙江</option><option value="13">安徽</option><option value="14">福建</option><option value="15">江西</option><option value="16">山东</option><option value="17">河南</option><option value="18">湖北</option><option value="19">湖南</option><option value="20">广东</option><option value="21">广西</option><option value="22">海南</option><option value="23">四川</option><option value="24">贵州</option><option value="25">云南</option><option value="26">西藏</option><option value="27">陕西</option><option value="28">甘肃</option><option value="29">青海</option><option value="30">宁夏</option><option value="31">新疆</option><option value="32">台湾</option><option value="33">香港</option><option value="34">澳门</option></select> </span><script type="text/javascript">var area_title = new Array;area_title[1]='请选择';var area_extend = new Array;area_extend[1]='';var area_areaid = new Array;area_areaid[1]='0';var area_deep = new Array;area_deep[1]='0';</script><script type="text/javascript" src="http://001.topaaa.com/file/script/area.js"></script><input type="text" id="bank_kaihuhang" size="30" name="bank_kaihuhang" value=""/></td>
+            </tr>
+            <!--<tr>
+                <td class="tl"> <span class="f_red">*</span>支付密码</td>
+                <td class="tr"><input type="password" style="position:absolute;z-index: -99" value="111"><input name="password" type="password" class="inp input" style="width:158px;" id="password" />
+<script type="text/javascript" src="http://001.topaaa.com/file/script/keyboard.js"></script>
+<img src="http://001.topaaa.com/file/image/keyboard.gif" title="密码键盘" alt="" class="c_p" onclick="_k('password', 'kb', this);"/>
+<div id="kb" style="display:none;"></div>
+<script type="text/javascript" src="http://001.topaaa.com/file/script/md5.js"></script>
+<script type="text/javascript">init_md5();</script>
+</td>
+            </tr>-->
+            <tr>
+                <td class="tl"></td>
+                <td class="tr">
+                    <input type="submit" name="submit" value=" 确 定 " class="btn"/>&nbsp;&nbsp;&nbsp;&nbsp;<input type="reset" name="reset" value=" 重 置 " class="btn"/>
+                </td>
+            </tr>
+        </table>
+    </form>
+    <script>
+        $(function () {
+            set_nav("action_setting", "sb0");
+            $('#zhifubao').parent().append('<b class="f_red">（注意：填写后禁止修改）</b>');
+            $('#account').parent().append('<b class="f_red">（注意：填写后禁止修改）</b>');
+            $('#bank').parent().append('<b class="f_red">（注意：选择后禁止修改）</b>');
+            $('#bank_kaihuhang').parent().append('<b class="f_red">（注意：选择后禁止修改）</b>');
+        });
+        function smt() {
+            $('#bank').removeAttr('disabled');
+        }
+    </script>
+</div>
+</div>
+    <script>
+        $(function () {
+            set_nav("cash", "on");
+            //alert("action_setting")
+            set_nav("action_setting", "sb0");
+        });
+    </script>
+    <div style="clear:both;"></div>
+    <div id="footer">
+        <div id="footer_top">
+            <div id="foot_top_1">
+                <a href="/about/index.php?itemid=10">代理加盟</a><span>  |  </span>
+                <a href="/about/index.php?itemid=9">辅助业务</a><span>  |  </span>
+                <a href="/about/index.php?itemid=8">网站活动</a><span>  |  </span>
+                <a href="/about/index.php?itemid=7">联系客服</a><span>  |  </span>
+                <a href="/about/index.php?itemid=6">联盟网规</a><span>  |  </span>
+                <a href="/about/index.php?itemid=1">关于我们</a><span>  |  </span>
+                <a href="/about/index.php?itemid=3">联系方式</a><span>  |  </span>
+                <a href="/about/index.php?itemid=4">使用协议</a><span>  |  </span>
+                <a href="/about/index.php?itemid=5">版权隐私</a><span>  |  </span>
+            </div>
+            <div id="copy_right">
+                (c)2013-2018 销量联盟 www.topaaa.com All Rights Reserved        </div>
+            <div style="width:1024px;text-align: center;margin: 20px auto 0;">
+                <img src="http://001.topaaa.com/skin/ypmili/css/img/rz/1.png">
+                <img src="http://001.topaaa.com/skin/ypmili/css/img/rz/2.png">
+                <img src="http://001.topaaa.com/skin/ypmili/css/img/rz/3.png">
+                <img src="http://001.topaaa.com/skin/ypmili/css/img/rz/4.png">
+                <img src="http://001.topaaa.com/skin/ypmili/css/img/rz/5.png">
+                <img src="http://001.topaaa.com/skin/ypmili/css/img/rz/6.png">
+                <img src="http://001.topaaa.com/skin/ypmili/css/img/rz/7.png">
+                <img src="http://001.topaaa.com/skin/ypmili/css/img/rz/8.png">
+            </div>
+            <div style="clear:both;"></div>
+        </div>
+    </div>
+</div>
+<div class="main-im">
+    <div id="open_im" class="open-im" style="display: none;"></div>
+    <div class="im_main" id="im_main">
+        <div id="close_im" class="close-im"><a class="you" title="点击关闭" style="cursor: pointer"></a></div>
+        <a onclick="multi_qq()" class="im-qq qq-a">
+            <div class="qq-container"></div>
+            <div class="qq-hover-c"><img class="img-qq" src="http://001.topaaa.com/skin/ypmili/css/img/qq.png"></div>
+            <span>QQ在线咨询</span>
+        </a>
+        <script id="yptip_qq" type="text/template7">
+            <p style="width:100%;background-color:#0098ff;font-size:16px;text-align:center;color:#fff;height:34px;line-height:34px;">客服团队</p><p style="line-height:40px;">客服潇潇：<a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=261369834&site=qq&menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=2:261369834:51" alt="点击这里给我发消息" title="点击这里给我发消息" /></a> <span style="line-height:1.5;margin-left:10px;">客服靓靓：</span><a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=261369834&site=qq&menu=yes" style="line-height:1.5;"><img border="0" src="http://wpa.qq.com/pa?p=2:261369834:51" alt="点击这里给我发消息" title="点击这里给我发消息" /></a> </p><p style="line-height:30px;">客服恋恋：<a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=261369834&site=qq&menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=2:261369834:51" alt="点击这里给我发消息" title="点击这里给我发消息" /></a> <span style="line-height:1.5;margin-left:10px;">客服萌萌：</span><a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=261369834&site=qq&menu=yes" style="line-height:1.5;"><img border="0" src="http://wpa.qq.com/pa?p=2:261369834:51" alt="点击这里给我发消息" title="点击这里给我发消息" /></a> </p><p><br /></p><p style="width:100%;background-color:#0098ff;font-size:16px;text-align:center;color:#fff;height:34px;line-height:34px;">合作渠道</p><p style="line-height:40px;">业务合作：<a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=261369834&site=qq&menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=2:261369834:51" alt="点击这里给我发消息" title="点击这里给我发消息" /></a> <span style="line-height:1.5;margin-left:10px;">代理加盟：</span><a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=261369834&site=qq&menu=yes" style="line-height:1.5;"><img border="0" src="http://wpa.qq.com/pa?p=2:261369834:51" alt="点击这里给我发消息" title="点击这里给我发消息" /></a> </p>        </script>
+        <script>
+            function multi_qq() {
+                $('.layim-friend618').click();
+            }
+        </script>
+        <a href="/app.php" target="_blank" class="qq-a" style="height: 130px">
+            <div class="qq-container" style="height: 130px"></div>
+            <div style="width: 95px;height: 95px"><img class="img-qq" src="/api/qrcode.php?url=http%3A%2F%2F001.topaaa.com%2Fapp.php" style="width: 95px;height: 95px;max-width: 95px;top: 5px;left: 5px"></div>
+            <span>下载APP</span>
+        </a>
+        <div class="im-tel">
+            <div><a href="/announce/index.php?typeid=2" target="_blank">如何发布试用</a></div>
+            <div><a href="/announce/index.php?typeid=3" target="_blank">如何申请试用</a></div>
+            <div><a href="/about/index.php?itemid=6" target="_blank">销量联盟网规</a></div>
+            <div><a href="/announce/index.php?typeid=1" target="_blank" class="jsbz">网站公告</a></div>
+        </div>
+        <div class="im-footer" style="position:relative">
+            <div class="go-top"><a class="you" title="返回顶部" style="cursor: pointer"></a></div>
+            <div style="clear:both"></div>
+        </div>
+    </div>
+    <script>
+        $(function () {
+            $(".go-top").click(function () {
+                $('html,body').animate({scrollTop: 0}, 800);
+            });
+            $("#close_im").click(function () {
+                $("#im_main").fadeOut(500, function () {
+                    $("#open_im").fadeIn(500);
+                });
+            });
+            $("#open_im").click(function () {
+                $("#open_im").fadeOut(500, function () {
+                    $("#im_main").fadeIn(500);
+                });
+            });
+        });
+    </script>
+</div></body>
+</html>

@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+
+    <link rel="stylesheet" type="text/css" href="../../../dist/css/index-skin.css">
+    <link rel="stylesheet" type="text/css" href="../../../dist/css/index-tp.css">
+
+    <script type="text/javascript" src="../../../dist/js/lang.js"></script>
+    <script type="text/javascript" src="../../../dist/js/config.js"></script>
+    <script type="text/javascript" src="../../../dist/js/jquery-2.0.0.min.js"></script>
+    <script type="text/javascript" src="../../../dist/js/common.js"></script>
+
+    <script type="text/javascript" src="../../../dist/js/admin.js"></script>
+    <script type="text/javascript" src="../../../dist/js/page.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="../../../dist/css/jq-tip.css">
+    <script type="text/javascript" src="../../../dist/js/jq-tip.js"></script>
+    <script type="text/javascript" src="../../../dist/js/layer.js"></script>
+
+    <script type="text/javascript" src="../../../dist/js/jquery.form.js"></script>
+    <script type="text/javascript" src="../../../dist/js/template7.min.js"></script>
+    <script type="text/javascript" src="../../../dist/js/cm.js"></script>
+    <script type="text/javascript" src="../../../dist/js/ypfunction.js"></script>
+
+    <link rel="stylesheet" href="http://001.topaaa.com/file/script/layim/css/layui.css">
+    <script src="http://001.topaaa.com/file/script/layim/layui.js"></script>
+    <script src="http://001.topaaa.com/file/script/layim/func.js"></script>
+</head>
+
+<body class="rwdt_bg">
+<div id="body">
+    <div id="body_header"></div>
+    <script>
+        $("#body_header").load("../public/public-top.html");
+    </script>
+<div id="content_wrapper">
+    <div id="content_body_title"></div>
+    <script>
+        $("#content_body_title").load("../public/public-body-title.html");
+    </script>
+    <style>
+    .fields em{
+        white-space: nowrap;
+    }
+</style>
+    <div class="grade_banner">
+        <div class="content">
+            <div class="left">销量联盟VIP</div>
+            <div class="right"><a onclick="$('html,body').animate({scrollTop: 530}, 800);">升级VIP</a></div>
+        </div>
+    </div>
+    <div id="ypcon" class="grade">
+        <div class="m">
+            <h1 class="title">销量联盟会员服务一览表</h1>
+            <table cellpadding="8" cellspacing="1" width="100%" bgcolor="#DDDDDD">
+                <tr bgcolor="#F4F4F4" align="center">
+                    <td class="f_b px14" width="33.33%">服务范围\会员组</td>
+                    <td class="f_b px14" width="33.33%">商家会员</td>
+                    <td class="f_b px14" width="33.33%">荣誉商家会员</td>
+                </tr>
+                <tr bgcolor="#FFFFFF" align="center">
+                    <td>收费模式</td>
+                    <td><span class="f_green">免费</span></td>
+                    <td><span class="f_red">收费</span></td>
+                </tr>
+                <tr bgcolor="#FFFFFF" align="center">
+                    <td>100 天</td>
+                    <td>--</td>
+                    <td><span class="f_red"><strong>50</strong> 元</span></td>
+                </tr>
+                <tr bgcolor="#FFFFFF" align="center">
+                    <td>升 级</td>
+                    <td>
+                        您所在的会员组                                    </td>
+                    <td>
+                        <a title="" onclick="ypconfirm_url('确定要升级？','?groupid=7')"><img src="http://001.topaaa.com/skin/ypmili/image/btn_upgrade.gif"/></a>
+                    </td>
+                </tr>
+                <tr bgcolor="#FFFFFF" align="center">
+                    <td>会员类型</td>
+                    <td valign="top" class="f_gray">
+                        商家会员                </td>
+                    <td valign="top" class="f_gray">
+                        商家会员                </td>
+                </tr>
+                <tr bgcolor="#FFFFFF" align="center">
+                    <td>拥有VIP标识 <img src="http://001.topaaa.com/skin/ypmili/image/vip.gif" align="absmiddle" alt="VIP" title="VIP"/></td>
+                    <td><img src="http://001.topaaa.com/skin/ypmili/image/no.gif"/></td>
+                    <td><img src="http://001.topaaa.com/skin/ypmili/image/yes.gif"/></td>
+                </tr>
+                <tr bgcolor="#FFFFFF" align="center">
+                    <td>掌柜数量限制</td>
+                    <td>
+                        不限
+                    </td>
+                    <td>
+                        不限
+                    </td>
+                </tr>
+                <tr bgcolor="#FFFFFF" align="center">
+                    <td>代发快递数量限制</td>
+                    <td>
+                        不限
+                    </td>
+                    <td>
+                        不限
+                    </td>
+                </tr>
+                <tr bgcolor="#FFFFFF" align="center">
+                    <td>签收地址数量限制</td>
+                    <td>
+                        1                                    </td>
+                    <td>
+                        20                                    </td>
+                </tr>
+                <tr bgcolor="#FFFFFF" align="center">
+                    <td>24小时发布试用数量</td>
+                    <td>
+                        不限
+                    </td>
+                    <td>
+                        50                                    </td>
+                </tr>
+                <tr bgcolor="#FFFFFF" align="center">
+                    <td>发布试用总数限制</td>
+                    <td>
+                        不限
+                    </td>
+                    <td>
+                        不限
+                    </td>
+                </tr>
+                <tr bgcolor="#FFFFFF" align="center">
+                    <td>批量发布试用数量</td>
+                    <td>
+                        30                                    </td>
+                    <td>
+                        10                                    </td>
+                </tr>
+                <tr bgcolor="#FFFFFF" align="center">
+                    <td>试用要求选项</td>
+                    <td class="fields">
+                        <em class="iblue" title="">设备要求</em>
+                        <em class="iblue" title="需要接收方打开多个其他商品比较，增加一家需要增加 <b>0.5</b> 元佣金">货比三家</em>
+                        <em class="iblue" title="要求试客拍下宝贝之前和商家聊几句，选中需要增加 <b>0.5</b> 元佣金">拍前聊天</em>
+                        <em class="iblue" title="需要试客浏览评价">浏览评价</em>
+                        <em class="iblue" title="需要试客收藏宝贝，选中需要增加 <b>0.5</b> 元佣金">收藏宝贝</em>
+                        <em class="iblue" title="试客浏览完，多久后下单，增加一天需要增加 <b>0.5</b> 元佣金">预约下单</em>
+                        <em class="iblue" title="选中增加 <b>0.4</b> 元佣金">指定评价</em>
+                        <em class="iblue" title="">评价内容</em>
+                        <em class="iblue" title="选中增加 <b>0.4</b> 元佣金">晒图</em>
+                        <em class="iblue" title="">晒图图片</em>
+                        <em class="iblue" title="马上确认则必须立刻发货，属于虚拟商品任务">要求确认时间</em>
+                        <em class="iblue" title="超过设定时间后没人接任务，此任务会被自动回收，并返还扣除的金币">任务回收时间</em>
+                        <em class="iblue" title="">留言提醒</em>
+                    </td>
+                    <td class="fields">
+                        <em class="iblue" title="">设备要求</em>
+                        <em class="iblue" title="需要接收方打开多个其他商品比较，增加一家需要增加 <b>0.5</b> 元佣金">货比三家</em>
+                        <em class="iblue" title="要求试客拍下宝贝之前和商家聊几句，选中需要增加 <b>0.5</b> 元佣金">拍前聊天</em>
+                        <em class="iblue" title="需要试客浏览评价">浏览评价</em>
+                        <em class="iblue" title="需要试客收藏宝贝，选中需要增加 <b>0.5</b> 元佣金">收藏宝贝</em>
+                        <em class="iblue" title="试客浏览完，多久后下单，增加一天需要增加 <b>0.5</b> 元佣金">预约下单</em>
+                        <em class="iblue" title="选中增加 <b>0.4</b> 元佣金">指定评价</em>
+                        <em class="iblue" title="">评价内容</em>
+                        <em class="iblue" title="选中增加 <b>0.4</b> 元佣金">晒图</em>
+                        <em class="iblue" title="">晒图图片</em>
+                        <em class="iblue" title="马上确认则必须立刻发货，属于虚拟商品任务">要求确认时间</em>
+                        <em class="iblue" title="超过设定时间后没人接任务，此任务会被自动回收，并返还扣除的金币">任务回收时间</em>
+                        <em class="iblue" title="">留言提醒</em>
+                    </td>
+                </tr>
+                <tr bgcolor="#FFFFFF" align="center">
+                    <td>买家要求选项</td>
+                    <td class="fields">
+                        <em class="iblue" title="任务是否需要您审核通过才能进行">需要审核</em>
+                        <em class="iblue" title="多少天内，同一个买号禁止申请同一个掌柜的任务">接任务限制</em>
+                        <em class="iblue" title="禁止某一地区的试客申请">禁止地区</em>
+                        <em class="iblue" title="是否只允许缴纳保证金的试客申请，选中增加 <b>0.2元</b> 佣金">是否商保会员</em>
+                        <em class="iblue" title="增加一级增加 <b>0.4</b> 元佣金">买号信用要求</em>
+                    </td>
+                    <td class="fields">
+                        <em class="iblue" title="任务是否需要您审核通过才能进行">需要审核</em>
+                        <em class="iblue" title="多少天内，同一个买号禁止申请同一个掌柜的任务">接任务限制</em>
+                        <em class="iblue" title="禁止某一地区的试客申请">禁止地区</em>
+                        <em class="iblue" title="是否只允许缴纳保证金的试客申请，选中增加 <b>0.2元</b> 佣金">是否商保会员</em>
+                        <em class="iblue" title="增加一级增加 <b>0.4</b> 元佣金">买号信用要求</em>
+                        <em class="iblue" title="">买号淘气值要求</em>
+                        <em class="iblue" title="">买号性别要求</em>
+                        <em class="iblue" title="">买号年龄段要求</em>
+                        <em class="iblue" title="买号常购类目限制">买号常购类目</em>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+    <script>
+        $(function () {
+            set_nav("grade", "on");
+        });
+        function conform() {
+            if (confirm("确定要升级？"))return true;
+            else return false;
+        }
+    </script>
+    <div style="clear:both;"></div>
+    <div id="footer">
+        <div id="footer_top">
+            <div id="foot_top_1">
+                <a href="/about/index.php?itemid=10">代理加盟</a><span>  |  </span>
+                <a href="/about/index.php?itemid=9">辅助业务</a><span>  |  </span>
+                <a href="/about/index.php?itemid=8">网站活动</a><span>  |  </span>
+                <a href="/about/index.php?itemid=7">联系客服</a><span>  |  </span>
+                <a href="/about/index.php?itemid=6">联盟网规</a><span>  |  </span>
+                <a href="/about/index.php?itemid=1">关于我们</a><span>  |  </span>
+                <a href="/about/index.php?itemid=3">联系方式</a><span>  |  </span>
+                <a href="/about/index.php?itemid=4">使用协议</a><span>  |  </span>
+                <a href="/about/index.php?itemid=5">版权隐私</a><span>  |  </span>
+            </div>
+            <div id="copy_right">
+                (c)2013-2018 销量联盟 www.topaaa.com All Rights Reserved        </div>
+            <div style="width:1024px;text-align: center;margin: 20px auto 0;">
+                <img src="http://001.topaaa.com/skin/ypmili/css/img/rz/1.png">
+                <img src="http://001.topaaa.com/skin/ypmili/css/img/rz/2.png">
+                <img src="http://001.topaaa.com/skin/ypmili/css/img/rz/3.png">
+                <img src="http://001.topaaa.com/skin/ypmili/css/img/rz/4.png">
+                <img src="http://001.topaaa.com/skin/ypmili/css/img/rz/5.png">
+                <img src="http://001.topaaa.com/skin/ypmili/css/img/rz/6.png">
+                <img src="http://001.topaaa.com/skin/ypmili/css/img/rz/7.png">
+                <img src="http://001.topaaa.com/skin/ypmili/css/img/rz/8.png">
+            </div>
+            <div style="clear:both;"></div>
+        </div>
+    </div>
+</div>
+<div class="main-im">
+    <div id="open_im" class="open-im" style="display: none;"></div>
+    <div class="im_main" id="im_main">
+        <div id="close_im" class="close-im"><a class="you" title="点击关闭" style="cursor: pointer"></a></div>
+        <a onclick="multi_qq()" class="im-qq qq-a">
+            <div class="qq-container"></div>
+            <div class="qq-hover-c"><img class="img-qq" src="http://001.topaaa.com/skin/ypmili/css/img/qq.png"></div>
+            <span>QQ在线咨询</span>
+        </a>
+        <script id="yptip_qq" type="text/template7">
+            <p style="width:100%;background-color:#0098ff;font-size:16px;text-align:center;color:#fff;height:34px;line-height:34px;">客服团队</p><p style="line-height:40px;">客服潇潇：<a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=261369834&site=qq&menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=2:261369834:51" alt="点击这里给我发消息" title="点击这里给我发消息" /></a> <span style="line-height:1.5;margin-left:10px;">客服靓靓：</span><a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=261369834&site=qq&menu=yes" style="line-height:1.5;"><img border="0" src="http://wpa.qq.com/pa?p=2:261369834:51" alt="点击这里给我发消息" title="点击这里给我发消息" /></a> </p><p style="line-height:30px;">客服恋恋：<a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=261369834&site=qq&menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=2:261369834:51" alt="点击这里给我发消息" title="点击这里给我发消息" /></a> <span style="line-height:1.5;margin-left:10px;">客服萌萌：</span><a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=261369834&site=qq&menu=yes" style="line-height:1.5;"><img border="0" src="http://wpa.qq.com/pa?p=2:261369834:51" alt="点击这里给我发消息" title="点击这里给我发消息" /></a> </p><p><br /></p><p style="width:100%;background-color:#0098ff;font-size:16px;text-align:center;color:#fff;height:34px;line-height:34px;">合作渠道</p><p style="line-height:40px;">业务合作：<a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=261369834&site=qq&menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=2:261369834:51" alt="点击这里给我发消息" title="点击这里给我发消息" /></a> <span style="line-height:1.5;margin-left:10px;">代理加盟：</span><a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=261369834&site=qq&menu=yes" style="line-height:1.5;"><img border="0" src="http://wpa.qq.com/pa?p=2:261369834:51" alt="点击这里给我发消息" title="点击这里给我发消息" /></a> </p>        </script>
+        <script>
+            function multi_qq() {
+                $('.layim-friend618').click();
+            }
+        </script>
+        <a href="/app.php" target="_blank" class="qq-a" style="height: 130px">
+            <div class="qq-container" style="height: 130px"></div>
+            <div style="width: 95px;height: 95px"><img class="img-qq" src="/api/qrcode.php?url=http%3A%2F%2F001.topaaa.com%2Fapp.php" style="width: 95px;height: 95px;max-width: 95px;top: 5px;left: 5px"></div>
+            <span>下载APP</span>
+        </a>
+        <div class="im-tel">
+            <div><a href="/announce/index.php?typeid=2" target="_blank">如何发布试用</a></div>
+            <div><a href="/announce/index.php?typeid=3" target="_blank">如何申请试用</a></div>
+            <div><a href="/about/index.php?itemid=6" target="_blank">销量联盟网规</a></div>
+            <div><a href="/announce/index.php?typeid=1" target="_blank" class="jsbz">网站公告</a></div>
+        </div>
+        <div class="im-footer" style="position:relative">
+            <div class="go-top"><a class="you" title="返回顶部" style="cursor: pointer"></a></div>
+            <div style="clear:both"></div>
+        </div>
+    </div>
+    <script>
+        $(function () {
+            $(".go-top").click(function () {
+                $('html,body').animate({scrollTop: 0}, 800);
+            });
+            $("#close_im").click(function () {
+                $("#im_main").fadeOut(500, function () {
+                    $("#open_im").fadeIn(500);
+                });
+            });
+            $("#open_im").click(function () {
+                $("#open_im").fadeOut(500, function () {
+                    $("#im_main").fadeIn(500);
+                });
+            });
+        });
+    </script>
+</div></body>
+</html>

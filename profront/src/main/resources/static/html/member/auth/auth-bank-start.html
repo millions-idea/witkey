@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+
+    <link rel="stylesheet" type="text/css" href="../../../dist/css/index-skin.css">
+    <link rel="stylesheet" type="text/css" href="../../../dist/css/index-tp.css">
+
+    <script type="text/javascript" src="../../../dist/js/lang.js"></script>
+    <script type="text/javascript" src="../../../dist/js/config.js"></script>
+    <script type="text/javascript" src="../../../dist/js/jquery-2.0.0.min.js"></script>
+    <script type="text/javascript" src="../../../dist/js/common.js"></script>
+
+    <script type="text/javascript" src="../../../dist/js/admin.js"></script>
+    <script type="text/javascript" src="../../../dist/js/page.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="../../../dist/css/jq-tip.css">
+    <script type="text/javascript" src="../../../dist/js/jq-tip.js"></script>
+    <script type="text/javascript" src="../../../dist/js/layer.js"></script>
+
+    <script type="text/javascript" src="../../../dist/js/jquery.form.js"></script>
+    <script type="text/javascript" src="../../../dist/js/template7.min.js"></script>
+    <script type="text/javascript" src="../../../dist/js/cm.js"></script>
+    <script type="text/javascript" src="../../../dist/js/ypfunction.js"></script>
+
+    <link rel="stylesheet" href="http://001.topaaa.com/file/script/layim/css/layui.css">
+    <script src="http://001.topaaa.com/file/script/layim/layui.js"></script>
+    <script src="http://001.topaaa.com/file/script/layim/func.js"></script>
+    <!--配置服务器连接地址 -->
+    <script type="text/javascript" src="../../../dist/js/gjy_serviceurl.js"></script>
+    <script>
+        $(function () {
+            $("#bank_username").html(userresult_json.real_name);
+
+
+            /*如果绑定了银行卡再请求接口获取银行卡信息，否则不请求*/
+            if(userresult_json.is_real_bank == 1){
+                var params = {};
+                params.memid =  userresult_json.id;
+                $.ajax({
+                    url:request_url+"intf_member/isbindBank",
+                    type:"post",
+                    data:params,
+                    dataType:'json',
+                    success:function(result){
+                        if(result.error == 0){
+                            console.log(result.resultjson);
+                            var result_bank_json = eval("("+(result.resultjson)+")");
+                                $("#bank_typediv").html(result_bank_json.bank_type);
+                                $("#bank_username").html(result_bank_json.bank_username);
+                                $("#bank_num").val(result_bank_json.bank_num);
+                                $("#bank_mobile").val(result_bank_json.bank_mobile);
+                                $("#bank_id_card").val(result_bank_json.bank_id_card);
+                                $("#bank_yanzhengmadiv").hide();
+                                $("#submit_button_div").html("禁止修改！");
+                        }
+                    }
+                });
+            }
+        })
+    </script>
+</head>
+
+
+<body class="rwdt_bg">
+<div id="body">
+    <div id="body_header"></div>
+    <script>
+        $("#body_header").load("../public/public-top.html");
+    </script>
+    <div id="content_wrapper">
+        <div id="content_body_title"></div>
+        <script>
+            $("#content_body_title").load("../public/public-body-title.html");
+        </script>
+        <div id="ypcon">
+    <div class="yptip">
+        <p>认证流程：会员提交卡号、开户行、姓名，管理员向此账户打一笔款项，会员把款项的数字输入来验证银行卡是否是会员持有的。</p><p><span style="color:#E53333;">后台说明：此项设置在管理后台可以开启或关闭，可以开启商家审核或试客审核。</span></p>        </div>
+    <div class="menu">
+        <table cellpadding="0" cellspacing="0">
+            <tr>
+                <!--<td class="tab"><a id="m1"><span>提交信息</span></a></td>-->
+                <!--<td class="tab"><a id="m2" href="javascript:;"><span>2、通过认证</span></a></td>-->
+            </tr>
+        </table>
+    </div>
+
+        <table cellpadding="6" cellspacing="1" class="tb">
+            <tbody>
+
+            <!--开户银行-->
+            <tr>
+                <td class="tl"><span class="f_red">*</span> 选择开户银行</td>
+                <td class="tr" id="bank_typediv">
+                    <select name="bank_type" id="bank_type">
+                        <option value="中国工商银行">中国工商银行</option>
+                        <option value="中国人民银行">中国人民银行</option>
+                        <option value="农业银行">农业银行</option>
+                        <option value="建设银行">建设银行</option>
+                        <option value="网商银行">网商银行</option>
+                    </select>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="tl"><span class="f_red">*</span> 开户人姓名</td>
+                <td class="tr">
+                    <p id="bank_username"></p>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="tl"><span class="f_red">*</span> 银行卡账号</td>
+                <td class="tr">
+                    <input type="text" id="bank_num" placeholder="输入银行卡号"  name="bank_num" size="60"/>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="tl"><span class="f_red">*</span> 银行卡预留手机号</td>
+                <td class="tr">
+                    <input type="text" id="bank_mobile" placeholder="请输入银行卡预留手机号"  name="bank_mobile" size="60"/>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="tl"><span class="f_red">*</span> 开户人身份证号码</td>
+                <td class="tr">
+                    <input type="text" id="bank_id_card" placeholder="请输入开户人身份证号码"  name="bank_id_card" size="60"/>
+                </td>
+            </tr>
+
+            <tr id="bank_yanzhengmadiv">
+                <td class="tl"><span class="f_red">*</span> 验证码 </td>
+                <td class="tr">
+                    <input type="text" placeholder="请输入验证码"
+                           name="post[bank_num]" size="30"/>
+                    <button type="button" style="margin-left: 18px;" class="bblue">
+                        获取验证码
+                    </button>
+                </td>
+            </tr>
+
+
+            </tbody>
+            <tr>
+                <td class="tl">&nbsp;</td>
+                <td class="tr" id="submit_button_div" height="30">
+                    <!--ajax提交-->
+                    <button id="sub_bank" type="button"  class="bblue" onclick="bindbankbtn_click()">
+                        提交绑定
+                    </button>
+
+                </td>
+            </tr>
+        </table>
+    <script>
+        $(function () {
+            set_nav("m1", "sb0");
+        });
+        function bindbankbtn_click() {
+            var params = {};
+            params.memid = userresult_json.id;
+            params.bank_type = $("#bank_type").find("option:selected").text();
+            params.bank_num = $("#bank_num").val();
+            params.bank_mobile = $("#bank_mobile").val();
+            params.bank_username = $("#bank_username").text();
+            params.bank_id_card = $("#bank_id_card").val();
+            $.ajax({
+                url:request_url+"intf_member/bindBank",
+                type:"post",
+                data:params,
+                dataType:'json',
+                headers: {
+                    "mobile":userresult_json.mobile,
+                    "token":userresult_json.token
+                },
+                success:function(result){
+                    if(result.error == 0){
+                        alert(result.message);
+                    }else{
+                        alert(result.message);
+                    }
+                }
+            });
+        }
+    </script>
+</div>
+</div>
+    <div style="clear:both;"></div>
+    <div id="footer">
+        <div id="footer_top">
+            <div id="foot_top_1">
+                <a href="/about/index.php?itemid=10">代理加盟</a><span>  |  </span>
+                <a href="/about/index.php?itemid=9">辅助业务</a><span>  |  </span>
+                <a href="/about/index.php?itemid=8">网站活动</a><span>  |  </span>
+                <a href="/about/index.php?itemid=7">联系客服</a><span>  |  </span>
+                <a href="/about/index.php?itemid=6">联盟网规</a><span>  |  </span>
+                <a href="/about/index.php?itemid=1">关于我们</a><span>  |  </span>
+                <a href="/about/index.php?itemid=3">联系方式</a><span>  |  </span>
+                <a href="/about/index.php?itemid=4">使用协议</a><span>  |  </span>
+                <a href="/about/index.php?itemid=5">版权隐私</a><span>  |  </span>
+            </div>
+            <div id="copy_right">
+                (c)2013-2018 销量联盟 www.topaaa.com All Rights Reserved        </div>
+            <div style="width:1024px;text-align: center;margin: 20px auto 0;">
+                <img src="http://001.topaaa.com/skin/ypmili/css/img/rz/1.png">
+                <img src="http://001.topaaa.com/skin/ypmili/css/img/rz/2.png">
+                <img src="http://001.topaaa.com/skin/ypmili/css/img/rz/3.png">
+                <img src="http://001.topaaa.com/skin/ypmili/css/img/rz/4.png">
+                <img src="http://001.topaaa.com/skin/ypmili/css/img/rz/5.png">
+                <img src="http://001.topaaa.com/skin/ypmili/css/img/rz/6.png">
+                <img src="http://001.topaaa.com/skin/ypmili/css/img/rz/7.png">
+                <img src="http://001.topaaa.com/skin/ypmili/css/img/rz/8.png">
+            </div>
+            <div style="clear:both;"></div>
+        </div>
+    </div>
+</div>
+<script>
+    $("#sub_bank").click(function () {
+        var params = {};
+
+        params.bank_type = $("#bank_type").val();
+        params.bank_username = $("#bank_username").val();
+        params.bank_mobile = $("#bank_mobile").val();
+        params.bank_num = $("#bank_num").val();
+        params.bank_id_card = $("#bank_id_card").val();
+
+        //todo  有问题 后台接收不到值
+        $.ajax({
+            //接口地址
+            url: '/member/authBank' ,
+            type: 'POST',
+            data: params,
+            success: function (data) {
+                //成功的回调
+                if(data.error == '1'){
+                    //alert("上传失败")
+                }else {
+
+                }
+            },
+            error: function (returndata) {
+                //请求异常的回调
+                // modals.warn("网络访问失败，请稍后重试!");
+            }
+        });
+
+    });
+
+</script>
+<div class="main-im">
+    <div id="open_im" class="open-im" style="display: none;"></div>
+    <div class="im_main" id="im_main">
+        <div id="close_im" class="close-im"><a class="you" title="点击关闭" style="cursor: pointer"></a></div>
+        <a onclick="multi_qq()" class="im-qq qq-a">
+            <div class="qq-container"></div>
+            <div class="qq-hover-c"><img class="img-qq" src="http://001.topaaa.com/skin/ypmili/css/img/qq.png"></div>
+            <span>QQ在线咨询</span>
+        </a>
+        <script id="yptip_qq" type="text/template7">
+            <p style="width:100%;background-color:#0098ff;font-size:16px;text-align:center;color:#fff;height:34px;line-height:34px;">客服团队</p><p style="line-height:40px;">客服潇潇：<a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=261369834&site=qq&menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=2:261369834:51" alt="点击这里给我发消息" title="点击这里给我发消息" /></a> <span style="line-height:1.5;margin-left:10px;">客服靓靓：</span><a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=261369834&site=qq&menu=yes" style="line-height:1.5;"><img border="0" src="http://wpa.qq.com/pa?p=2:261369834:51" alt="点击这里给我发消息" title="点击这里给我发消息" /></a> </p><p style="line-height:30px;">客服恋恋：<a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=261369834&site=qq&menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=2:261369834:51" alt="点击这里给我发消息" title="点击这里给我发消息" /></a> <span style="line-height:1.5;margin-left:10px;">客服萌萌：</span><a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=261369834&site=qq&menu=yes" style="line-height:1.5;"><img border="0" src="http://wpa.qq.com/pa?p=2:261369834:51" alt="点击这里给我发消息" title="点击这里给我发消息" /></a> </p><p><br /></p><p style="width:100%;background-color:#0098ff;font-size:16px;text-align:center;color:#fff;height:34px;line-height:34px;">合作渠道</p><p style="line-height:40px;">业务合作：<a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=261369834&site=qq&menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=2:261369834:51" alt="点击这里给我发消息" title="点击这里给我发消息" /></a> <span style="line-height:1.5;margin-left:10px;">代理加盟：</span><a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=261369834&site=qq&menu=yes" style="line-height:1.5;"><img border="0" src="http://wpa.qq.com/pa?p=2:261369834:51" alt="点击这里给我发消息" title="点击这里给我发消息" /></a> </p>        </script>
+        <script>
+            function multi_qq() {
+                $('.layim-friend618').click();
+            }
+        </script>
+        <a href="/app.php" target="_blank" class="qq-a" style="height: 130px">
+            <div class="qq-container" style="height: 130px"></div>
+            <div style="width: 95px;height: 95px"><img class="img-qq" src="/api/qrcode.php?url=http%3A%2F%2F001.topaaa.com%2Fapp.php" style="width: 95px;height: 95px;max-width: 95px;top: 5px;left: 5px"></div>
+            <span>下载APP</span>
+        </a>
+        <div class="im-tel">
+            <div><a href="/announce/index.php?typeid=2" target="_blank">如何发布试用</a></div>
+            <div><a href="/announce/index.php?typeid=3" target="_blank">如何申请试用</a></div>
+            <div><a href="/about/index.php?itemid=6" target="_blank">销量联盟网规</a></div>
+            <div><a href="/announce/index.php?typeid=1" target="_blank" class="jsbz">网站公告</a></div>
+        </div>
+        <div class="im-footer" style="position:relative">
+            <div class="go-top"><a class="you" title="返回顶部" style="cursor: pointer"></a></div>
+            <div style="clear:both"></div>
+        </div>
+    </div>
+    <script>
+        $(function () {
+            $(".go-top").click(function () {
+                $('html,body').animate({scrollTop: 0}, 800);
+            });
+            $("#close_im").click(function () {
+                $("#im_main").fadeOut(500, function () {
+                    $("#open_im").fadeIn(500);
+                });
+            });
+            $("#open_im").click(function () {
+                $("#open_im").fadeOut(500, function () {
+                    $("#im_main").fadeIn(500);
+                });
+            });
+        });
+    </script>
+</div></body>
+</html>

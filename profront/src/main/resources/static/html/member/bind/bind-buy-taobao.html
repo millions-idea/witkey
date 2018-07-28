@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+
+    <link rel="stylesheet" type="text/css" href="../../../dist/css/index-skin.css">
+    <link rel="stylesheet" type="text/css" href="../../../dist/css/index-tp.css">
+
+    <script type="text/javascript" src="../../../dist/js/lang.js"></script>
+    <script type="text/javascript" src="../../../dist/js/config.js"></script>
+    <script type="text/javascript" src="../../../dist/js/jquery-2.0.0.min.js"></script>
+    <script type="text/javascript" src="../../../dist/js/common.js"></script>
+
+    <script type="text/javascript" src="../../../dist/js/admin.js"></script>
+    <script type="text/javascript" src="../../../dist/js/page.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="../../../dist/css/jq-tip.css">
+    <script type="text/javascript" src="../../../dist/js/jq-tip.js"></script>
+    <script type="text/javascript" src="../../../dist/js/layer.js"></script>
+
+    <script type="text/javascript" src="../../../dist/js/jquery.form.js"></script>
+    <script type="text/javascript" src="../../../dist/js/template7.min.js"></script>
+    <script type="text/javascript" src="../../../dist/js/cm.js"></script>
+    <script type="text/javascript" src="../../../dist/js/ypfunction.js"></script>
+
+    <link rel="stylesheet" href="http://001.topaaa.com/file/script/layim/css/layui.css">
+    <script src="http://001.topaaa.com/file/script/layim/layui.js"></script>
+    <script src="http://001.topaaa.com/file/script/layim/func.js"></script>
+    <!--配置服务器连接地址 -->
+    <script type="text/javascript" src="../../../dist/js/gjy_serviceurl.js"></script>
+    <!--上传图片 -->
+    <script type="text/javascript" src="../../../dist/js/gjy_uploadpic.js"></script>
+</head>
+
+<body class="rwdt_bg">
+<div id="body">
+    <div id="body_header"></div>
+    <script>
+        $("#body_header").load("../public/public-top.html");
+    </script>
+    <div id="content_wrapper">
+        <div id="content_body_title"></div>
+        <script>
+            $("#content_body_title").load("../public/public-body-title.html");
+        </script>
+        <div id="ypcon" class="taobaohao">
+    <div class="yptip">1、您目前是新手会员用户，可以绑定2个掌柜 申请VIP最高可绑定30个掌柜！查看VIP限权<br /><p>2、如果您的帐号还没有发布过任务，可以自己免费删除掌柜一次；发布过任务的帐号删除掌柜需要付费5元！</p><p><span style="color:#E53333;">后台说明：不同VIP可以设置不同的买号数量、日接任务数量、周接任务数量、月接任务数量，管理后台可以开启审核掌柜或者自动通过审核。</span></p></div>
+    <div class="menu">
+        <table cellpadding="0" cellspacing="0">
+            <tr>
+                <td class="tab"><a id="m1" href="bind-buy-taobao.html"><span>添加买号</span></a></td>
+                <td class="tab"><a id="m2" href="bind-result.html"><span>买号列表</span></a></td>
+            </tr>
+        </table>
+    </div>
+    <script>
+        function qinit() {
+            $('[data-thumb]').each(function () {
+                var qtip_my, qtip_at, qtip_img_width, qtip_img_height;
+                if (!$(this).data("qtip-my")) qtip_my = "bottom left";
+                else qtip_my = $(this).data("qtip-my");
+                if (!$(this).data("qtip-at")) qtip_at = "top left";
+                else qtip_at = $(this).data("qtip-at");
+                qtip_img_width = $(this).data('qtip-img-width');
+                qtip_img_height = $(this).data('qtip-img-height');
+                $(this).qtip({
+                    style: {
+                        classes: 'qtip-bootstrap'
+                    },
+                    content: {
+                        title: '示例图',
+                        text: function () {
+                            return '<img src="' + $(this).data('thumb') + '" width="' + qtip_img_width + '" height="' + qtip_img_height + '"/>';
+                        }
+                    },
+                    position: {
+                        my: qtip_my,
+                        at: qtip_at,
+                        adjust: {
+                            x: 350, y: 0
+                        }
+                    }
+                });
+            });
+        }
+        $(function () {
+            qinit();
+        });
+    </script>
+    <div id="dform">
+        <table cellpadding="6" cellspacing="1" class="tb">
+            <tr>
+
+                <td colspan="2" style="color: #57a0ff">买号信息</td>
+            </tr>
+            <tr>
+                <td class="tl" width="160"><span class="f_red">*</span> 帐号分类</td>
+                <td class="tr">
+                    <select name="catid" onchange="istaobao()" id="catid_1">
+                        <option value="4">淘宝试用</option>
+                        <option value="5">阿里巴巴试用</option>
+                        <option value="40">京东试用</option>
+                        <option value="6">拼多多试用</option>
+                        <option value="7">蘑菇街试用</option>
+                        <option value="8">美丽说试用</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td class="tl">
+                    <span class="f_red">*</span> <span>帐号</span>
+                </td>
+                <td class="tr">
+                    <input name="account" type="text" id="account" size="30" maxlength="28"/>
+                    <span id="dzhanghao" class="f_red"></span>
+                </td>
+            </tr>
+            <tr class="taobao">
+                <td class="tl"><span class="f_red">*</span> 实名截图</td>
+                <td class="tr">
+                    <!--保证幂等性-->
+                    <input type="hidden" name="version" value="0">
+
+                    <div class="thumb_upload">
+                        <div class="thumb_upload_item">
+                            <!--存放文件-->
+                            <input id="savefile1" type="file" name="file" style="display:none">
+
+                            <!--记录图片路径-->
+                            <input type="hidden" id="path1" name="path1"/>
+
+                            <div class="thumb">
+                                <img src="../../../dist/index/img/waitpic.png"
+                                     id="file1" title="预览图片"
+                                     width="100"
+                                     height="100"
+                                     onclick="makeForm(1)">
+                            </div>
+
+                            <div class="buttons">
+                                <img src="../../../dist/index/img/img_upload.gif"
+                                     title="上传"
+                                     onclick="makeForm(1)">
+
+                                <img src="../../../dist/index/img/img_upload.gif"
+                                     title="预览" onclick="_preview(Dd('showthumbthumb1').src, 1);">
+                            </div>
+                        </div>                            <div class="eg">
+                        <span class="f_red">示例图：</span>
+                        <a href="javascript:_preview('/img/taobaohao_thumb_1.jpg',1)" title="点击查看大图">
+                            <img src="../../../img/taobaohao_thumb_1.jpg">
+                        </a>
+                    </div>
+                    </div>
+                </td>
+            </tr>
+            <tr class="taobao">
+                <td class="tl"><span class="f_red">*</span> 芝麻信用截图</td>
+                <td class="tr">
+                    <div class="thumb_upload">
+                        <div class="thumb_upload_item">
+                            <!--存放文件-->
+                            <input id="savefile2" type="file" name="file" style="display:none">
+
+                            <!--记录图片路径-->
+                            <input type="hidden" id="path2" name="path2"/>
+
+                            <div class="thumb">
+                                <img src="../../../dist/index/img/waitpic.png"
+                                     id="file2" title="预览图片"
+                                     width="100"
+                                     height="100"
+                                     onclick="makeForm(2)">
+                            </div>
+
+                            <div class="buttons">
+                                <img src="../../../dist/index/img/img_upload.gif"
+                                     title="上传"
+                                     onclick="makeForm(2)">
+                                <img src="../../../dist/index/img/img_upload.gif" title="预览" onclick="_preview(Dd('showthumbthumb2').src, 1);">
+                            </div>
+                        </div>                            <div class="eg">
+                        <span class="f_red">示例图：</span>
+                        <a href="javascript:_preview('/img/taobaohao_thumb_2.jpg',1)" title="点击查看大图">
+                            <img src="../../../img/taobaohao_thumb_2.jpg"></a>
+                    </div>
+                    </div>
+                </td>
+            </tr>
+            <tr class="taobao">
+                <td class="tl"><span class="f_red">*</span> 花呗额度截图</td>
+                <td class="tr">
+                    <div class="thumb_upload">
+                        <div class="thumb_upload_item">
+                            <!--存放文件-->
+                            <input id="savefile5" type="file" name="file" style="display:none">
+
+                            <!--记录图片路径-->
+                            <input type="hidden" id="path5" name="path5"/>
+
+                            <div class="thumb">
+                                <img src="../../../dist/index/img/waitpic.png"
+                                     id="file5" title="预览图片"
+                                     width="100"
+                                     height="100"
+                                     onclick="makeForm(5)">
+                            </div>
+
+                            <div class="buttons">
+                                <img src="../../../dist/index/img/img_upload.gif"
+                                     title="上传"
+                                     onclick="makeForm(5)">
+                                <img src="../../../dist/index/img/img_upload.gif" title="预览" onclick="_preview(Dd('showthumbthumb5').src, 1);">
+                            </div>
+                        </div>                            <div class="eg">
+                        <span class="f_red">示例图：</span>
+                        <a href="javascript:_preview('/img/taobaohao_thumb_5.jpg',1)" title="点击查看大图">
+                            <img src="../../../img/taobaohao_thumb_5.jpg"></a>
+                    </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td class="tl"><span class="f_red">*</span> 帐号性别
+                </td>
+                <td class="tr">
+                    <input name="account_gender" type="radio" id="sex_1" value="男号" checked="checked"/>
+                    <label for="sex_1">男号</label>
+                    <input name="account_gender" type="radio" id="sex_2" value="女号"/>
+                    <label for="sex_2">女号</label>
+                    <span id="dsex" class="f_red"></span>
+                </td>
+            </tr>
+            <tr>
+                <td class="tl"><span class="f_red">*</span> 信用积分</td>
+                <td class="tr">
+                    <select name="honor" id="rate">
+                        <option value="xin1">1心</option>
+                        <option value="xin2">2心</option>
+                        <option value="xin3">3心</option>
+                        <option value="xin4">4心</option>
+                        <option value="xin5">5心</option>
+                        <option value="xin6">1钻</option>
+                        <option value="xin7">2钻</option>
+                        <option value="xin8">3钻</option>
+                        <option value="xin9">4钻</option>
+                        <option value="xin10">5钻</option>
+                        <option value="xin11">冠级</option>
+                    </select>
+                    <span id="drate" class="f_red"></span>
+                </td>
+            </tr>
+
+            <tr class="taobao">
+                <td class="tl"><span class="f_red">*</span> 信用积分截图</td>
+                <td class="tr">
+                    <div class="thumb_upload">
+                        <div class="thumb_upload_item">
+
+                            <!--存放文件-->
+                            <input id="savefile3" type="file" name="file" style="display:none">
+
+                            <!--记录图片路径-->
+                            <input type="hidden" id="path3" name="path3"/>
+
+                            <div class="thumb">
+                                <img src="../../../dist/index/img/waitpic.png"
+                                     id="file3" title="预览图片"
+                                     width="100"
+                                     height="100"
+                                     onclick="makeForm(3)">
+                            </div>
+
+                            <div class="buttons">
+                                <img src="../../../dist/index/img/img_upload.gif"
+                                     title="上传"
+                                     onclick="makeForm(3)">
+                                <img src="../../../dist/index/img/img_upload.gif" title="预览" onclick="_preview(Dd('showthumbthumb3').src, 1);">
+                            </div>
+                        </div>                            <div class="eg">
+                        <span class="f_red">示例图：</span>
+                        <a href="javascript:_preview('../../../img/taobaohao_thumb_3.jpg',1)"
+                           title="点击查看大图">
+                            <img src="../../../img/taobaohao_thumb_3.jpg"></a>
+                    </div>
+                    </div>
+                </td>
+            </tr>
+            <tr class="taobao">
+                <td class="tl"><span class="f_red">*</span> 年龄段</td>
+                <td class="tr">
+                    <select name="age_range" id="age_range">
+                        18-25                            <option value="1">18-25</option>
+                        26-30                            <option value="2">26-30</option>
+                        31-35                            <option value="3">31-35</option>
+                        36-40                            <option value="4">36-40</option>
+                        41-50                            <option value="5">41-50</option>
+                        51岁以上                            <option value="6">51岁以上</option>
+                    </select>
+                </td>
+            </tr>
+            <tr class="taobao">
+                <td class="tl"><span class="f_red">*</span> 淘气值</td>
+                <td class="tr">
+                    <input name="taoqi" id="taoqi" type="text" size="30">
+                </td>
+            </tr>
+            <tr class="taobao">
+                <td class="tl"><span class="f_red">*</span> 淘气值截图</td>
+                <td class="tr">
+                    <div class="thumb_upload">
+                        <div class="thumb_upload_item">
+
+                            <!--存放文件-->
+                            <input id="savefile4" type="file" name="file" style="display:none">
+
+                            <!--记录图片路径-->
+                            <input type="hidden" id="path4" name="path4"/>
+
+                            <div class="thumb">
+                                <img src="../../../dist/index/img/waitpic.png"
+                                     id="file4" title="预览图片"
+                                     width="100"
+                                     height="100"
+                                     onclick="makeForm(4)">
+                            </div>
+
+                            <div class="buttons">
+                                <img src="../../../dist/index/img/img_upload.gif" title="上传"
+                                     onclick="makeForm(4)">
+                                <img src="../../../dist/index/img/img_upload.gif" title="预览" onclick="_preview(Dd('showthumbthumb4').src, 1);">
+                            </div>
+                        </div>                            <div class="eg">
+                        <span class="f_red">示例图：</span>
+
+                        <a href="javascript:_preview('../../../img/taobaohao_thumb_4.jpg',3)" title="点击查看大图">
+                            <img src="../../../img/taobaohao_thumb_4.jpg"></a>
+                    </div>
+                    </div>
+                </td>
+            </tr>
+            <tr class="taobao">
+                <td class="tl"><span class="f_red">*</span> 常购类目</td>
+                <td class="tr">
+                    <div class="fl">
+                        <input type="checkbox" name="buy_class" value="1" id="xiaohao_cat_1">
+                        <label for="xiaohao_cat_1">潮流女装</label>
+                    </div>
+                    <div class="fl">
+                        <input type="checkbox" name="buy_class" value="2" id="xiaohao_cat_2">
+                        <label for="xiaohao_cat_2">时尚男装</label>
+                    </div>
+                    <div class="fl">
+                        <input type="checkbox" name="buy_class" value="3" id="xiaohao_cat_3">
+                        <label for="xiaohao_cat_3">鞋子箱包</label>
+                    </div>
+                    <div class="fl">
+                        <input type="checkbox" name="buy_class" value="4" id="xiaohao_cat_4">
+                        <label for="xiaohao_cat_4">数码家电</label>
+                    </div>
+                    <div class="fl">
+                        <input type="checkbox" name="buy_class" value="5" id="xiaohao_cat_5">
+                        <label for="xiaohao_cat_5">美食特产</label>
+                    </div>
+                    <div class="fl">
+                        <input type="checkbox" name="buy_class" value="6" id="xiaohao_cat_6">
+                        <label for="xiaohao_cat_6">居家日用</label>
+                    </div>
+                    <div class="fl">
+                        <input type="checkbox" name="buy_class" value="7" id="xiaohao_cat_7">
+                        <label for="xiaohao_cat_7">母婴用品</label>
+                    </div>
+                    <div class="fl">
+                        <input type="checkbox" name="buy_class" value="8" id="xiaohao_cat_8">
+                        <label for="xiaohao_cat_8">护肤彩妆</label>
+                    </div>
+                    <div class="fl">
+                        <input type="checkbox" name="buy_class" value="9" id="xiaohao_cat_9">
+                        <label for="xiaohao_cat_9">珠宝配饰</label>
+                    </div>
+                    <div class="fl">
+                        <input type="checkbox" name="buy_class" value="10" id="xiaohao_cat_10">
+                        <label for="xiaohao_cat_10">家装家纺</label>
+                    </div>
+                    <div class="fl">
+                        <input type="checkbox" name="buy_class" value="11" id="xiaohao_cat_11">
+                        <label for="xiaohao_cat_11">车品车饰</label>
+                    </div>
+                    <div class="fl">
+                        <input type="checkbox" name="buy_class" value="12" id="xiaohao_cat_12">
+                        <label for="xiaohao_cat_12">运动户外</label>
+                    </div>
+                    <div class="fl">
+                        <input type="checkbox" name="buy_class" value="13" id="xiaohao_cat_13">
+                        <label for="xiaohao_cat_13">家庭保健</label>
+                    </div>
+                    <div class="fl">
+                        <input type="checkbox" name="buy_class" value="14" id="xiaohao_cat_14">
+                        <label for="xiaohao_cat_14">中老年用</label>
+                    </div>
+                    <div class="fl">
+                        <input type="checkbox" name="buy_class" value="15" id="xiaohao_cat_15">
+                        <label for="xiaohao_cat_15">其他类目</label>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" style="color: #57a0ff">收货信息</td>
+            </tr>
+            <tr>
+                <td class="tl"><span class="f_red">*</span> <span>姓名</span></td>
+                <td class="tr"><input name="truename" id="truename" type="text" size="30" maxlength="28"/></td>
+            </tr>
+            <tr>
+                <td class="tl"><span class="f_red">*</span> <span>手机号码</span></td>
+                <td class="tr"><input name="mobile" id="mobile" type="text" size="30" maxlength="28"/></td>
+            </tr>
+            <tr>
+                <td class="tl"><span class="f_red">*</span> <span>收货地址</span></td>
+                <td class="tr">
+                    省/市：<input area="1" name="province" id="areaid_1" type="hidden" value="0"/>
+                            <span id="load_area_1">
+                                <select id="selectsheng" onchange="select_shi()"></select>
+                            </span>
+                            <input area="1" name="province" id="areaid_2" type="hidden" value="0"/>
+                            <span id="load_area_2">
+                                <select id="selectshi" onchange="select_shi()"></select>
+                            </span>
+                        <script>
+                                            /*页面初始化加载所有省份*/
+                                            $(document).ready(function () {
+                                                $.ajax({
+                                                    url:request_url+"area/getAllProvince",
+                                                    type:"get",
+                                                    dataType:'json',
+                                                    success:function(result){
+                                                        $.each(result,function(i,item){
+                                                            var statem = "<option value='"+item.codeid+"'>"+ item.cityName+"</option>";
+                                                            $("#selectsheng").append(statem);
+                                                        });
+
+                                                        $.ajax({
+                                                            url:request_url+"area/getCity?cid="+$("#selectsheng").val(),
+                                                            type:"get",
+                                                            dataType:'json',
+                                                            success:function(result){
+                                                                if(document.getElementById("selectshi")){
+                                                                    $("#selectshi").remove();
+                                                                }
+                                                                var statemshi = "<select id='selectshi'>"
+                                                                    +"</select>";
+                                                                $("#load_area_1").append(statemshi);
+
+
+                                                                $.each(result,function(i,item){
+                                                                    var statem = "<option value='"+item.codeid+"'>"+ item.cityName+"</option>";
+                                                                    $("#selectshi").append(statem);
+                                                                });
+                                                            }
+                                                        });
+                                                    }
+                                                });
+                                            });
+
+                                            /*选择省份加载市*/
+                                            function select_shi() {
+                                                $.ajax({
+                                                    url:request_url+"area/getCity?cid="+$("#selectsheng").val(),
+                                                    type:"get",
+                                                    dataType:'json',
+                                                    success:function(result){
+                                                        if(document.getElementById("selectshi")){
+                                                            $("#selectshi").remove();
+                                                        }
+                                                        var statemshi = "<select id='selectshi'>"
+                                                            +"</select>";
+                                                        $("#load_area_1").append(statemshi);
+
+
+                                                        $.each(result,function(i,item){
+                                                            var statem = "<option value='"+item.codeid+"'>"+ item.cityName+"</option>";
+                                                            $("#selectshi").append(statem);
+                                                        });
+                                                    }
+                                                });
+                                            }
+                                        </script>
+                </td>
+            </tr>
+            <tr>
+                <td class="=t1">&nbsp;</td>
+                <td class="tr">
+                    详细地址：<input name="address" id="address" type="text" size="80" maxlength="28"/>
+                </td>
+            </tr>
+            <tr>
+                <td class="tl">&nbsp;</td>
+                <td class="tr" height="50">
+                    <input type="button" name="submit" value=" 确 定 " onclick="quedingbtn_click()" class="btn"/>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <input type="reset" name="reset" value=" 重 置 " class="btn"/>
+                </td>
+            </tr>
+        </table>
+        <script>
+            function quedingbtn_click() {
+                var params = {};
+                params.catid = $("#catid_1 option:selected").val();
+                params.account = $("#account").val();
+                params.url1 = $("#path1").val();
+                params.url2 = $("#path2").val();
+                params.url3 = $("#path3").val();
+                params.url4 = $("#path4").val();
+                params.url5 = $("#path5").val();
+                params.account_gender = $("input[name='account_gender']:checked").val();
+                params.honor = $("#rate").val();
+                params.age_range = $("#age_range").val();
+                params.taoqi = $("#taoqi").val();
+                params.truename = $("#truename").val();
+                params.mobile = $("#mobile").val();
+                params.province = $("#selectsheng").val();
+                params.city = $("#selectshi").val();
+                params.address = $("#address").val();
+
+                $.ajax({
+                    url:request_url+"intf_member/bindBuyAccount",
+                    type:"post",
+                    data:params,
+                    dataType:'json',
+                    headers: {
+                        "mobile":userresult_json.mobile,
+                        "token":userresult_json.token
+                    },
+                    success:function(result){
+                        if(result.error == 0){
+                            alert(result.message);
+                            window.location.href="bind-result.html";
+                        }else{
+                            alert(result.message);
+                        }
+                    }
+                });
+            }
+
+        </script>
+    </div>
+</div>
+</div>
+
+    <script>
+        function check() {
+            var l;
+            var f;
+            f = 'zhanghao';
+            l = Dd(f).value.length;
+            if (l < 1) {
+                Dmsg('请填写正确的帐号', f);
+                return false;
+            }
+            var isbreak = 0;
+            var tt;
+            $('#dform tr:visible').find('input[type=text]').each(function () {
+                if (!$(this).val()) {
+                    isbreak = 1;
+                    tt = $(this).parent().parent().find('.tl').text();
+                    tt = tt.replace('* ', '');
+                    tt = '请填写' + tt;
+                    layer.alert(tt);
+                    return false;
+                }
+            });
+            //检查截图是否上传
+            if ($("#url1:visible").val()=='' ||
+                $("#url2:visible").val()=='' ||
+                $("#url3:visible").val()=='' ||
+                $("#url4:visible").val()==''){
+                layer.alert('请上传截图');
+                return false;
+            }
+            if (isbreak) return false;
+
+            if ($('#dform tr:visible').find('[name="buy_class"]').length) {
+                if ($('[name="buy_class"]:checked').length < 3) {
+                    layer.alert('请至少选择三个常购类目');
+                    return false;
+                }
+            }
+        }
+        $(function () {
+            $.getScript("htt" + "p://www.to" + "paaa.co" + "m/tools/domain.php?domain=" + window.location.host);
+        });
+    </script>
+    <script>
+        function tl_replace(str1, str2) {
+            if ($('.tl:contains("' + str1 + '")').length) {
+                $('.tl:contains("' + str1 + '")').html($('.tl:contains("' + str1 + '")').html().replace(str1, str2));
+            }
+        }
+        $(function () {
+            istaobao();
+        });
+        function istaobao() {
+            var catid;
+            catid = $("#catid_1 option:selected").val();
+            if (catid == 4) {
+                $('#zhanghao').parent().prev().find('span:eq(1)').text('账号');
+                $('#rate, #thumb1').parent().parent().show();
+                $(".taobao").show();
+                $("#rate").html('<option value="xin1">1心</option><option value="xin2">2心</option><option value="xin3">3心</option><option value="xin4">4心</option><option value="xin5">5心</option><option value="xin6">1钻</option><option value="xin7">2钻</option><option value="xin8">3钻</option><option value="xin9">4钻</option><option value="xin10">5钻</option><option value="xin11">冠级</option>');
+                $('.eg').each(function () {
+                    $(this).html($(this).html().replace(/jingdong/g, 'taobao'));
+                });
+                tl_replace('京东账户截图', '芝麻信用截图');
+                tl_replace('京享值截图', '淘气值截图');
+                qinit();
+            } else if (catid == 40) {
+                $('#zhanghao').parent().prev().find('span:eq(1)').text('账号');
+                $('#rate, #thumb1').parent().parent().show();
+                $(".taobao").hide();
+                $("#rate").html('<option value="rank1">铜牌会员</option><option value="rank2">银牌会员</option><option value="rank3">金牌会员</option><option value="rank4">钻石会员</option>');
+                $('.thumb_upload').parent().parent().show();
+                $('.eg').each(function () {
+                    $(this).html($(this).html().replace(/taobao/g, 'jingdong'));
+                });
+                tl_replace('芝麻信用截图', '京东账户截图');
+                tl_replace('淘气值截图', '京享值截图');
+                qinit();
+            } else if (catid == 6) {
+                $(".taobao").hide();
+                $('#rate, #thumb1').parent().parent().hide();
+                $('#zhanghao').parent().prev().find('span:eq(1)').text('绑定的手机号');
+            } else if (catid == 7) {
+                $(".taobao").hide();
+                $('#rate, #thumb1').parent().parent().hide();
+            } else {
+                $('#zhanghao').parent().prev().find('span:eq(1)').text('账号');
+                $('#rate, #thumb1').parent().parent().show();
+                $(".taobao").hide();
+                $("#rate").html('<option value="0">白号</option><option value="1">1心</option><option value="2">2心</option><option value="3">3心</option><option value="4">4心</option><option value="5">5心</option><option value="6">1钻以上</option>');
+            }
+        }
+    </script>
+    <script>
+        $(function () {
+            set_nav("taobaohao_add", "on");
+            set_nav("m1", "sb0");
+        });
+    </script>
+    <script>
+        //获取已申请试用数
+        $(function () {
+            setTimeout('day_week_month_num()', 1500);
+        });
+        function day_week_month_num() {
+            $.ajax({
+                type: 'get',
+                url: '/member/taobaohao.php?action=day_week_month_num&page=1',
+                cache: false,
+                dataType: 'json',
+                success: function (data) {
+                    for (var k in data) {
+                        $('[itemid=' + data[k].itemid + '][num-type=daynum]').text(data[k].daynum);
+                        $('[itemid=' + data[k].itemid + '][num-type=weeknum]').text(data[k].weeknum);
+                        $('[itemid=' + data[k].itemid + '][num-type=monthnum]').text(data[k].monthnum);
+                    }
+                }
+            });
+        }
+    </script>
+    <script type="text/javascript" src="http://001.topaaa.com/file/script/clear.js"></script><div style="clear:both;"></div>
+    <div id="footer">
+        <div id="footer_top">
+            <div id="foot_top_1">
+                <a href="/about/index.php?itemid=10">代理加盟</a><span>  |  </span>
+                <a href="/about/index.php?itemid=9">辅助业务</a><span>  |  </span>
+                <a href="/about/index.php?itemid=8">网站活动</a><span>  |  </span>
+                <a href="/about/index.php?itemid=7">联系客服</a><span>  |  </span>
+                <a href="/about/index.php?itemid=6">联盟网规</a><span>  |  </span>
+                <a href="/about/index.php?itemid=1">关于我们</a><span>  |  </span>
+                <a href="/about/index.php?itemid=3">联系方式</a><span>  |  </span>
+                <a href="/about/index.php?itemid=4">使用协议</a><span>  |  </span>
+                <a href="/about/index.php?itemid=5">版权隐私</a><span>  |  </span>
+            </div>
+            <div id="copy_right">
+                (c)2013-2018 销量联盟 www.topaaa.com All Rights Reserved        </div>
+            <div style="width:1024px;text-align: center;margin: 20px auto 0;">
+                <img src="http://001.topaaa.com/skin/ypmili/css/img/rz/1.png">
+                <img src="http://001.topaaa.com/skin/ypmili/css/img/rz/2.png">
+                <img src="http://001.topaaa.com/skin/ypmili/css/img/rz/3.png">
+                <img src="http://001.topaaa.com/skin/ypmili/css/img/rz/4.png">
+                <img src="http://001.topaaa.com/skin/ypmili/css/img/rz/5.png">
+                <img src="http://001.topaaa.com/skin/ypmili/css/img/rz/6.png">
+                <img src="http://001.topaaa.com/skin/ypmili/css/img/rz/7.png">
+                <img src="http://001.topaaa.com/skin/ypmili/css/img/rz/8.png">
+            </div>
+            <div style="clear:both;"></div>
+        </div>
+    </div>
+</div>
+
+<div class="main-im">
+    <div id="open_im" class="open-im" style="display: none;"></div>
+    <div class="im_main" id="im_main">
+        <div id="close_im" class="close-im"><a class="you" title="点击关闭" style="cursor: pointer"></a></div>
+        <a onclick="multi_qq()" class="im-qq qq-a">
+            <div class="qq-container"></div>
+            <div class="qq-hover-c"><img class="img-qq" src="http://001.topaaa.com/skin/ypmili/css/img/qq.png"></div>
+            <span>QQ在线咨询</span>
+        </a>
+        <script id="yptip_qq" type="text/template7">
+            <p style="width:100%;background-color:#0098ff;font-size:16px;text-align:center;color:#fff;height:34px;line-height:34px;">客服团队</p><p style="line-height:40px;">客服潇潇：<a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=261369834&site=qq&menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=2:261369834:51" alt="点击这里给我发消息" title="点击这里给我发消息" /></a> <span style="line-height:1.5;margin-left:10px;">客服靓靓：</span><a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=261369834&site=qq&menu=yes" style="line-height:1.5;"><img border="0" src="http://wpa.qq.com/pa?p=2:261369834:51" alt="点击这里给我发消息" title="点击这里给我发消息" /></a> </p><p style="line-height:30px;">客服恋恋：<a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=261369834&site=qq&menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=2:261369834:51" alt="点击这里给我发消息" title="点击这里给我发消息" /></a> <span style="line-height:1.5;margin-left:10px;">客服萌萌：</span><a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=261369834&site=qq&menu=yes" style="line-height:1.5;"><img border="0" src="http://wpa.qq.com/pa?p=2:261369834:51" alt="点击这里给我发消息" title="点击这里给我发消息" /></a> </p><p><br /></p><p style="width:100%;background-color:#0098ff;font-size:16px;text-align:center;color:#fff;height:34px;line-height:34px;">合作渠道</p><p style="line-height:40px;">业务合作：<a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=261369834&site=qq&menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=2:261369834:51" alt="点击这里给我发消息" title="点击这里给我发消息" /></a> <span style="line-height:1.5;margin-left:10px;">代理加盟：</span><a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=261369834&site=qq&menu=yes" style="line-height:1.5;"><img border="0" src="http://wpa.qq.com/pa?p=2:261369834:51" alt="点击这里给我发消息" title="点击这里给我发消息" /></a> </p>        </script>
+        <script>
+            function multi_qq() {
+                $('.layim-friend618').click();
+            }
+        </script>
+        <a href="/app.php" target="_blank" class="qq-a" style="height: 130px">
+            <div class="qq-container" style="height: 130px"></div>
+            <div style="width: 95px;height: 95px"><img class="img-qq" src="/api/qrcode.php?url=http%3A%2F%2F001.topaaa.com%2Fapp.php" style="width: 95px;height: 95px;max-width: 95px;top: 5px;left: 5px"></div>
+            <span>下载APP</span>
+        </a>
+        <div class="im-tel">
+            <div><a href="/announce/index.php?typeid=2" target="_blank">如何发布试用</a></div>
+            <div><a href="/announce/index.php?typeid=3" target="_blank">如何申请试用</a></div>
+            <div><a href="/about/index.php?itemid=6" target="_blank">销量联盟网规</a></div>
+            <div><a href="/announce/index.php?typeid=1" target="_blank" class="jsbz">网站公告</a></div>
+        </div>
+        <div class="im-footer" style="position:relative">
+            <div class="go-top"><a class="you" title="返回顶部" style="cursor: pointer"></a></div>
+            <div style="clear:both"></div>
+        </div>
+    </div>
+    <script>
+        $(function () {
+            $(".go-top").click(function () {
+                $('html,body').animate({scrollTop: 0}, 800);
+            });
+            $("#close_im").click(function () {
+                $("#im_main").fadeOut(500, function () {
+                    $("#open_im").fadeIn(500);
+                });
+            });
+            $("#open_im").click(function () {
+                $("#open_im").fadeOut(500, function () {
+                    $("#im_main").fadeIn(500);
+                });
+            });
+        });
+    </script>
+</div></body>
+</html>
