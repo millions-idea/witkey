@@ -219,7 +219,7 @@ intf_setting/getSetting
 
 	|参数		|是否必选 |类型     |说明
 	|username    |Y       |string   |用户名
-	|password    |Y       |string   |rsa加密之后的密码
+	|password    |Y       |string   |密码(暂时未加密)
 
 ### 返回示例：
 	成功:
