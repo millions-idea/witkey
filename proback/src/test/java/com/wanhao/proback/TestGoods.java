@@ -1,11 +1,7 @@
 package com.wanhao.proback;
 
-import com.wanhao.proback.bean.shop.BuyerRequire;
 import com.wanhao.proback.bean.shop.Goods;
-import com.wanhao.proback.bean.shop.TryRequire;
-import com.wanhao.proback.service.shop.BuyerRequireService;
 import com.wanhao.proback.service.shop.GoodsService;
-import com.wanhao.proback.service.shop.TryRequireService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,11 +23,6 @@ public class TestGoods {
     @Autowired
     GoodsService goodsService;
 
-    @Autowired
-    TryRequireService requireService;
-
-    @Autowired
-    BuyerRequireService buyerRequireService;
 
     @Test
     public void testAdd(){
@@ -60,27 +51,6 @@ public class TestGoods {
             goods.setMemid(memid);
             //保存商品
             goodsService.add(goods);
-            //添加试用限制信息
-            TryRequire require = new TryRequire();
-            require.setMemid(memid);
-            require.setGoods_id(goods.getId());
-            require.setNeed_col_goods(1);
-            require.setNeed_chat(1);
-            require.setNeed_bi_san_jia(0);
-            require.setNeed_add_buy_cart(1);
-            require.setNeed_look_comment(1);
-            require.setDevice("手机");
-            require.setZhiding_pinglun(1);
-            require.setComment_content("收到东西了,很好用,也很喜欢");
-            requireService.add(require);
-
-            //添加买家限制
-            BuyerRequire buyerRequire = new BuyerRequire();
-            buyerRequire.setMemid(memid);
-            buyerRequire.setGoods_id(goods.getId());
-            buyerRequire.setForbidden_area("北京");
-            buyerRequire.setTaoqi_limit(random.nextInt(600));
-            buyerRequireService.add(buyerRequire);
         }
     }
 }

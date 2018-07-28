@@ -1,21 +1,18 @@
 package com.wanhao.proback.controller.intf.shop;
 
+import com.github.pagehelper.PageInfo;
 import com.google.gson.JsonObject;
 import com.wanhao.proback.annotaion.ISLogin;
 import com.wanhao.proback.bean.member.Member;
 import com.wanhao.proback.bean.member.MemberTaoBao;
 import com.wanhao.proback.bean.member.MemberTask;
-import com.wanhao.proback.bean.shop.BuyerRequire;
 import com.wanhao.proback.bean.shop.Goods;
 import com.wanhao.proback.bean.shop.Shop;
-import com.wanhao.proback.bean.shop.TryRequire;
 import com.wanhao.proback.service.member.MemberService;
 import com.wanhao.proback.service.member.MemberTaoBaoService;
 import com.wanhao.proback.service.member.MemberTaskService;
-import com.wanhao.proback.service.shop.BuyerRequireService;
 import com.wanhao.proback.service.shop.GoodsService;
 import com.wanhao.proback.service.shop.ShopService;
-import com.wanhao.proback.service.shop.TryRequireService;
 import com.wanhao.proback.utils.*;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -53,7 +51,8 @@ public class ShopController {
                         String goods_format, String template_name,
                         Integer shop_id, Integer goods_type,
                         Integer search_type, Integer task_count,
-                        Integer return_type, Integer pay_type,
+                        Integer return_type, Integer yuancheng_type,
+                        //Integer pay_type,
                         Integer time_divider, Integer task_safe,
                         Integer save_template, Integer memid,
                         Double price, String tao_kouling,
@@ -66,9 +65,10 @@ public class ShopController {
                         String comment_content, String confirm_time_type,
                         String remark, Integer day_limit,
                         Integer shangbao_limit, Integer taoqi_limit,
-                        Integer gender_limit, String honor_limit,
-                        String forbidden_area, String age_limit,
-                        String always_buy_class) {
+
+                        Integer[] gender_limit, String honor_limit,
+                        String forbidden_area, String[] age_limit,
+                        String[] always_buy_class) {
 
         //        if (IsNullUtils.isNull(catetype, link_url, search_word, goods_format, shop_id,
 //                goods_type, search_type, task_count, return_type, pay_type, time_divider,
@@ -85,8 +85,11 @@ public class ShopController {
 
         Member dbMember = memberService.getMember(member);
 
-        if (dbMember == null || dbMember.getIs_seller() == null || dbMember.getIs_seller() == 0) {
-            ResponseUtils.retnFailMsg(response, jsonObject, "操作失败...");
+        //不是商家不能发布任务
+        if (dbMember == null ||
+                dbMember.getIs_seller() == null ||
+                dbMember.getIs_seller() == 0) {
+            ResponseUtils.retnFailMsg(response, jsonObject, "不是商家 不允许发布任务...");
             return;
         }
         //查看店铺是否审核通过
@@ -96,65 +99,134 @@ public class ShopController {
             ResponseUtils.retnFailMsg(response, jsonObject, "抱歉,您的店铺还未审核通过不能发布任务...");
             return;
         }
-
-        BuyerRequire buyerRequire = new BuyerRequire();
-        buyerRequire.setDay_limit(day_limit);
-        buyerRequire.setShangbao_limit(shangbao_limit);
-        buyerRequire.setTaoqi_limit(taoqi_limit);
-        buyerRequire.setGender_limit(gender_limit);
-        buyerRequire.setHonor_limit(honor_limit);
-        buyerRequire.setForbidden_area(forbidden_area);
-        buyerRequire.setAge_limit(age_limit);
-        buyerRequire.setMemid(memid);
-        buyerRequire.setAlways_buy_class(always_buy_class);
-
-        TryRequire tryRequire = new TryRequire();
-        tryRequire.setYuyue_xiadan(yuyue_xiadan);
-        tryRequire.setMemid(memid);
-        tryRequire.setComment_content(comment_content);
-        tryRequire.setConfirm_time_type(confirm_time_type);
-        tryRequire.setRemark(remark);
-        tryRequire.setZhiding_pinglun(zhiding_pinglun);
-        tryRequire.setBask_img(bask_img);
-        tryRequire.setTask_rec_time(task_rec_time);
-        tryRequire.setDevice(device);
-        tryRequire.setNeed_bi_san_jia(need_bi_san_jia);
-        tryRequire.setNeed_chat(need_chat);
-        tryRequire.setNeed_look_comment(need_look_comment);
-        tryRequire.setNeed_add_buy_cart(need_add_buy_cart);
-        tryRequire.setNeed_col_goods(need_col_goods);
-
-
         Goods goods = new Goods();
+
+        switch (catetype){
+            case "4":
+                goods.setCatetype("淘宝试用");
+                break;
+            case "5":
+                goods.setCatetype("阿里巴巴试用");
+                break;
+            case "40":
+                goods.setCatetype("京东试用");
+
+                break;
+            case "6":
+                goods.setCatetype("拼多多试用");
+
+                break;
+            case "7":
+                goods.setCatetype("蘑菇街试用");
+                break;
+            case "8":
+                goods.setCatetype("美丽说试用");
+                break;
+            case "41":
+                goods.setCatetype("淘宝访问");
+                break;
+            case "51":
+                goods.setCatetype("阿里巴巴访问");
+                break;
+            case "401":
+                goods.setCatetype("京东访问");
+                break;
+        }
+        //获取付款方式
+        if (return_type==0){
+            //获取商家付款方式
+            if (yuancheng_type==null){
+                return;
+            }
+            goods.setYuancheng_type(yuancheng_type);
+        }
+        //淘口令
+        if (StringUtils.isNotBlank(tao_kouling)){
+            goods.setTao_kouling(tao_kouling);
+        }
+        //性别限制
+        if (gender_limit!=null && gender_limit.length>0){
+            if (gender_limit.length==1){
+                goods.setGender_limit(gender_limit[0]);
+            }else {
+                goods.setGender_limit(0);
+            }
+        }
+        //年龄限制  1,2,3,4  15-25
+        if (age_limit!=null && age_limit.length>0){
+            StringBuilder sb = new StringBuilder();
+            for(int i=0;i<gender_limit.length;i++){
+                if (i==gender_limit.length-1){
+                    sb.append(gender_limit[i]);
+                }else {
+                    sb.append(gender_limit[i]).append(",");
+                }
+            }
+            goods.setAge_limit(sb.toString());
+        }
+
+        //常买类型 1,2,3,5
+        if (always_buy_class!=null && always_buy_class.length>0){
+            StringBuilder sb = new StringBuilder();
+            for(int i=0;i<always_buy_class.length;i++){
+                if (i==always_buy_class.length-1){
+                    sb.append(always_buy_class[i]);
+                }else {
+                    sb.append(always_buy_class[i]).append(",");
+                }
+            }
+            goods.setAlways_buy_class(sb.toString());
+        }
+
+        goods.setDay_limit(day_limit);
+        goods.setShangbao_limit(shangbao_limit);
+        goods.setTaoqi_limit(taoqi_limit);
+        goods.setHonor_limit(honor_limit);
+        goods.setForbidden_area(forbidden_area);
+
+        goods.setYuyue_xiadan(yuyue_xiadan);
+        goods.setMemid(memid);
+        goods.setComment_content(comment_content);
+        goods.setConfirm_time_type(confirm_time_type);
+        goods.setRemark(remark);
+        goods.setZhiding_pinglun(zhiding_pinglun);
+        goods.setBask_img(bask_img);
+        goods.setTask_rec_time(task_rec_time);
+        goods.setDevice(device);
+        goods.setNeed_bi_san_jia(need_bi_san_jia);
+        goods.setNeed_chat(need_chat);
+        goods.setNeed_look_comment(need_look_comment);
+        goods.setNeed_add_buy_cart(need_add_buy_cart);
+        goods.setNeed_col_goods(need_col_goods);
+
+
         goods.setTao_kouling(tao_kouling);
         goods.setTime_divider(time_divider);
         goods.setTask_safe(task_safe);
         goods.setSave_template(save_template);
         goods.setPrice(price);
         goods.setAppend_money(append_money);
-        goods.setCatetype(catetype);
+      //  goods.setCatetype(catetype);
         goods.setGoods_format(goods_format);
         goods.setGoods_img(goods_img);
         goods.setLink_url(link_url);
         goods.setTemplate_name(template_name);
         goods.setGoods_class_id(goods_type);
         goods.setReturn_type(return_type);
-        goods.setMemid(memid);
         goods.setSearch_word(search_word);
         goods.setTask_count(task_count);
         goods.setShop_id(shop_id);
         goods.setSearch_type(search_type);
-        goods.setPay_type(pay_type);
+
+        //保存
+        goodsService.add(goods);
+        ResponseUtils.retnSuccessMsg(response, jsonObject, "发布成功");
 
     }
 
 
     @Autowired
     GoodsService goodsService;
-    @Autowired
-    TryRequireService tryRequireService;
-    @Autowired
-    BuyerRequireService buyerRequireService;
 
     @Autowired
     MemberTaoBaoService taoBaoService;
@@ -166,8 +238,8 @@ public class ShopController {
     // @ISLogin
     @RequestMapping(value = "loadUserTaskList")
     public void loadUserTaskList(HttpServletRequest request, HttpServletResponse response,
-                                 Integer memid,String order_by,
-                                 Integer class_type) {
+                                 Integer memid,String order_by,Integer page,
+                                 Integer class_type,Integer good_id) {
         if (memid != null) {
             JsonObject jsonObject = new JsonObject();
             //判断用户是否已经绑定账号
@@ -182,22 +254,12 @@ public class ShopController {
                 //商家自己的任务
                 List<Goods> shopList = goodsService.getGoods(goods);
                 if (shopList != null && shopList.size() > 0) {
-                    for (Goods temp : shopList) {
-                        Integer id = temp.getId();
-                        //试用限制
-                        TryRequire require = new TryRequire();
-                        require.setGoods_id(id);
-                        List<TryRequire> goods1 = tryRequireService.get(require);
-                        temp.setTryRequire(goods1.get(0));
-                        //买家限制
-                        BuyerRequire buyerRequire = new BuyerRequire();
-                        buyerRequire.setGoods_id(id);
-                        List<BuyerRequire> buyerRequires = buyerRequireService.getBuyerRequires(buyerRequire);
-                        //设置
-                        temp.setBuyerRequire(buyerRequires.get(0));
-                    }
+                    //设置信息
+                    List<String> colors = getColors(shopList);
                     //返回数据
-                    jsonObject.addProperty("list", GsonUtils.toJson(shopList));
+                    PageInfo<Goods> pageInfo = new PageInfo<>(shopList);
+                    jsonObject.addProperty("pageInfo", GsonUtils.toJson(pageInfo));
+
                     ResponseUtils.retnSuccessMsg(response, jsonObject);
                     return;
                 }else {
@@ -232,33 +294,133 @@ public class ShopController {
                 }
             }
 
+
+            //id
+            goods.setId(good_id);
+            //排序
             goods.setOrderBY(orderBy);
+            if (page!=null && page>0){
+                //分页
+                goods.setPage(page);
+            }
+
+
             //所属商品分类
             if (class_type!=null){
                 goods.setGoods_class_id(class_type);
             }
 
             List<Goods> list = goodsService.getGoods(goods);
-            if (list != null && list.size() > 0) {
-                for (Goods temp : list) {
-                    Integer id = temp.getId();
-                    //试用限制
-                    TryRequire require = new TryRequire();
-                    require.setGoods_id(id);
-                    List<TryRequire> goods1 = tryRequireService.get(require);
-                    temp.setTryRequire(goods1.get(0));
-                    //买家限制
-                    BuyerRequire buyerRequire = new BuyerRequire();
-                    buyerRequire.setGoods_id(id);
-                    List<BuyerRequire> buyerRequires = buyerRequireService.getBuyerRequires(buyerRequire);
-                    //设置
-                    temp.setBuyerRequire(buyerRequires.get(0));
-                }
-            }
-            //返回数据
-            jsonObject.addProperty("list", GsonUtils.toJson(list));
+            List<String> colors = getColors(list);
+
+            //返回pageInfo
+            PageInfo<Goods> pageInfo = new PageInfo<>(list);
+
+            jsonObject.addProperty("pageInfo", GsonUtils.toJson(pageInfo));
             ResponseUtils.retnSuccessMsg(response, jsonObject);
         }
+    }
+
+
+    //设置颜色类
+    public List<String> getColors( List<Goods> list){
+        List<String> color_class = null;
+        //构建requires
+        if (list!=null && list.size()>0){
+            List<String> strings;
+            for (Goods temp : list) {
+                strings = new LinkedList<String>();
+                color_class = new LinkedList<String>();
+
+                Integer need_add_buy_cart = temp.getNeed_add_buy_cart();
+                if (need_add_buy_cart!=null && need_add_buy_cart==1){
+                    strings.add("添加购物车");
+                    color_class.add("ired");
+                }
+                //货比三家
+                Integer need_bi_san_jia = temp.getNeed_bi_san_jia();
+                if (need_bi_san_jia!=null && need_bi_san_jia==1){
+                    strings.add("货比三家");
+                    color_class.add("iorange");
+
+                }
+                //拍前聊天
+                Integer need_chat = temp.getNeed_chat();
+                if (need_chat!=null && need_chat==1){
+                    strings.add("拍前聊天");
+                    color_class.add("iyellow");
+
+                }
+                //收藏商品
+                Integer need_col_goods = temp.getNeed_col_goods();
+                if (need_col_goods!=null && need_col_goods==1){
+                    strings.add("收藏商品");
+                    color_class.add("igreen");
+
+                }
+                //浏览评论
+                Integer need_look_comment = temp.getNeed_look_comment();
+                if (need_look_comment!=null && need_look_comment==1){
+                    strings.add("浏览评论");
+                    color_class.add("icyan");
+
+                }
+                //年龄限制
+                String age_limit = temp.getAge_limit();
+                if (StringUtils.isNotBlank(age_limit)){
+                    strings.add(age_limit);
+                    color_class.add("iblue");
+
+                }
+                //淘气值
+                Integer taoqi_limit = temp.getTaoqi_limit();
+                if (taoqi_limit!=null && taoqi_limit==1){
+                    strings.add("淘气值"+taoqi_limit);
+                    color_class.add("iviolet");
+
+                }
+                //性别
+                Integer gender_limit = temp.getGender_limit();
+                if (gender_limit!=null){
+                    if (gender_limit==1){
+                        strings.add("男号");
+                        color_class.add("igray");
+
+                    }
+                    else if (gender_limit==2){
+                        strings.add("女号");
+                        color_class.add(".ired");
+
+                    }
+                    else if (gender_limit==0){
+                        strings.add("男号,女号");
+                        color_class.add("inone");
+
+                    }
+                }
+                //设备限制
+                String device = temp.getDevice();
+                if (StringUtils.isNotBlank(device)){
+                    strings.add(device);
+                    color_class.add("ired");
+                }
+                //信誉限制
+                String honor_limit = temp.getHonor_limit();
+                if (StringUtils.isNotBlank(honor_limit)){
+                    strings.add(device);
+                    color_class.add("icyan");
+
+                }else {
+                    strings.add("不限信誉");
+                    color_class.add("iviolet");
+                }
+
+                temp.setRequires(strings);
+                temp.setColor_class(color_class);
+            }
+
+        }
+        return color_class;
     }
 
     /**
@@ -295,20 +457,15 @@ public class ShopController {
                 List<MemberTaoBao> baos = taoBaoService.queryMemberBuyList(taoBao);
                 if (baos==null || baos.size()==0){
                     //没有对应的买号 不能接
-                    ResponseUtils.retnFailMsg(response,jsonObject,"您没有对应的买号,先绑定买号吧");
+                    ResponseUtils.retnFailMsg(response,jsonObject,"您没有对应的买号,先绑定买号");
                     return;
                 }
             }
 
 
             //检查会员是否满足条件
-            BuyerRequire buyerRequire = new BuyerRequire();
-            buyerRequire.setGoods_id(goods_id);
-
-            List<BuyerRequire> list = buyerRequireService.getBuyerRequires(buyerRequire);
-            if (list!=null && list.size()>0){
-                BuyerRequire require = list.get(0);
-                String forbidden_area = require.getForbidden_area();
+            if (true){
+                String forbidden_area = dbList.get(0).getForbidden_area();
                 String ipAdrress = IpUtils.getIpAdrress(request);
                 String location = IpUtils.getLocation(ipAdrress);
                 //获取请求IP地址
@@ -384,21 +541,8 @@ public class ShopController {
             MemberTaoBao buyAccount = memberTaoBaos.get(0);
 
 
-            //买家限制信息
-            BuyerRequire buyerRequire = new BuyerRequire();
-            buyerRequire.setGoods_id(goods_id);
-            List<BuyerRequire> reqList = buyerRequireService.getBuyerRequires(buyerRequire);
-            BuyerRequire require = null;
-
-            if (reqList!=null && reqList.size()>0){
-                require = reqList.get(0);
-            }else {
-                ResponseUtils.retnFailMsg(response,jsonObject);
-                return;
-            }
-
             //接任务限制
-            Integer day_limit = require.getDay_limit();
+            Integer day_limit = dbGood.getDay_limit();
             MemberTask queryTask = new MemberTask();
             queryTask.setMemid(memid);
             queryTask.setGoods_id(goods_id);
@@ -417,7 +561,7 @@ public class ShopController {
             Member sbMember = memberService.getMember(member);
 
             //商保限制
-            Integer shangbao_limit = require.getShangbao_limit();
+            Integer shangbao_limit = dbGood.getShangbao_limit();
             if (shangbao_limit!=null && shangbao_limit==1){
 
                 if (sbMember==null || sbMember.getPermis_money()==null||
@@ -427,14 +571,15 @@ public class ShopController {
                     return;
                 }
             }
+
             //买号信誉限制
-            String honor_limit = require.getHonor_limit();
+            String honor_limit = dbGood.getHonor_limit();
             if (StringUtils.isNotBlank(honor_limit)){
                 //todo
             }
 
             //性别限制
-            Integer gender_limit = require.getGender_limit();
+            Integer gender_limit = dbGood.getGender_limit();
             if (gender_limit!=null && gender_limit!=0){
                 String account_gender = buyAccount.getAccount_gender();
 
@@ -454,41 +599,46 @@ public class ShopController {
             }
 
             //年龄限制
-            String age_limit = require.getAge_limit();
-            if (StringUtils.isBlank(age_limit) ||
-                    !age_limit.equals(buyAccount.getAge_range())){
+            String age_limit = dbGood.getAge_limit();
+            if (StringUtils.isNotBlank(age_limit) || !age_limit.contains(buyAccount.getAge_range())){
+               //不符合
                 ResponseUtils.retnFailMsg(response,jsonObject,"年龄不符合要求");
                 return;
-//                String[] split = age_limit.split("-");
-//                if (split!=null && split.length>1){
-//                    String start = split[0];
-//                    String end = split[1];
-//                    //查看用户的年龄
-//
-//                    String age_range = buyAccount.getAge_range();
-//
-//                }
             }
 
             //常购类目限制
-            String always_buy_class = require.getAlways_buy_class();
+            String always_buy_class = dbGood.getAlways_buy_class();
             String always_class = buyAccount.getAlways_class();
 
-            if (StringUtils.isBlank(always_class) ||
-                    !always_class.contains(always_buy_class) ){
-                ResponseUtils.retnFailMsg(response,jsonObject,"常购类型不符合要求");
-                return;
+            if (StringUtils.isNotBlank(always_class) &&
+                    StringUtils.isNotBlank(always_buy_class)){
+                //遍历
+                String[] goodArr = always_buy_class.split(",");
+                String[] userArr = always_class.split(",");
+                boolean flag = false;
+
+                if (goodArr!=null && goodArr.length>0 && userArr!=null && userArr.length>0){
+                    for(int i=0;i<goodArr.length;i++){
+                        for (int j=0;j<userArr.length;j++){
+                            if (goodArr[i].equals(userArr[j])){
+                                flag = true;
+                                break;
+                            }
+                        }
+                    }
+                }
+                if (!flag){
+                    ResponseUtils.retnFailMsg(response,jsonObject,"常购类目不符合要求");
+                    return;
+                }
             }
 
-//            if (StringUtils.isBlank(always_buy_class)){
-//                buyAccount.get
-//            }
 
             if (!IsNullUtils.isNull(catetype)){
                 switch (catetype){
                     case "淘宝试用":
                         //淘气值限制
-                        Integer taoqi_limit = require.getTaoqi_limit();
+                        Integer taoqi_limit = dbGood.getTaoqi_limit();
                         if (taoqi_limit!=null && taoqi_limit>=0){
                             Integer taoqi = buyAccount.getTaoqi();
                             if (taoqi==null || taoqi< taoqi_limit){
@@ -540,12 +690,14 @@ public class ShopController {
             }
             //查找提示信息
             Integer goods_id = dbTask.getGoods_id();
-            TryRequire require = new TryRequire();
-            require.setGoods_id(goods_id);
-            List<TryRequire> tryRequires = tryRequireService.get(require);
-            if (tryRequires!=null && tryRequires.size()>0){
+            Goods goods = new Goods();
+            goods.setId(goods_id);
+
+            List<Goods> dbGood = goodsService.getGoods(goods);
+
+            if (dbGood!=null && dbGood.size()>0){
                 //备注信息
-                String remark = tryRequires.get(0).getRemark();
+                String remark = dbGood.get(0).getRemark();
             }
         }
     }

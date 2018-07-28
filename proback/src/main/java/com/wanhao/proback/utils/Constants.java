@@ -40,6 +40,14 @@ public interface Constants {
      */
     String IMAGE_PATH = "http://192.168.43.181:8081/images/upload/";
 
+    String[] ages = {
+            "18-25",
+            "26-30",
+            "31-35",
+            "36-40",
+            "41-50",
+            "50-100"
+    };
     /**
      * user标记
      */

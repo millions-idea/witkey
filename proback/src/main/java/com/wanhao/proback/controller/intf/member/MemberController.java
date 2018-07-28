@@ -23,7 +23,6 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -59,7 +58,6 @@ public class MemberController {
      */
     @PostMapping(value = "register")
     public void register(HttpServletRequest request,
-                         String invite_name,
                          Integer is_seller, String username,
                          String password, String real_name,
                          String email, String mobile,
@@ -94,12 +92,8 @@ public class MemberController {
         }
 
         //加载推荐人
-        if (IsNullUtils.isContainsNull(invite_name)){
-            Member invite = memberService.getMemberByUserName(invite_name);
-            if (invite!=null){
-                //设置推荐id
-                member.setInvite_id(invite.getId());
-            }
+        if (invite_id!=null && invite_id>0){
+            member.setInvite_id(invite_id);
         }
 
         //rsa 解密
@@ -649,7 +643,7 @@ public class MemberController {
     /**
      * 获取周推广排行列表
      */
-    @GetMapping(value = "loadInviteByWeek")
+    @RequestMapping(value = "loadInviteByWeek")
     public void loadInviteByWeek(HttpServletRequest request, HttpServletResponse response){
         JsonObject jsonObject = new JsonObject();
         List<InviteResult> list = memberService.getInviteDataByWeek();
@@ -659,9 +653,9 @@ public class MemberController {
     }
 
     /**
-     * 获取周推广排行列表
+     * 获取月推广排行列表
      */
-    @GetMapping(value = "loadInviteByMonth")
+    @RequestMapping(value = "loadInviteByMonth")
     public void loadInviteByMonth(HttpServletRequest request, HttpServletResponse response){
         JsonObject jsonObject = new JsonObject();
         List<InviteResult> list = memberService.getInviteDataByMonth();
@@ -681,7 +675,8 @@ public class MemberController {
     @RequestMapping(value = "tiXianJiLu",method = RequestMethod.POST)
     public void tiXianJiLu(HttpServletRequest request, HttpServletResponse response,
                            Integer memid,String from_date,
-                           String to_date,Integer page){
+                           String to_date,Integer page,
+                           String bank_type){
         JsonObject jsonObject = new JsonObject();
         if (memid!=null){
             TiXian tiXian  = new TiXian();
@@ -689,6 +684,8 @@ public class MemberController {
             List<TiXian> list = tiXianService.getDatas(tiXian);
             if (list!=null && list.size()>0){
                 jsonObject.addProperty("list",GsonUtils.toJson(list));
+                //todo 把所有的金额加起来
+
                 ResponseUtils.retnSuccessMsg(response,jsonObject,"查询成功");
             }else {
                 ResponseUtils.retnSuccessMsg(response,jsonObject,"没有记录");
