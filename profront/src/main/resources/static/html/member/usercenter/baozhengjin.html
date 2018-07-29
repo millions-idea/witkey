@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>保证金</title>
+    <link rel="stylesheet" type="text/css" href="../../../dist/css/index-skin.css">
+    <link rel="stylesheet" type="text/css" href="../../../dist/css/index-tp.css">
+
+    <script type="text/javascript" src="../../../dist/js/lang.js"></script>
+    <script type="text/javascript" src="../../../dist/js/config.js"></script>
+    <script type="text/javascript" src="../../../dist/js/jquery-2.0.0.min.js"></script>
+    <script type="text/javascript" src="../../../dist/js/common.js"></script>
+
+    <script type="text/javascript" src="../../../dist/js/admin.js"></script>
+    <script type="text/javascript" src="../../../dist/js/page.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="../../../dist/css/jq-tip.css">
+    <script type="text/javascript" src="../../../dist/js/jq-tip.js"></script>
+    <script type="text/javascript" src="../../../dist/js/layer.js"></script>
+
+    <script type="text/javascript" src="../../../dist/js/jquery.form.js"></script>
+    <script type="text/javascript" src="../../../dist/js/template7.min.js"></script>
+    <script type="text/javascript" src="../../../dist/js/cm.js"></script>
+    <script type="text/javascript" src="../../../dist/js/ypfunction.js"></script>
+
+    <link rel="stylesheet" href="http://001.topaaa.com/file/script/layim/css/layui.css">
+    <script src="http://001.topaaa.com/file/script/layim/layui.js"></script>
+    <script src="http://001.topaaa.com/file/script/layim/func.js"></script>
+    <!--配置服务器连接地址 -->
+    <script type="text/javascript" src="/dist/js/gjy_serviceurl.js"></script>
+
+
+</head>
+<body>
+<body class="rwdt_bg">
+<div id="body">
+    <div id="body_header"></div>
+    <script>
+        $("#body_header").load("../public/public-top.html");
+    </script>
+    <div id="content_wrapper">
+        <div id="content_body_title"></div>
+        <script>
+            $("#content_body_title").load("../public/public-body-title.html");
+        </script>
+    </div>
+    <DIV id=ypcon>
+        <DIV class=menu>
+            <TABLE cellSpacing=0 cellPadding=0>
+                <TBODY>
+                <TR>
+                    <TD class=tab_on>
+                        <A class=sb0 href="javascript:;">
+                            <SPAN>保证金</SPAN>
+                        </A>
+                    </TD></TR></TBODY></TABLE></DIV>
+        <FORM id=dform onsubmit="return check();" action=baozhengjin.php
+              method=post><INPUT name=auto type=hidden value=0> <INPUT name=action type=hidden
+                                                                       value=confirm>
+            <TABLE class=tb cellSpacing=1 cellPadding=6>
+                <TBODY>
+                <TR>
+                    <td class=tl>我的保证金</td>
+                    <td class=tr>
+                        <strong id="baozhengjin">
+                            0
+                        </strong>
+                        元&nbsp;&nbsp;&nbsp;&nbsp;
+
+                        可申请试用限制：
+                        <strong id="limit">
+                            无限制
+                        </strong>
+                    </td>
+                </TR>
+                <TR>
+                    <TD class=tl>我的余额</TD>
+                    <TD class=tr>&nbsp;
+                        <strong id="yue">
+                            0.0
+                        </strong> 元
+                        &nbsp;&nbsp;&nbsp;&nbsp;<A
+                            style="CURSOR: pointer; COLOR: #f00"
+                            href="../auth/auth-money-recharge.html"
+                            target=_blank>【充值】</A>
+                    </TD>
+                </TR>
+                <TR>
+                    <TD class=tl><SPAN class=f_red>*</SPAN> 增加保证金</TD>
+                    <TD class=tr><input onkeyup='this.value=this.value.replace(/\D/gi,"")'
+                                        name=money id='money' type=text size=10 maxLength=8/> 元
+                    </TD></TR>
+                <TR>
+                    <td height=50 class=tl></td>
+                    <TD class=tr>
+                        <INPUT name='submit' class='btn'
+                               onclick="addMoney();"
+                               type=button value=" 确认缴纳 ">
+                        &nbsp;&nbsp;&nbsp; <INPUT class=btn style="WIDTH: auto" onclick="if (confirm('解冻保证金后无法接受相应金额的试用，确定要解冻保证金？')) Go('baozhengjin.php?action=jiechu'); else return false;" type=button value=" 解冻保证金 ">
+                    </TD></TR></TBODY></TABLE></FORM>
+        <DIV class=yptip>
+            <P><SPAN><SPAN>接</SPAN>300元以下的任务无需保证金、接300-500元的任务需要交200元保证金、<SPAN>接500-800元的任务需要交500元保证金</SPAN><SPAN>、缴纳1000元保证金接任务的价格不限制。</SPAN></SPAN></P>
+            <P><SPAN><SPAN><SPAN style="COLOR: #e53333">后台说明</SPAN><SPAN
+                    style="COLOR: #e53333">：宝贝价格对应试客应交的保证金管理后台可以自行设置，可以设置不同的价格区间和保证金金额。</SPAN><BR></SPAN></SPAN></P></DIV></DIV></DIV>
+<script>
+    //增加保证金
+    function addMoney(){
+        var val = $('#money').val();
+        if (val==undefined || val==''){
+            return;
+        }
+        if(confirm('确定要增加' + $('#money').val() + '元保证金？')) {
+
+            //请求一级列表
+            var params = {};
+            params.memid = userresult_json.id;
+            params.add_val = $("#money").val();
+
+            $.ajax({
+                url: request_url + "intf_member/addPermissMoney",
+                type: "post",
+                data: params,
+                dataType: 'json',
+                headers: {
+                    "mobile": userresult_json.mobile,
+                    "token": userresult_json.token
+                },
+                success: function (result) {
+                    if (result.error == 0) {
+                        alert(result.message);
+                        //显示最新信息
+                        var member = jQuery.parseJSON(result.member);
+                        $("#yue").html(member.money);
+                        $("#baozhengjin").html(member.permis_money);
+
+                        if (member.permis_money < 200) {
+                            $("#limit").html("只能接300元以下的任务");
+                        }else if(member.permis_money <= 200){
+                            $("#limit").html("只能接500元以下的任务");
+                        }else if(member.permis_money <= 500){
+                            $("#limit").html("只能接800元以下的任务");
+                        }else if(member.permis_money >= 1000){
+                            $("#limit").html("接任务的价格不限制");
+                        }
+
+                    }else{
+                        alert(result.message);
+                    }
+                }
+            });
+        }
+    }
+
+    $(function () {
+        set_nav("baozhengjin", "on");
+
+        if (userresult_json != undefined && userresult_json!=null) {
+            //保证金
+            var permis_money = userresult_json.permis_money;
+            if (permis_money == undefined || permis_money == null) {
+                $("#baozhengjin").html('0.0');
+                $("#limit").html("只能接300元以下的任务");
+            }else{
+                $("#baozhengjin").html(permis_money);
+                if (permis_money < 200) {
+                    $("#limit").html("只能接300元以下的任务");
+                }else if(permis_money <= 200){
+                    $("#limit").html("只能接500元以下的任务");
+                }else if(permis_money <= 500){
+                    $("#limit").html("只能接800元以下的任务");
+                }else if(permis_money >= 1000){
+                    $("#limit").html("接任务的价格不限制");
+                }
+            }
+            //余额
+            var money = userresult_json.money;
+            if (money != undefined && money != null) {
+                $("#yue").html(money);
+            }
+
+        }
+    });
+</script>
+
+<DIV style="CLEAR: both"></DIV>
+<DIV id=footer>
+    <DIV id=footer_top>
+        <DIV id=foot_top_1><A
+                href="http://001.topaaa.com/about/index.php?itemid=10">代理加盟</A><SPAN> |
+</SPAN><A href="http://001.topaaa.com/about/index.php?itemid=9">辅助业务</A><SPAN> |
+</SPAN><A href="http://001.topaaa.com/about/index.php?itemid=8">网站活动</A><SPAN> |
+</SPAN><A href="http://001.topaaa.com/about/index.php?itemid=7">联系客服</A><SPAN> |
+</SPAN><A href="http://001.topaaa.com/about/index.php?itemid=6">联盟网规</A><SPAN> |
+</SPAN><A href="http://001.topaaa.com/about/index.php?itemid=1">关于我们</A><SPAN> |
+</SPAN><A href="http://001.topaaa.com/about/index.php?itemid=3">联系方式</A><SPAN> |
+</SPAN><A href="http://001.topaaa.com/about/index.php?itemid=4">使用协议</A><SPAN> |
+</SPAN><A href="http://001.topaaa.com/about/index.php?itemid=5">版权隐私</A><SPAN> |
+</SPAN></DIV>
+        <DIV id=copy_right>(c)2013-2018 销量联盟 www.topaaa.com All Rights Reserved </DIV>
+        <DIV style="WIDTH: 1024px; TEXT-ALIGN: center; MARGIN: 20px auto 0px"><IMG
+                src="销量联盟保证金_files/1.png"> <IMG src="销量联盟保证金_files/2.png"> <IMG
+                src="销量联盟保证金_files/3.png"> <IMG src="销量联盟保证金_files/4.png"> <IMG
+                src="销量联盟保证金_files/5.png"> <IMG src="销量联盟保证金_files/6.png"> <IMG
+                src="销量联盟保证金_files/7.png"> <IMG src="销量联盟保证金_files/8.png"> </DIV>
+        <DIV style="CLEAR: both"></DIV></DIV></DIV></DIV>
+
+
+<DIV class=main-im>
+    <DIV class=open-im id=open_im style="DISPLAY: none"></DIV>
+    <DIV class=im_main id=im_main>
+        <DIV class=close-im id=close_im><A title=点击关闭 class=you
+                                           style="CURSOR: pointer"></A></DIV><A class="im-qq qq-a" onclick=multi_qq()>
+        <DIV class=qq-container></DIV>
+        <DIV class=qq-hover-c><IMG class=img-qq
+                                   src="销量联盟保证金_files/qq.png"></DIV><SPAN>QQ在线咨询</SPAN> </A>
+        <SCRIPT id=yptip_qq type=text/template7>
+            <p style="width:100%;background-color:#0098ff;font-size:16px;text-align:center;color:#fff;height:34px;line-height:34px;">客服团队</p><p style="line-height:40px;">客服潇潇：<a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=261369834&site=qq&menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=2:261369834:51" alt="点击这里给我发消息" title="点击这里给我发消息" /></a> <span style="line-height:1.5;margin-left:10px;">客服靓靓：</span><a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=261369834&site=qq&menu=yes" style="line-height:1.5;"><img border="0" src="http://wpa.qq.com/pa?p=2:261369834:51" alt="点击这里给我发消息" title="点击这里给我发消息" /></a> </p><p style="line-height:30px;">客服恋恋：<a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=261369834&site=qq&menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=2:261369834:51" alt="点击这里给我发消息" title="点击这里给我发消息" /></a> <span style="line-height:1.5;margin-left:10px;">客服萌萌：</span><a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=261369834&site=qq&menu=yes" style="line-height:1.5;"><img border="0" src="http://wpa.qq.com/pa?p=2:261369834:51" alt="点击这里给我发消息" title="点击这里给我发消息" /></a> </p><p><br /></p><p style="width:100%;background-color:#0098ff;font-size:16px;text-align:center;color:#fff;height:34px;line-height:34px;">合作渠道</p><p style="line-height:40px;">业务合作：<a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=261369834&site=qq&menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=2:261369834:51" alt="点击这里给我发消息" title="点击这里给我发消息" /></a> <span style="line-height:1.5;margin-left:10px;">代理加盟：</span><a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=261369834&site=qq&menu=yes" style="line-height:1.5;"><img border="0" src="http://wpa.qq.com/pa?p=2:261369834:51" alt="点击这里给我发消息" title="点击这里给我发消息" /></a> </p>        </SCRIPT>
+
+        <SCRIPT>
+            function multi_qq() {
+                $('.layim-friend618').click();
+            }
+        </SCRIPT>
+        <A class=qq-a style="HEIGHT: 130px" href="http://001.topaaa.com/app.php"
+           target=_blank>
+            <DIV class=qq-container style="HEIGHT: 130px"></DIV>
+            <DIV style="HEIGHT: 95px; WIDTH: 95px"><IMG class=img-qq
+                                                        style="MAX-WIDTH: 95px; HEIGHT: 95px; WIDTH: 95px; LEFT: 5px; TOP: 5px"
+                                                        src="销量联盟保证金_files/qrcode.png"></DIV><SPAN>下载APP</SPAN> </A>
+        <DIV class=im-tel>
+            <DIV><A href="http://001.topaaa.com/announce/index.php?typeid=2"
+                    target=_blank>如何发布试用</A></DIV>
+            <DIV><A href="http://001.topaaa.com/announce/index.php?typeid=3"
+                    target=_blank>如何申请试用</A></DIV>
+            <DIV><A href="http://001.topaaa.com/about/index.php?itemid=6"
+                    target=_blank>销量联盟网规</A></DIV>
+            <DIV><A class=jsbz href="http://001.topaaa.com/announce/index.php?typeid=1"
+                    target=_blank>网站公告</A></DIV></DIV>
+        <DIV class=im-footer style="POSITION: relative">
+            <DIV class=go-top><A title=返回顶部 class=you style="CURSOR: pointer"></A></DIV>
+            <DIV style="CLEAR: both"></DIV></DIV></DIV>
+    <SCRIPT>
+        $(function () {
+            $(".go-top").click(function () {
+                $('html,body').animate({scrollTop: 0}, 800);
+            });
+            $("#close_im").click(function () {
+                $("#im_main").fadeOut(500, function () {
+                    $("#open_im").fadeIn(500);
+                });
+            });
+            $("#open_im").click(function () {
+                $("#open_im").fadeOut(500, function () {
+                    $("#im_main").fadeIn(500);
+                });
+            });
+        });
+    </SCRIPT>
+</DIV></BODY></HTML>

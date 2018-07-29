@@ -236,17 +236,17 @@
                 <td class="tl"><span class="f_red">*</span> 信用积分</td>
                 <td class="tr">
                     <select name="honor" id="rate">
-                        <option value="xin1">1心</option>
-                        <option value="xin2">2心</option>
-                        <option value="xin3">3心</option>
-                        <option value="xin4">4心</option>
-                        <option value="xin5">5心</option>
-                        <option value="xin6">1钻</option>
-                        <option value="xin7">2钻</option>
-                        <option value="xin8">3钻</option>
-                        <option value="xin9">4钻</option>
-                        <option value="xin10">5钻</option>
-                        <option value="xin11">冠级</option>
+                        <option value="1">1心</option>
+                        <option value="2">2心</option>
+                        <option value="3">3心</option>
+                        <option value="4">4心</option>
+                        <option value="5">5心</option>
+                        <option value="6">1钻</option>
+                        <option value="7">2钻</option>
+                        <option value="8">3钻</option>
+                        <option value="9">4钻</option>
+                        <option value="10">5钻</option>
+                        <option value="11">冠级</option>
                     </select>
                     <span id="drate" class="f_red"></span>
                 </td>
@@ -513,7 +513,19 @@
                 params.url4 = $("#path4").val();
                 params.url5 = $("#path5").val();
                 params.account_gender = $("input[name='account_gender']:checked").val();
+
                 params.honor = $("#rate").val();
+                //常购类别
+                params.buy_class = '';
+
+                $("input[name='buy_class']:checked").each(function(i, n){
+                    var temp = $(this).val();
+                    params.buy_class+= temp+ ',';
+                });
+                //params.buy_class  = JSON.stringify(params.buy_class);
+
+                console.log(params);
+
                 params.age_range = $("#age_range").val();
                 params.taoqi = $("#taoqi").val();
                 params.truename = $("#truename").val();
@@ -606,7 +618,7 @@
                 $('#zhanghao').parent().prev().find('span:eq(1)').text('账号');
                 $('#rate, #thumb1').parent().parent().show();
                 $(".taobao").show();
-                $("#rate").html('<option value="xin1">1心</option><option value="xin2">2心</option><option value="xin3">3心</option><option value="xin4">4心</option><option value="xin5">5心</option><option value="xin6">1钻</option><option value="xin7">2钻</option><option value="xin8">3钻</option><option value="xin9">4钻</option><option value="xin10">5钻</option><option value="xin11">冠级</option>');
+                $("#rate").html('<option value="1">1心</option><option value="2">2心</option><option value="3">3心</option><option value="4">4心</option><option value="5">5心</option><option value="6">1钻</option><option value="7">2钻</option><option value="8">3钻</option><option value="9">4钻</option><option value="10">5钻</option><option value="11">冠级</option>');
                 $('.eg').each(function () {
                     $(this).html($(this).html().replace(/jingdong/g, 'taobao'));
                 });
@@ -617,7 +629,7 @@
                 $('#zhanghao').parent().prev().find('span:eq(1)').text('账号');
                 $('#rate, #thumb1').parent().parent().show();
                 $(".taobao").hide();
-                $("#rate").html('<option value="rank1">铜牌会员</option><option value="rank2">银牌会员</option><option value="rank3">金牌会员</option><option value="rank4">钻石会员</option>');
+                $("#rate").html('<option value="1">铜牌会员</option><option value="2">银牌会员</option><option value="3">金牌会员</option><option value="4">钻石会员</option>');
                 $('.thumb_upload').parent().parent().show();
                 $('.eg').each(function () {
                     $(this).html($(this).html().replace(/taobao/g, 'jingdong'));

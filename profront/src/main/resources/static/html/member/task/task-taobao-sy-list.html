@@ -299,6 +299,8 @@
                             });
                         });
 
+                        let orgSet = localStorage.getItem("setting");
+                        let setting = jQuery.parseJSON(orgSet);
 
                         //时间转化
                         for (let i = 0; i < list.length; i++) {
@@ -307,6 +309,9 @@
                                 list[i].pub_time =
                                     moment(org_time, 'MMM DD,YYYY HH:mm:ss A', 'en').format('YYYY-MM-DD HH:mm:ss');
                             }
+                            //显示默认图片
+                            list[i].goods_img = setting.goods_default_img;
+
                         }
 
                         const element = <div id="taskList">{
@@ -324,15 +329,15 @@
                                                  align='absMiddle'
                                                  src="/dist/img/cat_5.png"/>
                                             试用编号：
-                                            100
+                                            {data.id}
                                         </div>
                                         <div className='c43'>
                                             <div className='my1'>
                                                 <img className='c46'
-                                                     src="/dist/img/13-23-52-87-2.png.thumb.png"
+                                                     src={data.goods_img}
                                                      data-qtip-img-height="300"
                                                      data-qtip-img-width="0"
-                                                     data-qtip-img="/dist/img/201803/15/13-23-52-87-2.png.thumb.png"/>
+                                                     />
 
                                                 <div>
                                                     {data.search_word}
@@ -342,7 +347,7 @@
                                                 <ul>
                                                     <li>发布商家：
                                                         <span className='f_red'>
-                                                       {data.username}
+                                                       {data.shop_name}
                                                     </span>
                                                         <span className='vip'><img
                                                             title='1级VIP客户'
