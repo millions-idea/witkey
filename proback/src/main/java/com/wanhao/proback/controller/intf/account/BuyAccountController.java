@@ -55,8 +55,12 @@ public class BuyAccountController {
         if (account_id!=null){
             MemberTaoBao taoBao = new MemberTaoBao();
             Integer disable = taoBao.getDisable();
+            if (disable==null){
+                taoBao.setDisable(0);
+            }else {
+                taoBao.setDisable(disable==1?0:1);
+            }
             taoBao.setId(account_id);
-            taoBao.setDisable(disable==1?0:1);
             //保存更新
             taoBaoService.update(taoBao);
             ResponseUtils.retnSuccessMsg(response,jsonObject,"修改完成");

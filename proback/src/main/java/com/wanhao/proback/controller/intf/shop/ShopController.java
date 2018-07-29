@@ -49,7 +49,8 @@ public class ShopController {
                         String catetype, String link_url,
                         String goods_img, String search_word,
                         String goods_format, String template_name,
-                        Integer shop_id, Integer goods_type,
+                        Integer shop_id, String shop_name,
+                        Integer goods_type,
                         Integer search_type, Integer task_count,
                         Integer return_type, Integer yuancheng_type,
                         //Integer pay_type,
@@ -181,6 +182,7 @@ public class ShopController {
         goods.setDay_limit(day_limit);
         goods.setShangbao_limit(shangbao_limit);
         goods.setTaoqi_limit(taoqi_limit);
+        goods.setShop_name(shop_name);
         goods.setHonor_limit(honor_limit);
         goods.setForbidden_area(forbidden_area);
 

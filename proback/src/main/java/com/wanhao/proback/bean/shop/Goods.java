@@ -41,6 +41,8 @@ public class Goods extends BaseBean {
     private Double append_money;
     //下单的淘口令
     private String tao_kouling;
+    private String shop_name;
+
     private Integer zhiding_pinglun;
     private Integer bask_img;
     private Integer task_rec_time;

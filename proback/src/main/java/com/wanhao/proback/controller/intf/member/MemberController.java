@@ -282,23 +282,23 @@ public class MemberController {
                                String url3, String url4,
                                String url5, String account_gender,
                                String honor, String age_range, Integer taoqi,
-                               Integer[] buy_class, String truename,
+                               String[] buy_class, String truename,
                                String mobile, String province,
                                String city, String address,
                                Integer honor_value) {
         JsonObject jsonObject = new JsonObject();
 
-        if (catid == null || IsNullUtils.isContainsNull(
-                account, account_gender, honor,
-
-                age_range, truename, mobile,
-
-                province, city, address)) {
-
-            //信息不完整
-            ResponseUtils.retnFailMsg(response, jsonObject);
-            return;
-        }
+//        if (catid == null || IsNullUtils.isContainsNull(
+//                account, account_gender, honor,
+//
+//                age_range, truename, mobile,
+//
+//                province, city, address)) {
+//
+//            //信息不完整
+//            ResponseUtils.retnFailMsg(response, jsonObject);
+//            return;
+//        }
 
         //保存信息
         Member member = (Member) request.getSession().getAttribute(Constants.USER);
@@ -308,11 +308,13 @@ public class MemberController {
             return;
         }
         MemberTaoBao memberTaoBao = new MemberTaoBao();
+        memberTaoBao.setCatid(catid+"");
 
         //判断这个号是否已经绑定过了
         memberTaoBao.setAccount(account);
         switch (catid) {
             case 4://淘宝
+
                 memberTaoBao.setAccount_type("淘宝试用");
                 //拼接类别
                 StringBuilder sb = new StringBuilder();
@@ -352,6 +354,21 @@ public class MemberController {
         Integer mem_id = member.getId();
         memberTaoBao.setMem_id(mem_id);
 
+        //常买类型
+        if (buy_class!=null && buy_class.length>0){
+            StringBuilder sb = new StringBuilder();
+            for(int i=0;i<buy_class.length;i++){
+                if (StringUtils.isNotBlank(buy_class[i])){
+                    if (i==buy_class.length-1){
+                        sb.append(buy_class[i]);
+                    }else {
+                        sb.append(buy_class[i]).append(",");
+                    }
+                }
+            }
+            memberTaoBao.setAlways_class(sb.toString());
+        }
+
         //信用数值
         memberTaoBao.setHonor_value(honor_value);
         memberTaoBao.setAccount_gender(account_gender);
@@ -369,6 +386,7 @@ public class MemberController {
 
 
         memberTaoBao.setHonor(honor);
+        memberTaoBao.setHonor_value(honor_value);
         memberTaoBao.setMobile(mobile);
         memberTaoBao.setTruename(truename);
         memberTaoBao.setTaoqi(taoqi);
@@ -754,6 +772,11 @@ public class MemberController {
             dbMember.setPermis_money(savePermiss);
             //保存到数据库
             memberService.updateMember(dbMember);
+            //查询最新信息
+            Member newMem = memberService.getMember(dbMember);
+
+            jsonObject.addProperty("member",GsonUtils.toJson(newMem));
+
             ResponseUtils.retnSuccessMsg(response,jsonObject,"保证金缴纳成功");
         }else {
             ResponseUtils.retnFailMsg(response,jsonObject,"保证金缴纳失败");
@@ -916,6 +939,22 @@ public class MemberController {
             ResponseUtils.retnSuccessMsg(response,jsonObject,"查询完成");
         }else {
             ResponseUtils.retnFailMsg(response,jsonObject);
+        }
+    }
+
+    /**
+     * 获取用户信息
+     */
+    @ISLogin
+    @RequestMapping(value = "getMemberInfo")
+    public void getMemberInfo(HttpServletRequest request, HttpServletResponse response,
+                              Integer memid){
+        if (memid!=null && memid>0){
+            Member member = new Member();
+            Member dbMem = memberService.getMember(member);
+            JsonObject jsonObject = new JsonObject();
+            jsonObject.addProperty("member",GsonUtils.toJson(dbMem));
+            ResponseUtils.retnSuccessMsg(response,jsonObject,"查询成功");
         }
     }
 }

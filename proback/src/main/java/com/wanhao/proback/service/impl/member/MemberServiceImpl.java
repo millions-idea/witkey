@@ -107,12 +107,18 @@ public class MemberServiceImpl implements MemberService {
     @Override
     @Transactional(readOnly = true)
     public Member getMember(Member member) {
-        return memberMapper.selectByPrimaryKey(member);
+        Member dbMem = memberMapper.selectByPrimaryKey(member);
+        //放入缓存
+        redisTemplate.opsForValue().set("member_"+member.getId(),dbMem);
+        return dbMem;
     }
 
     @Override
     public void updateMember(Member member) {
         memberMapper.updateByPrimaryKeySelective(member);
+        //清除缓存
+        redisTemplate.delete("member_"+member.getId());
+
     }
 
     @Override

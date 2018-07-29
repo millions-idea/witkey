@@ -102,6 +102,7 @@ public class AccessSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/intf_setting/**")
                 .antMatchers("/intf_vip/**")
                 .antMatchers("/intf_shop/**")
+                .antMatchers("/intf_account/**")
 
         ;
     }
