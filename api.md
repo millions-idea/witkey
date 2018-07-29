@@ -219,7 +219,7 @@ intf_setting/getSetting
 
 	|参数		|是否必选 |类型     |说明
 	|username    |Y       |string   |用户名
-	|password    |Y       |string   |密码(暂时未加密)
+	|password    |Y       |string   |密码
 
 ### 返回示例：
 	成功:
@@ -234,6 +234,44 @@ intf_setting/getSetting
 	      "error": 1,
 	      "message": "用户名或密码错误"
 	    }
+
+
+
+#### 2.1获取用户信息
+
+### 请求URL：
+
+```
+intf_member/getMemberInfo
+```
+
+### 请求方式：
+
+```
+POST/get
+```
+
+### 参数类型
+
+```
+|参数		|是否必选 |类型     |说明
+mobile		是      	string   用户的手机号(放到请求头里面)
+token		是      	string   登录返回的(放到请求头里面)
+memid		是		int	 	用户Id
+
+```
+
+### 返回示例：
+
+```
+成功:
+  {
+    "error": "0",
+    "message": "查询成功!",
+    "member": "{\"username\":\"张三\",\"login_ip\":\"0:0:0:0:0:0:0:1null\",\"email\":\"34433\",\"mobile\":\"234234\",\"money\":0.0,\"mobile_code\":\"-1\",\"pass_code\":\"-1\",\"login_time\":\"Jul 16, 2018 1:04:45 PM\",\"status\":0,\"add_moneys\":0.0,\"gender\":\"男士\",\"loin_count\":1,\"pass_exam\":0,\"is_real_name\":0,\"is_real_mobile\":0,\"is_real_bank\":0,\"vipmodel\":\"游客\",\"version\":1,\"token\":\"f89b6814-2298-420a-a27d-81625ac3c0c2\",\"id\":1,\"page\":1,\"rows\":10}"
+}
+
+```
 
 
 
@@ -304,7 +342,7 @@ intf_setting/getSetting
 	address		是		string	详细收货地址
 
 
-### 返回示例：
+### 返回示例：   信誉 常买为空
 ```json
 成功:
    {
@@ -386,7 +424,7 @@ account_id	是		int		买号id
 ### 请求URL：
 
 ```
-intf_member/disableAccount
+intf_account/disableAccount
 ```
 
 ### 请求方式：
@@ -530,6 +568,48 @@ shop_id		是		int		店铺id
     "error": 1,
     "message","参数不完整"
 }
+
+```
+
+## #7.2、 查看店铺列表
+
+### 请求URL：
+
+```
+intf_member/getShopList
+```
+
+### 请求方式：
+
+```
+post/get
+```
+
+### 参数类型
+
+```
+|参数		|是否必选 |类型     |说明
+mobile		是      	string   用户的手机号(放到请求头里面)
+token		是      	string   登录返回的(放到请求头里面)
+memid		是		int		用户id
+```
+
+### 返回示例：
+
+```
+正常{
+    "error": 0,
+    "message","查询完成",
+    list:[
+        { },
+    ]
+}
+错误
+{
+    "error": 1,
+    "message","参数不完整"
+}
+
 
 ```
 
@@ -1037,6 +1117,7 @@ link_url	是		string	商品链接地址
 goods_img	是		string	商品图片
 search_word	是		string	搜索关键字
 shop_id		是		int		店铺id
+shop_name	是		string	店铺名称
 goods_format 是		string	商品规格
 template_name否		string	模板名称
 goods_type	是		int		商品所属宝贝分类
@@ -1112,7 +1193,8 @@ add_val		是		double	要增加的保证金钱数
 ```
 正常{
     "error": 0,
-    "message","保证金缴纳成功"
+    "message","保证金缴纳成功",
+    "member":{id:100.........}     //最新用户信息
 }
 错误 
 {
@@ -1154,11 +1236,13 @@ page		否		int		查询的页码
 ```
 正常
 {
-"list":"[
-    {\"memid\":6,\"flag\":1,\"money\":50.1,\"shouxu\":0.1,\"shoukuanren\":\"胡锦涛\",\"shoukuan_fangshi\":\"支付宝\",\"shoukuan_zhaghao\":\"838088516@qq.com\",\"shenqing_shijian\":\"Jul 25, 2018 10:46:33 PM\",\"id\":1,\"page\":1,\"rows\":10},{\"memid\":6,\"flag\":1,\"money\":50.1,\"shouxu\":0.1,\"shoukuanren\":\"胡锦涛\",\"shoukuan_fangshi\":\"支付宝\",\"shoukuan_zhaghao\":\"838088516@qq.com\",\"shenqing_shijian\":\"Jul 25, 2018 10:46:33 PM\",\"id\":2,\"page\":1,\"rows\":10}
-]",
     "error":0,
-    "message":"查询成功"
+    "message":"查询成功",
+    "sumMoney":100,
+    "sumShouXu":100,
+    "pageinfo":{
+        
+    }
 }
 错误 
 {
@@ -1180,7 +1264,6 @@ intf_member/tixian2Account
 
 ```
 post
-
 ```
 
 ### 参数类型
@@ -1190,9 +1273,8 @@ post
 mobile		是      	string   用户的手机号(放到请求头里面)
 token		是      	string   登录返回的(放到请求头里面)
 memid		是		int		用户的id
-from_date	 否		string	查询的开始日期
-to_date		 否		string	查询的结束日期
-page		否		int		查询的页码
+money		是		double	提现金额
+sk_fangshi	 是		string		提现方式
 ```
 
 ### 返回示例：
@@ -1200,16 +1282,13 @@ page		否		int		查询的页码
 ```
 正常
 {
-"list":"[
-    {\"memid\":6,\"flag\":1,\"money\":50.1,\"shouxu\":0.1,\"shoukuanren\":\"胡锦涛\",\"shoukuan_fangshi\":\"支付宝\",\"shoukuan_zhaghao\":\"838088516@qq.com\",\"shenqing_shijian\":\"Jul 25, 2018 10:46:33 PM\",\"id\":1,\"page\":1,\"rows\":10},{\"memid\":6,\"flag\":1,\"money\":50.1,\"shouxu\":0.1,\"shoukuanren\":\"胡锦涛\",\"shoukuan_fangshi\":\"支付宝\",\"shoukuan_zhaghao\":\"838088516@qq.com\",\"shenqing_shijian\":\"Jul 25, 2018 10:46:33 PM\",\"id\":2,\"page\":1,\"rows\":10}
-]",
     "error":0,
-    "message":"查询成功"
+    "message":"提现已经提交,等待审核(1工作日左右到账)"
 }
 错误 
 {
     "error": 1,
-    "message","没有记录"
+    "message","没有开启提现功能..."
 }
 
 ```
