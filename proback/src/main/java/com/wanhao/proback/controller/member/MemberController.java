@@ -560,8 +560,14 @@ public class MemberController {
      */
     @RequestMapping(value = "toTiXian")
     public String toTiXian(Model model, Integer pass,
-                           Integer fields, String input_val) {
+                           Integer fields, String input_val,
+                           Integer page) {
         TiXian tiXian = new TiXian();
+
+        //页码
+        if (page!=null && page>=0){
+            tiXian.setPage(page);
+        }
 
         //检查条件搜索
         if (pass != null) {

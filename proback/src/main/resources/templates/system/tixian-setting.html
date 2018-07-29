@@ -83,7 +83,7 @@
                     </tr>
 
                     <tr>
-                        <td class="tl"><span class="f_hid">*</span> 提现手续费</td>
+                        <td class="tl"><span class="f_hid">*</span> 提现手续费(百分比)</td>
                         <td>
                             <input type="number" th:value="${setting.shouxu}" size="20" name="shouxu"
                                    id="payword" step="0.01"  autocomplete="off"/>&nbsp;
@@ -101,7 +101,8 @@
                     <tr>
                         <td class="tl"><span class="f_red">*</span> 费率最大值</td>
                         <td>
-                            <input type="number" th:value="${setting.max_shouxu}" step="0.01" size="30" name="max_shouxu"
+                            <input type="number" th:value="${setting.max_shouxu}"
+                                   step="0.01" size="30" name="max_shouxu"
                                    id="email"  />
                     </tr>
 

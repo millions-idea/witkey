@@ -82,6 +82,13 @@ public class MemberController {
         }
 
         member.setIs_seller(is_seller);
+        //根据用户类型分配组
+        if (is_seller==1){
+            member.setVipmodel("商家会员");
+        }else {
+            member.setVipmodel("试客会员");
+        }
+
         member.setMobile(mobile);
         //判断用户是否存在
         List<Member> temp = memberService.loginMember(member);

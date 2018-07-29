@@ -102,7 +102,7 @@ public class ShopController {
         }
         Goods goods = new Goods();
 
-        switch (catetype){
+        switch (catetype) {
             case "4":
                 goods.setCatetype("淘宝试用");
                 break;
@@ -134,32 +134,32 @@ public class ShopController {
                 break;
         }
         //获取付款方式
-        if (return_type==0){
+        if (return_type == 0) {
             //获取商家付款方式
-            if (yuancheng_type==null){
+            if (yuancheng_type == null) {
                 return;
             }
             goods.setYuancheng_type(yuancheng_type);
         }
         //淘口令
-        if (StringUtils.isNotBlank(tao_kouling)){
+        if (StringUtils.isNotBlank(tao_kouling)) {
             goods.setTao_kouling(tao_kouling);
         }
         //性别限制
-        if (gender_limit!=null && gender_limit.length>0){
-            if (gender_limit.length==1){
+        if (gender_limit != null && gender_limit.length > 0) {
+            if (gender_limit.length == 1) {
                 goods.setGender_limit(gender_limit[0]);
-            }else {
+            } else {
                 goods.setGender_limit(0);
             }
         }
         //年龄限制  1,2,3,4  15-25
-        if (age_limit!=null && age_limit.length>0){
+        if (age_limit != null && age_limit.length > 0) {
             StringBuilder sb = new StringBuilder();
-            for(int i=0;i<gender_limit.length;i++){
-                if (i==gender_limit.length-1){
+            for (int i = 0; i < gender_limit.length; i++) {
+                if (i == gender_limit.length - 1) {
                     sb.append(gender_limit[i]);
-                }else {
+                } else {
                     sb.append(gender_limit[i]).append(",");
                 }
             }
@@ -167,12 +167,12 @@ public class ShopController {
         }
 
         //常买类型 1,2,3,5
-        if (always_buy_class!=null && always_buy_class.length>0){
+        if (always_buy_class != null && always_buy_class.length > 0) {
             StringBuilder sb = new StringBuilder();
-            for(int i=0;i<always_buy_class.length;i++){
-                if (i==always_buy_class.length-1){
+            for (int i = 0; i < always_buy_class.length; i++) {
+                if (i == always_buy_class.length - 1) {
                     sb.append(always_buy_class[i]);
-                }else {
+                } else {
                     sb.append(always_buy_class[i]).append(",");
                 }
             }
@@ -208,7 +208,7 @@ public class ShopController {
         goods.setSave_template(save_template);
         goods.setPrice(price);
         goods.setAppend_money(append_money);
-      //  goods.setCatetype(catetype);
+        //  goods.setCatetype(catetype);
         goods.setGoods_format(goods_format);
         goods.setGoods_img(goods_img);
         goods.setLink_url(link_url);
@@ -240,8 +240,8 @@ public class ShopController {
     // @ISLogin
     @RequestMapping(value = "loadUserTaskList")
     public void loadUserTaskList(HttpServletRequest request, HttpServletResponse response,
-                                 Integer memid,String order_by,Integer page,
-                                 Integer class_type,Integer good_id) {
+                                 Integer memid, String order_by, Integer page,
+                                 Integer class_type, Integer good_id) {
         if (memid != null) {
             JsonObject jsonObject = new JsonObject();
             //判断用户是否已经绑定账号
@@ -249,7 +249,7 @@ public class ShopController {
             Member dbMember = memberService.getMember(member);
 
             //判断用户类型 是商家还是买家
-            if (dbMember.getIs_seller()!=null && dbMember.getIs_seller()==1){
+            if (dbMember.getIs_seller() != null && dbMember.getIs_seller() == 1) {
                 //是商家 只能显示自己发布的任务
                 Goods goods = new Goods();
                 goods.setMemid(memid);
@@ -264,8 +264,8 @@ public class ShopController {
 
                     ResponseUtils.retnSuccessMsg(response, jsonObject);
                     return;
-                }else {
-                    ResponseUtils.retnSuccessMsg(response, jsonObject,"您还没有发布任务");
+                } else {
+                    ResponseUtils.retnFailMsg(response, jsonObject, "您还没有发布任务");
                     return;
                 }
             }
@@ -282,8 +282,8 @@ public class ShopController {
             //排序
             String orderBy = "";
             //查询任务列表
-            if (!IsNullUtils.isNull(order_by)){
-                switch (order_by){
+            if (!IsNullUtils.isNull(order_by)) {
+                switch (order_by) {
                     case "1"://时间排序
                         orderBy = "id desc ";
                         break;
@@ -301,14 +301,14 @@ public class ShopController {
             goods.setId(good_id);
             //排序
             goods.setOrderBY(orderBy);
-            if (page!=null && page>0){
+            if (page != null && page > 0) {
                 //分页
                 goods.setPage(page);
             }
 
 
             //所属商品分类
-            if (class_type!=null){
+            if (class_type != null) {
                 goods.setGoods_class_id(class_type);
             }
 
@@ -325,76 +325,74 @@ public class ShopController {
 
 
     //设置颜色类
-    public List<String> getColors( List<Goods> list){
+    public List<String> getColors(List<Goods> list) {
         List<String> color_class = null;
         //构建requires
-        if (list!=null && list.size()>0){
+        if (list != null && list.size() > 0) {
             List<String> strings;
             for (Goods temp : list) {
                 strings = new LinkedList<String>();
                 color_class = new LinkedList<String>();
 
                 Integer need_add_buy_cart = temp.getNeed_add_buy_cart();
-                if (need_add_buy_cart!=null && need_add_buy_cart==1){
+                if (need_add_buy_cart != null && need_add_buy_cart == 1) {
                     strings.add("添加购物车");
                     color_class.add("ired");
                 }
                 //货比三家
                 Integer need_bi_san_jia = temp.getNeed_bi_san_jia();
-                if (need_bi_san_jia!=null && need_bi_san_jia==1){
+                if (need_bi_san_jia != null && need_bi_san_jia == 1) {
                     strings.add("货比三家");
                     color_class.add("iorange");
 
                 }
                 //拍前聊天
                 Integer need_chat = temp.getNeed_chat();
-                if (need_chat!=null && need_chat==1){
+                if (need_chat != null && need_chat == 1) {
                     strings.add("拍前聊天");
                     color_class.add("iyellow");
 
                 }
                 //收藏商品
                 Integer need_col_goods = temp.getNeed_col_goods();
-                if (need_col_goods!=null && need_col_goods==1){
+                if (need_col_goods != null && need_col_goods == 1) {
                     strings.add("收藏商品");
                     color_class.add("igreen");
 
                 }
                 //浏览评论
                 Integer need_look_comment = temp.getNeed_look_comment();
-                if (need_look_comment!=null && need_look_comment==1){
+                if (need_look_comment != null && need_look_comment == 1) {
                     strings.add("浏览评论");
                     color_class.add("icyan");
 
                 }
                 //年龄限制
                 String age_limit = temp.getAge_limit();
-                if (StringUtils.isNotBlank(age_limit)){
+                if (StringUtils.isNotBlank(age_limit)) {
                     strings.add(age_limit);
                     color_class.add("iblue");
 
                 }
                 //淘气值
                 Integer taoqi_limit = temp.getTaoqi_limit();
-                if (taoqi_limit!=null && taoqi_limit==1){
-                    strings.add("淘气值"+taoqi_limit);
+                if (taoqi_limit != null && taoqi_limit == 1) {
+                    strings.add("淘气值" + taoqi_limit);
                     color_class.add("iviolet");
 
                 }
                 //性别
                 Integer gender_limit = temp.getGender_limit();
-                if (gender_limit!=null){
-                    if (gender_limit==1){
+                if (gender_limit != null) {
+                    if (gender_limit == 1) {
                         strings.add("男号");
                         color_class.add("igray");
 
-                    }
-                    else if (gender_limit==2){
+                    } else if (gender_limit == 2) {
                         strings.add("女号");
                         color_class.add(".ired");
 
-                    }
-                    else if (gender_limit==0){
+                    } else if (gender_limit == 0) {
                         strings.add("男号,女号");
                         color_class.add("inone");
 
@@ -402,17 +400,17 @@ public class ShopController {
                 }
                 //设备限制
                 String device = temp.getDevice();
-                if (StringUtils.isNotBlank(device)){
+                if (StringUtils.isNotBlank(device)) {
                     strings.add(device);
                     color_class.add("ired");
                 }
                 //信誉限制
                 String honor_limit = temp.getHonor_limit();
-                if (StringUtils.isNotBlank(honor_limit)){
+                if (StringUtils.isNotBlank(honor_limit)) {
                     strings.add(device);
                     color_class.add("icyan");
 
-                }else {
+                } else {
                     strings.add("不限信誉");
                     color_class.add("iviolet");
                 }
@@ -434,22 +432,22 @@ public class ShopController {
                          Integer memid, Integer goods_id) {
         JsonObject jsonObject = new JsonObject();
         if (IsNullUtils.isNull(memid, goods_id)) {
-            ResponseUtils.retnFailMsg(response,jsonObject,"参数不完整");
+            ResponseUtils.retnFailMsg(response, jsonObject, "参数不完整");
             return;
         }
         //是否绑定了买家号
         Member member = new Member(memid);
         Member dbMember = memberService.getMember(member);
-        if (dbMember!=null && dbMember.getIs_seller()!=null &&
-                dbMember.getIs_seller()==0 &&
-                dbMember.getIs_bind_buy_account()!=null &&
-                dbMember.getIs_bind_buy_account()==1){
+        if (dbMember != null && dbMember.getIs_seller() != null &&
+                dbMember.getIs_seller() == 0 &&
+                dbMember.getIs_bind_buy_account() != null &&
+                dbMember.getIs_bind_buy_account() == 1) {
             //判断商品类目
             Goods goods = new Goods();
             goods.setId(goods_id);
             //查找任务对应的商品
             List<Goods> dbList = goodsService.getGoods(goods);
-            if (dbList!=null && dbList.size()>0){
+            if (dbList != null && dbList.size() > 0) {
                 Goods dbGood = dbList.get(0);
                 //判断是哪个类型的试用
                 String catetype = dbGood.getCatetype();
@@ -457,29 +455,27 @@ public class ShopController {
                 taoBao.setAccount_type(catetype);
                 taoBao.setIs_pass(1);
                 List<MemberTaoBao> baos = taoBaoService.queryMemberBuyList(taoBao);
-                if (baos==null || baos.size()==0){
+                if (baos == null || baos.size() == 0) {
                     //没有对应的买号 不能接
-                    ResponseUtils.retnFailMsg(response,jsonObject,"您没有对应的买号,先绑定买号");
+                    ResponseUtils.retnFailMsg(response, jsonObject, "您没有对应的买号,先绑定买号");
                     return;
                 }
             }
 
 
             //检查会员是否满足条件
-            if (true){
-                String forbidden_area = dbList.get(0).getForbidden_area();
-                String ipAdrress = IpUtils.getIpAdrress(request);
-                String location = IpUtils.getLocation(ipAdrress);
-                //获取请求IP地址
-                if (StringUtils.isNotBlank(location)){
-                    String[] split = location.split(",");
-                    if (split!=null && split.length>0){
-                        if (StringUtils.isNotBlank(forbidden_area)){
-                            if (forbidden_area.contains(split[0]) || forbidden_area.contains(split[1])){
-                                //在禁止地区内
-                                ResponseUtils.retnFailMsg(response,jsonObject,"您在禁止地区内,不能试用");
-                                return;
-                            }
+            String forbidden_area = dbList.get(0).getForbidden_area();
+            String ipAdrress = IpUtils.getIpAdrress(request);
+            String location = IpUtils.getLocation(ipAdrress);
+            //获取请求IP地址
+            if (StringUtils.isNotBlank(location)) {
+                String[] split = location.split(",");
+                if (split != null && split.length > 0) {
+                    if (StringUtils.isNotBlank(forbidden_area)) {
+                        if (forbidden_area.contains(split[0]) || forbidden_area.contains(split[1])) {
+                            //在禁止地区内
+                            ResponseUtils.retnFailMsg(response, jsonObject, "您在禁止地区内,不能试用");
+                            return;
                         }
                     }
                 }
@@ -491,7 +487,7 @@ public class ShopController {
         goods.setId(goods_id);
         //查找任务对应的商品
         List<Goods> dbList = goodsService.getGoods(goods);
-        if (dbList!=null && dbList.size()>0) {
+        if (dbList != null && dbList.size() > 0) {
             Goods dbGood = dbList.get(0);
             MemberTaoBao taoBao = new MemberTaoBao();
             String catetype = dbGood.getCatetype();
@@ -499,9 +495,9 @@ public class ShopController {
             taoBao.setAccount_type(catetype);
             taoBao.setIs_pass(1);
             List<MemberTaoBao> baos = taoBaoService.queryMemberBuyList(taoBao);
-            if (baos!=null && baos.size()>0){
-                jsonObject.addProperty("list",GsonUtils.toJson(baos));
-                ResponseUtils.retnSuccessMsg(response,jsonObject,"查询成功");
+            if (baos != null && baos.size() > 0) {
+                jsonObject.addProperty("list", GsonUtils.toJson(baos));
+                ResponseUtils.retnSuccessMsg(response, jsonObject, "查询成功");
             }
         }
     }
@@ -517,17 +513,17 @@ public class ShopController {
     @RequestMapping(value = "pickTask")
     public void pickTask(HttpServletRequest request, HttpServletResponse response,
                          Integer memid, Integer goods_id,
-                         Integer buy_id){
+                         Integer buy_id) {
         JsonObject jsonObject = new JsonObject();
-        if (IsNullUtils.isNull(memid,goods_id,buy_id)){
-            ResponseUtils.retnFailMsg(response,jsonObject);
+        if (IsNullUtils.isNull(memid, goods_id, buy_id)) {
+            ResponseUtils.retnFailMsg(response, jsonObject);
             return;
         }
         //判断任务试用类型 检查是否符合
         Goods goods = new Goods();
         goods.setId(goods_id);
         List<Goods> dbList = goodsService.getGoods(goods);
-        if (dbList!=null && dbList.size()>0){
+        if (dbList != null && dbList.size() > 0) {
             Goods dbGood = dbList.get(0);
             //试用类型
             String catetype = dbGood.getCatetype();
@@ -536,7 +532,7 @@ public class ShopController {
             MemberTaoBao taoBao = new MemberTaoBao();
             taoBao.setId(buy_id);
             List<MemberTaoBao> memberTaoBaos = taoBaoService.queryMemberBuyList(taoBao);
-            if (memberTaoBaos==null || memberTaoBaos.size()<=0){
+            if (memberTaoBaos == null || memberTaoBaos.size() <= 0) {
                 return;
             }
             //买号
@@ -548,12 +544,12 @@ public class ShopController {
             MemberTask queryTask = new MemberTask();
             queryTask.setMemid(memid);
             queryTask.setGoods_id(goods_id);
-            if (day_limit!=null && day_limit>0){
+            if (day_limit != null && day_limit > 0) {
                 //接任务相隔的天数
                 List<MemberTask> datas = taskService.getDatas(queryTask);
-                if (datas!=null && datas.size()>0){
+                if (datas != null && datas.size() > 0) {
                     //已经接过任务了
-                    ResponseUtils.retnFailMsg(response,jsonObject,"时间未到,禁止接同一掌柜任务");
+                    ResponseUtils.retnFailMsg(response, jsonObject, "时间未到,禁止接同一掌柜任务");
                     return;
                 }
             }
@@ -564,37 +560,37 @@ public class ShopController {
 
             //商保限制
             Integer shangbao_limit = dbGood.getShangbao_limit();
-            if (shangbao_limit!=null && shangbao_limit==1){
+            if (shangbao_limit != null && shangbao_limit == 1) {
 
-                if (sbMember==null || sbMember.getPermis_money()==null||
-                        sbMember.getPermis_money()<=0){
+                if (sbMember == null || sbMember.getPermis_money() == null ||
+                        sbMember.getPermis_money() <= 0) {
                     //没有商保
-                    ResponseUtils.retnFailMsg(response,jsonObject,"没有商保,不能接取试用");
+                    ResponseUtils.retnFailMsg(response, jsonObject, "没有商保,不能接取试用");
                     return;
                 }
             }
 
             //买号信誉限制
             String honor_limit = dbGood.getHonor_limit();
-            if (StringUtils.isNotBlank(honor_limit)){
+            if (StringUtils.isNotBlank(honor_limit)) {
                 //todo
             }
 
             //性别限制
             Integer gender_limit = dbGood.getGender_limit();
-            if (gender_limit!=null && gender_limit!=0){
+            if (gender_limit != null && gender_limit != 0) {
                 String account_gender = buyAccount.getAccount_gender();
 
-                if (gender_limit==1){
+                if (gender_limit == 1) {
                     if (!IsNullUtils.isNull(account_gender) &&
-                            account_gender.contains("女")){
-                        ResponseUtils.retnFailMsg(response,jsonObject,"性别不符合要求");
+                            account_gender.contains("女")) {
+                        ResponseUtils.retnFailMsg(response, jsonObject, "性别不符合要求");
                         return;
                     }
-                }else if (gender_limit==2){
+                } else if (gender_limit == 2) {
                     if (!IsNullUtils.isNull(account_gender) &&
-                            account_gender.contains("男")){
-                        ResponseUtils.retnFailMsg(response,jsonObject,"性别不符合要求");
+                            account_gender.contains("男")) {
+                        ResponseUtils.retnFailMsg(response, jsonObject, "性别不符合要求");
                         return;
                     }
                 }
@@ -602,9 +598,9 @@ public class ShopController {
 
             //年龄限制
             String age_limit = dbGood.getAge_limit();
-            if (StringUtils.isNotBlank(age_limit) || !age_limit.contains(buyAccount.getAge_range())){
-               //不符合
-                ResponseUtils.retnFailMsg(response,jsonObject,"年龄不符合要求");
+            if (StringUtils.isNotBlank(age_limit) || !age_limit.contains(buyAccount.getAge_range())) {
+                //不符合
+                ResponseUtils.retnFailMsg(response, jsonObject, "年龄不符合要求");
                 return;
             }
 
@@ -613,39 +609,39 @@ public class ShopController {
             String always_class = buyAccount.getAlways_class();
 
             if (StringUtils.isNotBlank(always_class) &&
-                    StringUtils.isNotBlank(always_buy_class)){
+                    StringUtils.isNotBlank(always_buy_class)) {
                 //遍历
                 String[] goodArr = always_buy_class.split(",");
                 String[] userArr = always_class.split(",");
                 boolean flag = false;
 
-                if (goodArr!=null && goodArr.length>0 && userArr!=null && userArr.length>0){
-                    for(int i=0;i<goodArr.length;i++){
-                        for (int j=0;j<userArr.length;j++){
-                            if (goodArr[i].equals(userArr[j])){
+                if (goodArr != null && goodArr.length > 0 && userArr != null && userArr.length > 0) {
+                    for (int i = 0; i < goodArr.length; i++) {
+                        for (int j = 0; j < userArr.length; j++) {
+                            if (goodArr[i].equals(userArr[j])) {
                                 flag = true;
                                 break;
                             }
                         }
                     }
                 }
-                if (!flag){
-                    ResponseUtils.retnFailMsg(response,jsonObject,"常购类目不符合要求");
+                if (!flag) {
+                    ResponseUtils.retnFailMsg(response, jsonObject, "常购类目不符合要求");
                     return;
                 }
             }
 
 
-            if (!IsNullUtils.isNull(catetype)){
-                switch (catetype){
+            if (!IsNullUtils.isNull(catetype)) {
+                switch (catetype) {
                     case "淘宝试用":
                         //淘气值限制
                         Integer taoqi_limit = dbGood.getTaoqi_limit();
-                        if (taoqi_limit!=null && taoqi_limit>=0){
+                        if (taoqi_limit != null && taoqi_limit >= 0) {
                             Integer taoqi = buyAccount.getTaoqi();
-                            if (taoqi==null || taoqi< taoqi_limit){
+                            if (taoqi == null || taoqi < taoqi_limit) {
                                 //不符合要求
-                                ResponseUtils.retnFailMsg(response,jsonObject,"淘气值不符合要求");
+                                ResponseUtils.retnFailMsg(response, jsonObject, "淘气值不符合要求");
                                 return;
                             }
                         }
@@ -656,8 +652,6 @@ public class ShopController {
         }
 
 
-
-
         MemberTask memberTask = new MemberTask();
         memberTask.setGoods_id(goods_id);
         memberTask.setIs_finsh(0);
@@ -665,7 +659,7 @@ public class ShopController {
         memberTask.setMemid(memid);
         memberTask.setBuy_account_id(buy_id);
         taskService.add(memberTask);
-        ResponseUtils.retnSuccessMsg(response,jsonObject,"任务接取成功");
+        ResponseUtils.retnSuccessMsg(response, jsonObject, "任务接取成功");
     }
 
 
@@ -675,7 +669,7 @@ public class ShopController {
     @ISLogin
     @RequestMapping(value = "statTask")
     public void statTask(HttpServletRequest request, HttpServletResponse response,
-                         Integer task_id,Integer memid){
+                         Integer task_id, Integer memid) {
         JsonObject jsonObject = new JsonObject();
 
         //加载商家提示信息
@@ -683,11 +677,11 @@ public class ShopController {
         memberTask.setId(task_id);
         //查找任务
         List<MemberTask> datas = taskService.getDatas(memberTask);
-        if (datas!=null && datas.size()>0){
+        if (datas != null && datas.size() > 0) {
             MemberTask dbTask = datas.get(0);
-            if (dbTask.getMemid()!=memid){
+            if (dbTask.getMemid() != memid) {
                 //非法请求
-                ResponseUtils.retnFailMsg(response,jsonObject,"非法请求");
+                ResponseUtils.retnFailMsg(response, jsonObject, "非法请求");
                 return;
             }
             //查找提示信息
@@ -697,25 +691,26 @@ public class ShopController {
 
             List<Goods> dbGood = goodsService.getGoods(goods);
 
-            if (dbGood!=null && dbGood.size()>0){
+            if (dbGood != null && dbGood.size() > 0) {
                 //备注信息
                 String remark = dbGood.get(0).getRemark();
             }
         }
     }
+
     /**
      * 删除店铺
      */
     @ISLogin
     @RequestMapping(value = "deleteShop")
     public void deleteShop(HttpServletRequest request, HttpServletResponse response,
-                           Integer memid, Integer shop_id){
+                           Integer memid, Integer shop_id) {
         JsonObject jsonObject = new JsonObject();
-        if (IsNullUtils.isNull(memid,shop_id)){
-            ResponseUtils.retnFailMsg(response,jsonObject,"参数不完整");
+        if (IsNullUtils.isNull(memid, shop_id)) {
+            ResponseUtils.retnFailMsg(response, jsonObject, "参数不完整");
             return;
         }
         shopService.delete(shop_id);
-        ResponseUtils.retnFailMsg(response,jsonObject,"操作完成");
+        ResponseUtils.retnFailMsg(response, jsonObject, "操作完成");
     }
 }
