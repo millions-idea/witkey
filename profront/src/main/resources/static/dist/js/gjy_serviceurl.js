@@ -1,5 +1,7 @@
 var request_url = "http://192.168.0.101:8081/";
 
+var img_prefix_url = "http://192.168.0.101:8081/images/upload/";
+
 var userresult_json = eval("("+sessionStorage.getItem("member")+")");
 
 //获取URL地址栏参数
@@ -25,6 +27,17 @@ function num(obj){
     obj.value = obj.value.replace(/^(\-)*(\d+)\.(\d\d).*$/,'$1$2.$3'); //只能输入两个小数
 }
 
+//字符串以xxx开头
+String.prototype.startWith=function(str){
+    var reg=new RegExp("^"+str);
+    return reg.test(this);
+}
+
+//字符串以xxx结尾
+String.prototype.endWith=function(str){
+    var reg=new RegExp(str+"$");
+    return reg.test(this);
+}
 
 //storage操作
 function setStorage(key,value){

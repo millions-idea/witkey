@@ -83,6 +83,8 @@
                     $("#title_content").html(setting.web_name);
                     //logo
                     $("#web_logo").attr("src",setting.web_logo);
+                    //taskMoney  任务金币名称
+                    $("#taskMoney").html(setting.web_logo);
                 }
             });
 
@@ -192,12 +194,20 @@
                             &nbsp;&nbsp;&nbsp;&nbsp;资金</span>
                         <span class="per414" id="index_middle_money">0<span class="per415">元</span></span>
                         <span class="per416">（0.00元锁定）</span>
-                        <span class="per417"><a href="/member/charge.php?action=pay">充值</a>
+                        <span class="per417"><a href="../auth/auth-money-recharge.html">充值</a>
                             &nbsp;&nbsp;&nbsp;&nbsp;  |   &nbsp;&nbsp;&nbsp;&nbsp;
-                            <a href="/member/cash.php">提现</a> &nbsp;&nbsp;&nbsp;&nbsp; |     &nbsp;&nbsp;&nbsp;&nbsp;  <a href="/member/record.php">明细</a></span>
+                            <a href="../auth/auth-money-apply.html">提现</a>
+                            &nbsp;&nbsp;&nbsp;&nbsp; |     &nbsp;&nbsp;&nbsp;&nbsp;
+                            <a href="../auth/auth-money-record.html">明细</a></span>
                     </div>
                     <div class="per421 ">
-                        <span class="per412">&nbsp;&nbsp;&nbsp;&nbsp;联盟币</span>
+                        <span class="per412" >
+                            &nbsp;&nbsp;&nbsp;&nbsp;
+                            <span id="taskMoney">
+                                联盟币
+                            </span>
+
+                        </span>
                         <span class="per414">0.00<span class="per415">个</span></span>
                         <span class="per417"><a href="/member/credit.php?action=buy">购买</a>    &nbsp;&nbsp;&nbsp;&nbsp;  |   &nbsp;&nbsp;&nbsp;&nbsp;    <a href="/member/credit.php?action=sell">回收</a>  &nbsp;&nbsp;&nbsp;&nbsp; |     &nbsp;&nbsp;&nbsp;&nbsp;  <a href="/member/credit.php">明细</a></span>
                     </div>

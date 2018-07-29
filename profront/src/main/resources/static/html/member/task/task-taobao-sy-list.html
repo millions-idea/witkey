@@ -167,22 +167,111 @@
     </STYLE>
     <!-- 对话框 -->
     <DIV id=dialog>
-        <DIV class=tip></DIV>
-        <DIV><A class=accurl onclick="jierenwu('13062411179');"><EM
-                class=iyellow>13062411179</EM> <SPAN class=xin6></SPAN></A><A class=accurl
-                                                                              onclick="jierenwu('思思之狂');"><EM
-                class=iyellow>思思之狂</EM><SPAN
-                class=xin3></SPAN></A>
-            <DIV class=cle></DIV>
-            <DIV class=addtaobaohao><A
-                    href="http://001.topaaa.com/member/taobaohao.php?action=add">添加买号</A></DIV>
+        <DIV class=tip>
+
         </DIV>
+        <!--买号列表-->
+        <div>
+            <span id="buy_account_list">
+
+            </span>
+            <!--<A class='accurl' onclick="jierenwu('13062411179');">-->
+                <!--<EM class='iyellow'>-->
+                    <!--13062411179-->
+                <!--</EM>-->
+                <!--<SPAN class='xin6'></SPAN>-->
+            <!--</A>-->
+            <!--<A class=accurl onclick="jierenwu('思思之狂');">-->
+                <!--<EM class=iyellow>思思之狂</EM>-->
+                <!--<SPAN class=xin3></SPAN>-->
+            <!--</A>-->
+
+            <DIV class=cle></DIV>
+            <DIV class=addtaobaohao><A href="../bind/bind-buy-taobao.html" target="_blank">添加买号</A>
+            </DIV>
+        </div>
         <DIV class=cle></DIV>
-    </DIV><!-- end对话框 --><INPUT id=yptask_itemid type=hidden>
+    </DIV><!-- end对话框 --><input id=yptask_itemid type=hidden>
     <INPUT id=yptask_ischeck type=hidden>
 
 
     <SCRIPT type="text/babel">
+        //买号
+        class BuyAccount extends React.Component {
+            constructor(props) {
+                super(props)
+            }
+
+            //接受任务
+            picTask = (id,event)=>{
+                let good_id = this.props.list[0].good_id;
+
+                let params = {};
+
+                params.memid = userresult_json.id;
+                //商品id
+                params.goods_id = good_id;
+                //买号Id
+                params.buy_id = id;
+
+                //提交
+                $.ajax({
+                    url: request_url + "intf_shop/pickTask",
+                    type: "post",
+                    data: params,
+                    dataType: 'json',
+                    headers: {
+                        "mobile": userresult_json.mobile,
+                        "token": userresult_json.token
+                    },
+                    success: function (result) {
+                        if (result.error == 0) {
+
+                        }
+                    }
+                });
+                //buy_id
+
+                // if (response == 'success') {
+                //     layer.confirm('申请成功，是否继续申请？', {
+                //         btn: ['继续申请', '前往试用管理'] //按钮
+                //     }, function (index) {
+                //         window.location.reload();
+                //     }, function () {
+                //         if ($("#yptask_ischeck").val() == '1') window.location = '/member/yptaskview.php?pro=1';
+                //         else window.location = '/member/yptaskview.php?pro=2';
+                //     });
+                // } else {
+                //     layer.alert(response);
+                // }
+
+            };
+
+            render () {
+                let list = this.props.list;
+                //显示信誉图片
+                if(list!=null && list.length>0){
+                    for(let i=0;i<list.length;i++){
+                        list[i].honor = 'xin'+list[i].honor ;
+                    }
+                }
+
+                return (
+                    <span id="taskList">{
+                        list.map((data, index) =>
+                            <a className='accurl' onClick={this.picTask.bind(this,data.id)}>
+                                <em className='iyellow'>
+                                    {data.account}
+                                </em>
+                                <span className={data.honor}></span>
+                            </a>
+                        )
+                    }
+                    </span>
+                )
+            }
+        }
+
         //排序
         function orderBy(num) {
             let order = "";
@@ -216,6 +305,154 @@
             //从页面刚进来加载
             loadData();
         });
+
+
+        //任务项
+        class TaskItem extends React.Component {
+            constructor(props) {
+                super(props)
+            }
+
+            //点击申请试用
+            alertAccount = (id , event)=>{
+
+                let params = {};
+                params.memid = userresult_json.id;
+                params.goods_id = id;
+
+                $.ajax({
+                    url: request_url + "intf_shop/preRecvTask",
+                    type: "post",
+                    data: params,
+                    dataType: 'json',
+                    headers: {
+                        "mobile": userresult_json.mobile,
+                        "token": userresult_json.token
+                    },
+                    success: function (result) {
+                        if (result.error == 0) {
+                            let json = jQuery.parseJSON(result.list);
+
+                            //放入商品id
+                            if(json!=null && json.length>0){
+                                for(let i=0;i<json.length;i++){
+                                    json[i].good_id = id ;
+                                }
+                            }
+
+                            ReactDOM.render(<BuyAccount list={json} />, document.getElementById('buy_account_list'))
+
+                            $("#yptask_itemid").val(10000);
+                            $("#yptask_ischeck").val(0);
+
+                            $("#dialog .tip").html('请在下面选择一个买号申请试用');
+                            layer.open({
+                                type: 1,
+                                title: '请选择一个买号申请免费试用',
+                                area: ['auto', 'auto'],
+                                shadeClose: true,
+                                content: $('#dialog')
+                            });
+                        }else{
+                            alert(result.message);
+                        }
+                    }
+                });
+
+
+
+            };
+
+            render() {
+                let list = this.props.list;
+
+                return (
+                    <div id="taskList">{
+                        list.map((data, index) =>
+
+                            <div className='c4' key={index}>
+                                <div className='c41'>
+                                    <div className='c42'>
+                                        <span className='addtime'>
+                                            发布时间：{data.pub_time}
+                                        </span>
+                                        <img width='16'
+                                             height='16'
+                                             title='阿里巴巴试用'
+                                             align='absMiddle'
+                                             src="/dist/img/cat_5.png"/>
+                                        试用编号：
+                                        {data.id}
+                                    </div>
+                                    <div className='c43'>
+                                        <div className='my1'>
+                                            <img className='c46'
+                                                 src={data.goods_img}
+                                                 data-qtip-img-height="300"
+                                                 data-qtip-img-width="0"
+                                            />
+
+                                            <div>
+                                                {data.search_word}
+                                            </div>
+                                        </div>
+                                        <div className='my2'>
+                                            <ul>
+                                                <li>发布商家：
+                                                    <span className='f_red'>
+                                                       {data.shop_name}
+                                                    </span>
+                                                    <span className='vip'><img
+                                                        title='1级VIP客户'
+                                                        src="/dist/img/vip1.gif"/>
+                                                </span>
+                                                </li>
+                                                <li><span className='shiyong_hide'>试用</span>金额：
+                                                    <span title='试用的下单金额'
+                                                          className='f_red'>
+                                                        {data.price}
+                                                    </span> 元
+                                                </li>
+                                                <li><span className='shiyong_hide'>悬赏</span>
+                                                    奖励：<span title='完成试用后，您能获得的试用奖励'
+                                                             className='f_red'>
+                                                        {data.append_money}
+                                                    </span> 元
+                                                </li>
+                                            </ul>
+
+                                            <div className='requirements'>
+                                                {
+                                                    data.requires.map(function (name, index) {
+                                                        return (
+                                                            <em title='任务金额的返款方式'
+                                                                className={data.color_class[index]}>
+                                                                {name}
+                                                            </em>
+                                                        )
+                                                    })
+
+                                                }
+                                            </div>
+                                        </div>
+                                        <div className='my3'>
+                                            <a className="qrw_btn button border-blue"
+                                               itemID="2967788"
+                                               goods_id='100'
+                                               onClick={this.alertAccount.bind(this, data.id)}
+                                               ischeck="0">
+                                                申请试用
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        )
+                    }</div>
+                );
+
+            }
+        }
 
 
         /**
@@ -261,6 +498,7 @@
                     "mobile": userresult_json.mobile,
                     "token": userresult_json.token
                 },
+
                 success: function (result) {
                     if (result.error == 0) {
                         console.log(result);
@@ -310,104 +548,20 @@
                                     moment(org_time, 'MMM DD,YYYY HH:mm:ss A', 'en').format('YYYY-MM-DD HH:mm:ss');
                             }
                             //显示默认图片
+                            // let img_url = setting.goods_default_img;
+                            // if (img_url.startWith("http:")) {
+                            //     //直接显示网络图片
+                            //     list[i].goods_img = setting.goods_default_img;
+                            // }else {
+                            //     //显示服务器上的图片
+                            //     list[i].goods_img = img_prefix_url + setting.goods_default_img;
+                            // }
                             list[i].goods_img = setting.goods_default_img;
-
                         }
-
-                        const element = <div id="taskList">{
-                            list.map((data, index) =>
-
-                                <div className='c4'>
-                                    <div className='c41'>
-                                        <div className='c42'>
-                                        <span className='addtime'>
-                                            发布时间：{data.pub_time}
-                                        </span>
-                                            <img width='16'
-                                                 height='16'
-                                                 title='阿里巴巴试用'
-                                                 align='absMiddle'
-                                                 src="/dist/img/cat_5.png"/>
-                                            试用编号：
-                                            {data.id}
-                                        </div>
-                                        <div className='c43'>
-                                            <div className='my1'>
-                                                <img className='c46'
-                                                     src={data.goods_img}
-                                                     data-qtip-img-height="300"
-                                                     data-qtip-img-width="0"
-                                                     />
-
-                                                <div>
-                                                    {data.search_word}
-                                                </div>
-                                            </div>
-                                            <div className='my2'>
-                                                <ul>
-                                                    <li>发布商家：
-                                                        <span className='f_red'>
-                                                       {data.shop_name}
-                                                    </span>
-                                                        <span className='vip'><img
-                                                            title='1级VIP客户'
-                                                            src="/dist/img/vip1.gif"/>
-                                                </span>
-                                                    </li>
-                                                    <li><span className='shiyong_hide'>试用</span>金额：
-                                                        <span title='试用的下单金额'
-                                                              className='f_red'>
-                                                        {data.price}
-                                                    </span> 元
-                                                    </li>
-                                                    <li><span className='shiyong_hide'>悬赏</span>
-                                                        奖励：<span title='完成试用后，您能获得的试用奖励'
-                                                                 className='f_red'>
-                                                        {data.append_money}
-                                                    </span> 元
-                                                    </li>
-                                                </ul>
-
-                                                <div className='requirements'>
-
-                                                    {/*条件部分
-
-                                                    .ired, .iorange, .iyellow,
-                                                    .igreen, .icyan, .iblue,
-                                                    .iviolet, .igray, .inone
-
-                                                    */}
-
-                                                    {
-                                                        data.requires.map(function (name, index) {
-                                                            return (
-                                                                <em title='任务金额的返款方式'
-                                                                    className={data.color_class[index]}>
-                                                                    {name}
-                                                                </em>
-                                                            )
-                                                        })
-
-                                                    }
-                                                </div>
-                                            </div>
-                                            <div className='my3'>
-                                                <a className="qrw_btn button border-blue"
-                                                itemid="2967788"
-                                                   goods_id='100'
-                                                ischeck="0">
-                                                申请试用
-                                            </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            )
-                        }</div>;
 
 
                         // 渲染虚拟DOM
-                        ReactDOM.render(element, document.getElementById('taobao-lists'))
+                        ReactDOM.render(<TaskItem list={list} />, document.getElementById('taobao-lists'))
 
                     } else {
                         alert(result.message);
@@ -543,11 +697,6 @@
         </DIV>
     </DIV>
 </DIV>
-<LINK
-        href="任务_销量联盟_files/layui.css" rel=stylesheet>
-<SCRIPT src="任务_销量联盟_files/layui.js"></SCRIPT>
-
-<SCRIPT src="任务_销量联盟_files/func.js"></SCRIPT>
 
 
 <DIV class=main-im>

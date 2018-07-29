@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
 
@@ -81,7 +81,9 @@
                     <TR>
                         <TD class=tl><SPAN class=f_red>*</SPAN>提现金额</TD>
                         <TD class=tr>
-                            <input name='amount' onkeyup='this.value=this.value.replace(/\D/gi,"")' id="amount" onchange="checkNum();" type='text' size=10/>
+                            <input name='amount'
+                                   onkeyup='this.value=this.value.replace(/\D/gi,"")'
+                                   id="amount"  type='text' size=10/>
                         </TD>
                     </TR>
                     <TR>
@@ -95,8 +97,11 @@
                     </TR>
                     <TR>
                         <TD class=tl></TD>
-                        <TD
-                                class=tr><INPUT class=btn type=submit value=" 确 定 ">&nbsp;&nbsp;&nbsp;&nbsp;<INPUT name=reset class=btn type=reset value=" 重 置 ">
+                        <TD class=tr>
+                            <input onclick="changeMoney();" class='btn' type='button'
+                                   value=" 确 定 ">
+                            &nbsp;&nbsp;&nbsp;&nbsp;
+                            <INPUT name=reset class=btn type=reset value=" 重 置 ">
                         </TD></TR></tbody></table></form>
             <SCRIPT>
                 $(function () {
@@ -107,9 +112,32 @@
 
     <SCRIPT type="text/babel">
 
-        function checkNum(){
-            var val = $("#amount").val();
+        //提现
+        function changeMoney(){
+            let money = $("#amount").val();
+            if (money == undefined || money==null || money==''){
+                return;
+            }
+            let params = {};
+            params.memid = userresult_json.id;
+            params.money = money;
+
+            $.ajax({
+                url: request_url + "intf_member/tixian2Account",
+                type: "post",
+                data: params,
+                dataType: 'json',
+                headers: {
+                    "mobile": userresult_json.mobile,
+                    "token": userresult_json.token
+                },
+                success: function (result) {
+                    alert(result.message);
+                    window.location.reload(true);
+                }
+            });
         }
+
         $(function () {
             set_nav("cash", "on");
             //alert("action_")
@@ -174,7 +202,7 @@
                 <img src="http://001.topaaa.com/skin/ypmili/css/img/rz/7.png">
                 <img src="http://001.topaaa.com/skin/ypmili/css/img/rz/8.png">
             </div>
-            <DIV style="CLEAR: both"></DIV></DIV></DIV></DIV><LINK
+            <DIV style="CLEAR: both"></DIV></DIV></DIV></DIV><LINK>
 
 <DIV class=main-im>
     <DIV class=open-im id=open_im style="DISPLAY: none"></DIV>
