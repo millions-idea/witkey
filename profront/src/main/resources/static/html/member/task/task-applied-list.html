@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="../../../dist/css/index-skin.css">
+    <link rel="stylesheet" type="text/css" href="../../../dist/css/index-tp.css">
+
+    <script type="text/javascript" src="../../../dist/js/lang.js"></script>
+    <script type="text/javascript" src="../../../dist/js/config.js"></script>
+    <script type="text/javascript" src="../../../dist/js/jquery-2.0.0.min.js"></script>
+    <script type="text/javascript" src="../../../dist/js/common.js"></script>
+
+    <script type="text/javascript" src="../../../dist/js/admin.js"></script>
+    <script type="text/javascript" src="../../../dist/js/page.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="../../../dist/css/jq-tip.css">
+    <script type="text/javascript" src="../../../dist/js/jq-tip.js"></script>
+    <script type="text/javascript" src="../../../dist/js/layer.js"></script>
+
+    <script type="text/javascript" src="../../../dist/js/jquery.form.js"></script>
+    <script type="text/javascript" src="../../../dist/js/template7.min.js"></script>
+    <script type="text/javascript" src="../../../dist/js/cm.js"></script>
+    <script type="text/javascript" src="../../../dist/js/ypfunction.js"></script>
+    <!--日期处理-->
+    <script type="text/javascript" src="../../../dist/js/moment.js"></script>
+
+    <link rel="stylesheet" href="http://001.topaaa.com/file/script/layim/css/layui.css">
+    <!--配置服务器连接地址 -->
+    <script type="text/javascript" src="../../../dist/js/gjy_serviceurl.js"></script>
+
+    <script src="https://cdn.bootcss.com/react/16.4.0/umd/react.development.js"></script>
+    <script src="https://cdn.bootcss.com/react-dom/16.4.0/umd/react-dom.development.js"></script>
+    <script src="https://cdn.bootcss.com/babel-standalone/6.26.0/babel.min.js"></script>
+
+    <link rel="stylesheet" href="../../../dist/layui/css/layui.css">
+    <script type="text/javascript" src="../../../dist/layui/layui.js"></script>
+
+    <style type="text/css">
+        #pages {
+            display: flex;
+            justify-content: center;
+        }
+
+        .layui-laypage-center {
+
+        }
+    </style>
+
+</head>
+
+<body class=rwdt_bg>
+<div id="body">
+    <div id="body_header"></div>
+    <script>
+        $("#body_header").load("../public/public-top.html");
+    </script>
+    <div id="content_wrapper">
+        <div id="content_body_title"></div>
+        <script>
+            $("#content_body_title").load("../public/public-body-title.html");
+        </script>
+
+        <div id="moveContent">
+            <div>
+                <div class="b2">
+                    <div class="sb2">
+                        <ul class="sb22" id="rwdt_state">
+                            <li>
+                                <a id="pro2" href="http://001.topaaa.com/member/yptaskview.php?pro=2"
+                                   class="sb0">已申请
+                                    <span class="mui-badge mui-badge-warning">
+                                        1
+                                    </span>
+                                </a>
+                            </li>
+                            <li class="nav">
+                                <a id="pro3" href="http://001.topaaa.com/member/yptaskview.php?pro=3">
+                                    已下单
+                                    <span class="mui-badge mui-badge-warning">
+                                        128
+                                    </span>
+                                </a>
+                                <ul class="sub">
+                                    <li>
+                                        <a href="http://001.topaaa.com/member/yptaskview.php?pro=3&amp;remind=1">
+                                            可确认收货
+                                            <span class="mui-badge mui-badge-warning">
+                                            109
+                                        </span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a id="pro4" href="http://001.topaaa.com/member/yptaskview.php?pro=4">已确认收货<span
+                                        class="mui-badge mui-badge-warning">0</span></a>
+                            </li>
+                            <li class="nav">
+                                <a id="pro5" href="http://001.topaaa.com/member/yptaskview.php?pro=5">试用完成<span
+                                        class="mui-badge mui-badge-warning">175</span></a>
+                                <ul class="sub">
+                                    <li>
+                                        <a id="pro5pro1"
+                                           href="http://001.topaaa.com/member/yptaskview.php?pro=5&amp;pro5pro=1"
+                                           data-hasqtip="11" oldtitle="可做评价的任务" title="">可做评价<span
+                                                class="mui-badge mui-badge-warning">0</span></a>
+                                    </li>
+                                    <li>
+                                        <a id="pro5pro2"
+                                           href="http://001.topaaa.com/member/yptaskview.php?pro=5&amp;pro5pro=2"
+                                           data-hasqtip="12" oldtitle="已完成评价的任务" title="">评价完成<span
+                                                class="mui-badge mui-badge-warning">0</span></a>
+                                    </li>
+                                    <li>
+                                        <a id="pro5pro4"
+                                           href="http://001.topaaa.com/member/yptaskview.php?pro=5&amp;pro5pro=4"
+                                           data-hasqtip="13" oldtitle="可做追评的任务" title="">可做追评<span
+                                                class="mui-badge mui-badge-warning">0</span></a>
+                                    </li>
+                                    <li>
+                                        <a id="pro5pro5"
+                                           href="http://001.topaaa.com/member/yptaskview.php?pro=5&amp;pro5pro=5"
+                                           data-hasqtip="14" oldtitle="已确认追评的任务" title="">确认追评<span
+                                                class="mui-badge mui-badge-warning">0</span></a>
+                                    </li>
+                                    <li>
+                                        <a id="pro5pro6"
+                                           href="http://001.topaaa.com/member/yptaskview.php?pro=5&amp;pro5pro=6"
+                                           data-hasqtip="15" oldtitle="已完成追评的任务" title="">追评完成<span
+                                                class="mui-badge mui-badge-warning">18</span></a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a id="tousu" href="http://001.topaaa.com/member/yptaskview.php?tousu=1">投诉中<span
+                                        class="mui-badge mui-badge-warning">2</span></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="c3 h50">
+                    <form>
+                        <!--<input type="hidden" name="mid" value="0">-->
+                        <!--<input type="hidden" name="status" value="3">-->
+                        <!--<input type="hidden" name="pro" value="2">-->
+                        &nbsp;
+                        <select name="catid" id="catid_1">
+                            <option value="0">不限分类</option>
+                            <option value="4">淘宝试用</option>
+                            <option value="5">阿里巴巴试用</option>
+                            <option value="40">京东试用</option>
+                            <option value="6">拼多多试用</option>
+                            <option value="7">蘑菇街试用</option>
+                            <option value="8">美丽说试用</option>
+                            <option value="41">淘宝访问</option>
+                            <option value="51">阿里巴巴访问</option>
+                            <option value="401">京东访问</option>
+                        </select>&nbsp;
+                        <input class="kwd" type="text" size="40" name="itemid" value="" placeholder="试用编号"
+                               data-hasqtip="16" oldtitle="试用编号" title="">
+                        <select name="field" data-hasqtip="17" oldtitle="根据条件筛选" title="">
+                            <option value="" selected="">不限条件</option>
+                            <option value="tname">掌柜</option>
+                            <option value="shuashoutaobao">买号</option>
+                            <option value="shangjiaqq">商家QQ</option>
+                            <option value="shuashouqq">试客QQ</option>
+                            <option value="orderid">订单ID</option>
+                        </select>
+                        <input class="kwd" type="text" size="30" name="kwd" value="" placeholder="搜索值" data-hasqtip="18"
+                               oldtitle="搜索值" title="">
+                        <input type="submit" value=" 搜 索 " class="btn">
+                        <input type="button" value=" 重 置 " class="btn"
+                               onclick="Go(&#39;/member/yptaskview.php?pro=2&#39;);">
+                    </form>
+                </div>
+                <div class="w1024">
+                    <div class="yptip">
+                        <div><p><span style="line-height:1.5;color:#E53333;">后台说明</span><span
+                                style="line-height:1.5;color:#E53333;">：管理员可以设置交换试客的签收地址，此功能后台可以开启或关闭，如果关闭后，地址就无需审核，每个试客都使用自己的签收地址。</span>
+                        </p>
+                            <p><span><span
+                                    style="color:#E53333;">平台可以根据商家发布试用的选项自动生成任务步骤，后台可以设置分步显示或者一起显示。</span></span></p>
+                            <p><span><span style="color:#E53333;">可以设置截图是否上传到服务器，如果选择是，试客就会上传截图，商家在任务管理可以看到。如果选择否，任务截图会提示试客发到商家QQ。<br></span></span>
+                            </p></div>
+                    </div>
+                </div>
+                <div class="cle"></div>
+                <div id="taskList">
+                    <table class="yfrw_list" id="yptask_list_2957695">
+                        <tbody>
+
+
+                        </tbody>
+                    </table>
+
+                    <div class="sum">
+                        统计：试用数量：1 个
+                        <span style="margin-left: 40px;">任务总奖励：
+                                                4.32 元
+                    </span>
+                    </div>
+                    <div id="insert-before"></div>
+                    <div id="page"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/babel">
+
+        class TaskItem extends React.Component {
+            constructor(props) {
+                super(props)
+            }
+
+            render() {
+                //所有接到的任务集合
+                let list = this.props.list;
+
+                return (
+                    <tbody>
+                    {
+                        list.map((data, index) =>
+                            <tr>
+                                <td>
+                                    <div className="outsc4 sc4">
+                                        <div className="sc41">
+                                            <div className="sc42">
+                                                <div className="fl">
+                                           <span>
+                                            <img src="./任务列表_files/cat_5.png"
+                                                 align="absmiddle" width="16" height="16" data-hasqtip="19"
+                                                 oldtitle="阿里巴巴试用" title=""/>
+                                            试用编号：
+                                               <em className="taskid">
+                                                   {data.id}
+                                               </em>
+                                               【阿里巴巴试用】
+                                           </span>
+                                                </div>
+                                                <div className="fr">
+                                            <span className="js_time">操作时间：
+                                                <em>
+                                                    2018-07-27 21:20
+                                                </em>
+                                            </span>
+                                                </div>
+                                            </div>
+                                            <div className="sc43">
+                                                <div className="my1">
+                                                    <img style={{verticalAlign:'middle'}}
+                                                         src="./任务列表_files/4223688010_1547399014.460x460xz.jpg"
+                                                         className="c46"
+                                                         data-qtip-img="https://cbu01.alicdn.com/img/ibank/2017/010/886/4223688010_1547399014.460x460xz.jpg"
+                                                         data-qtip-img-width="0"
+                                                         data-qtip-img-height="300" data-hasqtip="42"
+                                                         oldtitle="蕾丝连衣裙" title=""/>
+                                                </div>
+                                                <div className="my2">
+                                                    <ul>
+                                                        <li className="rwjg">
+                                                            掌柜：
+                                                            <span className="f_red">
+                                                                {data.shoper_name}
+                                                    </span>
+                                                        </li>
+                                                        <li className="rwjg">
+                                                            宝贝价格：
+                                                            <span className="f_red" data-hasqtip="21"
+                                                                  oldtitle="任务下单价格" title="">
+                                                        {data.goods_price}
+                                                    </span>
+                                                            元
+                                                        </li>
+                                                        <li className="rwjg">奖励 ：
+                                                            <span className="f_red" data-hasqtip="22"
+                                                                  oldtitle="完成试用后，您能获得的报酬" title="">
+                                                        {data.reward_money}                                                                               </span>元
+                                                        </li>
+                                                    </ul>
+                                                    <div className="requirements">
+                                                        <em className="ired" data-hasqtip="23"
+                                                            oldtitle="需要搜索关键下单" title="">搜索
+                                                        </em>
+                                                        <em className="igreen" data-hasqtip="24"
+                                                            oldtitle="用电脑下单还是手机下单" title="">电脑
+                                                        </em>
+                                                        <em className="ired" data-hasqtip="25"
+                                                            oldtitle="商家对试客买号的信誉要求" title="">
+                                                            3心
+                                                        </em>
+                                                        <em className="ired" data-hasqtip="26"
+                                                            oldtitle="押款本金佣金由平台返，立返本金佣金由商家返" title="">
+                                                            押款
+                                                        </em>
+                                                        <em className="inone" data-hasqtip="27"
+                                                            oldtitle="付款后多长时间后您才可以确认收货并好评" title="">
+                                                            按物流确认
+                                                        </em>
+                                                        <em className="inone" data-hasqtip="28"
+                                                            oldtitle="商家真实给您发货" title="">真发货</em>
+                                                        <em className="iblue" data-hasqtip="29"
+                                                            oldtitle="要求试客拍下宝贝之前先和商家聊几句" title="">
+                                                            拍前聊
+                                                        </em>
+                                                        <em className="inone" data-hasqtip="30"
+                                                            oldtitle="要求试客收货前与卖家确认收到“货物/服务”同时声明对收到“货物/服务”满意以作为收货证据"
+                                                            title="">确认收货
+                                                        </em>
+                                                        <em className="iorange msg" data-hasqtip="31" oldtitle="商家给您的提醒"
+                                                            title="">
+                                                            不用联系我，认真做就行
+                                                        </em>
+                                                    </div>
+                                                </div>
+                                                <div className="my3">
+                                                    <em className="iyellow"
+                                                        data-hasqtip="32" oldtitle="等待试客下单"
+                                                        title="">已申请</em>
+                                                    <span className="tousu" itemID="2957695"
+                                                                                qtip-my="top center"
+                                                                                qtip-at="bottom center"
+                                                                                data-hasqtip="46">
+                                                     <em className="bgray" data-hasqtip="33" oldtitle="投诉对方" title="">
+                                                         投诉对方
+                                                     </em>
+                                                 </span>
+                                                    <div>
+                                                <span className="countdown"
+                                                      countdown="3576" timeout="已超时"
+                                                      data-hasqtip="34" oldtitle="下单剩余时间"
+                                                      title="">
+                                                    下单剩余时间：0:59:36
+                                                </span>
+                                                    </div>
+                                                </div>
+                                                <div className="my4">
+                                                    <div>
+                                    <span qtip-my="top right" qtip-at="bottom left"
+                                          qtip-url="/yptask/viewpro.php?itemid=2957695" qtip-title="试用流程"
+                                          data-hasqtip="45">
+                                        <em className="bblue" data-hasqtip="35"
+                                            oldtitle="点击打开试用流程" title="">
+                                            开始任务
+                                        </em>
+                                    </span>
+                                                    </div>
+                                                    <div>
+                                                        <em className="bred" data-hasqtip="36"
+                                                            oldtitle="撤销申请，请点击这里" title="">
+                                                            取消试用
+                                                        </em>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div className="cle">
+
+                                            </div>
+                                            <div className="yptask_line">
+                                                订单号：
+                                                <span className="mark" data-hasqtip="37"
+                                                      oldtitle="订单号" title="">
+                                                    {data.order_num==null?'暂未设置':data.order_num}
+                                        </span>
+                                                <span className="left">
+                                            商家：{data.seller_name}
+                                        </span>
+                                                <span>
+                                        <em className="bblue" data-hasqtip="38" oldtitle="点击发起站内聊天" title="">
+                                        聊天
+                                    </em>
+
+                                    </span>
+                                                <span className="left">
+                                            买号：{data.buyer_name}
+                                        </span>
+                                                <span className="mark fr" data-hasqtip="39" oldtitle="用于标记您的试用"
+                                                      title="">
+                                        备注：
+                                        <form>
+                                            <input name="itemid" value="2957695" type="hidden"/>
+                                            <input className="txt"  name="mark" value={data.remark} type="text"
+                                                   style={{width: '160px'}}/>
+                                            <input className="submit" name="submit" value="保存" type="submit"/>
+                                        </form>
+                                    </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        )
+                    }
+
+                    </tbody>
+                )
+
+            }
+        }
+
+        //加载列表
+        let params = {};
+
+        params.memid = userresult_json.id;
+
+        //提交
+        $.ajax({
+            url: user_task_list,
+            type: "post",
+            data: params,
+            dataType: 'json',
+            headers: {
+                "mobile": userresult_json.mobile,
+                "token": userresult_json.token
+            },
+            success: function (result) {
+                console.log(result);
+                let list = jQuery.parseJSON(result.list);
+
+                ReactDOM.render(<TaskItem list={list}/>, document.getElementById('yptask_list_2957695'))
+
+            }
+        });
+
+
+
+        //可确认收货
+        /*$(function () {
+         $('.sb22 li').mousemove(function () {
+         $(this).find('.sub').show().css("display", "block");
+         });
+         $('.sb22 li').mouseleave(function () {
+         $(this).find('.sub').hide();
+         });
+         });*/
+        //显示任务剩余时间
+        $(function () {
+            setInterval("countdown()", 1000);
+        });
+
+        function countdown() {
+            $(".countdown").each(function () {
+                var lefttime = parseInt($(this).attr('countdown')) - 1;
+                $(this).attr('countdown', lefttime);
+                var dd = parseInt(lefttime / 60 / 60 / 24, 10);//计算剩余的天数
+                var hh = parseInt(lefttime / 60 / 60 % 24, 10);//计算剩余的小时数
+                var mm = parseInt(lefttime / 60 % 60, 10);//计算剩余的分钟数
+                var ss = parseInt(lefttime % 60, 10);//计算剩余的秒数
+                var con;
+                con = hh + ":" + mm + ":" + ss;
+                if (dd && dd < 1000) con = dd + '天' + con;
+                con = $(this).attr('title') + '：' + con;
+                if (lefttime > 0) $(this).text(con);
+                else {
+                    if ('1') {
+                        $(this).hide();
+                    }
+                    $(this).text($(this).attr('timeout'));
+                }
+            });
+        }
+    </script>
+    <script>
+        function showli_pre(th, itemid, pro) {
+            var this_li = $(th).parent().parent().find("ul li[data-show=1]");
+            if (this_li.prev().size() == 0) {
+                layer.alert("已经是第一步！", {title: '提醒'});
+                return false;
+            }
+            var index = this_li.index() - 1;
+            save_pro(itemid, index, pro);
+            this_li.slideUp(500);
+            this_li.prev().attr('data-show', '1').slideDown(500).next().attr('data-show', '0');
+            left($(th).parent().parent().find(".left"), itemid);
+            //倒计时
+            pro_li_obj.stop = 1;
+            countdown_pro();
+        }
+
+        function showli_next(th, itemid, pro) {
+            if ($(th).hasClass('bgrayb')) return;
+            var this_li = $(th).parent().parent().find("ul li[data-show=1]");
+            if (this_li.find('#yanzhengdizhi').size() > 0) {//是否验证宝贝地址
+                if ($('#yanzhengdizhi').val() != '1') {
+                    layer.alert('请验证宝贝', {title: '提醒'});
+                    return false;
+                }
+            }
+            if (this_li.find('.img_upload_item input[value=""]').size() > 0) {//是否上传截图
+                layer.alert('请上传截图', {title: '提醒'});
+                return false;
+            }
+            if (this_li.next().size() == 0) {//是否最后一步
+                layer.alert("已经是最后一步！", {title: '提醒'});
+                return false;
+            }
+            var index = this_li.index() + 1;
+            save_pro(itemid, index, pro);
+            this_li.slideUp(500);
+            this_li.next().attr('data-show', '1').slideDown(500).prev().attr('data-show', '0');
+            left($(th).parent().parent().find(".left"), itemid);
+            //倒计时
+            pro_li_obj.stop = 0;
+            countdown_pro();
+        }
+
+        function countdown_pro() {
+            var th = pro_li_obj.th;
+            var this_li = $(th).parent().parent().find("ul li[data-show=1]");
+            var time_delay = parseInt('10');
+            if (this_li.data('pro') == 'xiadan') {
+                time_delay = pro_li_obj.setprotime + 86400 * pro_li_obj.yuyue - pro_li_obj.dt_time;
+                //console.log(time_delay)
+            }
+            pro_countdown();
+
+            function pro_countdown() {
+                if (pro_li_obj.stop == 1) {
+                    $(th).removeClass('bgrayb').addClass('bblue');
+                    $(th).val('已完成，下一步');
+                    return;
+                }
+                time_delay--;
+                $(th).removeClass('bblue').addClass('bgrayb');
+                var dd = parseInt(time_delay / 60 / 60 / 24, 10);//计算剩余的天数
+                var hh = parseInt(time_delay / 60 / 60 % 24, 10);//计算剩余的小时数
+                var mm = parseInt(time_delay / 60 % 60, 10);//计算剩余的分钟数
+                var ss = parseInt(time_delay % 60, 10);//计算剩余的秒数
+                var con = '';
+                if (dd > 0) con += dd + '天';
+                if (hh > 0) con += hh + '小时';
+                if (mm > 0) con += mm + '分钟';
+                if (ss > 0) con += ss + '秒';
+                $(th).val(con + '后，可继续下一步');
+                if (time_delay <= 0) {
+                    $(th).removeClass('bgrayb').addClass('bblue');
+                    $(th).val('已完成，下一步');
+                    return;
+                }
+                setTimeout(pro_countdown, 1000);
+            }
+        }
+
+        function save_pro(itemid, index, pro) {
+            $.ajax({
+                url: "/yptask/viewpro.php",
+                data: {
+                    action: 'save_pro',
+                    pro: pro,
+                    itemid: itemid,
+                    index: index
+                },
+                type: 'post',
+                cache: false,
+                success: function (data) {
+                    if (data != "success" && data.length < 50) layer.alert("保存失败，原因：" + data);
+                },
+                error: function () {
+                    layer.alert("网络异常！");
+                }
+            });
+        }
+
+        function left(th, itemid) {
+            var this_li = $(th).parent().parent().find("ul li[data-show=1]");
+            if (this_li.hasClass('yptask_index_complete')) {
+                $.get("/yptask/viewpro.php?action=yptask_index_complete&itemid=" + itemid);
+            }
+            if (this_li.prev().size() == 0) {
+                $(th).parent().parent().find(".b_prev").fadeOut(500);
+                $(th).parent().parent().find(".b_next").fadeIn(500);
+            } else {
+                $(th).parent().parent().find(".b_prev").fadeIn(500);
+            }
+            if (this_li.next().size() == 0) {
+                $(th).parent().parent().find(".b_next").fadeOut(500);
+                $(th).parent().parent().find(".b_prev").fadeIn(500);
+            } else {
+                $(th).parent().parent().find(".b_next").fadeIn(500);
+            }
+            var num;
+            var content;
+            num = this_li.nextAll().size();
+            content = "剩余" + num + "步";
+            if (num == 0) {
+                content = '恭喜，这是最后一步';
+                $.get("/yptask/viewpro.php?action=yptask_index_complete&itemid=" + itemid);
+            } else {
+            }
+            $(th).text(content);
+        }
+
+        function yptask_index_complete(th, itemid) {
+            var isll = $(th).parent().prev().data('isll');
+            if (isll == 1 || '2' == 3) {
+                $(th).parent().parent().parent().find('.qtip-close').click();
+                return;
+            }
+            $('#view_pro_' + itemid).submit();
+        }
+    </script>
+    <script>
+        //验证宝贝链接
+        function yanzhengdizhi(taobaoid, tname, itemid) {
+            var index_1 = layer.prompt({
+                    title: '请输入宝贝的地址或掌柜'
+                },
+                function (val) {
+                    if (val) {
+                        /*if (hex_md5(getQueryString(val, "id")) == taobaoid) {
+                         layer.alert("链接验证通过");
+                         $('#yanzhengdizhi').val(1);
+                         } else {
+                         if (hex_md5(encodeURI(val)) == tname) {
+                         layer.alert("掌柜验证通过");
+                         $('#yanzhengdizhi').val(1);
+                         } else {
+                         layer.alert("验证失败，请重新查找")
+                         }
+                         }*/
+                        $.post('?', {
+                            action: 'verify_url',
+                            itemid: itemid,
+                            url: val
+                        }, function (data) {
+                            if (data == 'success') {
+                                $('#yanzhengdizhi').val(1);
+                                var index_2 = layer.alert('验证成功', function () {
+                                    layer.close(index_1);
+                                    layer.close(index_2);
+                                });
+                            } else {
+                                layer.alert(data);
+                            }
+                        });
+                    }
+                });
+            return false;
+            var str = prompt("请输入宝贝的地址或掌柜", "");
+            if (str) {
+                if (hex_md5(getQueryString(str, "id")) == taobaoid) layer.alert("链接验证通过");
+                else {
+                    if (hex_md5(encodeURI(str)) == tname) layer.alert("掌柜验证通过");
+                    else layer.alert("验证失败，请重新查找")
+                }
+            }
+        }
+
+        function getQueryString(str, name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+            str = str.split("?")[1];
+            if (!str) return "";
+            var r = str.match(reg);
+            if (r != null) return unescape(r[2]);
+            return "";
+        }
+    </script>
+    <script>
+        $(function () {
+            set_nav("yptask_my", "on");
+            set_nav("pro" + "2", "sb0");
+        });
+    </script>
+    <script type="text/javascript">
+        var client = new ZeroClipboard($('.yp_copy'));
+        client.on('ready', function (event) {
+            client.on('copy', function (event) {
+                event.clipboardData.setData('text/plain', $(event.target).attr("data-copy"));
+            });
+            client.on('aftercopy', function (event) {
+                layer.alert("复制成功")
+            });
+        });
+        client.on('error', function (event) {
+            ZeroClipboard.destroy();
+        });
+    </script>
+    <div style="clear:both;"></div>
+    <div id="footer">
+        <div id="footer_top">
+            <div id="foot_top_1">
+                <a href="http://001.topaaa.com/about/index.php?itemid=10">代理加盟</a><span>  |  </span>
+                <a href="http://001.topaaa.com/about/index.php?itemid=9">辅助业务</a><span>  |  </span>
+                <a href="http://001.topaaa.com/about/index.php?itemid=8">网站活动</a><span>  |  </span>
+                <a href="http://001.topaaa.com/about/index.php?itemid=7">联系客服</a><span>  |  </span>
+                <a href="http://001.topaaa.com/about/index.php?itemid=6">联盟网规</a><span>  |  </span>
+                <a href="http://001.topaaa.com/about/index.php?itemid=1">关于我们</a><span>  |  </span>
+                <a href="http://001.topaaa.com/about/index.php?itemid=3">联系方式</a><span>  |  </span>
+                <a href="http://001.topaaa.com/about/index.php?itemid=4">使用协议</a><span>  |  </span>
+                <a href="http://001.topaaa.com/about/index.php?itemid=5">版权隐私</a><span>  |  </span>
+            </div>
+            <div id="copy_right">
+                (c)2013-2018 销量联盟 www.topaaa.com All Rights Reserved
+            </div>
+            <div style="width:1024px;text-align: center;margin: 20px auto 0;">
+                <img src="/dist/img/1.png">
+                <img src="/dist/img/2.png">
+                <img src="/dist/img/3.png">
+                <img src="/dist/img/4.png">
+                <img src="/dist/img/5.png">
+                <img src="/dist/img/6.png">
+                <img src="/dist/img/7.png">
+                <img src="/dist/img/8.png">
+            </div>
+            <div style="clear:both;"></div>
+        </div>
+    </div>
+</div>
+<div class="main-im">
+    <div id="open_im" class="open-im" style="display: none;"></div>
+    <div class="im_main" id="im_main">
+        <div id="close_im" class="close-im"><a class="you" style="cursor: pointer" data-hasqtip="43" oldtitle="点击关闭"
+                                               title=""></a></div>
+        <a onclick="multi_qq()" class="im-qq qq-a">
+            <div class="qq-container"></div>
+            <div class="qq-hover-c"><img class="img-qq" src="./任务列表_files/qq.png"></div>
+            <span>QQ在线咨询</span>
+        </a>
+        <script id="yptip_qq" type="text/template7">
+            <p style="width:100%;background-color:#0098ff;font-size:16px;text-align:center;color:#fff;height:34px;line-height:34px;">
+                客服团队</p><p style="line-height:40px;">客服潇潇：<a target="_blank"
+                                                             href="http://wpa.qq.com/msgrd?v=3&uin=261369834&site=qq&menu=yes"><img
+                    border="0" src="http://wpa.qq.com/pa?p=2:261369834:51" alt="点击这里给我发消息" title="点击这里给我发消息"/></a> <span
+                    style="line-height:1.5;margin-left:10px;">客服靓靓：</span><a target="_blank"
+                                                                             href="http://wpa.qq.com/msgrd?v=3&uin=261369834&site=qq&menu=yes"
+                                                                             style="line-height:1.5;"><img border="0"
+                                                                                                           src="http://wpa.qq.com/pa?p=2:261369834:51"
+                                                                                                           alt="点击这里给我发消息"
+                                                                                                           title="点击这里给我发消息"/></a>
+            </p><p style="line-height:30px;">客服恋恋：<a target="_blank"
+                                                     href="http://wpa.qq.com/msgrd?v=3&uin=261369834&site=qq&menu=yes"><img
+                    border="0" src="http://wpa.qq.com/pa?p=2:261369834:51" alt="点击这里给我发消息" title="点击这里给我发消息"/></a> <span
+                    style="line-height:1.5;margin-left:10px;">客服萌萌：</span><a target="_blank"
+                                                                             href="http://wpa.qq.com/msgrd?v=3&uin=261369834&site=qq&menu=yes"
+                                                                             style="line-height:1.5;"><img border="0"
+                                                                                                           src="http://wpa.qq.com/pa?p=2:261369834:51"
+                                                                                                           alt="点击这里给我发消息"
+                                                                                                           title="点击这里给我发消息"/></a>
+            </p><p><br/></p><p
+                    style="width:100%;background-color:#0098ff;font-size:16px;text-align:center;color:#fff;height:34px;line-height:34px;">
+                合作渠道</p><p style="line-height:40px;">业务合作：<a target="_blank"
+                                                             href="http://wpa.qq.com/msgrd?v=3&uin=261369834&site=qq&menu=yes"><img
+                    border="0" src="http://wpa.qq.com/pa?p=2:261369834:51" alt="点击这里给我发消息" title="点击这里给我发消息"/></a> <span
+                    style="line-height:1.5;margin-left:10px;">代理加盟：</span><a target="_blank"
+                                                                             href="http://wpa.qq.com/msgrd?v=3&uin=261369834&site=qq&menu=yes"
+                                                                             style="line-height:1.5;"><img border="0"
+                                                                                                           src="http://wpa.qq.com/pa?p=2:261369834:51"
+                                                                                                           alt="点击这里给我发消息"
+                                                                                                           title="点击这里给我发消息"/></a>
+            </p>        </script>
+        <script>
+            function multi_qq() {
+                $('.layim-friend618').click();
+            }
+        </script>
+        <a href="http://001.topaaa.com/app.php" target="_blank" class="qq-a" style="height: 130px">
+            <div class="qq-container" style="height: 130px"></div>
+            <div style="width: 95px;height: 95px"><img class="img-qq"
+                                                       src="./任务列表_files/qrcode.php"
+                                                       style="width: 95px;height: 95px;max-width: 95px;top: 5px;left: 5px">
+            </div>
+            <span>下载APP</span>
+        </a>
+        <div class="im-tel">
+            <div><a href="http://001.topaaa.com/announce/index.php?typeid=2" target="_blank">如何发布试用</a></div>
+            <div><a href="http://001.topaaa.com/announce/index.php?typeid=3" target="_blank">如何申请试用</a></div>
+            <div><a href="http://001.topaaa.com/about/index.php?itemid=6" target="_blank">销量联盟网规</a></div>
+            <div><a href="http://001.topaaa.com/announce/index.php?typeid=1" target="_blank" class="jsbz">网站公告</a></div>
+        </div>
+        <div class="im-footer" style="position:relative">
+            <div class="go-top"><a class="you" style="cursor: pointer" data-hasqtip="44" oldtitle="返回顶部" title=""></a>
+            </div>
+            <div style="clear:both"></div>
+        </div>
+    </div>
+    <script>
+        $(function () {
+            $(".go-top").click(function () {
+                $('html,body').animate({scrollTop: 0}, 800);
+            });
+            $("#close_im").click(function () {
+                $("#im_main").fadeOut(500, function () {
+                    $("#open_im").fadeIn(500);
+                });
+            });
+            $("#open_im").click(function () {
+                $("#open_im").fadeOut(500, function () {
+                    $("#im_main").fadeIn(500);
+                });
+            });
+        });
+    </script>
+</div>
+<div class="layui-layer-move"></div>
+<div id="qtip-blanket"
+     style="position: fixed; top: 0px; left: 0px; height: 100%; width: 100%; opacity: 0.2; background-color: black; z-index: 5000; display: none;"></div>
+<div class="layui-layer layui-layer-page layui-box layui-layim layer-anim-02" id="layui-layer100001" type="page"
+     times="100001" showtime="0" contype="string"
+     style="z-index: 19991015; width: 260px; height: 520px; top: 256px; left: 1648px;
+     background-image: url(&quot;http://001.topaaa.com/file/script/layim/css/modules/layim/skin/2.jpg&quot;); margin-left: -20px;">
+    <div class="layui-layer-title" style="cursor: move;">&#8203;</div>
+    <div id="layui-layim" class="layui-layer-content"
+         style="height: 410px;">
+        <div class="layui-layim-main">
+            <div class="layui-layim-info">
+                <div class="layui-layim-user">yp12345678 神秘地区</div>
+                <div class="layui-layim-status"><span class="layui-icon layim-status-online" layim-event="status"
+                                                      lay-type="show"></span>
+                    <ul class="layui-anim layim-menu-box">
+                        <li class="layim-this" layim-event="status" lay-type="online"><i class="layui-icon"></i><cite
+                                class="layui-icon layim-status-online"></cite>在线
+                        </li>
+                        <li layim-event="status" lay-type="hide"><i class="layui-icon"></i><cite
+                                class="layui-icon layim-status-hide"></cite>隐身
+                        </li>
+                    </ul>
+                </div>
+                <input class="layui-layim-remark" placeholder="编辑签名" value=""></div>
+            <ul class="layui-unselect layui-layim-tab layim-tab-two">
+                <li class="layui-icon layim-this" title="联系人" layim-event="tab" lay-type="friend"></li>
+                <li class="layui-icon layim-hide" title="群组" layim-event="tab" lay-type="group"></li>
+                <li class="layui-icon" title="历史会话" layim-event="tab" lay-type="history"></li>
+            </ul>
+            <ul class="layui-unselect layim-tab-content layui-show layim-list-friend">
+                <li><h5 layim-event="spread" lay-type="true"><i class="layui-icon"></i><span>人工客服</span><em>(<cite
+                        class="layim-count"> 1</cite>)</em></h5>
+                    <ul class="layui-layim-list  layui-show">
+                        <li layim-event="chat" data-type="friend" data-index="0" class="layim-friend618 "><img
+                                src="./任务列表_files/kefu.png"><span>销量联盟 - 售前咨询</span>
+                            <p>有问题，随时咨询我</p><span class="layim-msg-status">new</span></li>
+                    </ul>
+                </li>
+                <li><h5 layim-event="spread" lay-type="true"><i class="layui-icon"></i><span>机器人客服</span><em>(<cite
+                        class="layim-count"> 4</cite>)</em></h5>
+                    <ul class="layui-layim-list  layui-show">
+                        <li layim-event="chat" data-type="friend" data-index="1" class="layim-friend-1 "><img
+                                src="./任务列表_files/kefu1.png"><span>客服 - 潇潇</span>
+                            <p>销量联盟智能机器人</p><span class="layim-msg-status">new</span></li>
+                        <li layim-event="chat" data-type="friend" data-index="1" class="layim-friend-2 "><img
+                                src="./任务列表_files/kefu2.png"><span>客服 - 靓靓 </span>
+                            <p>销量联盟智能机器人</p><span class="layim-msg-status">new</span></li>
+                        <li layim-event="chat" data-type="friend" data-index="1" class="layim-friend-3 "><img
+                                src="./任务列表_files/kefu3.jpg"><span>客服 - 恋恋</span>
+                            <p>销量联盟智能机器人</p><span class="layim-msg-status">new</span></li>
+                        <li layim-event="chat" data-type="friend" data-index="1" class="layim-friend-4 "><img
+                                src="./任务列表_files/kefu4.jpg"><span>客服 - 萌萌</span>
+                            <p>销量联盟智能机器人</p><span class="layim-msg-status">new</span></li>
+                    </ul>
+                </li>
+            </ul>
+            <ul class="layui-unselect layim-tab-content ">
+                <li>
+                    <ul class="layui-layim-list layui-show layim-list-group">
+                        <li class="layim-null">暂无群组</li>
+                    </ul>
+                </li>
+            </ul>
+            <ul class="layui-unselect layim-tab-content ">
+                <li>
+                    <ul class="layui-layim-list layui-show layim-list-history">
+                        <li class="layim-null">暂无历史会话</li>
+                    </ul>
+                </li>
+            </ul>
+            <ul class="layui-unselect layim-tab-content">
+                <li>
+                    <ul class="layui-layim-list layui-show" id="layui-layim-search"></ul>
+                </li>
+            </ul>
+            <ul class="layui-unselect layui-layim-tool">
+                <li class="layui-icon layim-tool-search" layim-event="search" title="搜索"></li>
+                <li class="layui-icon layim-tool-skin" layim-event="skin" title="更换背景"></li>
+            </ul>
+            <div class="layui-layim-search"><input><label class="layui-icon" layim-event="closeSearch">&#4103;</label>
+            </div>
+        </div>
+    </div>
+    <span class="layui-layer-setwin"><a class="layui-layer-ico layui-layer-close layui-layer-close1"
+                                        href="javascript:;"></a></span></div>
+</body>
+</html>

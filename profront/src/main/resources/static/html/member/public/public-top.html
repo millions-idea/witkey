@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <title id="title_content"></title>
     <!--配置服务器连接地址 -->
     <script type="text/javascript" src="../../../dist/js/gjy_serviceurl.js"></script>
 <script>
@@ -14,6 +15,36 @@
         var stateindex_user_member_result = "<p>"+userresult_json.username+"</p>"
             +"<p>"+userresult_json.vipmodel+"</p>";
         $("#user_member_result").html(stateindex_user_member_result);
+
+
+        //只执行一次初始化设置
+        var initSetting = function () {
+
+            //读取全局配置
+            $.ajax({
+                url: get_setting_url,
+                type: "post",
+                dataType: 'json',
+                success: function (result) {
+                    var setting = jQuery.parseJSON(result.setting);
+                    //直接存字符串
+                    localStorage.setItem("setting",result.setting);
+
+                    //标题
+                    $("#title_content").html(setting.web_name);
+                    //logo
+                    $("#web_logo").attr("src",setting.web_logo);
+                    //taskMoney  任务金币名称
+                    $("#taskMoney").html(setting.virtual_name);
+                }
+            });
+
+
+            initSetting= function(){};
+        };
+
+        initSetting();
+        initSetting();
 
     })
 </script>

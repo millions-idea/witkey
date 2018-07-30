@@ -3,7 +3,6 @@
 
 <head>
     <meta charset="UTF-8">
-    <title id="title_content">销量联盟----买家</title>
     <link rel="stylesheet" type="text/css" href="../../../dist/css/index-skin.css">
     <link rel="stylesheet" type="text/css" href="../../../dist/css/index-tp.css">
 
@@ -63,30 +62,18 @@
             if(userresult_json.is_bind_buy_account == 1){
                 $("#buynumberimg").attr("class","suess");
             }
-
             if(userresult_json.is_seller == 1){
                 $("#user_per311").hide();
                 $("#shoper_per311").show();
+                $("#vip_update").attr("href","../usercenter/user_upgrade.html");
+                $("#update_vip").attr("href","../usercenter/user_upgrade.html");
+
+            }else{
+                $("#update_vip").attr("href","../usercenter/buyer_upgrade.html");
+                $("#vip_update").attr("href","../usercenter/user_upgrade.html");
+
             }
 
-            //读取全局配置
-            $.ajax({
-                url: request_url + "intf_setting/getSetting",
-                type: "post",
-                dataType: 'json',
-                success: function (result) {
-                    var setting = jQuery.parseJSON(result.setting);
-                    //直接存字符串
-                    localStorage.setItem("setting",result.setting);
-
-                    //标题
-                    $("#title_content").html(setting.web_name);
-                    //logo
-                    $("#web_logo").attr("src",setting.web_logo);
-                    //taskMoney  任务金币名称
-                    $("#taskMoney").html(setting.web_logo);
-                }
-            });
 
 
         })
@@ -218,7 +205,7 @@
                            class="per431" title="保证金管理"></a>
                         <a href="/member/agent.php" class="per432" target="_blank"
                            title="成为分站站长，获得更多收益"></a>
-                        <a href="/member/grade.php" class="per433" target="_blank"
+                        <a id="update_vip" href="/member/grade.php" class="per433" target="_blank"
                            title="升级VIP，享受更多权限"></a>
                         <a href="javascript:renwu_cat('请选择要发布的试用类别',
                         '/member/my.php?mid=23&action=add&catid=4|淘宝试用,/member/my.php?mid=23&action=add&catid=5|阿里巴巴试用,/member/my.php?mid=23&action=add&catid=40|京东试用,/member/my.php?mid=23&action=add&catid=6|拼多多试用,/member/my.php?mid=23&action=add&catid=7|蘑菇街试用,/member/my.php?mid=23&action=add&catid=8|美丽说试用,/member/my.php?mid=23&action=add&catid=41|淘宝访问,/member/my.php?mid=23&action=add&catid=51|阿里巴巴访问,/member/my.php?mid=23&action=add&catid=401|京东访问')" class="per434" title="网店没销量，发布试用提升信誉"></a>

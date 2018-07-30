@@ -2,9 +2,6 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>试用列表</title>
-    <meta charset="UTF-8">
-    <title>间接推荐人</title>
     <link rel="stylesheet" type="text/css" href="../../../dist/css/index-skin.css">
     <link rel="stylesheet" type="text/css" href="../../../dist/css/index-tp.css">
 
@@ -44,6 +41,7 @@
             justify-content: center;
         }
 
+        /*自定义分页样式..*/
         .layui-laypage-center {
 
         }
@@ -196,7 +194,7 @@
 
 
     <SCRIPT type="text/babel">
-        //买号
+        //买号显示组件
         class BuyAccount extends React.Component {
             constructor(props) {
                 super(props)
@@ -216,7 +214,7 @@
 
                 //提交
                 $.ajax({
-                    url: request_url + "intf_shop/pickTask",
+                    url: pick_task_url,
                     type: "post",
                     data: params,
                     dataType: 'json',
@@ -226,24 +224,24 @@
                     },
                     success: function (result) {
                         if (result.error == 0) {
-
+                            layer.confirm('申请成功，是否继续申请？', {
+                                btn: ['继续申请', '前往试用管理'] //按钮
+                            }, function (index) {
+                                window.location.reload();
+                            }, function () {
+                                if ($("#yptask_ischeck").val() == '1'){
+                                    //继续申请 需要刷新本页面
+                                    window.location.reload(true);
+                                }
+                                else{
+                                    window.location = 'task-applied-list.html';
+                                }
+                            });
+                        }else{
+                            alert(result.message);
                         }
                     }
                 });
-                //buy_id
-
-                // if (response == 'success') {
-                //     layer.confirm('申请成功，是否继续申请？', {
-                //         btn: ['继续申请', '前往试用管理'] //按钮
-                //     }, function (index) {
-                //         window.location.reload();
-                //     }, function () {
-                //         if ($("#yptask_ischeck").val() == '1') window.location = '/member/yptaskview.php?pro=1';
-                //         else window.location = '/member/yptaskview.php?pro=2';
-                //     });
-                // } else {
-                //     layer.alert(response);
-                // }
 
             };
 
@@ -257,7 +255,8 @@
                 }
 
                 return (
-                    <span id="taskList">{
+                    <span id="taskList">
+                        {
                         list.map((data, index) =>
                             <a className='accurl' onClick={this.picTask.bind(this,data.id)}>
                                 <em className='iyellow'>
@@ -587,8 +586,9 @@
                         }, function (index) {
                             window.location.reload();
                         }, function () {
-                            if ($("#yptask_ischeck").val() == '1') window.location = '/member/yptaskview.php?pro=1';
-                            else window.location = '/member/yptaskview.php?pro=2';
+                            if ($("#yptask_ischeck").val() == '1')
+                                window.location.reload();
+                            else window.location = 'task-applied-list.html';
                         });
                     } else {
                         layer.alert(response);
