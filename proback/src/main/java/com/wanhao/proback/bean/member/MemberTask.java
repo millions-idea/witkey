@@ -24,6 +24,26 @@ public class MemberTask extends BaseBean {
     private Integer buy_account_id;
     private Integer is_finsh;
     private Integer current_step;
+    //是否投诉了
+    private Integer is_tousu;
+    //任务当前状态
+    private Integer flag;
+
+    private Double goods_price;
+    //奖励
+    private Double reward_money;
+
+    private String order_num;
+    private String seller_name;
+    private String shoper_name;
+
+    private String buyer_name;
+
+    private String requirements;
+    private String remark;
+    private Date finsh_time;
+
+
     private Date pick_time;
 
     private Integer is_cancel;

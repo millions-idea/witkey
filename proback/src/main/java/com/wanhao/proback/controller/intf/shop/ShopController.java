@@ -515,6 +515,9 @@ public class ShopController {
                          Integer memid, Integer goods_id,
                          Integer buy_id) {
         JsonObject jsonObject = new JsonObject();
+        MemberTask memberTask = new MemberTask();
+
+
         if (IsNullUtils.isNull(memid, goods_id, buy_id)) {
             ResponseUtils.retnFailMsg(response, jsonObject);
             return;
@@ -558,6 +561,7 @@ public class ShopController {
             Member member = new Member(memid);
             Member sbMember = memberService.getMember(member);
 
+
             //商保限制
             Integer shangbao_limit = dbGood.getShangbao_limit();
             if (shangbao_limit != null && shangbao_limit == 1) {
@@ -573,7 +577,23 @@ public class ShopController {
             //买号信誉限制
             String honor_limit = dbGood.getHonor_limit();
             if (StringUtils.isNotBlank(honor_limit)) {
-                //todo
+                //看用户的信誉是否小于要求的信誉
+                String honor = buyAccount.getHonor();
+                if (StringUtils.isNotBlank(honor)){
+                    try {
+                        int h1 = Integer.parseInt(honor);
+                        if (honor_limit!=null){
+                            int h2 = Integer.parseInt(honor_limit);
+                            if (h1<h2){
+                                ResponseUtils.retnFailMsg(response, jsonObject, "信誉不符合要求~");
+                                return;
+                            }
+                        }
+
+                    } catch (Exception e) {
+
+                    }
+                }
             }
 
             //性别限制
@@ -598,16 +618,50 @@ public class ShopController {
 
             //年龄限制
             String age_limit = dbGood.getAge_limit();
-            if (StringUtils.isNotBlank(age_limit) || !age_limit.contains(buyAccount.getAge_range())) {
-                //不符合
-                ResponseUtils.retnFailMsg(response, jsonObject, "年龄不符合要求");
-                return;
+            if (StringUtils.isNotBlank(age_limit)) {
+                if (age_limit.length()==1){
+                    if (!age_limit.equals(buyAccount.getAge_range())){
+                        ResponseUtils.retnFailMsg(response, jsonObject, "年龄不符合要求");
+                        return;
+                    }
+                }else if (age_limit.length()>1){
+                    boolean flag = false;
+                    String[] split = age_limit.split(",");
+                    if (split!=null && split.length>0){
+                        for (int i=0;i<split.length;i++){
+                            if (split[i].equals(buyAccount.getAge_range())){
+                                flag = true;
+                            }
+                        }
+                    }
+                    if (!flag){
+                        //不符合
+                        ResponseUtils.retnFailMsg(response, jsonObject, "年龄不符合要求");
+                        return;
+                    }
+                }
+
             }
 
             //常购类目限制
             String always_buy_class = dbGood.getAlways_buy_class();
             String always_class = buyAccount.getAlways_class();
 
+            //价格
+            memberTask.setGoods_price(dbGood.getPrice());
+
+            //奖励
+            memberTask.setReward_money(dbGood.getAppend_money());
+
+            //掌柜名 就是店铺的名称
+            memberTask.setShoper_name(dbGood.getShop_name());
+
+            //商家名 使用会员名称
+            Member sellerMem = new Member(dbGood.getMemid());
+            memberTask.setSeller_name(sellerMem.getUsername());
+
+            //买号名称
+            memberTask.setBuyer_name(buyAccount.getAccount());
             if (StringUtils.isNotBlank(always_class) &&
                     StringUtils.isNotBlank(always_buy_class)) {
                 //遍历
@@ -652,7 +706,6 @@ public class ShopController {
         }
 
 
-        MemberTask memberTask = new MemberTask();
         memberTask.setGoods_id(goods_id);
         memberTask.setIs_finsh(0);
         memberTask.setPick_time(new Date());
@@ -712,5 +765,26 @@ public class ShopController {
         }
         shopService.delete(shop_id);
         ResponseUtils.retnFailMsg(response, jsonObject, "操作完成");
+    }
+
+    /**
+     * 获取用户已申请任务列表
+     */
+    @ISLogin
+    @RequestMapping(value = "getUserApplyTaskList")
+    public void getUserApplyTaskList(HttpServletRequest request, HttpServletResponse response,
+                                     Integer memid){
+        JsonObject jsonObject = new JsonObject();
+        if (memid!=null && memid>0){
+            MemberTask memberTask = new MemberTask();
+            memberTask.setMemid(memid);
+            List<MemberTask> list = taskService.getDatas(memberTask);
+
+            jsonObject.addProperty("list",GsonUtils.toJson(list));
+            ResponseUtils.retnSuccessMsg(response,jsonObject,"查询成功");
+        }else {
+            ResponseUtils.retnFailMsg(response,jsonObject);
+        }
+
     }
 }
