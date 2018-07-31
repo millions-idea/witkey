@@ -212,6 +212,13 @@
                 super(props)
             }
 
+            //开始任务
+            startTask  = (taskId,goodsId,event)=>{
+                console.log('taskid'+taskId);
+                console.log('goodsId'+goodsId);
+
+            }
+
             render() {
                 //所有接到的任务集合
                 let list = this.props.list;
@@ -338,7 +345,9 @@
                                     <span qtip-my="top right" qtip-at="bottom left"
                                           qtip-url="/yptask/viewpro.php?itemid=2957695" qtip-title="试用流程"
                                           data-hasqtip="45">
-                                        <em className="bblue" data-hasqtip="35"
+                                        <em className="bblue"
+                                            onClick={this.startTask.bind(this,data.id,data.goods_id)}
+                                            data-hasqtip="35"
                                             oldtitle="点击打开试用流程" title="">
                                             开始任务
                                         </em>
@@ -365,7 +374,8 @@
                                             商家：{data.seller_name}
                                         </span>
                                                 <span>
-                                        <em className="bblue" data-hasqtip="38" oldtitle="点击发起站内聊天" title="">
+                                        <em className="bblue"
+                                            data-hasqtip="38" oldtitle="点击发起站内聊天" title="">
                                         聊天
                                     </em>
 
@@ -378,9 +388,12 @@
                                         备注：
                                         <form>
                                             <input name="itemid" value="2957695" type="hidden"/>
-                                            <input className="txt"  name="mark" value={data.remark} type="text"
+                                            <input className="txt"  name="mark"
+                                                   value={data.remark} type="text"
                                                    style={{width: '160px'}}/>
-                                            <input className="submit" name="submit" value="保存" type="submit"/>
+                                            <input className="submit"
+                                                   name="submit"
+                                                   value="保存" type="submit"/>
                                         </form>
                                     </span>
                                             </div>
@@ -705,176 +718,9 @@
         </div>
     </div>
 </div>
-<div class="main-im">
-    <div id="open_im" class="open-im" style="display: none;"></div>
-    <div class="im_main" id="im_main">
-        <div id="close_im" class="close-im"><a class="you" style="cursor: pointer" data-hasqtip="43" oldtitle="点击关闭"
-                                               title=""></a></div>
-        <a onclick="multi_qq()" class="im-qq qq-a">
-            <div class="qq-container"></div>
-            <div class="qq-hover-c"><img class="img-qq" src="./任务列表_files/qq.png"></div>
-            <span>QQ在线咨询</span>
-        </a>
-        <script id="yptip_qq" type="text/template7">
-            <p style="width:100%;background-color:#0098ff;font-size:16px;text-align:center;color:#fff;height:34px;line-height:34px;">
-                客服团队</p><p style="line-height:40px;">客服潇潇：<a target="_blank"
-                                                             href="http://wpa.qq.com/msgrd?v=3&uin=261369834&site=qq&menu=yes"><img
-                    border="0" src="http://wpa.qq.com/pa?p=2:261369834:51" alt="点击这里给我发消息" title="点击这里给我发消息"/></a> <span
-                    style="line-height:1.5;margin-left:10px;">客服靓靓：</span><a target="_blank"
-                                                                             href="http://wpa.qq.com/msgrd?v=3&uin=261369834&site=qq&menu=yes"
-                                                                             style="line-height:1.5;"><img border="0"
-                                                                                                           src="http://wpa.qq.com/pa?p=2:261369834:51"
-                                                                                                           alt="点击这里给我发消息"
-                                                                                                           title="点击这里给我发消息"/></a>
-            </p><p style="line-height:30px;">客服恋恋：<a target="_blank"
-                                                     href="http://wpa.qq.com/msgrd?v=3&uin=261369834&site=qq&menu=yes"><img
-                    border="0" src="http://wpa.qq.com/pa?p=2:261369834:51" alt="点击这里给我发消息" title="点击这里给我发消息"/></a> <span
-                    style="line-height:1.5;margin-left:10px;">客服萌萌：</span><a target="_blank"
-                                                                             href="http://wpa.qq.com/msgrd?v=3&uin=261369834&site=qq&menu=yes"
-                                                                             style="line-height:1.5;"><img border="0"
-                                                                                                           src="http://wpa.qq.com/pa?p=2:261369834:51"
-                                                                                                           alt="点击这里给我发消息"
-                                                                                                           title="点击这里给我发消息"/></a>
-            </p><p><br/></p><p
-                    style="width:100%;background-color:#0098ff;font-size:16px;text-align:center;color:#fff;height:34px;line-height:34px;">
-                合作渠道</p><p style="line-height:40px;">业务合作：<a target="_blank"
-                                                             href="http://wpa.qq.com/msgrd?v=3&uin=261369834&site=qq&menu=yes"><img
-                    border="0" src="http://wpa.qq.com/pa?p=2:261369834:51" alt="点击这里给我发消息" title="点击这里给我发消息"/></a> <span
-                    style="line-height:1.5;margin-left:10px;">代理加盟：</span><a target="_blank"
-                                                                             href="http://wpa.qq.com/msgrd?v=3&uin=261369834&site=qq&menu=yes"
-                                                                             style="line-height:1.5;"><img border="0"
-                                                                                                           src="http://wpa.qq.com/pa?p=2:261369834:51"
-                                                                                                           alt="点击这里给我发消息"
-                                                                                                           title="点击这里给我发消息"/></a>
-            </p>        </script>
-        <script>
-            function multi_qq() {
-                $('.layim-friend618').click();
-            }
-        </script>
-        <a href="http://001.topaaa.com/app.php" target="_blank" class="qq-a" style="height: 130px">
-            <div class="qq-container" style="height: 130px"></div>
-            <div style="width: 95px;height: 95px"><img class="img-qq"
-                                                       src="./任务列表_files/qrcode.php"
-                                                       style="width: 95px;height: 95px;max-width: 95px;top: 5px;left: 5px">
-            </div>
-            <span>下载APP</span>
-        </a>
-        <div class="im-tel">
-            <div><a href="http://001.topaaa.com/announce/index.php?typeid=2" target="_blank">如何发布试用</a></div>
-            <div><a href="http://001.topaaa.com/announce/index.php?typeid=3" target="_blank">如何申请试用</a></div>
-            <div><a href="http://001.topaaa.com/about/index.php?itemid=6" target="_blank">销量联盟网规</a></div>
-            <div><a href="http://001.topaaa.com/announce/index.php?typeid=1" target="_blank" class="jsbz">网站公告</a></div>
-        </div>
-        <div class="im-footer" style="position:relative">
-            <div class="go-top"><a class="you" style="cursor: pointer" data-hasqtip="44" oldtitle="返回顶部" title=""></a>
-            </div>
-            <div style="clear:both"></div>
-        </div>
-    </div>
-    <script>
-        $(function () {
-            $(".go-top").click(function () {
-                $('html,body').animate({scrollTop: 0}, 800);
-            });
-            $("#close_im").click(function () {
-                $("#im_main").fadeOut(500, function () {
-                    $("#open_im").fadeIn(500);
-                });
-            });
-            $("#open_im").click(function () {
-                $("#open_im").fadeOut(500, function () {
-                    $("#im_main").fadeIn(500);
-                });
-            });
-        });
-    </script>
+
+<div class="layui-layer-move">
+
 </div>
-<div class="layui-layer-move"></div>
-<div id="qtip-blanket"
-     style="position: fixed; top: 0px; left: 0px; height: 100%; width: 100%; opacity: 0.2; background-color: black; z-index: 5000; display: none;"></div>
-<div class="layui-layer layui-layer-page layui-box layui-layim layer-anim-02" id="layui-layer100001" type="page"
-     times="100001" showtime="0" contype="string"
-     style="z-index: 19991015; width: 260px; height: 520px; top: 256px; left: 1648px;
-     background-image: url(&quot;http://001.topaaa.com/file/script/layim/css/modules/layim/skin/2.jpg&quot;); margin-left: -20px;">
-    <div class="layui-layer-title" style="cursor: move;">&#8203;</div>
-    <div id="layui-layim" class="layui-layer-content"
-         style="height: 410px;">
-        <div class="layui-layim-main">
-            <div class="layui-layim-info">
-                <div class="layui-layim-user">yp12345678 神秘地区</div>
-                <div class="layui-layim-status"><span class="layui-icon layim-status-online" layim-event="status"
-                                                      lay-type="show"></span>
-                    <ul class="layui-anim layim-menu-box">
-                        <li class="layim-this" layim-event="status" lay-type="online"><i class="layui-icon"></i><cite
-                                class="layui-icon layim-status-online"></cite>在线
-                        </li>
-                        <li layim-event="status" lay-type="hide"><i class="layui-icon"></i><cite
-                                class="layui-icon layim-status-hide"></cite>隐身
-                        </li>
-                    </ul>
-                </div>
-                <input class="layui-layim-remark" placeholder="编辑签名" value=""></div>
-            <ul class="layui-unselect layui-layim-tab layim-tab-two">
-                <li class="layui-icon layim-this" title="联系人" layim-event="tab" lay-type="friend"></li>
-                <li class="layui-icon layim-hide" title="群组" layim-event="tab" lay-type="group"></li>
-                <li class="layui-icon" title="历史会话" layim-event="tab" lay-type="history"></li>
-            </ul>
-            <ul class="layui-unselect layim-tab-content layui-show layim-list-friend">
-                <li><h5 layim-event="spread" lay-type="true"><i class="layui-icon"></i><span>人工客服</span><em>(<cite
-                        class="layim-count"> 1</cite>)</em></h5>
-                    <ul class="layui-layim-list  layui-show">
-                        <li layim-event="chat" data-type="friend" data-index="0" class="layim-friend618 "><img
-                                src="./任务列表_files/kefu.png"><span>销量联盟 - 售前咨询</span>
-                            <p>有问题，随时咨询我</p><span class="layim-msg-status">new</span></li>
-                    </ul>
-                </li>
-                <li><h5 layim-event="spread" lay-type="true"><i class="layui-icon"></i><span>机器人客服</span><em>(<cite
-                        class="layim-count"> 4</cite>)</em></h5>
-                    <ul class="layui-layim-list  layui-show">
-                        <li layim-event="chat" data-type="friend" data-index="1" class="layim-friend-1 "><img
-                                src="./任务列表_files/kefu1.png"><span>客服 - 潇潇</span>
-                            <p>销量联盟智能机器人</p><span class="layim-msg-status">new</span></li>
-                        <li layim-event="chat" data-type="friend" data-index="1" class="layim-friend-2 "><img
-                                src="./任务列表_files/kefu2.png"><span>客服 - 靓靓 </span>
-                            <p>销量联盟智能机器人</p><span class="layim-msg-status">new</span></li>
-                        <li layim-event="chat" data-type="friend" data-index="1" class="layim-friend-3 "><img
-                                src="./任务列表_files/kefu3.jpg"><span>客服 - 恋恋</span>
-                            <p>销量联盟智能机器人</p><span class="layim-msg-status">new</span></li>
-                        <li layim-event="chat" data-type="friend" data-index="1" class="layim-friend-4 "><img
-                                src="./任务列表_files/kefu4.jpg"><span>客服 - 萌萌</span>
-                            <p>销量联盟智能机器人</p><span class="layim-msg-status">new</span></li>
-                    </ul>
-                </li>
-            </ul>
-            <ul class="layui-unselect layim-tab-content ">
-                <li>
-                    <ul class="layui-layim-list layui-show layim-list-group">
-                        <li class="layim-null">暂无群组</li>
-                    </ul>
-                </li>
-            </ul>
-            <ul class="layui-unselect layim-tab-content ">
-                <li>
-                    <ul class="layui-layim-list layui-show layim-list-history">
-                        <li class="layim-null">暂无历史会话</li>
-                    </ul>
-                </li>
-            </ul>
-            <ul class="layui-unselect layim-tab-content">
-                <li>
-                    <ul class="layui-layim-list layui-show" id="layui-layim-search"></ul>
-                </li>
-            </ul>
-            <ul class="layui-unselect layui-layim-tool">
-                <li class="layui-icon layim-tool-search" layim-event="search" title="搜索"></li>
-                <li class="layui-icon layim-tool-skin" layim-event="skin" title="更换背景"></li>
-            </ul>
-            <div class="layui-layim-search"><input><label class="layui-icon" layim-event="closeSearch">&#4103;</label>
-            </div>
-        </div>
-    </div>
-    <span class="layui-layer-setwin"><a class="layui-layer-ico layui-layer-close layui-layer-close1"
-                                        href="javascript:;"></a></span></div>
 </body>
 </html>
