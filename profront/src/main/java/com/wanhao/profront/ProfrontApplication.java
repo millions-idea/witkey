@@ -10,5 +10,4 @@ public class ProfrontApplication {
         SpringApplication.run(ProfrontApplication.class, args);
     }
 
-
 }
