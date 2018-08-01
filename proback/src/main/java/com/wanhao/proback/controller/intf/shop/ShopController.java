@@ -13,7 +13,10 @@ import com.wanhao.proback.service.member.MemberTaoBaoService;
 import com.wanhao.proback.service.member.MemberTaskService;
 import com.wanhao.proback.service.shop.GoodsService;
 import com.wanhao.proback.service.shop.ShopService;
-import com.wanhao.proback.utils.*;
+import com.wanhao.proback.utils.GsonUtils;
+import com.wanhao.proback.utils.IpUtils;
+import com.wanhao.proback.utils.IsNullUtils;
+import com.wanhao.proback.utils.ResponseUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -561,6 +564,10 @@ public class ShopController {
             Member member = new Member(memid);
             Member sbMember = memberService.getMember(member);
 
+            //任务步数
+            int userTaskStep = readTaskStep(dbGood);
+
+            memberTask.setAll_step(userTaskStep);
 
             //商保限制
             Integer shangbao_limit = dbGood.getShangbao_limit();
@@ -709,6 +716,9 @@ public class ShopController {
         memberTask.setGoods_id(goods_id);
         memberTask.setIs_finsh(0);
         memberTask.setPick_time(new Date());
+        memberTask.setCurrent_step(0);
+
+
         memberTask.setMemid(memid);
         memberTask.setBuy_account_id(buy_id);
         taskService.add(memberTask);
@@ -786,5 +796,84 @@ public class ShopController {
             ResponseUtils.retnFailMsg(response,jsonObject);
         }
 
+    }
+
+    /**
+     * 读取任务当前运行到第几步
+     */
+    @ISLogin
+    @RequestMapping(value = "getUserTaskStep")
+    public void getUserTaskStep(HttpServletRequest request, HttpServletResponse response,
+                                Integer current_step,Integer task_id,
+                                Integer memid){
+        JsonObject jsonObject = new JsonObject();
+        if (IsNullUtils.isNull(current_step,task_id,memid)){
+            ResponseUtils.retnFailMsg(response,jsonObject);
+            return;
+        }
+        //查询任务
+        MemberTask memberTask = new MemberTask();
+        memberTask.setId(task_id);
+        List<MemberTask> datas = taskService.getDatas(memberTask);
+        if (datas!=null && datas.size()>0){
+            MemberTask dbTask = datas.get(0);
+            //读取任务信息
+            Integer all_step = dbTask.getAll_step();
+            Integer db_step = dbTask.getCurrent_step();
+
+            jsonObject.addProperty("all_step",all_step);
+            jsonObject.addProperty("current_step",db_step);
+
+            //读取传入的步数
+            if (current_step>=0){
+                //获取对应步骤
+                Integer goods_id = dbTask.getGoods_id();
+                Goods queryGood = new Goods();
+                queryGood.setId(goods_id);
+                List<Goods> goods = goodsService.getGoods(queryGood);
+                if (goods!=null && goods.size()>0){
+                    int allStep = readTaskStep(goods.get(0));
+                    if (current_step<=all_step){
+                        //读取任务位置
+
+                    }
+                }
+            }
+        }
+    }
+
+    //读取任务步数 判断卖家备注信息 买号要求 试用限制信息
+    public int readTaskStep(Goods goods){
+        int step = 0;
+        //卖家留言
+        if (IsNullUtils.isNotNull(goods.getRemark())){
+            step++;
+        }
+
+        //搜索关键词
+        if (IsNullUtils.isNotNull(goods.getSearch_type())){
+            step++;
+        }
+        //是否需要货比三家
+        if (IsNullUtils.isNotNull(goods.getNeed_bi_san_jia())){
+            step++;
+        }
+        //是否需要拍前聊天
+        if (IsNullUtils.isNotNull(goods.getNeed_chat())){
+            step++;
+        }
+        //是否需要浏览评论
+        if (IsNullUtils.isNotNull(goods.getNeed_look_comment())){
+            step++;
+        }
+        //是否需要加购物车
+        if (IsNullUtils.isNotNull(goods.getNeed_add_buy_cart())){
+            step++;
+        }
+        //是否需要收藏商品
+        if (IsNullUtils.isNotNull(goods.getNeed_col_goods())){
+            step++;
+        }
+        return step;
     }
 }
