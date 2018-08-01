@@ -1,0 +1,20 @@
+<form class="layui-form layui-form-pane my-view" method="post" action="./express-platform/add" enctype="application/x-www-form-urlencoded">
+    <div class="layui-form-item">
+        <label class="layui-form-label">名称</label>
+
+        <div class="layui-input-block">
+            <input type="text" name="platform_name" autocomplete="off" placeholder="请输入快递空包网站名称" lay-verify="required" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">网址</label>
+
+        <div class="layui-input-block">
+            <input type="text" name="platform_name" autocomplete="off" placeholder="请输入快递空包网站地址" lay-verify="required" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <i style="line-height: 38px;">* 添加后的数据会在商家后台和前台显示</i>
+        <button class="layui-btn" lay-submit="" lay-filter="sub" style="float: right;">添加</button>
+    </div>
+</form>

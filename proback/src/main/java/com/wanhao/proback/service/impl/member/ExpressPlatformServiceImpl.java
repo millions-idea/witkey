@@ -25,6 +25,15 @@ public class ExpressPlatformServiceImpl implements ExpressPlatformService {
         return null;
     }
 
+    /**
+     * 删除快递空包平台(支持多个) 韦德 2018年8月1日23:09:44
+     * @param exp_id
+     */
+    @Override
+    public void delete(String exp_id) {
+
+    }
+
     @Override
     public void update(ExpressPlatform v) {
 

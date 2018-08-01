@@ -1,0 +1,25 @@
+<form class="layui-form layui-form-pane my-view" method="post" action="./express-platform/edit"
+      enctype="application/x-www-form-urlencoded" xmlns:th="http://www.thymeleaf.org">
+    <input type="hidden" name="exp_id" th:value="${model.getExp_id()}">
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">名称</label>
+
+        <div class="layui-input-block">
+            <input type="text" name="platform_name" autocomplete="off"
+                   placeholder="请输入快递空包网站名称" lay-verify="required" class="layui-input" th:value="${model.getPlatform_name()}">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">网址</label>
+
+        <div class="layui-input-block">
+            <input type="text" name="platform_name" autocomplete="off"
+                   placeholder="请输入快递空包网站地址" lay-verify="required" class="layui-input" th:value="${model.getPlatform_url()}">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <i style="line-height: 38px;">* 编辑后的数据会在商家后台和前台显示</i>
+        <button class="layui-btn" lay-submit="" lay-filter="sub" style="float: right;">编辑</button>
+    </div>
+</form>

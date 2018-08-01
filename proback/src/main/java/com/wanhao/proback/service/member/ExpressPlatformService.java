@@ -21,4 +21,6 @@ public interface ExpressPlatformService extends BaseService<ExpressPlatform> {
      * @return
      */
     List<ExpressPlatform> getPlatforms();
+
+    void delete(String exp_id);
 }

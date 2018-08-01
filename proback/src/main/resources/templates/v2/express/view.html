@@ -1,0 +1,21 @@
+<form class="layui-form layui-form-pane my-view" method="post" action="./express-platform/add"
+      enctype="application/x-www-form-urlencoded" xmlns:th="http://www.thymeleaf.org">
+    <input type="hidden" name="exp_id" th:value="${model.getExp_id()}">
+    
+    <div class="layui-form-item">
+        <label class="layui-form-label">名称</label>
+
+        <div class="layui-input-block">
+            <input disabled="disabled" type="text" name="platform_name" autocomplete="off"
+                   placeholder="请输入快递空包网站名称" lay-verify="required" class="layui-input" th:value="${model.getPlatform_name()}">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">网址</label>
+
+        <div class="layui-input-block">
+            <input disabled="disabled" type="text" name="platform_name" autocomplete="off"
+                   placeholder="请输入快递空包网站地址" lay-verify="required" class="layui-input" th:value="${model.getPlatform_url()}">
+        </div>
+    </div>
+</form>
