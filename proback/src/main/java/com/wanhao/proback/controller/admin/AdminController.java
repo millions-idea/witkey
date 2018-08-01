@@ -92,8 +92,7 @@ public class AdminController {
      */
     @RequestMapping(value = "systemIndex")
     public String systemIndex(){
-
-        return "admin/index";
+        return "v2/admin/index";
     }
 
 

@@ -20,6 +20,6 @@ public class MyPanelController {
      */
     @RequestMapping(value = "systemIndex")
     public String systemIndex(Map<String,Object> map){
-        return "mypanel/system-index";
+        return "mypanel/system-index2";
     }
 }

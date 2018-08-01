@@ -68,7 +68,7 @@ L['upload_attach']			= '插入附件';
 L['tip_image']				= '提示：您的浏览器支持直接拖拽本地图片至编辑器或者直接Ctrl+C粘贴QQ截图里的图像，赶快试试吧！';
 L['tip_know']				= '我知道了';
 
-/* homepage.js & member.js */
+/* homepage.js & express.js */
 L['click_open']				= '点击打开原图';
 L['keyword_value']			= '输入关键词';
 L['keyword_message']		= '请输入关键词';

@@ -37,7 +37,7 @@ public class MemberController {
     @Autowired
     AreaService areaService;
 
-    private static final String PREFIX = "member/";
+    private static final String PREFIX = "express/";
 
 
     @RequestMapping(value = "forbidden")

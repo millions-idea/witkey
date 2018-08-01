@@ -180,6 +180,13 @@
         </dependency>
 
 
+        <!--热加载 韦德 2018年8月1日16:39:37-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <version>2.0.2.RELEASE</version>
+            <scope>runtime</scope>
+        </dependency>
     </dependencies>
 
     <build>
@@ -196,6 +203,8 @@
                     <source>1.8</source>
                     <target>1.8</target>
                     <encoding>utf-8</encoding>
+                    <!--热部署-->
+                    <fork>true</fork>
                 </configuration>
             </plugin>
         </plugins>
