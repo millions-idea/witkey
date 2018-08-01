@@ -8,6 +8,7 @@
 package com.wanhao.proback.controller.member;
 
 import com.wanhao.proback.bean.member.ExpressPlatform;
+import com.wanhao.proback.bean.util.JsonArrayResult;
 import com.wanhao.proback.bean.util.JsonResult;
 import com.wanhao.proback.service.member.ExpressPlatformService;
 import com.wanhao.proback.utils.ResponseUtils;
@@ -18,6 +19,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.List;
 
 /**
  * 快递空包管理控制器 韦德 2018年8月1日22:09:03
@@ -102,5 +105,17 @@ public class ExpressPlatformController {
     public JsonResult delete(String exp_id){
         expressPlatformService.delete(exp_id);
         return new JsonResult(0);
+    }
+
+
+    /**
+     * 查询快递空包集合 韦德 2018年8月1日23:09:44
+     * @return
+     */
+    @GetMapping("/get")
+    @ResponseBody
+    public JsonArrayResult<ExpressPlatform> getList(Integer page, Integer limit){
+        List<ExpressPlatform> list = expressPlatformService.getPlatforms(page, limit);
+        return new JsonArrayResult(0, list);
     }
 }

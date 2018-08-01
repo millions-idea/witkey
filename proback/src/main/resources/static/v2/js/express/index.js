@@ -1,11 +1,9 @@
 /*! 快递空包服务管理 韦德 2018年8月1日18:58:23*/
-
-
-
 (function () {
-    var service = initService("./express-platform");
-    // 加载数据表
-    initData('./../v2/json/express/index.json',function (form, table, layer, vipTable, tableIns) {
+    var route = "./express-platform";
+    var service = initService(route);
+    // 加载数据表 mock:'./../v2/json/express/index.json'
+    initData(route + "/get",function (form, table, layer, vipTable, tableIns) {
         // 动态注册事件
         var $tableDelete = $("#table-delete"),
             $tableAdd = $("#table-add");
