@@ -4,6 +4,7 @@ var service;
 var marketTableIndex;
 (function () {
     service = initService(route);
+
     // 加载快递空包公司集合
     initPlatforms();
 
@@ -43,7 +44,7 @@ var marketTableIndex;
                     type: 1,
                     skin: 'layui-layer-rim',
                     title: '添加',
-                    area: ['420px', '240px'],
+                    area: ['420px', 'auto'],
                     content: data
                 });
             })
@@ -61,14 +62,14 @@ var marketTableIndex;
                         type: 1,
                         skin: 'layui-layer-rim',
                         title: '预览',
-                        area: ['420px', '185px'],
+                        area: ['420px', 'auto'],
                         content: html
                     });
                 })
             } else if(layEvent === 'del'){ //删除
                 layer.confirm('确定要删除此项吗？', function(index){
                     var param = {
-                        exp_id: obj.data.exp_id.toString()
+                        exp_id: obj.data.expp_id.toString()
                     };
                     service.delete(param, function (data) {
                         if(data.code == 1){
@@ -86,13 +87,14 @@ var marketTableIndex;
                         type: 1,
                         skin: 'layui-layer-rim',
                         title: '预览',
-                        area: ['420px', '240px'],
+                        area: ['420px', 'auto'],
                         content: html
                     });
                 });
             }
         });
     });
+
 })()
 
 /**
@@ -146,8 +148,44 @@ function initService(r) {
          */
         getPlatforms: function (callback) {
             $.get(route + "/get?page=1&limit=30",function (data) {
-                var json = data.data;
-                callback(json);
+                if(data.error != null && data.error == 1) return;
+                if(data.code == 0){
+                    var arr = new Array();
+                    data.data.forEach(function(item){
+                        if(item.isEnabled == 1){
+                            arr.push(item);
+                        }
+                    })
+                    callback(arr);
+                }
+            });
+        },
+        /**
+         * 添加 韦德 2018年8月2日15:37:00
+         * @param callback
+         */
+        add: function (param) {
+            $.post(route + "/add", param , function (data) {
+                if(data.code == 1) {
+                    layer.msg("添加失败");
+                    return false;
+                }
+                layer.closeAll();
+                marketTableIndex.reload();
+            });
+        },
+        /**
+         * 编辑 韦德 2018年8月2日16:52:55
+         * @param param
+         */
+        edit: function (param) {
+            $.post(route + "/edit", param , function (data) {
+                if(data.code == 1) {
+                    layer.msg("编辑失败");
+                    return false;
+                }
+                layer.closeAll();
+                marketTableIndex.reload();
             });
         }
     }
@@ -176,6 +214,28 @@ function initPlatforms(){
  * 加载市场进货渠道数据表
  */
 function initMarketDataTable(url,callback,loadDone) {
+    var $queryButton = $("#market-data-table-query"),
+        $queryCondition = $("#market-data-table-condition");
+
+    var cols = [[
+        {type: "checkbox"}
+        , {field: 'expp_id', title: 'ID', width: 80}
+        , {field: 'name', title: '空包公司名称', width: 120}
+        , {field: 'url', title: '网址', width: 240}
+        , {field: 'isEnabled', title: '状态', width: 120, templet: function (d) {
+                return d.isEnabled == 1 ? "启用" : "禁用";
+            }}
+        , {fixed: 'right', title: '操作', width: 150, align: 'center', toolbar: '#barOption'}
+    ]];
+
+    // 注册查询事件
+    $queryButton.click(function () {
+        $queryButton.attr("disabled",true);
+        loadTable("market-data-table", "#market-data-table", cols, url + "?condition=" + $queryCondition.val(), function (res, curr, count) {
+            $queryButton.removeAttr("disabled");
+        });
+    })
+
     layui.use(['table', 'form', 'layer', 'vip_table', 'layedit', 'tree'], function () {
         // 操作对象
         var form = layui.form
@@ -189,13 +249,7 @@ function initMarketDataTable(url,callback,loadDone) {
         marketTableIndex = table.render({
             elem: '#market-data-table'                  //指定原始表格元素选择器（推荐id选择器）
             , height: 650    //容器高度
-            , cols: [[
-                {type: "checkbox"}
-                , {field: 'expp_id', title: 'ID', width: 80}
-                , {field: 'name', title: '空包公司名称', width: 120}
-                , {field: 'url', title: '网址', width: 240}
-                , {fixed: 'right', title: '操作', width: 150, align: 'center', toolbar: '#barOption'}
-            ]]
+            , cols: cols
             , id: 'market-data-table'
             , url: url
             , method: 'get'

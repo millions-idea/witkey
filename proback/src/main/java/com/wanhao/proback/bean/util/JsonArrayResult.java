@@ -23,7 +23,8 @@ public class JsonArrayResult<T> extends JsonResult{
     private Integer count;
 
     public Integer getCount() {
-        return this.data.size();
+        if(count == null || count == 0) return this.data.size();
+        return count;
     }
 
     public void setCount(Integer count) {

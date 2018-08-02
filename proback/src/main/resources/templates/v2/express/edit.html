@@ -1,12 +1,12 @@
-<form class="layui-form layui-form-pane my-view" method="post" action="./express-platform/edit"
+<div class="layui-form layui-form-pane my-view" method="post" action="./express-platform/edit"
       enctype="application/x-www-form-urlencoded" xmlns:th="http://www.thymeleaf.org">
-    <input type="hidden" name="exp_id" th:value="${model.getExpp_id()}">
+    <input type="hidden" id="expp_id" th:value="${model.getExpp_id()}">
 
     <div class="layui-form-item">
         <label class="layui-form-label">名称</label>
 
         <div class="layui-input-block">
-            <input type="text" name="platform_name" autocomplete="off"
+            <input type="text" id="name" autocomplete="off"
                    placeholder="请输入快递空包网站名称" lay-verify="required" class="layui-input" th:value="${model.getName()}">
         </div>
     </div>
@@ -14,12 +14,35 @@
         <label class="layui-form-label">网址</label>
 
         <div class="layui-input-block">
-            <input type="text" name="platform_name" autocomplete="off"
+            <input type="text" id="url" autocomplete="off"
                    placeholder="请输入快递空包网站地址" lay-verify="required" class="layui-input" th:value="${model.getUrl()}">
         </div>
     </div>
     <div class="layui-form-item">
-        <i style="line-height: 38px;">* 编辑后的数据会在商家后台和前台显示</i>
-        <button class="layui-btn" lay-submit="" lay-filter="sub" style="float: right;">编辑</button>
+        <label class="layui-form-label">状态</label>
+        <div class="layui-input-block"  >
+            <input th:id="isEnabled" type="checkbox" lay-skin="switch">
+            <div th:if="${model.getIsEnabled()} eq 1" class="layui-unselect layui-form-switch layui-form-onswitch" lay-skin="_switch"><em>启用</em><i></i></div>
+            <div th:if="${model.getIsEnabled()} eq 0" class="layui-unselect layui-form-switch" lay-skin="_switch"><em>启用</em><i></i></div>
+        </div>
     </div>
-</form>
+    <div class="layui-form-item">
+        <i style="line-height: 38px;">* 编辑后的数据会在商家后台和前台显示</i>
+        <button onclick="service.edit({ expp_id: $('#expp_id').val(), name: $('#name').val(), url: $('#url').val(), isEnabled: $('#isEnabled').attr('checked') == 'checked' ? 1 : 0})" class="layui-btn" style="float: right;">编辑</button>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        var $enabledButton = $("#isEnabled");
+        $enabledButton.next().click(function () {
+            if($enabledButton.next().hasClass("layui-form-onswitch")){
+                $enabledButton.next().removeClass("layui-form-onswitch");
+                $enabledButton.removeAttr("checked");
+            }else{
+                $enabledButton.next().addClass("layui-form-onswitch");
+                $enabledButton.attr("checked",true);
+            }
+        });
+    })
+</script>

@@ -18,4 +18,12 @@
                    placeholder="请输入快递空包网站地址" lay-verify="required" class="layui-input" th:value="${model.getUrl()}">
         </div>
     </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">状态</label>
+        <div class="layui-input-block"  >
+            <input th:id="isEnabled" type="checkbox" lay-skin="switch">
+            <div th:if="${model.getIsEnabled()} eq 1" class="layui-unselect layui-form-switch layui-form-onswitch" lay-skin="_switch"><em>启用</em><i></i></div>
+            <div th:if="${model.getIsEnabled()} eq 0" class="layui-unselect layui-form-switch" lay-skin="_switch"><em>启用</em><i></i></div>
+        </div>
+    </div>
 </form>

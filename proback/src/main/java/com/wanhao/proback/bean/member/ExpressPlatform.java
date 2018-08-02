@@ -21,16 +21,18 @@ public class ExpressPlatform {
     private Integer expp_id;
     private String name;
     private String url;
-    private Integer isEnabled;
+    private Integer isEnabled = 1;
+    private Integer isDelete = 0;
 
-    public ExpressPlatform() {
-    }
-
-    public ExpressPlatform(Integer expp_id, String name, String url, Integer isEnabled) {
-
+    public ExpressPlatform(Integer expp_id, String name, String url, Integer isEnabled, Integer isDelete) {
         this.expp_id = expp_id;
         this.name = name;
         this.url = url;
         this.isEnabled = isEnabled;
+        this.isDelete = isDelete;
+    }
+
+    public ExpressPlatform() {
+
     }
 }

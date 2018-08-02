@@ -55,7 +55,7 @@ public class ExpressPlatformController {
      * @return
      */
     @PostMapping("/add")
-    public String add(ExpressPlatform param){
+    public String add(ExpressPlatform param) throws Exception {
         expressPlatformService.add(param);
         return "redirect:/express-platform";
     }
@@ -114,8 +114,14 @@ public class ExpressPlatformController {
      */
     @GetMapping("/get")
     @ResponseBody
-    public JsonArrayResult<ExpressPlatform> getList(Integer page, Integer limit){
-        List<ExpressPlatform> list = expressPlatformService.getPlatforms(page, limit);
+    public JsonArrayResult<ExpressPlatform> getList(Integer page, String  limit, String condition){
+        List<ExpressPlatform> list = expressPlatformService.getPlatforms(page, limit, condition);
+        if (condition == null || condition.isEmpty()){
+            int platformCount = expressPlatformService.getPlatformCount();
+            JsonArrayResult jsonArrayResult = new JsonArrayResult(0, list);
+            jsonArrayResult.setCount(platformCount);
+            return jsonArrayResult;
+        }
         return new JsonArrayResult(0, list);
     }
 }

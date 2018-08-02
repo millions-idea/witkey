@@ -48,6 +48,13 @@
                         <a id="market-data-table-add" class="layui-btn btn-add btn-default" >添加</a>
                         <a class="layui-btn btn-add btn-default" id="btn-refresh-market-data-table"><i class="layui-icon layui-icon-refresh"></i></a>
                     </span>
+                   <span class="fr">
+                        <span class="layui-form-label">搜索条件：</span>
+                        <div class="layui-input-inline">
+                            <input id="market-data-table-condition" type="text" autocomplete="off" placeholder="请输入搜索条件" class="layui-input">
+                        </div>
+                        <button id="market-data-table-query" class="layui-btn mgl-20">查询</button>
+                    </span>
                    </div>
                    <!-- 表格 -->
                    <div id="market-data-table" class="my-data-table" lay-filter="market-data-table"></div>
