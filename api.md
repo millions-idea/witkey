@@ -163,7 +163,21 @@ intf_setting/getSetting
 
 
 
+###007常量定义和使用
 
+所属分类类型
+
+```
+淘宝试用 4
+阿里巴巴试用 5
+京东试用 40
+拼多多试用 6
+蘑菇街试用 7
+美丽说试用 8
+淘宝访问 41
+阿里巴巴访问 51
+京东访问 401
+```
 
 
 
@@ -601,7 +615,9 @@ memid		是		int		用户id
     "error": 0,
     "message","查询完成",
     list:[
-        { },
+        { 
+        和数据库的表字段一样
+        },
     ]
 }
 错误
@@ -1149,7 +1165,7 @@ shangbao_limit是		int		是否需要交纳保证金的买家
 taoqi_limit	  否		int		淘气值要求
 gender_limit 是		int		性别限制 1男 2女 0不限
 honor_limit 是		string	买号信用要求
-forbidden_area否		string	禁止某地区的人接
+forbidden_area 否	string[]	禁止某地区的人接
 age_limit   否		string	年龄段限制  例如1 2  4 5 6
 always_buy_class否	string	买号常买的类型
 ```
@@ -1379,4 +1395,624 @@ buy_id		是		int		买号的id
 
 ```
 
-###22获取用户的银行卡信息
+###
+
+###22确认收货
+
+### 请求URL：
+
+```
+intf_shop/confirmRecvGoods
+
+```
+
+### 请求方式：
+
+```
+post
+```
+
+### 参数类型
+
+```
+|参数		|是否必选 |类型     |说明
+mobile		是      	string   用户的手机号(放到请求头里面)
+token		是      	string   登录返回的(放到请求头里面)
+memid		是		int		用户的id
+task_id		是		int		任务id
+
+```
+
+### 返回示例：
+
+```
+正常
+{
+    "error":0,
+    "message":"确认成功"
+}
+错误 
+{
+    "error": 1,
+    "message","确认失败"
+}
+
+
+```
+
+### 23获取已申请列表
+
+
+
+### 请求URL：
+
+```
+intf_shop/getUserApplyTaskList
+```
+
+### 请求方式：
+
+```
+post/get
+```
+
+### 参数类型
+
+```
+|参数		|是否必选 |类型     |说明
+mobile		是      	string   用户的手机号(放到请求头里面)
+token		是      	string   登录返回的(放到请求头里面)
+memid		是		int		用户的id
+```
+
+### 返回示例：
+
+```
+正常
+{
+    "error":0,
+    "message":"查询成功",
+    "pageinfo":{
+        list:[ {} ]
+    }
+}
+错误 
+{
+    "error": 1,
+    "message","信息不完整"
+}
+
+
+
+```
+
+### 
+
+###  24获取试用完成列表
+
+### 请求URL：
+
+```
+intf_shop/getFinshedTaskList
+```
+
+### 请求方式：
+
+```
+post/get
+```
+
+### 参数类型
+
+```
+|参数		|是否必选 |类型     |说明
+mobile		是      	string   用户的手机号(放到请求头里面)
+token		是      	string   登录返回的(放到请求头里面)
+memid		是		int		用户的id
+page		否		int		分页页码
+
+```
+
+### 返回示例：
+
+```
+正常
+{
+    "error":0,
+    "message":"查询成功",
+    "pageinfo":{
+        list:[数据库的字段]
+    }
+}
+错误 
+{
+    "error": 1,
+    "message","参数不完整"
+}
+
+
+```
+
+###   25获取已收货列表
+
+### 请求URL：
+
+```
+intf_shop/getFinshedRecvList
+```
+
+### 请求方式：
+
+```
+post/get
+```
+
+### 参数类型
+
+```
+|参数		|是否必选 |类型     |说明
+mobile		是      	string   用户的手机号(放到请求头里面)
+token		是      	string   登录返回的(放到请求头里面)
+memid		是		int		用户的id
+page		否		int		分页页码
+
+```
+
+### 返回示例：
+
+```
+正常
+{
+    "error":0,
+    "message":"查询成功",
+    "pageinfo":{
+        list:[数据库的字段]
+    }
+}
+错误 
+{
+    "error": 1,
+    "message","参数不完整"
+}
+
+
+```
+
+###   25获取已下单列表
+
+### 请求URL：
+
+```
+intf_shop/getFinshedOrderList
+```
+
+### 请求方式：
+
+```
+post/get
+```
+
+### 参数类型
+
+```
+|参数		|是否必选 |类型     |说明
+mobile		是      	string   用户的手机号(放到请求头里面)
+token		是      	string   登录返回的(放到请求头里面)
+memid		是		int		用户的id
+page		否		int		分页页码
+
+
+```
+
+### 返回示例：
+
+```
+正常
+{
+    "error":0,
+    "message":"查询成功",
+    "pageinfo":{
+        list:[数据库的字段]
+    }
+}
+错误 
+{
+    "error": 1,
+    "message","参数不完整"
+}
+
+
+
+```
+
+###  26任务开始
+
+### 请求URL：
+
+```
+intf_shop/getUserTaskStep
+```
+
+### 请求方式：
+
+```
+post/get
+```
+
+### 参数类型
+
+```
+|参数		|是否必选 |类型     |说明
+mobile		是      	string   用户的手机号(放到请求头里面)
+token		是      	string   登录返回的(放到请求头里面)
+memid		是		int		用户的id
+current_step 是		int		当前任务步数 0为开始
+task_id		是		int		任务id
+params		否		string[] 前台传过来的参数数组
+```
+
+### 返回示例：
+
+```
+正常
+{
+    "error":0,
+    "message":"查询成功",
+     taskStep: "{"allStep":6,"currentStep":0,"step":"remark","stepInfos":["不用联系我,好好做就行"]}"
+}
+错误 
+{
+    "error": 1,
+    "message","已经是第一步了"
+}
+
+
+
+```
+
+###   27商家获取待申请列表
+
+### 请求URL：
+
+```
+intf_shop/getShopperUnApplyList
+```
+
+### 请求方式：
+
+```
+post/get
+```
+
+### 参数类型
+
+```
+|参数		|是否必选 |类型     |说明
+mobile		是      	string   用户的手机号(放到请求头里面)
+token		是      	string   登录返回的(放到请求头里面)
+memid		是		int		用户的id
+page		否		int		分页
+
+```
+
+### 返回示例：
+
+```
+正常
+{
+    "error":0,
+    "message":"查询成功",
+     pageinfo: {
+         list: 数据库的tb_member_goods
+     }
+}
+错误 
+{
+    "error": 1,
+    "message","没有待申请数据"
+}
+
+```
+
+###  28商家获已申请列表
+
+### 请求URL：
+
+```
+intf_shop/getShopperAppliedList
+```
+
+### 请求方式：
+
+```
+post/get
+```
+
+### 参数类型
+
+```
+|参数		|是否必选 |类型     |说明
+mobile		是      	string   用户的手机号(放到请求头里面)
+token		是      	string   登录返回的(放到请求头里面)
+memid		是		int		用户的id
+page		否		int		分页
+
+```
+
+### 返回示例：
+
+```
+正常
+{
+    "error":0,
+    "message":"查询成功",
+     pageinfo: {
+         list: 数据库的tb_member_task
+     }
+}
+错误 
+{
+    "error": 1,
+    "message","没有待申请数据"
+}
+
+```
+
+###  29商家获已下单列表
+
+### 请求URL：
+
+```
+intf_shop/getShopperOrderedList
+```
+
+### 请求方式：
+
+```
+post/get
+```
+
+### 参数类型
+
+```
+|参数		|是否必选 |类型     |说明
+mobile		是      	string   用户的手机号(放到请求头里面)
+token		是      	string   登录返回的(放到请求头里面)
+memid		是		int		用户的id
+page		否		int		分页
+
+
+```
+
+### 返回示例：
+
+```
+正常
+{
+    "error":0,
+    "message":"查询成功",
+     pageinfo: {
+         list: 数据库的tb_member_task
+     }
+}
+错误 
+{
+    "error": 1,
+    "message","没有待申请数据"
+}
+
+```
+
+###   30商家获已确认收货列表
+
+### 请求URL：
+
+```
+intf_shop/getShopperRecvedList
+```
+
+### 请求方式：
+
+```
+post/get
+```
+
+### 参数类型
+
+```
+|参数		|是否必选 |类型     |说明
+mobile		是      	string   用户的手机号(放到请求头里面)
+token		是      	string   登录返回的(放到请求头里面)
+memid		是		int		用户的id
+page		否		int		分页
+
+
+```
+
+### 返回示例：
+
+```
+正常
+{
+    "error":0,
+    "message":"查询成功",
+     pageinfo: {
+         list: 数据库的tb_member_task
+     }
+}
+错误 
+{
+    "error": 1,
+    "message",""
+}
+
+```
+
+###   31商家获已确认收货列表
+
+### 请求URL：
+
+```
+intf_shop/getShopperFinshedList
+```
+
+### 请求方式：
+
+```
+post/get
+```
+
+### 参数类型
+
+```
+|参数		|是否必选 |类型     |说明
+mobile		是      	string   用户的手机号(放到请求头里面)
+token		是      	string   登录返回的(放到请求头里面)
+memid		是		int		用户的id
+page		否		int		分页
+
+
+```
+
+### 返回示例：
+
+```
+正常
+{
+    "error":0,
+    "message":"查询成功",
+     pageinfo: {
+         list: 数据库的tb_member_task
+     }
+}
+错误 
+{
+    "error": 1,
+    "message",""
+}
+
+```
+
+###   32商家确认用户完成试用
+
+### 请求URL：
+
+```
+intf_shop/confirmTask
+```
+
+### 请求方式：
+
+```
+post/get
+```
+
+### 参数类型
+
+```
+|参数		|是否必选 |类型     |说明
+mobile		是      	string   用户的手机号(放到请求头里面)
+token		是      	string   登录返回的(放到请求头里面)
+memid		是		int		用户的id
+task_id		是		int		任务Id
+
+```
+
+### 返回示例：
+
+```
+正常
+{
+    "error":0,
+    "message":"确认成功"
+}
+错误 
+{
+    "error": 1,
+    "message","确认失败"
+}
+
+```
+
+###  33 刷手 ---> 卖家评论
+
+### 请求URL：
+
+```
+intf_shop/appraiseForSeller
+```
+
+### 请求方式：
+
+```
+post
+```
+
+### 参数类型
+
+```
+|参数		|是否必选 |类型     |说明
+mobile		是      	string   用户的手机号(放到请求头里面)
+token		是      	string   登录返回的(放到请求头里面)
+memid		是		int		用户的id
+task_id		是		int		任务Id
+content		是		int		评论内容 1好评 2差评 0中评
+```
+
+### 返回示例：
+
+```
+正常
+{
+    "error":0,
+    "message":"评价成功"
+}
+错误 
+{
+    "error": 1,
+    "message","试用未完成不能评价/已经评论过了"
+}
+
+```
+
+###  34 卖家 ---> 刷手评论
+
+### 请求URL：
+
+```
+intf_shop/appraiseForBuyer
+```
+
+### 请求方式：
+
+```
+post
+```
+
+### 参数类型
+
+```
+|参数		|是否必选 |类型     |说明
+mobile		是      	string   用户的手机号(放到请求头里面)
+token		是      	string   登录返回的(放到请求头里面)
+task_id		是		int		任务Id
+content		是		int		评论内容 1好评 2差评 0中评
+```
+
+### 返回示例：
+
+```
+正常
+{
+    "error":0,
+    "message":"评价成功"
+}
+错误 
+{
+    "error": 1,
+    "message","试用未完成不能评价/已经评论过了"
+}
+
+```
+
+### 
