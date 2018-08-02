@@ -8,18 +8,17 @@ import com.wanhao.proback.bean.member.MemberTaoBao;
 import com.wanhao.proback.bean.member.MemberTask;
 import com.wanhao.proback.bean.shop.Goods;
 import com.wanhao.proback.bean.shop.Shop;
+import com.wanhao.proback.bean.util.TaskStep;
 import com.wanhao.proback.service.member.MemberService;
 import com.wanhao.proback.service.member.MemberTaoBaoService;
 import com.wanhao.proback.service.member.MemberTaskService;
 import com.wanhao.proback.service.shop.GoodsService;
 import com.wanhao.proback.service.shop.ShopService;
-import com.wanhao.proback.utils.GsonUtils;
-import com.wanhao.proback.utils.IpUtils;
-import com.wanhao.proback.utils.IsNullUtils;
-import com.wanhao.proback.utils.ResponseUtils;
+import com.wanhao.proback.utils.*;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
@@ -548,7 +547,7 @@ public class ShopController {
             //接任务限制
             Integer day_limit = dbGood.getDay_limit();
             MemberTask queryTask = new MemberTask();
-            queryTask.setMemid(memid);
+            queryTask.setBuy_memid(memid);
             queryTask.setGoods_id(goods_id);
             if (day_limit != null && day_limit > 0) {
                 //接任务相隔的天数
@@ -565,7 +564,7 @@ public class ShopController {
             Member sbMember = memberService.getMember(member);
 
             //任务步数
-            int userTaskStep = readTaskStep(dbGood);
+            int userTaskStep = readTaskStep(dbGood,0,null,null).getAllStep();
 
             memberTask.setAll_step(userTaskStep);
 
@@ -656,6 +655,8 @@ public class ShopController {
 
             //价格
             memberTask.setGoods_price(dbGood.getPrice());
+            //卖家id
+            memberTask.setSell_memid(dbGood.getMemid());
 
             //奖励
             memberTask.setReward_money(dbGood.getAppend_money());
@@ -719,7 +720,7 @@ public class ShopController {
         memberTask.setCurrent_step(0);
 
 
-        memberTask.setMemid(memid);
+        memberTask.setBuy_memid(memid);
         memberTask.setBuy_account_id(buy_id);
         taskService.add(memberTask);
         ResponseUtils.retnSuccessMsg(response, jsonObject, "任务接取成功");
@@ -729,37 +730,37 @@ public class ShopController {
     /**
      * 开始任务
      */
-    @ISLogin
-    @RequestMapping(value = "statTask")
-    public void statTask(HttpServletRequest request, HttpServletResponse response,
-                         Integer task_id, Integer memid) {
-        JsonObject jsonObject = new JsonObject();
-
-        //加载商家提示信息
-        MemberTask memberTask = new MemberTask();
-        memberTask.setId(task_id);
-        //查找任务
-        List<MemberTask> datas = taskService.getDatas(memberTask);
-        if (datas != null && datas.size() > 0) {
-            MemberTask dbTask = datas.get(0);
-            if (dbTask.getMemid() != memid) {
-                //非法请求
-                ResponseUtils.retnFailMsg(response, jsonObject, "非法请求");
-                return;
-            }
-            //查找提示信息
-            Integer goods_id = dbTask.getGoods_id();
-            Goods goods = new Goods();
-            goods.setId(goods_id);
-
-            List<Goods> dbGood = goodsService.getGoods(goods);
-
-            if (dbGood != null && dbGood.size() > 0) {
-                //备注信息
-                String remark = dbGood.get(0).getRemark();
-            }
-        }
-    }
+//    @ISLogin
+//    @RequestMapping(value = "statTask")
+//    public void statTask(HttpServletRequest request, HttpServletResponse response,
+//                         Integer task_id, Integer memid) {
+//        JsonObject jsonObject = new JsonObject();
+//
+//        //加载商家提示信息
+//        MemberTask memberTask = new MemberTask();
+//        memberTask.setId(task_id);
+//        //查找任务
+//        List<MemberTask> datas = taskService.getDatas(memberTask);
+//        if (datas != null && datas.size() > 0) {
+//            MemberTask dbTask = datas.get(0);
+//            if (dbTask.getMemid() != memid) {
+//                //非法请求
+//                ResponseUtils.retnFailMsg(response, jsonObject, "非法请求");
+//                return;
+//            }
+//            //查找提示信息
+//            Integer goods_id = dbTask.getGoods_id();
+//            Goods goods = new Goods();
+//            goods.setId(goods_id);
+//
+//            List<Goods> dbGood = goodsService.getGoods(goods);
+//
+//            if (dbGood != null && dbGood.size() > 0) {
+//                //备注信息
+//
+//            }
+//        }
+//    }
 
     /**
      * 删除店铺
@@ -777,35 +778,15 @@ public class ShopController {
         ResponseUtils.retnFailMsg(response, jsonObject, "操作完成");
     }
 
-    /**
-     * 获取用户已申请任务列表
-     */
-    @ISLogin
-    @RequestMapping(value = "getUserApplyTaskList")
-    public void getUserApplyTaskList(HttpServletRequest request, HttpServletResponse response,
-                                     Integer memid){
-        JsonObject jsonObject = new JsonObject();
-        if (memid!=null && memid>0){
-            MemberTask memberTask = new MemberTask();
-            memberTask.setMemid(memid);
-            List<MemberTask> list = taskService.getDatas(memberTask);
-
-            jsonObject.addProperty("list",GsonUtils.toJson(list));
-            ResponseUtils.retnSuccessMsg(response,jsonObject,"查询成功");
-        }else {
-            ResponseUtils.retnFailMsg(response,jsonObject);
-        }
-
-    }
 
     /**
-     * 读取任务当前运行到第几步
+     * 读取任务当前运行到第几步了 并且返回当然任务步骤信息
      */
     @ISLogin
     @RequestMapping(value = "getUserTaskStep")
     public void getUserTaskStep(HttpServletRequest request, HttpServletResponse response,
                                 Integer current_step,Integer task_id,
-                                Integer memid){
+                                Integer memid,String[] params){
         JsonObject jsonObject = new JsonObject();
         if (IsNullUtils.isNull(current_step,task_id,memid)){
             ResponseUtils.retnFailMsg(response,jsonObject);
@@ -821,8 +802,8 @@ public class ShopController {
             Integer all_step = dbTask.getAll_step();
             Integer db_step = dbTask.getCurrent_step();
 
-            jsonObject.addProperty("all_step",all_step);
-            jsonObject.addProperty("current_step",db_step);
+//            jsonObject.addProperty("all_step",all_step);
+//            jsonObject.addProperty("current_step",db_step);
 
             //读取传入的步数
             if (current_step>=0){
@@ -832,48 +813,619 @@ public class ShopController {
                 queryGood.setId(goods_id);
                 List<Goods> goods = goodsService.getGoods(queryGood);
                 if (goods!=null && goods.size()>0){
-                    int allStep = readTaskStep(goods.get(0));
+                    //保存信息和返回内容
+                    TaskStep taskStep = readTaskStep(goods.get(0),current_step,dbTask,params);
+
                     if (current_step<=all_step){
                         //读取任务位置
-
+                        jsonObject.addProperty("taskStep",GsonUtils.toJson(taskStep));
                     }
                 }
+                //返回
+                ResponseUtils.retnSuccessMsg(response,jsonObject,"操作成功");
+            }else {
+                ResponseUtils.retnFailMsg(response,jsonObject,"已经是第一步了");
+                return;
+
             }
         }
     }
 
-    //读取任务步数 判断卖家备注信息 买号要求 试用限制信息
-    public int readTaskStep(Goods goods){
+    //todo 待补充完整 读取任务步数 判断卖家备注信息 买号要求 试用限制信息
+    public TaskStep readTaskStep(Goods goods,int curStep,MemberTask dbTask,String[] params){
+        TaskStep taskStep = new TaskStep();
+
         int step = 0;
-        //卖家留言
-        if (IsNullUtils.isNotNull(goods.getRemark())){
-            step++;
+        if (dbTask!=null){
+            //先判断任务状态 是 已申请还是已下单等等
+            if (dbTask.getTask_flag()!=null && dbTask.getTask_flag()==0){
+                //已申请
+                //先加载卖家留言
+                if (IsNullUtils.isNotNull(goods.getRemark())){
+                    //第一步显示卖家留言
+                    if (step==curStep){
+                        //留言部分
+                        taskStep.setStep("remark");
+
+                        taskStep.addInfo(goods.getRemark());
+                    }
+                    step++;
+
+                }
+
+
+                //是否需要货比三家
+                if (IsNullUtils.isNotNull(goods.getNeed_bi_san_jia()) &&
+                        goods.getNeed_bi_san_jia()==1){
+                    //第二步
+                    if (step==curStep){
+                        //买号名称
+                        //搜索关键字
+                        taskStep.setStep("bisanjia");
+                        taskStep.addInfo(goods.getSearch_word());
+                    }
+                    step++;
+
+                }
+
+                //搜索类型
+                if (IsNullUtils.isNotNull(goods.getSearch_type())){
+
+                    if (step==curStep){
+                        //第三步
+                        switch (goods.getSearch_type()){
+                            case 1://普通
+                                taskStep.addInfo("普通搜索");
+                                break;
+                            case 2://直通
+                                taskStep.addInfo("普通车搜索");
+                                break;
+                            case 3://淘口令
+                                taskStep.addInfo("淘口令搜索");
+                                break;
+                        }
+                        taskStep.addInfo(goods.getSearch_word());
+                        //掌柜名
+                        taskStep.addInfo(goods.getShop_name());
+                        //规格
+                        taskStep.addInfo(goods.getGoods_format());
+                        //主图
+                        taskStep.addInfo(goods.getGoods_img());
+                        step++;
+
+                    }
+                }
+
+                //是否需要拍前聊天
+                if (IsNullUtils.isNotNull(goods.getNeed_chat()) &&
+                        goods.getNeed_chat()==1){
+                    step++;
+                }
+                //是否需要浏览评论
+                if (IsNullUtils.isNotNull(goods.getNeed_look_comment()) &&
+                        goods.getNeed_look_comment()==1){
+                    step++;
+                }
+                //是否需要加购物车
+                if (IsNullUtils.isNotNull(goods.getNeed_add_buy_cart()) &&
+                        goods.getNeed_add_buy_cart()==1){
+                    step++;
+                }
+                //是否需要收藏商品
+                if (IsNullUtils.isNotNull(goods.getNeed_col_goods()) &&
+                        goods.getNeed_col_goods()==1){
+                    step++;
+                }
+                //指定下单时间
+                if (IsNullUtils.isNotNull(goods.getYuyue_xiadan()) &&
+                        !goods.getYuyue_xiadan().equals("0")){
+                    step++;
+                    //判断是几天
+                    if (step==curStep){
+                        taskStep.setStep("yuyue_xiadan");
+
+                        taskStep.addInfo(goods.getYuyue_xiadan()+"后下单");
+                        taskStep.addInfo(DateUtil.getFormatDateTime(dbTask.getPick_time(),"yyyy-MM-dd HH:mm:ss"));
+                    }
+                }
+
+                taskStep.setAllStep(step);
+            }else  if (dbTask.getTask_flag()!=null && dbTask.getTask_flag()==1){
+                //已下单了 下一步确认收货
+                // 加载指定评论内容
+                if (IsNullUtils.isNotNull(goods.getComment_content())){
+                    step++;
+                    if (step==curStep){
+                        taskStep.addInfo(goods.getComment_content());
+                    }
+                }
+
+                // 好评图片
+                step++;
+                if (step==curStep){
+                    taskStep.addInfo("请上传好评截图");
+                }
+
+            }
+        }else{
+            //先加载卖家留言
+            if (IsNullUtils.isNotNull(goods.getRemark())){
+                step++;
+                //第一步显示卖家留言
+                if (step==curStep){
+                    taskStep.addInfo(goods.getRemark());
+                }
+            }
+
+
+            //是否需要货比三家
+            if (IsNullUtils.isNotNull(goods.getNeed_bi_san_jia()) &&
+                    goods.getNeed_bi_san_jia()==1){
+                step++;
+                //第二步
+                if (step==curStep){
+                    //买号名称
+                    //搜索关键字
+                    taskStep.addInfo(goods.getSearch_word());
+                }
+            }
+
+            //搜索类型
+            if (IsNullUtils.isNotNull(goods.getSearch_type())){
+                step++;
+
+                if (step==curStep){
+                    //第三步
+                    switch (goods.getSearch_type()){
+                        case 1://普通
+                            taskStep.addInfo("普通搜索");
+                            break;
+                        case 2://直通
+                            taskStep.addInfo("普通车搜索");
+                            break;
+                        case 3://淘口令
+                            taskStep.addInfo("淘口令搜索");
+                            break;
+                    }
+                    taskStep.addInfo(goods.getSearch_word());
+                    //掌柜名
+                    taskStep.addInfo(goods.getShop_name());
+                    //规格
+                    taskStep.addInfo(goods.getGoods_format());
+                    //主图
+                    taskStep.addInfo(goods.getGoods_img());
+                }
+            }
+
+            //是否需要拍前聊天
+            if (IsNullUtils.isNotNull(goods.getNeed_chat()) &&
+                    goods.getNeed_chat()==1){
+                step++;
+            }
+            //是否需要浏览评论
+            if (IsNullUtils.isNotNull(goods.getNeed_look_comment()) &&
+                    goods.getNeed_look_comment()==1){
+                step++;
+            }
+            //是否需要加购物车
+            if (IsNullUtils.isNotNull(goods.getNeed_add_buy_cart()) &&
+                    goods.getNeed_add_buy_cart()==1){
+                step++;
+            }
+            //是否需要收藏商品
+            if (IsNullUtils.isNotNull(goods.getNeed_col_goods()) &&
+                    goods.getNeed_col_goods()==1){
+                step++;
+            }
+            //指定下单时间
+            if (IsNullUtils.isNotNull(goods.getYuyue_xiadan()) &&
+                    !goods.getYuyue_xiadan().equals("0")){
+                step++;
+                //判断是几天
+                if (step==curStep){
+                    taskStep.addInfo(goods.getYuyue_xiadan()+"后下单");
+                    taskStep.addInfo(DateUtil.getFormatDateTime(dbTask.getPick_time(),"yyyy-MM-dd HH:mm:ss"));
+                }
+            }
+
+            taskStep.setAllStep(step);
         }
 
-        //搜索关键词
-        if (IsNullUtils.isNotNull(goods.getSearch_type())){
-            step++;
-        }
-        //是否需要货比三家
-        if (IsNullUtils.isNotNull(goods.getNeed_bi_san_jia())){
-            step++;
-        }
-        //是否需要拍前聊天
-        if (IsNullUtils.isNotNull(goods.getNeed_chat())){
-            step++;
-        }
-        //是否需要浏览评论
-        if (IsNullUtils.isNotNull(goods.getNeed_look_comment())){
-            step++;
-        }
-        //是否需要加购物车
-        if (IsNullUtils.isNotNull(goods.getNeed_add_buy_cart())){
-            step++;
-        }
-        //是否需要收藏商品
-        if (IsNullUtils.isNotNull(goods.getNeed_col_goods())){
-            step++;
-        }
-        return step;
+
+        return taskStep;
     }
+
+
+    /**
+     * 确认下单
+     */
+    @ISLogin
+    @PostMapping(value = "confirmOrderTask")
+    public void confirmOrderTask(HttpServletRequest request, HttpServletResponse response,
+                                 Integer task_id,Integer memid){
+        JsonObject jsonObject = new JsonObject();
+        //参数检测
+        if (IsNullUtils.isNull(task_id,memid)){
+            ResponseUtils.retnFailMsg(response,jsonObject);
+            return;
+        }
+        MemberTask memberTask = new MemberTask();
+        memberTask.setId(task_id);
+        List<MemberTask> datas = taskService.getDatas(memberTask);
+        if(datas!=null && datas.size()>0){
+            MemberTask dbTask = datas.get(0);
+            //判断商家是否确认了用户的订单金额和订单号
+            Integer shoper_check = dbTask.getShoper_check();
+            if (shoper_check==null || shoper_check==0){
+                ResponseUtils.retnFailMsg(response,jsonObject,"商家尚未确认实际付款金额");
+                return;
+            }else{
+                //设置为已确认收货
+                dbTask.setTask_flag(1);
+
+            }
+        }
+    }
+
+    /**
+     * 确认收货
+     */
+    @ISLogin
+    @PostMapping(value = "confirmRecvGoods")
+    public void confirmRecvGoods(HttpServletRequest request, HttpServletResponse response,
+                                 Integer task_id,Integer memid){
+        JsonObject jsonObject = new JsonObject();
+        //参数检测
+        if (IsNullUtils.isNull(task_id,memid)){
+            ResponseUtils.retnFailMsg(response,jsonObject);
+            return;
+        }
+        MemberTask memberTask = new MemberTask();
+        memberTask.setId(task_id);
+        List<MemberTask> datas = taskService.getDatas(memberTask);
+        if(datas!=null && datas.size()>0){
+            MemberTask dbTask = datas.get(0);
+            //判断状态
+            Integer task_flag = dbTask.getTask_flag();
+            if (task_flag==null || task_flag!=1){
+                ResponseUtils.retnFailMsg(response,jsonObject,"确认失败");
+                return;
+            }else{
+                //设置为已确认收货
+                dbTask.setTask_flag(2);
+                ResponseUtils.retnSuccessMsg(response,jsonObject,"确认成功");
+                return;
+            }
+        }
+    }
+
+    /**
+     * 获取用户已申请任务列表
+     */
+    @ISLogin
+    @RequestMapping(value = "getUserApplyTaskList")
+    public void getUserApplyTaskList(HttpServletRequest request, HttpServletResponse response,
+                                     Integer memid,Integer page){
+        JsonObject jsonObject = new JsonObject();
+        if (IsNullUtils.isNull(memid)){
+            ResponseUtils.retnFailMsg(response,jsonObject);
+            return;
+        }
+        MemberTask memberTask = new MemberTask();
+        //查询
+        PageInfo<MemberTask> pageInfo = getTaskList(memberTask, page, 0);
+
+        jsonObject.addProperty("pageinfo",GsonUtils.toJson(pageInfo));
+        ResponseUtils.retnSuccessMsg(response,jsonObject,"查询成功");
+    }
+
+    /**
+     * 获取试用完成的列表
+     */
+    @ISLogin
+    @RequestMapping(value = "getFinshedTaskList")
+    public void getFinshedTaskList(HttpServletRequest request, HttpServletResponse response,
+                                   Integer page,Integer memid){
+        JsonObject jsonObject = new JsonObject();
+        if (IsNullUtils.isNull(memid)){
+            ResponseUtils.retnFailMsg(response,jsonObject);
+            return;
+        }
+        MemberTask memberTask = new MemberTask();
+        //查询
+        PageInfo<MemberTask> pageInfo = getTaskList(memberTask, page, 3);
+
+        jsonObject.addProperty("pageinfo",GsonUtils.toJson(pageInfo));
+        ResponseUtils.retnSuccessMsg(response,jsonObject,"查询成功");
+
+    }
+
+    /**
+     * 获取已确认收货的列表
+     */
+    @ISLogin
+    @RequestMapping(value = "getFinshedRecvList")
+    public void getFinshedRecvList(HttpServletRequest request, HttpServletResponse response,
+                                   Integer page,Integer memid){
+        JsonObject jsonObject = new JsonObject();
+        if (IsNullUtils.isNull(memid)){
+            ResponseUtils.retnFailMsg(response,jsonObject);
+            return;
+        }
+        MemberTask memberTask = new MemberTask();
+        //查询
+        PageInfo<MemberTask> pageInfo = getTaskList(memberTask, page, 2);
+
+        jsonObject.addProperty("pageinfo",GsonUtils.toJson(pageInfo));
+        ResponseUtils.retnSuccessMsg(response,jsonObject,"查询成功");
+
+    }
+
+    /**
+     * 获取已下单列表
+     */
+    @ISLogin
+    @RequestMapping(value = "getFinshedOrderList")
+    public void getFinshedOrderList(HttpServletRequest request, HttpServletResponse response,
+                                   Integer page,Integer memid){
+        JsonObject jsonObject = new JsonObject();
+        if (IsNullUtils.isNull(memid)){
+            ResponseUtils.retnFailMsg(response,jsonObject);
+            return;
+        }
+        MemberTask memberTask = new MemberTask();
+        //查询
+        PageInfo<MemberTask> pageInfo = getTaskList(memberTask, page, 1);
+
+        jsonObject.addProperty("pageinfo",GsonUtils.toJson(pageInfo));
+        ResponseUtils.retnSuccessMsg(response,jsonObject,"查询成功");
+
+    }
+
+    //获取试用列表
+    public PageInfo<MemberTask> getTaskList(MemberTask memberTask,Integer page,Integer type){
+        //只查询已完成的
+        memberTask.setTask_flag(type);
+        //分页
+        if (page!=null && page>0){
+            memberTask.setPage(page);
+        }
+        List<MemberTask> datas = taskService.getDatas(memberTask);
+        return new PageInfo<>(datas);
+    }
+
+
+    /**
+     * 查询商家待申请的试用列表
+     */
+    @ISLogin
+    @RequestMapping(value = "getShopperUnApplyList")
+    public void getShopperUnApplyList(HttpServletRequest request, HttpServletResponse response,
+                                      Integer page,Integer memid){
+        JsonObject jsonObject = new JsonObject();
+        if (memid!=null && memid>0){
+            Goods goods = new Goods();
+            goods.setMemid(memid);
+            List<Goods> dbList = goodsService.getGoods(goods);
+            if (dbList!=null && dbList.size()>0){
+                PageInfo<Goods> pageInfo = new PageInfo<>(dbList);
+                jsonObject.addProperty("pageinfo",GsonUtils.toJson(pageInfo));
+                //返回商品列表
+                ResponseUtils.retnSuccessMsg(response,jsonObject);
+
+            }else {
+                ResponseUtils.retnFailMsg(response,jsonObject,"没有待申请数据");
+            }
+
+        }
+    }
+
+    /**
+     * 查询商家已经申请的试用列表
+     */
+    @ISLogin
+    @RequestMapping(value = "getShopperAppliedList")
+    public void getShopperAppliedList(HttpServletRequest request, HttpServletResponse response,
+                                      Integer page,Integer memid){
+        JsonObject jsonObject = new JsonObject();
+        if (memid!=null && memid>0){
+            MemberTask memberTask = new MemberTask();
+            memberTask.setBuy_memid(memid);
+            PageInfo<MemberTask> info = getShopperTaskList(memberTask, page, 0);
+
+            jsonObject.addProperty("pageinfo",GsonUtils.toJson(info));
+            ResponseUtils.retnSuccessMsg(response,jsonObject);
+
+        }
+    }
+
+    /**
+     * 查询商家已经下单的试用列表
+     */
+    @ISLogin
+    @RequestMapping(value = "getShopperOrderedList")
+    public void getShopperOrderedList(HttpServletRequest request, HttpServletResponse response,
+                                      Integer page,Integer memid){
+        JsonObject jsonObject = new JsonObject();
+        if (memid!=null && memid>0){
+            MemberTask memberTask = new MemberTask();
+            memberTask.setBuy_memid(memid);
+            PageInfo<MemberTask> info = getShopperTaskList(memberTask, page, 1);
+
+            jsonObject.addProperty("pageinfo",GsonUtils.toJson(info));
+            ResponseUtils.retnSuccessMsg(response,jsonObject);
+        }
+    }
+
+    /**
+     * 查询商家的已经确认收货的试用列表
+     */
+    @ISLogin
+    @RequestMapping(value = "getShopperRecvedList")
+    public void getShopperRecvedList(HttpServletRequest request, HttpServletResponse response,
+                                      Integer page,Integer memid){
+        JsonObject jsonObject = new JsonObject();
+        if (memid!=null && memid>0){
+            MemberTask memberTask = new MemberTask();
+            memberTask.setBuy_memid(memid);
+            PageInfo<MemberTask> info = getShopperTaskList(memberTask, page, 2);
+
+            jsonObject.addProperty("pageinfo",GsonUtils.toJson(info));
+            ResponseUtils.retnSuccessMsg(response,jsonObject);
+
+        }
+    }
+
+    /**
+     * 查询商家的已经试用完成的试用列表
+     */
+    @ISLogin
+    @RequestMapping(value = "getShopperFinshedList")
+    public void getShopperFinshedList(HttpServletRequest request, HttpServletResponse response,
+                                     Integer page,Integer memid){
+        JsonObject jsonObject = new JsonObject();
+        if (memid!=null && memid>0){
+            MemberTask memberTask = new MemberTask();
+            memberTask.setBuy_memid(memid);
+            PageInfo<MemberTask> info = getShopperTaskList(memberTask, page, 3);
+
+            jsonObject.addProperty("pageinfo",GsonUtils.toJson(info));
+            ResponseUtils.retnSuccessMsg(response,jsonObject);
+
+        }
+    }
+
+    //获取试用列表
+    public PageInfo<MemberTask> getShopperTaskList(MemberTask memberTask,Integer page,Integer type){
+        memberTask.setTask_flag(type);
+        //分页
+        if (page!=null && page>0){
+            memberTask.setPage(page);
+        }
+        List<MemberTask> datas = taskService.getDatas(memberTask);
+        return new PageInfo<>(datas);
+    }
+
+    /**
+     * 商家操作, 确定完成任务, 点击之后放款到买家账号
+     */
+    @ISLogin
+    @RequestMapping(value = "confirmTask")
+    public void confirmTask(HttpServletRequest request, HttpServletResponse response,
+                          Integer task_id,Integer memid){
+        JsonObject jsonObject = new JsonObject();
+        if (IsNullUtils.isNull(task_id,memid)){
+            ResponseUtils.retnFailMsg(response,jsonObject);
+            return;
+        }
+        MemberTask memberTask = new MemberTask();
+        memberTask.setId(task_id);
+        List<MemberTask> datas = taskService.getDatas(memberTask);
+        if (datas!=null && datas.size()>0){
+            MemberTask dbTask = datas.get(0);
+            Integer dbId = dbTask.getBuy_memid();
+            if (memid.equals(dbId)){
+                //设置为完成
+                dbTask.setIs_finsh(1);
+                //保存
+                taskService.update(dbTask);
+                ResponseUtils.retnSuccessMsg(response,jsonObject,"确认完成");
+            }else {
+                ResponseUtils.retnSuccessMsg(response,jsonObject,"确认失败");
+            }
+        }
+    }
+
+
+    /**
+     * 评价  刷手 ---> 卖家
+     */
+    @ISLogin
+    @PostMapping(value = "appraiseForSeller")
+    public void appraiseForSeller(HttpServletRequest request, HttpServletResponse response,
+                         Integer task_id,Integer content){
+        JsonObject jsonObject = new JsonObject();
+        if (IsNullUtils.isNull(task_id,content)){
+            return;
+        }
+        MemberTask memberTask = new MemberTask();
+        memberTask.setId(task_id);
+        List<MemberTask> datas = taskService.getDatas(memberTask);
+        if (datas!=null && datas.size()>0){
+            MemberTask dbTask = datas.get(0);
+            //判断是否评论过了
+            Integer appraise_buy2sell = dbTask.getAppraise_buy2sell();
+            if (dbTask.getTask_flag()<3){
+                ResponseUtils.retnFailMsg(response,jsonObject,"试用未完成不能评价");
+                return;
+            }
+            if (appraise_buy2sell!=null){
+                ResponseUtils.retnFailMsg(response,jsonObject,"已经评论过了");
+                return;
+            }
+            Integer sellId = dbTask.getSell_memid();
+            Member sellMem = new Member(sellId);
+            sellMem = memberService.getMember(sellMem);
+            switch (content){
+                case 0:
+                    sellMem.setMid_comment(sellMem.getMid_comment()+1);
+                    break;
+                case 1:
+                    sellMem.setGood_comment(sellMem.getGood_comment()+1);
+                    break;
+                case 2:
+                    sellMem.setBad_comment(sellMem.getBad_comment()+1);
+                    break;
+            }
+            //保存更新
+            memberService.updateMember(sellMem);
+            ResponseUtils.retnSuccessMsg(response,jsonObject,"评价成功");
+        }
+    }
+
+
+    /**
+     * 评价  卖家 ---> 刷手
+     */
+    @ISLogin
+    @PostMapping(value = "appraiseForBuyer")
+    public void appraiseForBuyer(HttpServletRequest request, HttpServletResponse response,
+                                  Integer task_id,Integer content){
+        JsonObject jsonObject = new JsonObject();
+        if (IsNullUtils.isNull(task_id,content)){
+            return;
+        }
+        MemberTask memberTask = new MemberTask();
+        memberTask.setId(task_id);
+        List<MemberTask> datas = taskService.getDatas(memberTask);
+        if (datas!=null && datas.size()>0){
+            MemberTask dbTask = datas.get(0);
+            if (dbTask.getTask_flag()<3){
+                ResponseUtils.retnFailMsg(response,jsonObject,"试用未完成不能评价");
+                return;
+            }
+            if (dbTask.getAppraise_sell2buy()!=null){
+                ResponseUtils.retnFailMsg(response,jsonObject,"已经评论过了");
+                return;
+            }
+            Integer buyerId = dbTask.getBuy_memid();
+            Member sellMem = new Member(buyerId);
+            sellMem = memberService.getMember(sellMem);
+            switch (content){
+                case 0:
+                    sellMem.setMid_comment(sellMem.getMid_comment()+1);
+                    break;
+                case 1:
+                    sellMem.setGood_comment(sellMem.getGood_comment()+1);
+                    break;
+                case 2:
+                    sellMem.setBad_comment(sellMem.getBad_comment()+1);
+                    break;
+            }
+            //保存更新
+            memberService.updateMember(sellMem);
+            ResponseUtils.retnSuccessMsg(response,jsonObject,"评价成功");
+        }
+    }
+
 }

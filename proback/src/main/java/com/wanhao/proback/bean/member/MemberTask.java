@@ -19,7 +19,8 @@ import java.util.Date;
 @Getter
 @ToString
 public class MemberTask extends BaseBean {
-    private Integer memid;
+    private Integer buy_memid;
+    private Integer sell_memid;
     private Integer goods_id;
     private Integer buy_account_id;
     private Integer is_finsh;
@@ -27,7 +28,7 @@ public class MemberTask extends BaseBean {
     //是否投诉了
     private Integer is_tousu;
     //任务当前状态
-    private Integer flag;
+    private Integer task_flag;
 
     private Double goods_price;
     //奖励
@@ -42,11 +43,22 @@ public class MemberTask extends BaseBean {
     private String requirements;
     private String remark;
     private Date finsh_time;
+    //一共有多少步
+    private Integer all_step;
 
+    private String shoot_huobisanjia;
+    private String shoot_search_result;
+    private String shoot_chat;
+
+    private Double real_pay_price;
+    private Integer shoper_check;
 
     private Date pick_time;
 
     private Integer is_cancel;
+
+    private Integer appraise_buy2sell;
+    private Integer appraise_sell2buy;
 
     @Transient
     private Integer day_limit;

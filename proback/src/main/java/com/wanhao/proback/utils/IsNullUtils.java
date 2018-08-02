@@ -30,7 +30,7 @@ public class IsNullUtils {
     }
 
     /**
-     * 判空
+     * 是否为空
      * @return 为空返回 true
      *         非空返回 false
      */
@@ -41,13 +41,35 @@ public class IsNullUtils {
 
                 if (o instanceof String && StringUtils.isBlank((String) o)){
                     return true;
-                }else if (o==null){
+                }
+                else if (o==null){
                     return true;
                 }
 
             }
         }
         return false;
+    }
+
+
+    /**
+     * 是否不为空
+     * @return
+     */
+    public static boolean isNotNull(Object... arr){
+        if (arr!=null && arr.length>0){
+            for (int i=0;i<arr.length;i++){
+                Object o = arr[i];
+
+                if (o instanceof String && StringUtils.isBlank((String) o)){
+                    return false;
+                }else if (o==null){
+                    return false;
+                }
+
+            }
+        }
+        return true;
     }
 
     /**

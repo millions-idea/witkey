@@ -41,8 +41,8 @@ public class MemberTaskServiceImpl extends BaseServiceImpl<MemberTask> implement
         }
 
         //会员id查询
-        if (memberTask.getMemid()!=null){
-            criteria.andEqualTo("memid",memberTask.getMemid());
+        if (memberTask.getBuy_memid()!=null){
+            criteria.andEqualTo("buy_memid",memberTask.getBuy_memid());
         }
         //时间限制
         if (memberTask.getDay_limit()!=null && memberTask.getDay_limit()>0){
@@ -57,6 +57,11 @@ public class MemberTaskServiceImpl extends BaseServiceImpl<MemberTask> implement
         //buy_account_id查询
         if (memberTask.getBuy_account_id()!=null){
             criteria.andEqualTo("buy_account_id",memberTask.getBuy_account_id());
+        }
+
+        //flag
+        if (memberTask.getTask_flag()!=null){
+            criteria.andEqualTo("task_flag",memberTask.getTask_flag());
         }
 
         return taskMapper.selectByExample(example);
