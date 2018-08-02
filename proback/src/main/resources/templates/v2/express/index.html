@@ -9,6 +9,7 @@
     <title>快递空包服务管理</title>
     <link rel="stylesheet" th:href="@{/v2/frame/layui/css/layui.css}">
     <link rel="stylesheet" th:href="@{/v2/frame/static/css/style.css}">
+    <link rel="stylesheet" th:href="@{/v2/css/express/index.css}">
     <link rel="icon" th:href="@{/v2/frame/static/image/code.png}">
 </head>
 <body>
@@ -18,18 +19,59 @@
 </th:block>
 
 <th:block layout:fragment="body">
+   <div class="layui-row">
+       <!--树插件-->
+       <div class="layui-col-md2" style="margin-right: 10px;height: 800px">
+           <div class="layui-card" style="box-shadow: -2px 3px 5px 1px #0000001c;height: 100%;">
+               <div class="layui-card-header">快递空包网站</div>
+               <div class="layui-card-body">
+                   <ul id="tree" class="tree-table-tree-box"></ul>
+               </div>
+           </div>
+       </div>
 
-    <!-- 工具集 -->
-    <div class="my-btn-box">
-    <span class="fl">
-        <a id="table-delete" class="layui-btn layui-btn-danger radius btn-delect">批量删除</a>
-        <a id="table-add" class="layui-btn btn-add btn-default" >添加</a>
-        <a class="layui-btn btn-add btn-default" id="btn-refresh"><i class="layui-icon">&#x1002;</i></a>
-    </span>
-    </div>
+       <!--选项卡-->
+       <div class="layui-tab layui-tab-card layui-col-md10" style="min-height: 770px">
+           <ul class="layui-tab-title">
+               <li class="layui-this">进货渠道</li>
+               <li>销售管理</li>
+               <li>电商公司</li>
+               <li>代发审核</li>
+               <li>空包代发</li>
+           </ul>
+           <div class="layui-tab-content" style="height: 100px;padding: 20px">
+               <div class="layui-tab-item layui-show">
+                   <!-- 工具集 -->
+                   <div class="my-btn-box">
+                    <span class="fl">
+                        <a id="market-data-table-delete" class="layui-btn layui-btn-danger radius btn-delect">批量删除</a>
+                        <a id="market-data-table-add" class="layui-btn btn-add btn-default" >添加</a>
+                        <a class="layui-btn btn-add btn-default" id="btn-refresh-market-data-table"><i class="layui-icon layui-icon-refresh"></i></a>
+                    </span>
+                   </div>
+                   <!-- 表格 -->
+                   <div id="market-data-table" class="my-data-table" lay-filter="market-data-table"></div>
+               </div>
+               <div class="layui-tab-item">
+                   <!-- 工具集 -->
+                   <div class="my-btn-box">
+                    <span class="fl">
+                        <a id="table-delete" class="layui-btn layui-btn-danger radius btn-delect">批量删除</a>
+                        <a id="table-add" class="layui-btn btn-add btn-default" >添加</a>
+                        <a class="layui-btn btn-add btn-default" id="btn-refresh"><i class="layui-icon layui-icon-refresh"></i></a>
+                    </span>
+                   </div>
+                   <!-- 表格 -->
+                   <div id="dateTable" class="my-data-table" lay-filter="test"></div>
+               </div>
+               <div class="layui-tab-item">3</div>
+               <div class="layui-tab-item">4</div>
+               <div class="layui-tab-item">5</div>
+               <div class="layui-tab-item">6</div>
+           </div>
+       </div>
+   </div>
 
-    <!-- 表格 -->
-    <div id="dateTable" class="my-data-table" lay-filter="test"></div>
 </th:block>
 <th:block layout:fragment="free_footer">
     <script type="text/javascript" th:src="@{/v2/frame/layui/layui.js}"></script>
@@ -37,9 +79,9 @@
     <script type="text/javascript" th:src="@{/v2/js/express/index.js}"></script>
     <!-- 表格操作按钮集 -->
     <script type="text/html" id="barOption">
-        <a name="item-view" class="layui-btn layui-btn-mini" lay-event="detail">查看</a>
-        <a name="item-edit" class="layui-btn layui-btn-mini layui-btn-normal" lay-event="edit">编辑</a>
-        <a name="item-remove" class="layui-btn layui-btn-mini layui-btn-danger" lay-event="del">删除</a>
+        <a name="item-view" class="layui-btn layui-btn layui-btn-xs" lay-event="detail">查看</a>
+        <a name="item-edit" class="layui-btn layui-btn layui-btn-xs layui-btn-normal" lay-event="edit">编辑</a>
+        <a name="item-remove" class="layui-btn layui-btn layui-btn-xs layui-btn-danger" lay-event="del">删除</a>
     </script>
 </th:block>
 </body>

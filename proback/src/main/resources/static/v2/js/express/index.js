@@ -1,13 +1,17 @@
 /*! 快递空包服务管理 韦德 2018年8月1日18:58:23*/
+var route = "./express-platform";
+var service;
+var marketTableIndex;
 (function () {
-    var route = "./express-platform";
-    var service = initService(route);
-    // 加载数据表 mock:'./../v2/json/express/index.json'
-    initData(route + "/get",function (form, table, layer, vipTable, tableIns) {
-        // 动态注册事件
-        var $tableDelete = $("#table-delete"),
-            $tableAdd = $("#table-add");
+    service = initService(route);
+    // 加载快递空包公司集合
+    initPlatforms();
 
+    // 加载市场进货渠道数据表
+    initMarketDataTable(route + "/get", function (form, table, layer, vipTable, tableIns) {
+        // 动态注册事件
+        var $tableDelete = $("#market-data-table-delete"),
+            $tableAdd = $("#market-data-table-add");
         $tableDelete.click(function () {
             layer.confirm('您确定要删除这些数据？', {
                 title: "敏感操作提示",
@@ -33,7 +37,6 @@
                 })
             })
         })
-
         $tableAdd.click(function () {
             service.getAddView(function (data) {
                 layer.open({
@@ -45,9 +48,9 @@
                 });
             })
         })
-    }, function (table, res, curr, count) {
+    },function (table, res, curr, count) {
         // 监听工具条
-        table.on('tool(test)', function(obj){
+        table.on('tool(market-data-table)', function(obj){
             var data = obj.data; //获得当前行数据
             var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
             var tr = obj.tr; //获得当前行 tr 的DOM对象
@@ -137,18 +140,43 @@ function initService(r) {
             $.get(r + "/editView", param, function (data) {
                 callback(data);
             });
+        },
+        /**
+         * 获取平台集合 韦德 2018年8月2日11:03:30
+         */
+        getPlatforms: function (callback) {
+            $.get(route + "/get?page=1&limit=30",function (data) {
+                var json = data.data;
+                callback(json);
+            });
         }
     }
 }
 
 /**
- * 加载数据表
+ * 加载快递空包公司集合
  */
-function initData(url,callback,loadDone) {
+function initPlatforms(){
+    layui.use(['tree'], function () {
+        // 获取平台集合
+        service.getPlatforms(function (data) {
+            var nodes = eval(data);
+            layui.tree({
+                elem: '#tree'
+                , click: function (item) {
+                    // your code
+                }
+                , nodes: nodes
+            });
+        })
+    });
+}
 
-
-    layui.use(['table', 'form', 'layer', 'vip_table', 'layedit'], function () {
-
+/**
+ * 加载市场进货渠道数据表
+ */
+function initMarketDataTable(url,callback,loadDone) {
+    layui.use(['table', 'form', 'layer', 'vip_table', 'layedit', 'tree'], function () {
         // 操作对象
         var form = layui.form
             , table = layui.table
@@ -158,46 +186,64 @@ function initData(url,callback,loadDone) {
             , layedit = layui.layedit;
 
         // 表格渲染
-        var tableIns = table.render({
-            elem: '#dateTable'                  //指定原始表格元素选择器（推荐id选择器）
+        marketTableIndex = table.render({
+            elem: '#market-data-table'                  //指定原始表格元素选择器（推荐id选择器）
             , height: 650    //容器高度
-            , cols: [[                  //标题栏
-                {checkbox: true, sort: true, fixed: true, space: true}
-                , {field: 'exp_id', title: 'ID', width: 80}
-                , {field: 'platform_name', title: '平台名称', width: 120}
-                , {field: 'platform_url', title: '平台网址', width: 240}
-                , {fixed: 'right', title: '操作', width: 150, align: 'center', toolbar: '#barOption'} //这里的toolbar值是模板元素的选择器
+            , cols: [[
+                {type: "checkbox"}
+                , {field: 'expp_id', title: 'ID', width: 80}
+                , {field: 'name', title: '空包公司名称', width: 120}
+                , {field: 'url', title: '网址', width: 240}
+                , {fixed: 'right', title: '操作', width: 150, align: 'center', toolbar: '#barOption'}
             ]]
-            , id: 'dataCheck'
+            , id: 'market-data-table'
             , url: url
             , method: 'get'
             , page: true
             , limits: [30, 60, 90, 150, 300]
             , limit: 30 //默认采用30
             , loading: false
+            , even: true
             , done: function (res, curr, count) {
-                //如果是异步请求数据方式，res即为你接口返回的信息。
-                //如果是直接赋值的方式，res即为：{data: [], count: 99} data为当前页数据、count为数据总长度
-                console.log(res);
-
-                //得到当前页码
-                console.log(curr);
-
-                //得到数据总量
-                console.log(count);
-
                 loadDone(table, res, curr, count);
             }
         });
 
-
         // 刷新
-        $('#btn-refresh').on('click', function () {
-            tableIns.reload();
+        $('#btn-refresh-market-data-table').on('click', function () {
+            marketTableIndex.reload();
         });
 
+
         // you code ...
-        callback(form, table, layer, vipTable, tableIns);
+        callback(form, table, layer, vipTable, marketTableIndex);
     });
 }
 
+/**
+ * 加载表格数据
+ * @param tableIns
+ * @param id
+ * @param elem
+ * @param cols
+ * @param url
+ * @param loadDone
+ */
+function loadTable(id,elem,cols,url,loadDone) {
+    marketTableIndex.reload({
+        elem: elem                 //指定原始表格元素选择器（推荐id选择器）
+        , height: 650    //容器高度
+        , cols: cols
+        , id: id
+        , url: url
+        , method: 'get'
+        , page: true
+        , limits: [30, 60, 90, 150, 300]
+        , limit: 30 //默认采用30
+        , loading: false
+        , even: true
+        , done: function (res, curr, count) {
+            loadDone(res, curr, count);
+        }
+    });
+}

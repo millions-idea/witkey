@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wanhao.proback.dao.member.ExpressPlatformMapper">
+    <!--
+        查询快递平台集合 韦德 2018年8月1日15:26:35
+    -->
+    <select id="selectLimit" resultType="com.wanhao.proback.bean.member.ExpressPlatform">
+      SELECT * FROM tb_express_platforms
+      <if test="page != null and page > 0">
+          LIMIT page,limit
+      </if>
+    </select>
+</mapper>

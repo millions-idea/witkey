@@ -1,6 +1,6 @@
 /**
- * @name:   vip-admin åŽå°æ¨¡æ¿css
- * @author: éšä¸¶
+ * @name:   vip-admin Ã¥ÂÅ½Ã¥ÂÂ°Ã¦Â¨Â¡Ã¦ÂÂ¿css
+ * @author: Ã©Å¡ÂÃ¤Â¸Â¶
  */
 @charset "utf-8";
 
@@ -301,7 +301,7 @@ input[type='checkbox'] {
     -ms-transform: translate(50%, 50%);
     transform: translate(50%, 50%);
     font-family: "Microsoft Yahei";
-    content: "âˆš";
+    content: "Ã¢Ë†Å¡";
     color: #FFFFFF;
     font-size: 16px;
     font-weight: 600;
@@ -589,22 +589,20 @@ html body .layui-nav .layui-nav-bar {
 
 
 .my-content{
-    padding: 20px;
     background-color: #fff;
 }
 
 .layui-breadcrumb {
     display:block;
-    height:35px;
     line-height:35px;
-    background-color: #fff;
     padding-left:20px;
-    padding-top:15px;
+    padding-top:6px;
     border-top: 1px solid #f6f6f6;
 }
 
 .my-breadcrumb{
-    border-bottom: 1px solid #b6b6b6;
+    box-shadow: 0px 2px 9px 0px #0000004f;
+    background-color: #eeeeee4a;
 }
 
 .my-view{

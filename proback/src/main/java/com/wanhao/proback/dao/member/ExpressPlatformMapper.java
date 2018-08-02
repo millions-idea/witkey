@@ -8,18 +8,25 @@
 package com.wanhao.proback.dao.member;
 
 import com.wanhao.proback.bean.member.ExpressPlatform;
+import com.wanhao.proback.bean.member.Member;
 import com.wanhao.proback.utils.MyMapper;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 
 @Mapper
-public interface ExpressPlatformMapper extends MyMapper<ExpressPlatform> {
+public interface ExpressPlatformMapper  extends MyMapper<Member>{
+
+    @Select("SELECT * FROM tb_express_platforms WHERE isEnabled=1 LIMIT #{page},#{limit}")
     /**
      * 查询快递平台集合 韦德 2018年8月1日15:26:35
+     * @param page
+     * @param limit
      * @return
      */
-    List<ExpressPlatform> selectAll();
+    List<ExpressPlatform> selectLimit(@Param("page") Integer page, @Param("limit") Integer limit);
 
 
     /**
