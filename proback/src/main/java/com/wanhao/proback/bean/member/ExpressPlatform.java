@@ -18,17 +18,21 @@ import javax.persistence.Table;
 @Getter
 @ToString
 public class ExpressPlatform {
-    private Integer exp_id;
-    private String platform_name;
-    private String platform_url;
+    private Integer expp_id;
+    private String name;
+    private String url;
+    private Integer isEnabled = 1;
+    private Integer isDelete = 0;
 
-    public ExpressPlatform() {
+    public ExpressPlatform(Integer expp_id, String name, String url, Integer isEnabled, Integer isDelete) {
+        this.expp_id = expp_id;
+        this.name = name;
+        this.url = url;
+        this.isEnabled = isEnabled;
+        this.isDelete = isDelete;
     }
 
-    public ExpressPlatform(Integer exp_id, String platform_name, String platform_url) {
+    public ExpressPlatform() {
 
-        this.exp_id = exp_id;
-        this.platform_name = platform_name;
-        this.platform_url = platform_url;
     }
 }

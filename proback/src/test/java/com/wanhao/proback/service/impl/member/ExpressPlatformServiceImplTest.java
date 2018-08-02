@@ -40,13 +40,13 @@ public class ExpressPlatformServiceImplTest {
      */
     @Test
     public void testGetPlatformsSuccess(){
-        when(expressPlatformMapper.selectAll()).thenReturn(Lists.newArrayList(
-                new ExpressPlatform(1, "空包100网", "http://www.kongbao100.com/"),
-                new ExpressPlatform(1, "刷宝空包网", "http://www.shuabaokb.com")
+        when(expressPlatformMapper.selectLimit(0,"30", null)).thenReturn(Lists.newArrayList(
+                new ExpressPlatform(1, "空包100网", "http://www.kongbao100.com/", 1,0),
+                new ExpressPlatform(1, "刷宝空包网", "http://www.shuabaokb.com", 1,0)
         ));
-        List<ExpressPlatform> platforms = expressPlatformMapper.selectAll();
+        List<ExpressPlatform> platforms = expressPlatformMapper.selectLimit(0,"30", null);
         assertNotNull("所有快递空包平台列表", platforms);
-        verify(expressPlatformMapper).selectAll();
+        verify(expressPlatformMapper).selectLimit(0,"30", null);
     }
 
 }

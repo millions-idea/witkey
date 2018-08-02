@@ -30,6 +30,7 @@ public class MyControllerAdvice {
     @ResponseBody
     @ExceptionHandler(value = Exception.class)
     public Map errorHandler(Exception ex) {
+        System.err.println(ex);
         Map map = new HashMap();
         map.put("error", 1);
         map.put("message", "错误");

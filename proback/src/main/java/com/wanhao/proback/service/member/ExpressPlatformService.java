@@ -19,6 +19,17 @@ public interface ExpressPlatformService extends BaseService<ExpressPlatform> {
     /**
      * 查询所有平台集合 韦德 2018年8月1日14:42:24
      * @return
+     * @param page
+     * @param limit
+     * @param condition
      */
-    List<ExpressPlatform> getPlatforms();
+    List<ExpressPlatform> getPlatforms(Integer page, String limit, String condition);
+
+    void delete(String exp_id);
+
+    /**
+     * 查询记录总数 韦德 2018年8月2日18:53:51
+     * @return
+     */
+    int getPlatformCount();
 }

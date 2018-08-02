@@ -225,7 +225,7 @@ public class MemberController {
                 save.setPassword(null);
                 String mem = gson.toJson(save);
 
-                jsonObject.addProperty("member", mem);
+                jsonObject.addProperty("express", mem);
 
             } else {
                 jsonObject.addProperty(Constants.ERROR, 1);
@@ -262,7 +262,7 @@ public class MemberController {
 
         //保存信息
         Member member = (Member) request.getSession().getAttribute(Constants.USER);
-        //System.out.println(member);
+        //System.out.println(express);
         if (member==null){
             ResponseUtils.retnFailMsg(response, jsonObject,"登录过期,请从新登录");
             return;
@@ -782,7 +782,7 @@ public class MemberController {
             //查询最新信息
             Member newMem = memberService.getMember(dbMember);
 
-            jsonObject.addProperty("member",GsonUtils.toJson(newMem));
+            jsonObject.addProperty("express",GsonUtils.toJson(newMem));
 
             ResponseUtils.retnSuccessMsg(response,jsonObject,"保证金缴纳成功");
         }else {
@@ -960,7 +960,7 @@ public class MemberController {
             Member member = new Member();
             Member dbMem = memberService.getMember(member);
             JsonObject jsonObject = new JsonObject();
-            jsonObject.addProperty("member",GsonUtils.toJson(dbMem));
+            jsonObject.addProperty("express",GsonUtils.toJson(dbMem));
             ResponseUtils.retnSuccessMsg(response,jsonObject,"查询成功");
         }
     }

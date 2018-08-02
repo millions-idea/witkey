@@ -1,0 +1,25 @@
+{
+  "code": 0,
+  "msg": "SUCCESS",
+  "count": 2,
+  "data": [
+    {
+      "exp_id": 1,
+      "expp_id": 1,
+      "category_id": 1,
+      "category_name": "天猫商城",
+      "name": "顺丰快递",
+      "price": 1.9,
+      "rate": 20
+    },
+    {
+      "exp_id": 2,
+      "expp_id": 1,
+      "category_id": 1,
+      "category_name": "天猫商城",
+      "name": "韵达快递",
+      "price": 1.9,
+      "rate": 40
+    }
+  ]
+}

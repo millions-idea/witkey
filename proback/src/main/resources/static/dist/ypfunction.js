@@ -8,7 +8,7 @@ function get_notice() {
     if ($('.layui-layer-title:contains(消息通知 notice)').size() > 0) return false;
     $.ajax({
         type: "GET",
-        url: "/member/ypuserinfo.php",
+        url: "/express/ypuserinfo.php",
         dataType: "json", cache: false,
         success: function (json) {
             if ($(".notice_box").size() == 0 && json.noticeid) {
@@ -65,7 +65,7 @@ function notice(itemid) {
         shadeClose: true,
         shade: 0.4,
         area: ['320px', '160px'],
-        content: '/member/notice.php?itemid=' + itemid + '&ran=' + Math.random()
+        content: '/express/notice.php?itemid=' + itemid + '&ran=' + Math.random()
     });
 }
 
@@ -219,7 +219,7 @@ function zip_jietu(itemid) {//导出试用截图
 }
 
 function wei_view_account(itemid) {//查看任务手机号
-    $.get('/member/my.php?mid=23&catid=10&action=view_account&itemid=' + itemid, function (data) {
+    $.get('/express/my.php?mid=23&catid=10&action=view_account&itemid=' + itemid, function (data) {
         layer.open({
             type: 1,
             title: '试用编号：' + itemid,
@@ -231,7 +231,7 @@ function wei_view_account(itemid) {//查看任务手机号
 }
 
 function viewinfo_jie(itemid_jie) {//查看上传详情
-    $.get('/member/my.php?mid=23&catid=10&action=viewinfo_jie&itemid_jie=' + itemid_jie, function (data) {
+    $.get('/express/my.php?mid=23&catid=10&action=viewinfo_jie&itemid_jie=' + itemid_jie, function (data) {
         layer.open({
             type: 1,
             title: '任务上传编号：' + itemid_jie,
@@ -331,11 +331,11 @@ function subimit_orderid(th) {
             price_true: price_true,
             orderid: orderid
         };
-        $.post('/member/yptaskview.php?action=orderid', data, function (response) {
+        $.post('/express/yptaskview.php?action=orderid', data, function (response) {
             if (response == 'success') {
                 $('#yptask_list_' + itemid).find('[name=orderid]').val(orderid);
                 layer.alert('操作成功', function () {
-                    location.href = '/member/yptaskview.php?pro=3';
+                    location.href = '/express/yptaskview.php?pro=3';
                 });
             } else {
                 layer.alert(response);

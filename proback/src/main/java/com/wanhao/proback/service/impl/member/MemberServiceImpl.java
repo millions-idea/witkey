@@ -22,7 +22,7 @@ import java.util.List;
  */
 @Service
 @Transactional
-@CacheConfig(cacheNames = "member")
+@CacheConfig(cacheNames = "express")
 public class MemberServiceImpl implements MemberService {
 
     @Autowired
@@ -155,7 +155,7 @@ public class MemberServiceImpl implements MemberService {
         //手机号
         criteria.andEqualTo("mobile", member.getMobile());
         //密码
-        //criteria.andEqualTo("token", member.getToken());
+        //criteria.andEqualTo("token", express.getToken());
 
         return memberMapper.selectByExample(example);
     }
