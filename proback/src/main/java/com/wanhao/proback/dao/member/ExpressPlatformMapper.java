@@ -3,7 +3,7 @@
  * @name ExpressPlatformMapper
  * @user HongWei
  * @date 2018/8/1
- * @desc 快递空包平台
+ * @desc 快递平台渠道表仓储接口
  */
 package com.wanhao.proback.dao.member;
 
@@ -14,6 +14,9 @@ import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
+/**
+ * 快递平台渠道表仓储接口
+ */
 @Mapper
 public interface ExpressPlatformMapper  extends MyMapper<Member>{
 
@@ -27,7 +30,7 @@ public interface ExpressPlatformMapper  extends MyMapper<Member>{
      */
     List<ExpressPlatform> selectLimit(@Param("page") Integer page, @Param("limit") String limit,@Param("condition")  String condition);
 
-    @Insert("INSERT INTO tb_express_platforms(`name`,url,isEnabled) VALUES(#{name},#{url},1)")
+    @Insert("INSERT INTO tb_express_platforms(`name`,url,isEnable) VALUES(#{name},#{url},1)")
             @Options(keyProperty = "expp_id",useGeneratedKeys = true)
     /**
      * 插入记录返回主键ID 韦德 2018年8月1日15:30:13
@@ -36,7 +39,7 @@ public interface ExpressPlatformMapper  extends MyMapper<Member>{
      */
     int insertSingle(ExpressPlatform expressPlatform);
 
-    @Update("UPDATE tb_express_platforms SET `name`=#{name}, url=#{url}, isEnabled=#{isEnabled} WHERE expp_id=#{expp_id} AND isDelete=0")
+    @Update("UPDATE tb_express_platforms SET `name`=#{name}, url=#{url}, isEnable=#{isEnable} WHERE expp_id=#{expp_id} AND isDelete=0")
     /**
      * 更新记录 韦德 2018年8月2日16:50:20
      * @param v
@@ -44,7 +47,7 @@ public interface ExpressPlatformMapper  extends MyMapper<Member>{
      */
     int updateSingle(ExpressPlatform v);
 
-    @Update("UPDATE tb_express_platforms SET isEnabled=0,isDelete=1 WHERE expp_id=#{expp_id}")
+    @Update("UPDATE tb_express_platforms SET isEnable=0,isDelete=1 WHERE expp_id=#{expp_id}")
     /**
      * 删除记录 韦德 2018年8月2日17:46:53
      * @param expp_id
@@ -52,7 +55,7 @@ public interface ExpressPlatformMapper  extends MyMapper<Member>{
      */
     int deleteSingle(String expp_id);
 
-    @Select("SELECT COUNT(*) FROM tb_express_platforms WHERE isDelete = 0")
+    @Select("SELECT COUNT(*) FROM tb_express_platforms WHERE isDelete=0")
     /**
      * 查询记录总数 韦德 2018年8月2日18:54:32
      * @return

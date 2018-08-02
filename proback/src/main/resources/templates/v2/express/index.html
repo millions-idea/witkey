@@ -11,6 +11,13 @@
     <link rel="stylesheet" th:href="@{/v2/frame/static/css/style.css}">
     <link rel="stylesheet" th:href="@{/v2/css/express/index.css}">
     <link rel="icon" th:href="@{/v2/frame/static/image/code.png}">
+    <style>
+
+        .layui-table-page {
+            position:fixed;
+        }
+
+    </style>
 </head>
 <body>
 
@@ -32,14 +39,15 @@
 
        <!--选项卡-->
        <div class="layui-tab layui-tab-card layui-col-md10" style="min-height: 770px">
-           <ul class="layui-tab-title">
-               <li class="layui-this">进货渠道</li>
-               <li>销售管理</li>
+           <ul class="layui-tab-title" lay-filter="tab-goods">
+               <li id="active-express-market" class="layui-this">进货渠道</li>
+               <li id="active-express-goods">销售分类</li>
                <li>电商公司</li>
                <li>代发审核</li>
                <li>空包代发</li>
            </ul>
            <div class="layui-tab-content" style="height: 100px;padding: 20px">
+               <!--进货渠道 begin-->
                <div class="layui-tab-item layui-show">
                    <!-- 工具集 -->
                    <div class="my-btn-box">
@@ -48,7 +56,7 @@
                         <a id="market-data-table-add" class="layui-btn btn-add btn-default" >添加</a>
                         <a class="layui-btn btn-add btn-default" id="btn-refresh-market-data-table"><i class="layui-icon layui-icon-refresh"></i></a>
                     </span>
-                   <span class="fr">
+                       <span class="fr">
                         <span class="layui-form-label">搜索条件：</span>
                         <div class="layui-input-inline">
                             <input id="market-data-table-condition" type="text" autocomplete="off" placeholder="请输入搜索条件" class="layui-input">
@@ -59,18 +67,30 @@
                    <!-- 表格 -->
                    <div id="market-data-table" class="my-data-table" lay-filter="market-data-table"></div>
                </div>
+               <!--进货渠道 end-->
+
+               <!--销售分类 begin-->
                <div class="layui-tab-item">
                    <!-- 工具集 -->
                    <div class="my-btn-box">
                     <span class="fl">
-                        <a id="table-delete" class="layui-btn layui-btn-danger radius btn-delect">批量删除</a>
-                        <a id="table-add" class="layui-btn btn-add btn-default" >添加</a>
-                        <a class="layui-btn btn-add btn-default" id="btn-refresh"><i class="layui-icon layui-icon-refresh"></i></a>
+                        <a id="goods-data-table-delete" class="layui-btn layui-btn-danger radius btn-delect">批量删除</a>
+                        <a id="goods-data-table-add" class="layui-btn btn-add btn-default" >添加</a>
+                        <a class="layui-btn btn-add btn-default" id="btn-refresh-goods-data-table"><i class="layui-icon layui-icon-refresh"></i></a>
+                    </span>
+                       <span class="fr">
+                        <span class="layui-form-label">搜索条件：</span>
+                        <div class="layui-input-inline">
+                            <input id="goods-data-table-condition" type="text" autocomplete="off" placeholder="请输入搜索条件" class="layui-input">
+                        </div>
+                        <button id="goods-data-table-query" class="layui-btn mgl-20">查询</button>
                     </span>
                    </div>
                    <!-- 表格 -->
-                   <div id="dateTable" class="my-data-table" lay-filter="test"></div>
+                   <div id="goods-data-table" class="my-data-table" lay-filter="goods-data-table"></div>
                </div>
+               <!--销售分类 end-->
+
                <div class="layui-tab-item">3</div>
                <div class="layui-tab-item">4</div>
                <div class="layui-tab-item">5</div>

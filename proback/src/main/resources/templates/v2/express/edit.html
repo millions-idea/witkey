@@ -21,20 +21,20 @@
     <div class="layui-form-item">
         <label class="layui-form-label">状态</label>
         <div class="layui-input-block"  >
-            <input th:id="isEnabled" type="checkbox" lay-skin="switch">
-            <div th:if="${model.getIsEnabled()} eq 1" class="layui-unselect layui-form-switch layui-form-onswitch" lay-skin="_switch"><em>启用</em><i></i></div>
-            <div th:if="${model.getIsEnabled()} eq 0" class="layui-unselect layui-form-switch" lay-skin="_switch"><em>启用</em><i></i></div>
+            <input th:id="isEnable" type="checkbox" lay-skin="switch">
+            <div th:if="${model.getIsEnable()} eq 1" class="layui-unselect layui-form-switch layui-form-onswitch" lay-skin="_switch"><em>启用</em><i></i></div>
+            <div th:if="${model.getIsEnable()} eq 0" class="layui-unselect layui-form-switch" lay-skin="_switch"><em>启用</em><i></i></div>
         </div>
     </div>
     <div class="layui-form-item">
         <i style="line-height: 38px;">* 编辑后的数据会在商家后台和前台显示</i>
-        <button onclick="service.edit({ expp_id: $('#expp_id').val(), name: $('#name').val(), url: $('#url').val(), isEnabled: $('#isEnabled').attr('checked') == 'checked' ? 1 : 0})" class="layui-btn" style="float: right;">编辑</button>
+        <button onclick="service.edit({ expp_id: $('#expp_id').val(), name: $('#name').val(), url: $('#url').val(), isEnable: $('#isEnable').attr('checked') == 'checked' ? 1 : 0})" class="layui-btn" style="float: right;">编辑</button>
     </div>
 </div>
 
 <script>
     $(function () {
-        var $enabledButton = $("#isEnabled");
+        var $enabledButton = $("#isEnable");
         $enabledButton.next().click(function () {
             if($enabledButton.next().hasClass("layui-form-onswitch")){
                 $enabledButton.next().removeClass("layui-form-onswitch");

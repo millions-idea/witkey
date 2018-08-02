@@ -71,6 +71,7 @@ public class ExpressPlatformServiceImpl implements ExpressPlatformService {
         return expressPlatformMapper.count();
     }
 
+
     @Override
     public void update(ExpressPlatform v) {
         int res = expressPlatformMapper.updateSingle(v);

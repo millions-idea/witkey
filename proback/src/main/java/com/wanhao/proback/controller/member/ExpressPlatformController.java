@@ -7,9 +7,12 @@
  */
 package com.wanhao.proback.controller.member;
 
+import com.wanhao.proback.bean.member.ExpressGoods;
+import com.wanhao.proback.bean.member.ExpressGoodsView;
 import com.wanhao.proback.bean.member.ExpressPlatform;
 import com.wanhao.proback.bean.util.JsonArrayResult;
 import com.wanhao.proback.bean.util.JsonResult;
+import com.wanhao.proback.service.member.ExpressGoodsService;
 import com.wanhao.proback.service.member.ExpressPlatformService;
 import com.wanhao.proback.utils.ResponseUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +33,9 @@ import java.util.List;
 public class ExpressPlatformController {
     @Autowired
     private ExpressPlatformService expressPlatformService;
+
+    @Autowired
+    private ExpressGoodsService expressGoodsService;
 
     /**
      * 快递空包服务管理-首页 韦德 2018年8月1日22:10:41
@@ -114,12 +120,30 @@ public class ExpressPlatformController {
      */
     @GetMapping("/get")
     @ResponseBody
-    public JsonArrayResult<ExpressPlatform> getList(Integer page, String  limit, String condition){
+    public JsonArrayResult<ExpressPlatform> getPlatformList(Integer page, String  limit, String condition){
         List<ExpressPlatform> list = expressPlatformService.getPlatforms(page, limit, condition);
         if (condition == null || condition.isEmpty()){
-            int platformCount = expressPlatformService.getPlatformCount();
+            int count = expressPlatformService.getPlatformCount();
             JsonArrayResult jsonArrayResult = new JsonArrayResult(0, list);
-            jsonArrayResult.setCount(platformCount);
+            jsonArrayResult.setCount(count);
+            return jsonArrayResult;
+        }
+        return new JsonArrayResult(0, list);
+    }
+
+
+    /**
+     * 查询快递商品集合 韦德 2018年8月2日23:42:29
+     * @return
+     */
+    @GetMapping("/getGoods")
+    @ResponseBody
+    public JsonArrayResult<ExpressGoodsView> getGoodsList(Integer page, String  limit, String condition){
+        List<ExpressGoodsView> list = expressGoodsService.getGoodses(page, limit, condition);
+        if (condition == null || condition.isEmpty()){
+            int count = expressGoodsService.getGoodsCount();
+            JsonArrayResult jsonArrayResult = new JsonArrayResult(0, list);
+            jsonArrayResult.setCount(count);
             return jsonArrayResult;
         }
         return new JsonArrayResult(0, list);

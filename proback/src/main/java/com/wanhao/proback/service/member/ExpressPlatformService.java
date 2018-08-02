@@ -32,4 +32,5 @@ public interface ExpressPlatformService extends BaseService<ExpressPlatform> {
      * @return
      */
     int getPlatformCount();
+
 }
