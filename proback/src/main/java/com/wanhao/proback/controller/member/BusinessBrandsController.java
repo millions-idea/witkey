@@ -40,8 +40,8 @@ public class BusinessBrandsController {
      */
     @RequestMapping("/getLimit")
     @ResponseBody
-    public JsonArrayResult<BusinessBrands> getBusinessLimit(String condition){
-        List<BusinessBrands> list = businessBrandsService.getBusinessesBy(condition);
+    public JsonArrayResult<BusinessBrands> getBusinessLimit(Integer page, String limit, String condition){
+        List<BusinessBrands> list = businessBrandsService.getBusinessesLimit(page, limit, condition);
         if (condition == null || condition.isEmpty()){
             int count = businessBrandsService.getBrandsCount();
             JsonArrayResult jsonArrayResult = new JsonArrayResult(0, list);

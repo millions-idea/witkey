@@ -10,6 +10,7 @@ package com.wanhao.proback.service.impl.member;
 import com.wanhao.proback.bean.member.BusinessBrands;
 import com.wanhao.proback.bean.member.ExpressGoodsView;
 import com.wanhao.proback.dao.member.BusinessBrandsMapper;
+import com.wanhao.proback.dao.utils.ConditionUtil;
 import com.wanhao.proback.service.member.BusinessBrandsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,7 +36,7 @@ public class BusinessesBrandsServiceImpl implements BusinessBrandsService {
     public List<BusinessBrands> getBusinessesBy(String condition) {
         String where = " AND 1=1";
         if(condition != null) {
-            where = " AND (`name` LIKE '%" + condition + "%' OR business_id LIKE '%" + condition + "%')";
+            where = " AND (`name` LIKE '%" + condition + "' OR  `name` LIKE '" + condition + "%' OR `name` LIKE '%" + condition + "%' OR business_id LIKE '%" + condition + "%')";
         }
         return businessBrandsMapper.selectBy(where);
     }
@@ -61,7 +62,8 @@ public class BusinessesBrandsServiceImpl implements BusinessBrandsService {
         // 封装查询条件
         String where = " AND 1=1";
         if(condition != null) {
-            where = " AND (`name` LIKE '%" + condition + "%' OR business_id LIKE '%" + condition + "%')";
+            where += " AND (" + ConditionUtil.like("name", condition, false, null);
+            where += " OR business_id LIKE '%" + condition + "%')";
         }
         return businessBrandsMapper.selectLimit(page, limit, where);
     }

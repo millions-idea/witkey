@@ -11,6 +11,7 @@ import com.google.common.collect.Lists;
 import com.wanhao.proback.bean.member.ExpressGoods;
 import com.wanhao.proback.bean.member.ExpressGoodsView;
 import com.wanhao.proback.dao.member.ExpressGoodsMapper;
+import com.wanhao.proback.dao.utils.ConditionUtil;
 import com.wanhao.proback.service.member.ExpressGoodsService;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Transformer;
@@ -51,7 +52,9 @@ public class ExpressGoodsServiceImpl implements ExpressGoodsService {
         // 封装查询条件
         String where = " AND 1=1";
         if(condition != null) {
-            where = " AND  (t3.`name` LIKE '%" + condition + "%' OR t1.`name` LIKE '%" + condition + "%' OR t1.goods_id LIKE '%" + condition + "%') ";
+            where = " AND (" + ConditionUtil.like("name", condition, true, "t3");
+            where += " OR " + ConditionUtil.like("name", condition, true, "t1");
+            where += " OR " + ConditionUtil.like("goods_id", condition, true, "t1") + ")";
         }
 
         List<ExpressGoodsView> expressGoodsViews = expressGoodsMapper.selectLimit(page, limit, where);
@@ -64,6 +67,8 @@ public class ExpressGoodsServiceImpl implements ExpressGoodsService {
 
         return expressGoodsViews;
     }
+
+
 
     /**
      * 查询快递商品记录总数 韦德 2018年8月2日23:43:13
