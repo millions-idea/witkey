@@ -66,7 +66,8 @@
                     <div class="sb2">
                         <ul class="sb22" id="rwdt_state">
                             <li>
-                                <a id="pro2" href="http://001.topaaa.com/member/yptaskview.php?pro=2"
+                                <a id="pro2"
+                                   href="javascript:;"
                                    class="sb0">已申请
                                     <span class="mui-badge mui-badge-warning">
                                         1
@@ -74,7 +75,8 @@
                                 </a>
                             </li>
                             <li class="nav">
-                                <a id="pro3" href="http://001.topaaa.com/member/yptaskview.php?pro=3">
+                                <a id="pro3"
+                                   href="./buyer-task-ordered.html">
                                     已下单
                                     <span class="mui-badge mui-badge-warning">
                                         128
@@ -92,11 +94,13 @@
                                 </ul>
                             </li>
                             <li>
-                                <a id="pro4" href="http://001.topaaa.com/member/yptaskview.php?pro=4">已确认收货<span
+                                <a id="pro4"
+                                   href="javascript:;">已确认收货<span
                                         class="mui-badge mui-badge-warning">0</span></a>
                             </li>
                             <li class="nav">
-                                <a id="pro5" href="http://001.topaaa.com/member/yptaskview.php?pro=5">试用完成<span
+                                <a id="pro5"
+                                   href="./buyer-task-finished.html">试用完成<span
                                         class="mui-badge mui-badge-warning">175</span></a>
                                 <ul class="sub">
                                     <li>
@@ -132,7 +136,8 @@
                                 </ul>
                             </li>
                             <li>
-                                <a id="tousu" href="http://001.topaaa.com/member/yptaskview.php?tousu=1">投诉中<span
+                                <a id="tousu"
+                                   href="javascript:;">投诉中<span
                                         class="mui-badge mui-badge-warning">2</span></a>
                             </li>
                         </ul>
@@ -214,8 +219,58 @@
 
             //开始任务
             startTask  = (taskId,goodsId,event)=>{
-                console.log('taskid'+taskId);
-                console.log('goodsId'+goodsId);
+                // console.log('taskid'+taskId);
+                // console.log('goodsId'+goodsId);
+
+                //开始任务
+                let params = {};
+                params.memid = userresult_json.id;
+                params.current_step = 0;
+                params.task_id = taskId;
+
+                //提交
+                $.ajax({
+                    url: user_task_start,
+                    type: "post",
+                    data: params,
+                    dataType: 'json',
+                    headers: {
+                        "mobile": userresult_json.mobile,
+                        "token": userresult_json.token
+                    },
+                    success: function (result) {
+                        console.log(result);
+                        //解析结果
+                        let taskStep = jQuery.parseJSON(result.taskStep);
+                        //当前运行到了哪一步
+                        const step = taskStep.step;
+                        //前台页面使用的信息提示 如关键词 掌柜名等
+                        const stepInfos = taskStep.stepInfos;
+
+
+                        switch (step) {
+                            case 'remark'://显示卖家提示
+                                alert(stepInfos[0]);
+                                break;
+                            case 'bisanjia': //货比三家
+
+                                break;
+                            case 'search': //搜索类型
+
+                                break;
+                            case 'chat': //拍前聊天
+
+                                break;
+                            case 'comment': //看评论
+
+                                break;
+                            case 'yuyue_xiadan': //指定下单时间
+
+                                break;
+                        }
+
+                    }
+                });
 
             }
 
@@ -427,7 +482,11 @@
             },
             success: function (result) {
                 console.log(result);
-                let list = jQuery.parseJSON(result.list);
+                let pageinfo = jQuery.parseJSON(result.pageinfo);
+
+                //取出数据
+                let list = pageinfo.list;
+
 
                 ReactDOM.render(<TaskItem list={list}/>, document.getElementById('yptask_list_2957695'))
 

@@ -652,6 +652,7 @@
         });
         //VIP选项
         $(function () {
+            //todo 如果需要限制使用选项  操作这个
             var fields_base = new Array(
                 "need_bi_san_jia",
                 "need_chat",
@@ -662,7 +663,8 @@
                 "zhiding_pinglun",
                 "comment_content",
                 "bask_img",
-
+                "device",
+                "post_fields[msg]",
                 0
             );
             var fields_add = new Array(
@@ -2169,6 +2171,7 @@
 
             console.log(params);
 
+            //请求发布的接口
             $.ajax({
                 url: request_url + "intf_shop/pubTask",
                 type: "post",
@@ -2213,7 +2216,7 @@
             }
         }
 
-        //获取店铺列表
+        //TODO 获取店铺列表
         let shops = ['a','c','d','e'];
 
         ReactDOM.render(<ShopList shops={shops}/>, document.getElementById('shops'))

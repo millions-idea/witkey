@@ -1,0 +1,982 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="../../../dist/css/index-skin.css">
+    <link rel="stylesheet" type="text/css" href="../../../dist/css/index-tp.css">
+
+    <script type="text/javascript" src="../../../dist/js/lang.js"></script>
+    <script type="text/javascript" src="../../../dist/js/config.js"></script>
+    <script type="text/javascript" src="../../../dist/js/jquery-2.0.0.min.js"></script>
+    <script type="text/javascript" src="../../../dist/js/common.js"></script>
+
+    <script type="text/javascript" src="../../../dist/js/admin.js"></script>
+    <script type="text/javascript" src="../../../dist/js/page.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="../../../dist/css/jq-tip.css">
+    <script type="text/javascript" src="../../../dist/js/jq-tip.js"></script>
+    <script type="text/javascript" src="../../../dist/js/layer.js"></script>
+
+    <script type="text/javascript" src="../../../dist/js/jquery.form.js"></script>
+    <script type="text/javascript" src="../../../dist/js/template7.min.js"></script>
+    <script type="text/javascript" src="../../../dist/js/cm.js"></script>
+    <script type="text/javascript" src="../../../dist/js/ypfunction.js"></script>
+    <!--日期处理-->
+    <script type="text/javascript" src="../../../dist/js/moment.js"></script>
+
+    <link rel="stylesheet" href="http://001.topaaa.com/file/script/layim/css/layui.css">
+    <!--配置服务器连接地址 -->
+    <script type="text/javascript" src="../../../dist/js/gjy_serviceurl.js"></script>
+
+    <script src="https://cdn.bootcss.com/react/16.4.0/umd/react.development.js"></script>
+    <script src="https://cdn.bootcss.com/react-dom/16.4.0/umd/react-dom.development.js"></script>
+    <script src="https://cdn.bootcss.com/babel-standalone/6.26.0/babel.min.js"></script>
+
+    <link rel="stylesheet" href="../../../dist/layui/css/layui.css">
+    <script type="text/javascript" src="../../../dist/layui/layui.js"></script>
+
+    <style type="text/css">
+        #pages {
+            display: flex;
+            justify-content: center;
+        }
+
+        .layui-laypage-center {
+
+        }
+    </style>
+
+</head>
+
+<body class=rwdt_bg>
+<div id="body">
+    <div id="body_header"></div>
+    <script>
+        $("#body_header").load("../public/public-top.html");
+    </script>
+    <div id="content_wrapper">
+        <div id="content_body_title"></div>
+        <script>
+            $("#content_body_title").load("../public/public-body-title.html");
+        </script>
+
+        <div id="moveContent">
+            <div>
+                <div class="b2">
+                    <div class="sb2">
+                        <ul class="sb22" id="rwdt_state">
+                            <li>
+                                <a id="pro0" href="http://001.topaaa.com/member/my.php?mid=23&amp;pro=0">待申请<span
+                                        class="mui-badge mui-badge-warning">8</span></a>
+                            </li>
+                            <li>
+                                <a id="pro2" href="http://001.topaaa.com/member/my.php?mid=23&amp;pro=2" class="sb0">已申请<span
+                                        class="mui-badge mui-badge-warning">1</span></a>
+                            </li>
+                            <li>
+                                <a id="pro3" href="http://001.topaaa.com/member/my.php?mid=23&amp;pro=3">已下单<span
+                                        class="mui-badge mui-badge-warning">26</span></a>
+                            </li>
+                            <li>
+                                <a id="pro4" href="http://001.topaaa.com/member/my.php?mid=23&amp;pro=4">已确认收货<span
+                                        class="mui-badge mui-badge-warning">0</span></a>
+                            </li>
+                            <li class="nav">
+                                <a id="pro5" href="http://001.topaaa.com/member/my.php?mid=23&amp;pro=5">试用完成<span
+                                        class="mui-badge mui-badge-warning">98</span></a>
+                                <ul class="sub">
+                                    <li>
+                                        <a id="pro5pro0"
+                                           href="http://001.topaaa.com/member/my.php?mid=23&amp;pro=5&amp;pro5pro=0"
+                                           data-hasqtip="11" oldtitle="可以发布评价任务" title="">可发评价<span
+                                                class="mui-badge mui-badge-warning">60</span></a>
+                                    </li>
+                                    <li>
+                                        <a id="pro5pro1"
+                                           href="http://001.topaaa.com/member/my.php?mid=23&amp;pro=5&amp;pro5pro=1"
+                                           data-hasqtip="12" oldtitle="已发评价的任务" title="">已发评价<span
+                                                class="mui-badge mui-badge-warning">1</span></a>
+                                    </li>
+                                    <li>
+                                        <a id="pro5pro2"
+                                           href="http://001.topaaa.com/member/my.php?mid=23&amp;pro=5&amp;pro5pro=2"
+                                           data-hasqtip="13" oldtitle="对方已完成评价的任务" title="">评价完成<span
+                                                class="mui-badge mui-badge-warning">0</span></a>
+                                    </li>
+                                    <li>
+                                        <a id="pro5pro3"
+                                           href="http://001.topaaa.com/member/my.php?mid=23&amp;pro=5&amp;pro5pro=3"
+                                           data-hasqtip="14" oldtitle="可发追评的任务" title="">可发追评<span
+                                                class="mui-badge mui-badge-warning">12</span></a>
+                                    </li>
+                                    <li>
+                                        <a id="pro5pro4"
+                                           href="http://001.topaaa.com/member/my.php?mid=23&amp;pro=5&amp;pro5pro=4"
+                                           data-hasqtip="15" oldtitle="已发布追评的任务" title="">已发追评<span
+                                                class="mui-badge mui-badge-warning">0</span></a>
+                                    </li>
+                                    <li>
+                                        <a id="pro5pro5"
+                                           href="http://001.topaaa.com/member/my.php?mid=23&amp;pro=5&amp;pro5pro=5"
+                                           data-hasqtip="16" oldtitle="对方已完成追评的任务" title="">确认追评<span
+                                                class="mui-badge mui-badge-warning">0</span></a>
+                                    </li>
+                                    <li>
+                                        <a id="pro5pro6"
+                                           href="http://001.topaaa.com/member/my.php?mid=23&amp;pro=5&amp;pro5pro=6"
+                                           data-hasqtip="17" oldtitle="已完成追评的任务" title="">追评完成<span
+                                                class="mui-badge mui-badge-warning">18</span></a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a id="tousu" href="http://001.topaaa.com/member/my.php?mid=23&amp;tousu=1">投诉中<span
+                                        class="mui-badge mui-badge-warning">0</span></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="c3 h50">
+                    <form action="http://001.topaaa.com/member/my.php">
+                        <input type="hidden" name="mid" value="23">
+                        <input type="hidden" name="status" value="3">
+                        <input type="hidden" name="pro" value="2">
+                        <select name="catid" id="catid_1" data-hasqtip="18" oldtitle="根据筛选" title="">
+                            <option value="0">不限分类</option>
+                            <option value="4">淘宝试用</option>
+                            <option value="5">阿里巴巴试用</option>
+                            <option value="40">京东试用</option>
+                            <option value="6">拼多多试用</option>
+                            <option value="7">蘑菇街试用</option>
+                            <option value="8">美丽说试用</option>
+                            <option value="41">淘宝访问</option>
+                            <option value="51">阿里巴巴访问</option>
+                            <option value="401">京东访问</option>
+                        </select> <input class="kwd" type="text" size="20" name="itemid" value="" placeholder="试用编号"
+                                         data-hasqtip="19" oldtitle="试用编号" title="">
+                        <select name="field" data-hasqtip="20" oldtitle="根据条件筛选" title="">
+                            <option value="">请选择</option>
+                            <option value="" selected="">不限条件</option>
+                            <option value="tname">掌柜</option>
+                            <option value="shuashoutaobao">买号</option>
+                            <option value="shangjiaqq">商家QQ</option>
+                            <option value="shuashouqq">试客QQ</option>
+                            <option value="orderid">订单ID</option>
+                        </select>
+                        <input class="kwd" type="text" size="20" name="kwd" value="" placeholder="搜索值" data-hasqtip="21"
+                               oldtitle="搜索值" title="">
+                        <input type="submit" value="搜 索" class="btn">
+                        <input type="button" value="重 置" class="btn"
+                               onclick="Go(&#39;my.php?mid=23&amp;status=3&#39;);">
+                        <input id="addtime1" class="addtime" readonly="" name="addtime1" placeholder="开始时间" lay-key="1">
+                        <input id="addtime2" class="addtime" readonly="" size="20" name="addtime2" placeholder="结束时间"
+                               lay-key="2">
+                        <script type="text/javascript" src="./shangjiayishenqing_files/laydate.js.下载"></script>
+                        <script>
+                            laydate.render({
+                                elem: '#addtime1', btns: ['now', 'clear', 'confirm']
+                            });
+                            laydate.render({
+                                elem: '#addtime2', btns: ['now', 'clear', 'confirm']
+                            });
+                        </script>
+                        <input onclick="daochu(2)" type="button" value="导出任务" class="btn">
+                    </form>
+                </div>
+                <div class="w1024">
+                    <div class="yptip">
+                        <p><span
+                                style="color:#E53333;">后台说明：商家可在这里处理任务，任务投诉可以申请客服及接入，投诉方也可随时取消投诉、试客下单后商家可以使用平台的代发快递。</span>
+                        </p>
+                        <p><span style="color:#E53333;">商家可以看到试客进行试用时上传的截图，管理后台也可以设置截图直接发给商家QQ，减轻服务器压力。</span></p></div>
+                </div>
+                <div class="cle"></div>
+                <div id="taskList">
+                    <table class="yfrw_list">
+                        <tbody>
+                        <tr>
+                            <td>
+                                <div class="outsc4 sc4">
+                                    <div class="sc41">
+                                        <div class="sc42">
+                                            <div class="fl">
+                                                                                                                                                                                                        <span>
+                                            <img src="./shangjiayishenqing_files/cat_4.png" align="absmiddle" width="16"
+                                                 height="16" data-hasqtip="22" oldtitle="淘宝试用" title="">
+                                            试用编号：<em class="taskid">2967872</em>【淘宝试用】</span>
+                                            </div>
+                                            <div class="mid"><span class="js_time">发布时间：<em>2018-08-01 21:48</em></span>
+                                            </div>
+                                            <div class="fr">
+                                                <span class="js_time">操作时间：<em>2018-08-01 21:50</em></span>
+                                            </div>
+                                        </div>
+                                        <div class="sc43">
+                                            <div class="my1">
+                                                <img style="vertical-align:middle"
+                                                     src="./shangjiayishenqing_files/TB1r0U3KpXXXXajapXXYXGcGpXX_M2.SS2_430x430q90.jpg"
+                                                     class="c46"
+                                                     data-qtip-img="//img.alicdn.com/imgextra/i5/TB1r0U3KpXXXXajapXXYXGcGpXX_M2.SS2_430x430q90.jpg"
+                                                     data-qtip-img-width="0" data-qtip-img-height="300"
+                                                     data-hasqtip="44" oldtitle="少女内312" title=""
+                                                     aria-describedby="qtip-44">
+                                            </div>
+                                            <div class="my2">
+                                                <ul>
+                                                    <li class="rwjg">掌柜：<span class="f_red">祺薇儿旗舰店</span></li>
+                                                    <li class="rwjg">
+                                                        价格：<span class="f_red" data-hasqtip="24" oldtitle="价格价格"
+                                                                 title="">59</span> 元
+                                                    </li>
+                                                    <li class="rwjg">奖励 ：<span class="f_red" data-hasqtip="25"
+                                                                               oldtitle="试用奖励" title="">4</span>
+                                                        元
+                                                    </li>
+                                                </ul>
+                                                <div class="requirements"><em class="ired" data-hasqtip="26"
+                                                                              oldtitle="需要搜索关键下单" title="">搜索</em><em
+                                                        class="ired" data-hasqtip="27" oldtitle="任务金额的返款方式" title="">平台返款</em><em
+                                                        class="inone" data-hasqtip="28" oldtitle="付款后多长时间后您才可以确认收货并好评"
+                                                        title="">3天确认</em><em class="iorange msg" data-hasqtip="29"
+                                                                              oldtitle="商家给您的提醒" title="">88</em><em
+                                                        class="inone" data-hasqtip="30" oldtitle="禁止某一地区的试客申请" title="">禁止河北
+                                                    &#187; 唐山市、天津、辽宁</em><em class="ired" data-hasqtip="31"
+                                                                             oldtitle="商家对试客买号的信誉要求"
+                                                                             title="">不限信誉</em><em class="igreen"
+                                                                                                   data-hasqtip="32"
+                                                                                                   oldtitle="用电脑下单还是手机下单"
+                                                                                                   title="">电脑</em><em
+                                                        class="inone" data-hasqtip="33"
+                                                        oldtitle="需要接收方打开多个其他商品比较，分别停留1-3分钟，并截图给商家"
+                                                        title="">货比3家</em><em class="ired" data-hasqtip="34"
+                                                                              oldtitle="试客浏览完，多久后下单" title="">1天后下单</em>
+                                                </div>
+                                                <div class="cle"></div>
+                                            </div>
+                                            <div class="my3">
+                                                <em class="iyellow" data-hasqtip="35" oldtitle="等待试客下单"
+                                                    title="">已申请</em> <span class="tousu" itemid="2967872"
+                                                                            qtip-my="top center" qtip-at="bottom center"
+                                                                            data-hasqtip="47">
+                                                     <em class="bgray" data-hasqtip="36" oldtitle="投诉对方" title="">
+                                                         投诉对方
+                                                     </em>
+                                                </span>
+                                                <!--倒计时开始-->
+                                                <div>
+                                                    <span class="countdown" countdown="970" timeout="已超时"
+                                                          data-hasqtip="37" oldtitle="下单剩余时间"
+                                                          title="">下单剩余时间：0:16:10</span>
+                                                </div>
+                                                <!--倒计时结束-->
+                                            </div>
+                                            <div class="my4">
+                                                <div onclick="ypconfirm_url(&#39;确定审核拒绝？&#39;, &#39;my.php?mid=23&amp;action=setpro&amp;pro=0&amp;itemid=2967872&#39;)">
+                                                    <em class="bgreen" data-hasqtip="38" oldtitle="点击后，此试用将处于待申请状态"
+                                                        title="">审核拒绝</em>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="cle"></div>
+                                        <div class="yptask_line">
+                                    <span class="mark" data-hasqtip="39" oldtitle="订单号" title="">
+                                        订单号：对方未填写                                    </span>
+                                            <span class="left">试客：yp12345678</span>
+                                            <em onclick="im_chat(&#39;yp12345678&#39;)" class="bblue" data-hasqtip="40"
+                                                oldtitle="点击发起站内聊天" title="">
+                                                聊天
+                                            </em>
+                                            <span class="left">买号：23213123 <span class="xin6"></span></span>
+                                            <span class="mark fr" data-hasqtip="41" oldtitle="用于标记您的试用" title="">
+                                        备注：
+                                        <form action="http://001.topaaa.com/member/my.php?mid=23&amp;action=mark"
+                                              method="post" target="_self">
+                                            <input name="itemid" value="2967872" type="hidden">
+                                            <input class="txt" name="mark" value="" type="text">
+                                            <input class="submit" name="submit" value=" 保 存 " type="submit">
+                                        </form>
+                                    </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <div class="sum">
+                        统计：试用数量：1个
+                        <span style="margin-left: 40px;">任务总奖励：4元</span>
+                    </div>
+                    <div class="cle"></div>
+                    <div id="page"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function save_bank() {
+            layer.open({
+                title: '保存转出银行账号',
+                area: ['450px', 'auto'],
+                content: '' +
+                '<div class="row" style="width: 420px;  margin-left:7px; margin-top:10px;">'
+                + '<div>'
+                + '浦发银行账号：<input id="pufa_banknum" type="text" value="" class="form-control" placeholder="请输入浦发银行账号">'
+                + '</div>'
+                + '<div style="margin-top: 10px">'
+                + '招商银行账号：<input id="zhaoshang_banknum" type="text" value="" class="form-control" placeholder="请输入招商银行账号">'
+                + '</div>'
+                + '</div>',
+                btn: ['保存', '取消'],
+                btn1: function (index, layero) {
+                    var pufa_banknum = $('#pufa_banknum').val();
+                    var zhaoshang_banknum = $('#zhaoshang_banknum').val();
+                    $.post('?', {
+                        mid: '23',
+                        action: 'save_bank',
+                        pufa_banknum: pufa_banknum,
+                        zhaoshang_banknum: zhaoshang_banknum
+                    });
+                    layer_alert('保存成功！')
+                },
+                btn2: function (index, layero) {
+                    layer.close(index);
+                }
+            });
+        }
+
+        //导出银行卡
+        function daochu_d() {
+            var itemids = [];
+            $('.recycle_checkbox:checked').each(function () {
+                itemids.push($(this).data('itemid'));
+            });
+            if (itemids.length == 0) {
+                layer.alert('请选择试用');
+                return false;
+            }
+            $('#zhuanzhang [name=itemids]').val(itemids.join());
+        }
+
+        function daochu_pufa() {
+            $('#zhuanzhang [name=method]').val('pufa');
+            return daochu_d();
+        }
+
+        function daochu_zhaoshang() {
+            $('#zhuanzhang [name=method]').val('zhaoshang');
+            return daochu_d();
+        }
+
+        //返款本金
+        //批量增加时间
+        function pl_fankuan() {
+            var itemid = [];
+            $('.recycle_checkbox:checked').each(function () {
+                itemid.push($(this).data('itemid'))
+            });
+            var data = {
+                mid: 23,
+                action: 'pl_fankuan',
+                itemid: itemid,
+                submit: 1
+            };
+            $.post('?', data, function (data) {
+                if (data === 'success') {
+                    layer.alert('操作成功', function () {
+                        location.reload();
+                    });
+                } else {
+                    layer.alert(data);
+                }
+            });
+        }
+
+        $(function () {
+            //显示任务剩余时间
+            setInterval("countdown()", 1000);
+            //批量回收试用
+            $('#pl_recycle').click(function () {
+                layer.confirm('是否回收选中任务？', {
+                    btn: ['确定', '取消'] //按钮
+                }, function () {
+                    var itemid = [];
+                    $('.recycle_checkbox:checked').each(function () {
+                        itemid.push($(this).data('itemid'))
+                    });
+                    var data = {
+                        mid: 23,
+                        action: 'recycle',
+                        itemid: itemid,
+                        submit: 1
+                    };
+                    $.post('?', data, function (data) {
+                        if (data === 'success') {
+                            layer.alert('回收成功', function () {
+                                location.reload();
+                            });
+                        } else {
+                            layer.alert(data);
+                        }
+                    });
+                });
+            });
+            //批量增加时间
+            $('#pl_addtime').click(function () {
+                layer.prompt({title: '请输入要增加的时间（单位：小时）', formType: 0}, function (hours, index) {
+                    layer.close(index);
+                    if (hours) {
+                        if (/^\d+$/.test(hours)) {
+                            var itemid = [];
+                            $('.recycle_checkbox:checked').each(function () {
+                                itemid.push($(this).data('itemid'))
+                            });
+                            var data = {
+                                mid: 23,
+                                action: 'addtime',
+                                itemid: itemid,
+                                hours: hours,
+                                submit: 1
+                            };
+                            $.post('?', data, function (data) {
+                                if (data === 'success') {
+                                    layer.alert('操作成功', function () {
+                                        location.reload();
+                                    });
+                                } else {
+                                    layer.alert(data);
+                                }
+                            });
+                        } else {
+                            layer.alert("请输入一个正整数");
+                        }
+                    }
+                });
+            });
+            //批量追加佣金
+            $('#pl_addmoney').click(function () {
+                layer.prompt({title: '请输入要追加的金额（单位：元）', formType: 0}, function (money, index) {
+                    layer.close(index);
+                    if (money) {
+                        var itemid = [];
+                        $('.recycle_checkbox:checked').each(function () {
+                            itemid.push($(this).data('itemid'))
+                        });
+                        var data = {
+                            mid: 23,
+                            action: 'addcomm',
+                            itemid: itemid,
+                            money: money,
+                            submit: 1
+                        };
+                        $.post('?', data, function (data) {
+                            if (data === 'success') {
+                                layer.alert('操作成功', function () {
+                                    location.reload();
+                                });
+                            } else {
+                                layer.alert(data);
+                            }
+                        });
+                    } else {
+                        layer.alert("请输入金额");
+                    }
+                });
+            });
+        });
+
+        function countdown() {
+            $(".countdown").each(function () {
+                var lefttime = parseInt($(this).attr('countdown')) - 1;
+                $(this).attr('countdown', lefttime);
+                var dd = parseInt(lefttime / 60 / 60 / 24, 10);//计算剩余的天数
+                var hh = parseInt(lefttime / 60 / 60 % 24, 10);//计算剩余的小时数
+                var mm = parseInt(lefttime / 60 % 60, 10);//计算剩余的分钟数
+                var ss = parseInt(lefttime % 60, 10);//计算剩余的秒数
+                var con;
+                con = hh + ":" + mm + ":" + ss;
+                if (dd && dd < 1000) con = dd + '天' + con;
+                con = $(this).attr('title') + '：' + con;
+                if (lefttime > 0) $(this).text(con);
+                else {
+                    if ('1') {
+                        $(this).hide();
+                    }
+                    $(this).text($(this).attr('timeout'));
+                }
+            });
+        }
+    </script>
+    <script>
+        //追加佣金
+        function addcomm(itemid) {
+            layer.prompt({title: '请输入要追加的金额（单位：元）', formType: 0}, function (money, index) {
+                layer.close(index);
+                if (money) {
+                    if (money) {
+                        var data = {
+                            mid: 23,
+                            action: 'addcomm',
+                            itemid: itemid,
+                            money: money,
+                            submit: 1
+                        };
+                        $.post('?', data, function (data) {
+                            if (data === 'success') {
+                                layer.alert('操作成功', function () {
+                                    location.reload();
+                                });
+                            } else {
+                                layer.alert(data);
+                            }
+                        });
+                    } else {
+                        layer.alert("请输入金额");
+                    }
+                }
+            });
+        }
+
+        //增加时间
+        function addtime(itemid) {
+            layer.prompt({title: '请输入要增加的时间（单位：小时）', formType: 0}, function (hours, index) {
+                layer.close(index);
+                if (hours) {
+                    if (/^\d+$/.test(hours)) {
+                        var data = {
+                            mid: 23,
+                            action: 'addtime',
+                            itemid: itemid,
+                            hours: hours,
+                            submit: 1
+                        };
+                        $.post('?', data, function (data) {
+                            if (data == 'success') {
+                                layer.alert('操作成功', function () {
+                                    location.reload();
+                                });
+                            } else {
+                                layer.alert(data);
+                            }
+                        });
+                    } else {
+                        layer.alert("请输入一个正整数");
+                    }
+                }
+            });
+        }
+    </script>
+    <script>
+        $(function () {
+            set_nav("yptask_my", "on");
+            set_nav("pro" + "2", "sb0");
+        });
+    </script>
+    <div style="clear:both;"></div>
+    <div id="footer">
+        <div id="footer_top">
+            <div id="foot_top_1">
+                <a href="http://001.topaaa.com/about/index.php?itemid=10">代理加盟</a><span>  |  </span>
+                <a href="http://001.topaaa.com/about/index.php?itemid=9">辅助业务</a><span>  |  </span>
+                <a href="http://001.topaaa.com/about/index.php?itemid=8">网站活动</a><span>  |  </span>
+                <a href="http://001.topaaa.com/about/index.php?itemid=7">联系客服</a><span>  |  </span>
+                <a href="http://001.topaaa.com/about/index.php?itemid=6">联盟网规</a><span>  |  </span>
+                <a href="http://001.topaaa.com/about/index.php?itemid=1">关于我们</a><span>  |  </span>
+                <a href="http://001.topaaa.com/about/index.php?itemid=3">联系方式</a><span>  |  </span>
+                <a href="http://001.topaaa.com/about/index.php?itemid=4">使用协议</a><span>  |  </span>
+                <a href="http://001.topaaa.com/about/index.php?itemid=5">版权隐私</a><span>  |  </span>
+            </div>
+            <div id="copy_right">
+                (c)2013-2018 销量联盟 www.topaaa.com All Rights Reserved
+            </div>
+            <div style="width:1024px;text-align: center;margin: 20px auto 0;">
+                <img src="./shangjiayishenqing_files/1.png">
+                <img src="./shangjiayishenqing_files/2.png">
+                <img src="./shangjiayishenqing_files/3.png">
+                <img src="./shangjiayishenqing_files/4.png">
+                <img src="./shangjiayishenqing_files/5.png">
+                <img src="./shangjiayishenqing_files/6.png">
+                <img src="./shangjiayishenqing_files/7.png">
+                <img src="./shangjiayishenqing_files/8.png">
+            </div>
+            <div style="clear:both;"></div>
+        </div>
+    </div>
+</div>
+<link rel="stylesheet" href="./shangjiayishenqing_files/layui.css">
+<script src="./shangjiayishenqing_files/layui.js.下载"></script>
+<script src="./shangjiayishenqing_files/func.js.下载"></script>
+<script>
+    var IM = {};
+    var mineId;
+    var mineUsername;
+    //登录
+    mineId = 'yp1234567_神秘地区';
+    mineUsername = 'yp1234567 神秘地区';
+    layui.use('layim', function (layim) {
+        IM = layim;
+        var init_data = {
+            mine: {
+                "username": mineUsername //我的昵称
+                , "id": mineId //我的ID
+                , "status": "online" //在线状态 online：在线、hide：隐身
+                , "remark": "" //我的签名
+                , "avatar": "/api/avatar/show.php?username=yp1234567&size=middle" //我的头像
+            }
+            , friend: [
+                {
+                    "groupname": "人工客服",
+                    "id": 1,
+                    "online": 1,
+                    'spread': 'true',
+                    "list": [
+                        {
+                            "username": "销量联盟 - 售前咨询",
+                            "id": 618,
+                            "avatar": "/member/image/kefu.png",
+                            "sign": '有问题，随时咨询我'
+                        }
+                    ]
+                }
+                , {
+                    "groupname": "机器人客服",
+                    "id": -1,
+                    "online": 1,
+                    "list": [
+                        {
+                            "username": "客服 - 潇潇",
+                            "id": -1,
+                            "avatar": "/member/image/kefu1.png",
+                            "sign": '销量联盟智能机器人'
+                        },
+                        {
+                            "username": "客服 - 靓靓 ",
+                            "id": -2,
+                            "avatar": "/member/image/kefu2.png",
+                            "sign": '销量联盟智能机器人'
+                        },
+                        {
+                            "username": "客服 - 恋恋",
+                            "id": -3,
+                            "avatar": "/member/image/kefu3.jpg",
+                            "sign": '销量联盟智能机器人'
+                        },
+                        {
+                            "username": "客服 - 萌萌",
+                            "id": -4,
+                            "avatar": "/member/image/kefu4.jpg",
+                            "sign": '销量联盟智能机器人'
+                        }
+                    ]
+                }
+            ]
+        };
+        layim.on('ready', function (options) {
+            $(function () {
+                spread(0);
+                spread(1);
+
+                function spread(eq) {
+                    var isspread = $('.layim-list-friend').children().eq(eq).find('h5').attr('lay-type');
+                    if (isspread !== 'true') {
+                        $('.layim-list-friend').children().eq(eq).find('.layui-layim-list').addClass('layui-show')
+                            .prev().attr('lay-type', 'true').find('.layui-icon').html('&#xe61a;')
+                    }
+                }
+
+                $('.ypui_sign').each(function () {
+                    $(this).val(getCookie('layui_sign_' + $(this).data('username')));
+                });
+                $('.ypui_sign').bind('input', function () {
+                    setCookie('layui_sign_' + $(this).data('username'), $(this).val());
+                });
+                $('.ypui_sign').click(function (event) {
+                    event.stopPropagation();
+                });
+            });
+        });
+        var ws = new WebSocket('ws://ws.100dianshang.com:3000');
+        var client_id = '';
+        ws.onopen = function () {
+            setInterval(function () {//心跳包
+                ws.send('');
+            }, 15000);
+        };
+        ws.onmessage = function (res) {
+            var data = JSON.parse(res.data);
+            //console.log(res.data);
+            if (data.type === 'init') {
+                client_id = data.client_id;
+                $.post('\x68\x74\x74\x70\x3A\x2F\x2F\x77\x77\x77\x2E\x78\x69\x6E\x78\x69\x6E\x31\x31\x36\x2E\x63\x6E\x2F\x69\x6D\x2F', {
+                    type: 'reg'
+                    , client_id: client_id
+                    , content: {
+                        uid: mineId,
+                        username: mineUsername,
+                        area: '加拿大'
+                    }
+                });
+            }
+            if (data.type === 'getMessage') {
+                layim.getMessage(data.content);
+            }
+        };
+        //基础配置
+        layim.config({
+            init: init_data
+            //上传图片接口
+            , uploadImage: {
+                url: '/upload/image' //（返回的数据格式见下文）
+                , type: '' //默认post
+            }
+            , title: '我的会话'
+            , right: '20px'
+            , initSkin: '2.jpg' //1-5 设置初始背景
+            , isgroup: false //是否开启群组
+            , notice: true //是否开启桌面消息提醒，默认false
+            , copyright: true
+        });
+        //监听发送消息
+        layim.on('sendMessage', function (res) {
+            var To = res.to;
+            if (To.id != 618) {
+                layim.setChatStatus('<span style="color:#FF5722;">对方正在输入。。。</span>');
+                //演示自动回复
+                $.getJSON('/api/qingyunke.php?kwd=' + encodeURIComponent(res.mine.content), function (txt) {
+                    var obj = {
+                        username: To.name
+                        , avatar: To.avatar
+                        , id: To.id
+                        , type: To.type
+                        , content: txt.content.replace(/{br}/g, '\n').replace(/梅州行/g, '销量联盟')
+                    };
+                    layim.setChatStatus('<span style="color:#FF5722;">在线</span>');
+                    layim.getMessage(obj);
+                });
+            } else {
+                if (To.id == 618) {
+                    //res.to.type = 'history';
+                    //res.mine.username = res.mine.id;
+                }
+                //console.log(res);
+                $.post('\x68\x74\x74\x70\x3A\x2F\x2F\x77\x77\x77\x2E\x78\x69\x6E\x78\x69\x6E\x31\x31\x36\x2E\x63\x6E\x2F\x69\x6D\x2F', {
+                    type: 'chatMessage'
+                    , client_id: client_id
+                    , content: res
+                }, function (data) {
+                    //console.log(data);
+                });
+            }
+        });
+        //监听聊天窗口的切换
+        layim.on('chatChange', function (obj) {
+            if (obj.data.id < 0 || obj.data.id === 618) {
+                var cache = layui.layim.cache();
+                var local = layui.data('layim')[cache.mine.id];
+                //console.log('local');
+                //console.log(local);
+                if (!local.hasOwnProperty('chatlog') || !local.chatlog.hasOwnProperty('friend' + obj.data.id)) {
+                    layim.setChatStatus('<span style="color:#FF5722;">对方正在输入。。。</span>');
+                    setTimeout(function () {
+                        var message = {
+                            username: obj.data.name
+                            , avatar: obj.data.avatar
+                            , id: obj.data.id
+                            , type: obj.data.type
+                        };
+                        if (obj.data.id < 0) {
+                            message.content = '您好\n我是机器人' + obj.data.name + '\n我上知天文下晓地理\n和我随笔聊点什么吧';
+                        } else if (obj.data.id === 618) {
+                            message.content = '您好\n我是' + obj.data.name + '\n您可加我QQ：737398508\n也可拨打我电话：13018555107\n亦可直接留言，倘若在线，必定回复';
+                        }
+                        setTimeout(function () {
+                            layim.setChatStatus('<span style="color:#FF5722;">在线</span>');
+                            layim.getMessage(message);
+                        }, 1000);
+                    }, 1000);
+                } else {
+                    //console.log('聊过')
+                }
+            }
+        });
+    });
+</script>
+<div class="main-im">
+    <div id="open_im" class="open-im" style="display: none;"></div>
+    <div class="im_main" id="im_main">
+        <div id="close_im" class="close-im"><a class="you" style="cursor: pointer" data-hasqtip="45" oldtitle="点击关闭"
+                                               title=""></a></div>
+        <a onclick="multi_qq()" class="im-qq qq-a">
+            <div class="qq-container"></div>
+            <div class="qq-hover-c"><img class="img-qq" src="./shangjiayishenqing_files/qq.png"></div>
+            <span>QQ在线咨询</span>
+        </a>
+        <script id="yptip_qq" type="text/template7">
+            <p style="width:100%;background-color:#0098ff;font-size:16px;text-align:center;color:#fff;height:34px;line-height:34px;">
+                客服团队</p><p style="line-height:40px;">客服潇潇：<a target="_blank"
+                                                             href="http://wpa.qq.com/msgrd?v=3&uin=261369834&site=qq&menu=yes"><img
+                    border="0" src="http://wpa.qq.com/pa?p=2:261369834:51" alt="点击这里给我发消息" title="点击这里给我发消息"/></a> <span
+                    style="line-height:1.5;margin-left:10px;">客服靓靓：</span><a target="_blank"
+                                                                             href="http://wpa.qq.com/msgrd?v=3&uin=261369834&site=qq&menu=yes"
+                                                                             style="line-height:1.5;"><img border="0"
+                                                                                                           src="http://wpa.qq.com/pa?p=2:261369834:51"
+                                                                                                           alt="点击这里给我发消息"
+                                                                                                           title="点击这里给我发消息"/></a>
+            </p><p style="line-height:30px;">客服恋恋：<a target="_blank"
+                                                     href="http://wpa.qq.com/msgrd?v=3&uin=261369834&site=qq&menu=yes"><img
+                    border="0" src="http://wpa.qq.com/pa?p=2:261369834:51" alt="点击这里给我发消息" title="点击这里给我发消息"/></a> <span
+                    style="line-height:1.5;margin-left:10px;">客服萌萌：</span><a target="_blank"
+                                                                             href="http://wpa.qq.com/msgrd?v=3&uin=261369834&site=qq&menu=yes"
+                                                                             style="line-height:1.5;"><img border="0"
+                                                                                                           src="http://wpa.qq.com/pa?p=2:261369834:51"
+                                                                                                           alt="点击这里给我发消息"
+                                                                                                           title="点击这里给我发消息"/></a>
+            </p><p><br/></p><p
+                    style="width:100%;background-color:#0098ff;font-size:16px;text-align:center;color:#fff;height:34px;line-height:34px;">
+                合作渠道</p><p style="line-height:40px;">业务合作：<a target="_blank"
+                                                             href="http://wpa.qq.com/msgrd?v=3&uin=261369834&site=qq&menu=yes"><img
+                    border="0" src="http://wpa.qq.com/pa?p=2:261369834:51" alt="点击这里给我发消息" title="点击这里给我发消息"/></a> <span
+                    style="line-height:1.5;margin-left:10px;">代理加盟：</span><a target="_blank"
+                                                                             href="http://wpa.qq.com/msgrd?v=3&uin=261369834&site=qq&menu=yes"
+                                                                             style="line-height:1.5;"><img border="0"
+                                                                                                           src="http://wpa.qq.com/pa?p=2:261369834:51"
+                                                                                                           alt="点击这里给我发消息"
+                                                                                                           title="点击这里给我发消息"/></a>
+            </p>        </script>
+        <script>
+            function multi_qq() {
+                $('.layim-friend618').click();
+            }
+        </script>
+        <a href="http://001.topaaa.com/app.php" target="_blank" class="qq-a" style="height: 130px">
+            <div class="qq-container" style="height: 130px"></div>
+            <div style="width: 95px;height: 95px"><img class="img-qq" src="./shangjiayishenqing_files/qrcode.php"
+                                                       style="width: 95px;height: 95px;max-width: 95px;top: 5px;left: 5px">
+            </div>
+            <span>下载APP</span>
+        </a>
+        <div class="im-tel">
+            <div><a href="http://001.topaaa.com/announce/index.php?typeid=2" target="_blank">如何发布试用</a></div>
+            <div><a href="http://001.topaaa.com/announce/index.php?typeid=3" target="_blank">如何申请试用</a></div>
+            <div><a href="http://001.topaaa.com/about/index.php?itemid=6" target="_blank">销量联盟网规</a></div>
+            <div><a href="http://001.topaaa.com/announce/index.php?typeid=1" target="_blank" class="jsbz">网站公告</a></div>
+        </div>
+        <div class="im-footer" style="position:relative">
+            <div class="go-top"><a class="you" style="cursor: pointer" data-hasqtip="46" oldtitle="返回顶部" title=""></a>
+            </div>
+            <div style="clear:both"></div>
+        </div>
+    </div>
+    <script>
+        $(function () {
+            $(".go-top").click(function () {
+                $('html,body').animate({scrollTop: 0}, 800);
+            });
+            $("#close_im").click(function () {
+                $("#im_main").fadeOut(500, function () {
+                    $("#open_im").fadeIn(500);
+                });
+            });
+            $("#open_im").click(function () {
+                $("#open_im").fadeOut(500, function () {
+                    $("#im_main").fadeIn(500);
+                });
+            });
+        });
+    </script>
+</div>
+<div class="layui-layer-move"></div>
+<div id="qtip-blanket"
+     style="position: fixed; top: 0px; left: 0px; height: 100%; width: 100%; opacity: 0.2; background-color: black; z-index: 5000; display: none;"></div>
+<div class="layui-layer layui-layer-page layui-box layui-layim layer-anim-02" id="layui-layer100001" type="page"
+     times="100001" showtime="0" contype="string"
+     style="z-index: 19991015; width: 260px; height: 520px; top: 372px; left: 1648px; background-image: url(&quot;http://001.topaaa.com/file/script/layim/css/modules/layim/skin/2.jpg&quot;); margin-left: -20px;">
+    <div class="layui-layer-title" style="cursor: move;">&#8203;</div>
+    <div id="layui-layim" class="layui-layer-content" style="height: 410px;">
+        <div class="layui-layim-main">
+            <div class="layui-layim-info">
+                <div class="layui-layim-user">yp1234567 神秘地区</div>
+                <div class="layui-layim-status"><span class="layui-icon layim-status-online" layim-event="status"
+                                                      lay-type="show"></span>
+                    <ul class="layui-anim layim-menu-box">
+                        <li class="layim-this" layim-event="status" lay-type="online"><i class="layui-icon"></i><cite
+                                class="layui-icon layim-status-online"></cite>在线
+                        </li>
+                        <li layim-event="status" lay-type="hide"><i class="layui-icon"></i><cite
+                                class="layui-icon layim-status-hide"></cite>隐身
+                        </li>
+                    </ul>
+                </div>
+                <input class="layui-layim-remark" placeholder="编辑签名" value=""></div>
+            <ul class="layui-unselect layui-layim-tab layim-tab-two">
+                <li class="layui-icon layim-this" title="联系人" layim-event="tab" lay-type="friend"></li>
+                <li class="layui-icon layim-hide" title="群组" layim-event="tab" lay-type="group"></li>
+                <li class="layui-icon" title="历史会话" layim-event="tab" lay-type="history"></li>
+            </ul>
+            <ul class="layui-unselect layim-tab-content layui-show layim-list-friend">
+                <li><h5 layim-event="spread" lay-type="true"><i class="layui-icon"></i><span>人工客服</span><em>(<cite
+                        class="layim-count"> 1</cite>)</em></h5>
+                    <ul class="layui-layim-list  layui-show">
+                        <li layim-event="chat" data-type="friend" data-index="0" class="layim-friend618 "><img
+                                src="./shangjiayishenqing_files/kefu.png"><span>销量联盟 - 售前咨询</span>
+                            <p>有问题，随时咨询我</p><span class="layim-msg-status">new</span></li>
+                    </ul>
+                </li>
+                <li><h5 layim-event="spread" lay-type="true"><i class="layui-icon"></i><span>机器人客服</span><em>(<cite
+                        class="layim-count"> 4</cite>)</em></h5>
+                    <ul class="layui-layim-list  layui-show">
+                        <li layim-event="chat" data-type="friend" data-index="1" class="layim-friend-1 "><img
+                                src="./shangjiayishenqing_files/kefu1.png"><span>客服 - 潇潇</span>
+                            <p>销量联盟智能机器人</p><span class="layim-msg-status">new</span></li>
+                        <li layim-event="chat" data-type="friend" data-index="1" class="layim-friend-2 "><img
+                                src="./shangjiayishenqing_files/kefu2.png"><span>客服 - 靓靓 </span>
+                            <p>销量联盟智能机器人</p><span class="layim-msg-status">new</span></li>
+                        <li layim-event="chat" data-type="friend" data-index="1" class="layim-friend-3 "><img
+                                src="./shangjiayishenqing_files/kefu3.jpg"><span>客服 - 恋恋</span>
+                            <p>销量联盟智能机器人</p><span class="layim-msg-status">new</span></li>
+                        <li layim-event="chat" data-type="friend" data-index="1" class="layim-friend-4 "><img
+                                src="./shangjiayishenqing_files/kefu4.jpg"><span>客服 - 萌萌</span>
+                            <p>销量联盟智能机器人</p><span class="layim-msg-status">new</span></li>
+                    </ul>
+                </li>
+            </ul>
+            <ul class="layui-unselect layim-tab-content ">
+                <li>
+                    <ul class="layui-layim-list layui-show layim-list-group">
+                        <li class="layim-null">暂无群组</li>
+                    </ul>
+                </li>
+            </ul>
+            <ul class="layui-unselect layim-tab-content ">
+                <li>
+                    <ul class="layui-layim-list layui-show layim-list-history">
+                        <li class="layim-null">暂无历史会话</li>
+                    </ul>
+                </li>
+            </ul>
+            <ul class="layui-unselect layim-tab-content">
+                <li>
+                    <ul class="layui-layim-list layui-show" id="layui-layim-search"></ul>
+                </li>
+            </ul>
+            <ul class="layui-unselect layui-layim-tool">
+                <li class="layui-icon layim-tool-search" layim-event="search" title="搜索"></li>
+                <li class="layui-icon layim-tool-skin" layim-event="skin" title="更换背景"></li>
+            </ul>
+            <div class="layui-layim-search"><input><label class="layui-icon" layim-event="closeSearch">&#4103;</label>
+            </div>
+        </div>
+    </div>
+    <span class="layui-layer-setwin"><a class="layui-layer-ico layui-layer-close layui-layer-close1"
+                                        href="javascript:;"></a></span></div>
+<div id="qtip-44" class="qtip qtip-default qtip-bootstrap qtip-pos-lc" tracking="false" role="alert" aria-live="polite"
+     aria-atomic="false" aria-describedby="qtip-44-content" aria-hidden="true" data-qtip-id="44"
+     style="z-index: 15001;">
+    <div class="qtip-titlebar">
+        <div id="qtip-44-title" class="qtip-title" aria-atomic="true">少女内312</div>
+    </div>
+    <div class="qtip-content" id="qtip-44-content" aria-atomic="true"><img
+            src="./shangjiayishenqing_files/TB1r0U3KpXXXXajapXXYXGcGpXX_M2.SS2_430x430q90.jpg" 0="" height="300"></div>
+</div>
+</body>
+</html>

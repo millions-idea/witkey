@@ -88,8 +88,17 @@
                                     success:function(result){
                                         if(result.error == 0){
                                             sessionStorage.setItem("token",result.token);
-                                            sessionStorage.setItem("member",result.member);
-                                            window.location.href = "../index/index.html";
+                                            sessionStorage.setItem("member",result.express);
+
+                                            localStorage.setItem("member",result.express);
+
+                                            var userresult_json = eval("("+sessionStorage.getItem("member")+")");
+
+                                            if(userresult_json.is_seller == 1){
+                                                window.location.href = "../index/index-seller.html";
+                                            }else{
+                                                window.location.href = "../index/index.html";
+                                            }
                                         }else{
                                             alert(result.message);
                                         }
