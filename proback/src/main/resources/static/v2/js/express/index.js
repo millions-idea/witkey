@@ -8,10 +8,9 @@ var marketTableIndex,
 
     // 加载快递空包公司集合
     initPlatforms(function (item) {
-
         // 空包商品
         if($("#tab-channel li[class$='layui-this']").index() == 1){
-            loadTable(goodsTableIndex,"goods-data-table", "#goods-data-table", getGoodsTableColumns(), route + "/getGoods" + "?condition=" + item.expp_id, function (res, curr, count){});
+            loadTable(goodsTableIndex,"goods-data-table", "#goods-data-table", getGoodsTableColumns(), route + "/getGoods" + "?condition=" + item.name, function (res, curr, count){});
         }
     });
 
@@ -27,21 +26,21 @@ var marketTableIndex,
                 shade: 0.3,
                 shadeClose: true
             },function () {
-                var data = layui.table.checkStatus('dataCheck').data;
+                var data = table.checkStatus('market-data-table').data;
                 var expIdArr = new Array();
                 data.forEach(function (value) {
-                    expIdArr.push(value.exp_id);
+                    expIdArr.push(value.expp_id);
                 });
                 var param = {
-                    exp_id: expIdArr.join(",")
+                    expp_id: expIdArr.join(",")
                 };
-                service.delete(param, function (data) {
-                    if(data.code == 1){
+                service.deleteBy(param, function (data) {
+                    if(!isNaN(data.error) || data.code == 1){
                         layer.msg("删除失败");
-                        return
+                        return;
                     }
-                    layer.msg("删除成功");
-                    tableIns.reload();
+                    layer.closeAll();
+                    marketTableIndex.reload();
                 })
             })
         })
@@ -111,7 +110,7 @@ var marketTableIndex,
         var $tableDelete = $("#market-data-table-delete"),
             $tableAdd = $("#goods-data-table-add");
         $tableDelete.click(function () {
-            layer.confirm('您确定要删除这些数据？', {
+            /*layer.confirm('您确定要删除这些数据？', {
                 title: "敏感操作提示",
                 btn: ['确定','取消'],
                 shade: 0.3,
@@ -133,7 +132,7 @@ var marketTableIndex,
                     layer.msg("删除成功");
                     tableIns.reload();
                 })
-            })
+            })*/
         })
         $tableAdd.click(function () {
             service.getAddGoodsView(function (data) {
@@ -217,7 +216,7 @@ function initService(r) {
          * @param param
          * @param callback
          */
-        delete: function (param, callback) {
+        deleteBy: function (param, callback) {
             $.get(r + "/delete", param, function (data) {
                 callback(data);
             });
@@ -317,12 +316,25 @@ function initService(r) {
                 callback(data);
             });
         },
+        /**
+         * 获取添加商品视图 韦德 2018年8月3日17:13:02
+         * @param callback
+         */
         getAddGoodsView: function (callback) {
             $.get(r + "/addGoodsView",function (data) {
                 callback(data);
             })
         },
-
+        /**
+         * 添加商品 韦德 2018年8月3日17:13:12
+         * @param param
+         * @param callback
+         */
+        addGoods: function (param,callback) {
+            $.post(route + "/addGoods", param , function (data) {
+                callback(data);
+            });
+        },
     }
 }
 

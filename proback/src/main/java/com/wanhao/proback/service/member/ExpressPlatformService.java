@@ -31,7 +31,7 @@ public interface ExpressPlatformService extends BaseService<ExpressPlatform> {
      */
     List<ExpressPlatform> getPlatforms();
 
-    void delete(String exp_id);
+    void delete(String expp_id);
 
     /**
      * 查询记录总数 韦德 2018年8月2日18:53:51

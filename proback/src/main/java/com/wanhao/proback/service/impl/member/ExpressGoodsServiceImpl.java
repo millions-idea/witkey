@@ -47,7 +47,7 @@ public class ExpressGoodsServiceImpl implements ExpressGoodsService {
         // 封装查询条件
         String where = " AND 1=1";
         if(condition != null) {
-            where = " AND  t1.`expp_id` LIKE '%" + condition + "%' OR t1.`name` LIKE '%" + condition + "%' OR t1.goods_id LIKE '%" + condition + "%'";
+            where = " AND  t3.`name` LIKE '%" + condition + "%' OR t1.`name` LIKE '%" + condition + "%' OR t1.goods_id LIKE '%" + condition + "%'";
         }
 
         List<ExpressGoodsView> expressGoodsViews = expressGoodsMapper.selectLimit(page, limit, where);
@@ -79,8 +79,8 @@ public class ExpressGoodsServiceImpl implements ExpressGoodsService {
 
     @Override
     public void add(ExpressGoods v) {
-        /*int res = expressGoodsMapper.insertSingle(v);
-        if(res <= 0) throw new RuntimeException("添加失败");*/
+        int res = expressGoodsMapper.insertSingle(v);
+        if(res <= 0) throw new RuntimeException("添加失败");
     }
 
     @Override

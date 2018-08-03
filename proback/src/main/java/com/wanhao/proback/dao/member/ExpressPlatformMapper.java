@@ -47,13 +47,13 @@ public interface ExpressPlatformMapper  extends MyMapper<Member>{
      */
     int updateSingle(ExpressPlatform v);
 
-    @Update("UPDATE tb_express_platforms SET isEnable=0,isDelete=1 WHERE expp_id=#{expp_id}")
+    @Update("UPDATE tb_express_platforms SET isEnable=0,isDelete=1 WHERE expp_id IN(${expp_id})")
     /**
      * 删除记录 韦德 2018年8月2日17:46:53
      * @param expp_id
      * @return
      */
-    int deleteSingle(String expp_id);
+    int deleteBy(@Param("expp_id") String expp_id);
 
     @Select("SELECT COUNT(*) FROM tb_express_platforms WHERE isDelete=0")
     /**

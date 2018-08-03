@@ -10,9 +10,14 @@ package com.wanhao.proback.service.impl.member;
 import com.wanhao.proback.bean.member.ExpressPlatform;
 import com.wanhao.proback.dao.member.ExpressPlatformMapper;
 import com.wanhao.proback.service.member.ExpressPlatformService;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections.Transformer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -68,7 +73,15 @@ public class ExpressPlatformServiceImpl implements ExpressPlatformService {
      */
     @Override
     public void delete(String expp_id) {
-        int res = expressPlatformMapper.deleteSingle(expp_id);
+        List<String> list = Arrays.asList(expp_id.split(","));
+        List<Integer> iList = new ArrayList<Integer>();
+        CollectionUtils.collect(list, new Transformer() {
+            @Override
+            public Object transform(Object o) {
+                return Integer.valueOf(o.toString());
+            }
+        }, iList);
+        int res = expressPlatformMapper.deleteBy(expp_id);
         if(res <= 0) throw new RuntimeException("删除失败");
     }
 

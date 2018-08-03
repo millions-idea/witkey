@@ -109,8 +109,8 @@ public class ExpressPlatformController {
      */
     @GetMapping("/delete")
     @ResponseBody
-    public JsonResult delete(String exp_id){
-        expressPlatformService.delete(exp_id);
+    public JsonResult delete(String expp_id){
+        expressPlatformService.delete(expp_id);
         return new JsonResult(0);
     }
 
@@ -165,6 +165,7 @@ public class ExpressPlatformController {
      */
     @GetMapping("/goodsView")
     public String goodsView(ExpressGoodsView param, final Model model){
+        param.setDiff_price(Double.valueOf(String.format("%.2f",param.getDiff_price())));
         model.addAttribute("model", param);
         return "v2/express/goods/view";
     }
@@ -177,6 +178,7 @@ public class ExpressPlatformController {
      */
     @GetMapping("/goodsEditView")
     public String goodsEditView(ExpressGoodsView param, final Model model){
+        param.setDiff_price(Double.valueOf(String.format("%.2f",param.getDiff_price())));
         model.addAttribute("model", param);
         return "v2/express/goods/edit";
     }
@@ -201,5 +203,18 @@ public class ExpressPlatformController {
     public String addGoodsView(){
         return "v2/express/goods/add";
     }
+
+    /**
+     * 添加商品 韦德 2018年8月3日17:14:33
+     * @param param
+     * @return
+     */
+    @PostMapping("/addGoods")
+    @ResponseBody
+    public JsonResult addGoods(ExpressGoods param){
+        expressGoodsService.add(param);
+        return new JsonResult(0);
+    }
+
 
 }

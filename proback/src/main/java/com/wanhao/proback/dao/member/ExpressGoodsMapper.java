@@ -11,10 +11,7 @@ import com.wanhao.proback.bean.member.ExpressGoods;
 import com.wanhao.proback.bean.member.ExpressGoodsView;
 import com.wanhao.proback.bean.member.Member;
 import com.wanhao.proback.utils.MyMapper;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -39,7 +36,7 @@ public interface ExpressGoodsMapper extends MyMapper<Member> {
      */
     List<ExpressGoodsView> selectLimit(@Param("page") Integer page, @Param("limit") String limit, @Param("condition")  String condition);
 
-    @Select("SELECT * FROM tb_express_goods WHERE isDelete=0")
+    @Select("SELECT COUNT(*) FROM tb_express_goods WHERE isDelete=0")
     /**
      * 查询快递商品记录总数 韦德 2018年8月2日23:43:13
      * @return
@@ -54,4 +51,11 @@ public interface ExpressGoodsMapper extends MyMapper<Member> {
      */
     int updateSingle(ExpressGoods v);
 
+    @Insert("INSERT INTO tb_express_goods(expp_id,category_id,name,price,rate,isEnable,isDelete) VALUES(#{expp_id}, #{category_id}, #{name}, #{price}, #{rate}, 1, 0)")
+    /**
+     * 新增商品 韦德 2018年8月3日17:15:08
+     * @param v
+     * @return
+     */
+    int insertSingle(ExpressGoods v);
 }
