@@ -1,0 +1,162 @@
+<div class="layui-form layui-form-pane my-view" xmlns:th="http://www.thymeleaf.org">
+    <div class="layui-form-item">
+        <label class="layui-form-label">品牌电商</label>
+        <div class="layui-input-block">
+            <select id="select-business-brands" lay-verify="required" lay-search>
+                <option value="">请选择一个电商品牌</option>
+            </select>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">空包网站</label>
+
+        <div class="layui-input-block">
+            <select id="select-express-platform" lay-verify="required" lay-search>
+                <option value="">请选择一个空包网站</option>
+            </select>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">物流公司</label>
+
+        <div class="layui-input-block">
+            <input  type="text" name="name" autocomplete="off"
+                    lay-verify="required" class="layui-input" value="">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">进价</label>
+
+        <div class="layui-input-block">
+            <input  type="text" name="price" autocomplete="off"
+                    lay-verify="required" class="layui-input" value="">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">利率(%)</label>
+
+        <div class="layui-input-block">
+            <input  type="text" name="rate" autocomplete="off"
+                    lay-verify="required" class="layui-input" value="">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">销售价</label>
+
+        <div class="layui-input-block">
+            <input disabled="disabled" type="text" name="sell_price" autocomplete="off"
+                   lay-verify="required" class="layui-input" value="">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">利润</label>
+
+        <div class="layui-input-block">
+            <input disabled="disabled"  type="text" name="diff_price" autocomplete="off"
+                   lay-verify="required" class="layui-input" value="">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">状态</label>
+        <div class="layui-input-block"  >
+            <input name="isEnable" th:id="isEnable"  type="checkbox" lay-skin="switch" lay-text="开启|关闭" checked>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <i style="line-height: 38px;">* 添加后的数据会在商家后台和前台显示</i>
+        <button onclick="add()" class="layui-btn" style="float: right;">添加</button>
+    </div>
+</div>
+
+<script>
+    layui.use(['form', 'layedit', 'laydate'], function(){
+        var form = layui.form,
+             layer = layui.layer
+            ,layedit = layui.layedit
+            ,laydate = layui.laydate;
+        form.render();
+
+
+        var $enabledButton = $("#isEnable"),
+            $priceInput = $("input[name='price']"),
+            $rateInput = $("input[name='rate']"),
+            $sellPriceInput = $("input[name='sell_price']"),
+            $diffPriceInput = $("input[name='diff_price']");
+
+        $enabledButton.next().click(function () {
+            if($enabledButton.next().hasClass("layui-form-onswitch")){
+                $enabledButton.next().removeClass("layui-form-onswitch");
+                $enabledButton.removeAttr("checked");
+            }else{
+                $enabledButton.next().addClass("layui-form-onswitch");
+                $enabledButton.attr("checked",true);
+            }
+        });
+
+        // 动态计算销售价以及差价
+        $rateInput.bind('input propertychange',function () {
+            var price = $priceInput.val(),
+                rate = $(this).val();
+            var sellPrice = (parseFloat(price) * (100 + parseInt(rate))) / 100;
+            $sellPriceInput.val(sellPrice);
+            $diffPriceInput.val((sellPrice - price).toFixed(2));
+        });
+
+        var $businessBrandsSelector = $("#select-business-brands"),
+            $expressPlatformSelector = $("#select-express-platform");
+
+        // 获取品牌电商公司
+        service.getBusinesses(null, function (data) {
+            if(!isNaN(data.error)){
+                layer.msg("获取品牌电商数据失败")
+                return;
+            }
+            var selected = $("#category_id").val();
+            var str = "";
+            data.forEach(function (item) {
+                if(item.business_id == selected){
+                    str += '<option value="'+ item.business_id +'" selected>' + item.name + '</option>';
+                }else{
+                    str += '<option value="'+ item.business_id +'">' + item.name + '</option>';
+                }
+            })
+            $businessBrandsSelector.append(str);
+            form.render();
+        });
+
+        // 获取空包网站
+        service.getPlatforms(function (data) {
+            if(!isNaN(data.error)){
+                layer.msg("获取空包数据失败")
+                return;
+            }
+            var selected = $("#expp_id").val();
+            var str = "";
+            data.forEach(function (item) {
+                if(item.expp_id == selected){
+                    str += '<option value="'+ item.expp_id +'" selected>' + item.name + '</option>';
+                }else{
+                    str += '<option value="'+ item.expp_id +'">' + item.name + '</option>';
+                }
+            })
+            $expressPlatformSelector.append(str);
+            form.render();
+        })
+    });
+
+    function add() {
+
+        service.add({
+            name: $('#add-name').val(),
+            url: $('#add-url').val()
+        }, function (data) {
+            if(!isNaN(data.error) || data.code != 0) {
+                layer.msg("添加失败");
+                return;
+            }
+            layer.closeAll();
+            marketTableIndex.reload();
+        })
+    }
+</script>
+

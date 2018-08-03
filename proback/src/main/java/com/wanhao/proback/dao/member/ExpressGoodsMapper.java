@@ -14,6 +14,7 @@ import com.wanhao.proback.utils.MyMapper;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 
@@ -24,8 +25,10 @@ import java.util.List;
 public interface ExpressGoodsMapper extends MyMapper<Member> {
 
     /*@Select("SELECT * FROM tb_express_goods WHERE isDelete=0 ${condition} LIMIT #{page},${limit}")*/
-    @Select("SELECT t1.*,t2.`name` AS category_name " +
-            "FROM tb_express_goods t1 LEFT JOIN tb_business_brands t2 ON t1.category_id = t2.business_id " +
+    @Select("SELECT t1.*,t2.`name` AS category_name,t3.`name` AS expp_name  " +
+            "FROM tb_express_goods t1 " +
+            "LEFT JOIN tb_business_brands t2 ON t1.category_id = t2.business_id " +
+            "LEFT JOIN tb_express_platforms t3 ON t1.expp_id = t3.expp_id " +
             "WHERE t1.isDelete = 0 ${condition} LIMIT #{page},${limit}")
     /**
      * 查询快递平台商品集合 韦德 2018年8月2日23:32:44
@@ -42,4 +45,13 @@ public interface ExpressGoodsMapper extends MyMapper<Member> {
      * @return
      */
     int count();
+
+    @Update("UPDATE tb_express_goods SET expp_id=#{expp_id}, category_id=#{category_id}, `name`=#{name}, price=#{price}, rate=#{rate}, isEnable=#{isEnable} WHERE goods_id=#{goods_id} AND isDelete=0 ")
+    /**
+     * 更新商品 韦德 2018年8月3日16:06:10
+     * @param v
+     * @return
+     */
+    int updateSingle(ExpressGoods v);
+
 }

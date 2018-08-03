@@ -23,7 +23,13 @@ public interface ExpressPlatformService extends BaseService<ExpressPlatform> {
      * @param limit
      * @param condition
      */
-    List<ExpressPlatform> getPlatforms(Integer page, String limit, String condition);
+    List<ExpressPlatform> getPlatformsLimit(Integer page, String limit, String condition);
+
+    /**
+     * 查询快递平台集合-不带分页 韦德 2018年8月3日13:24:37
+     * @return
+     */
+    List<ExpressPlatform> getPlatforms();
 
     void delete(String exp_id);
 

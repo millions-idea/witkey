@@ -7,10 +7,16 @@ var marketTableIndex,
     service = initService(route);
 
     // 加载快递空包公司集合
-    initPlatforms();
+    initPlatforms(function (item) {
+
+        // 空包商品
+        if($("#tab-channel li[class$='layui-this']").index() == 1){
+            loadTable(goodsTableIndex,"goods-data-table", "#goods-data-table", getGoodsTableColumns(), route + "/getGoods" + "?condition=" + item.expp_id, function (res, curr, count){});
+        }
+    });
 
     // 加载市场进货渠道数据表
-    initMarketDataTable(route + "/get", function (form, table, layer, vipTable, tableIns) {
+    initMarketDataTable(route + "/getLimit", function (form, table, layer, vipTable, tableIns) {
         // 动态注册事件
         var $tableDelete = $("#market-data-table-delete"),
             $tableAdd = $("#market-data-table-add");
@@ -46,6 +52,7 @@ var marketTableIndex,
                     skin: 'layui-layer-rim',
                     title: '添加',
                     area: ['420px', 'auto'],
+                    shadeClose: true,
                     content: data
                 });
             })
@@ -64,6 +71,7 @@ var marketTableIndex,
                         skin: 'layui-layer-rim',
                         title: '预览',
                         area: ['420px', 'auto'],
+                        shadeClose:true,
                         content: html
                     });
                 })
@@ -87,8 +95,9 @@ var marketTableIndex,
                     layer.open({
                         type: 1,
                         skin: 'layui-layer-rim',
-                        title: '预览',
+                        title: '编辑',
                         area: ['420px', 'auto'],
+                        shadeClose:true,
                         content: html
                     });
                 });
@@ -100,7 +109,7 @@ var marketTableIndex,
     initGoodsDataTable(route + "/getGoods", function (form, table, layer, vipTable, tableIns) {
         // 动态注册事件
         var $tableDelete = $("#market-data-table-delete"),
-            $tableAdd = $("#market-data-table-add");
+            $tableAdd = $("#goods-data-table-add");
         $tableDelete.click(function () {
             layer.confirm('您确定要删除这些数据？', {
                 title: "敏感操作提示",
@@ -127,12 +136,13 @@ var marketTableIndex,
             })
         })
         $tableAdd.click(function () {
-            service.getAddView(function (data) {
+            service.getAddGoodsView(function (data) {
                 layer.open({
                     type: 1,
                     skin: 'layui-layer-rim',
                     title: '添加',
                     area: ['420px', 'auto'],
+                    shadeClose: true,
                     content: data
                 });
             })
@@ -145,12 +155,13 @@ var marketTableIndex,
             var tr = obj.tr; //获得当前行 tr 的DOM对象
 
             if(layEvent === 'detail'){ //查看
-                service.view(data,function (html) {
+                service.goodsView(data,function (html) {
                     layer.open({
                         type: 1,
                         skin: 'layui-layer-rim',
                         title: '预览',
                         area: ['420px', 'auto'],
+                        shadeClose:true,
                         content: html
                     });
                 })
@@ -170,12 +181,13 @@ var marketTableIndex,
                     })
                 });
             } else if(layEvent === 'edit'){ //编辑
-                service.getEditView(data, function (html) {
+                service.getGoodsEditView(data, function (html) {
                     layer.open({
                         type: 1,
                         skin: 'layui-layer-rim',
-                        title: '预览',
+                        title: '编辑',
                         area: ['420px', 'auto'],
+                        shadeClose:true,
                         content: html
                     });
                 });
@@ -234,7 +246,7 @@ function initService(r) {
          * 获取平台集合 韦德 2018年8月2日11:03:30
          */
         getPlatforms: function (callback) {
-            $.get(route + "/get?page=1&limit=30",function (data) {
+            $.get(route + "/get",function (data) {
                 if(data.error != null && data.error == 1) return;
                 if(data.code == 0){
                     var arr = new Array();
@@ -251,37 +263,73 @@ function initService(r) {
          * 添加 韦德 2018年8月2日15:37:00
          * @param callback
          */
-        add: function (param) {
+        add: function (param, callback) {
             $.post(route + "/add", param , function (data) {
-                if(data.code == 1) {
-                    layer.msg("添加失败");
-                    return false;
-                }
-                layer.closeAll();
-                marketTableIndex.reload();
+                callback(data);
             });
         },
         /**
          * 编辑 韦德 2018年8月2日16:52:55
          * @param param
          */
-        edit: function (param) {
+        edit: function (param,callback) {
             $.post(route + "/edit", param , function (data) {
-                if(data.code == 1) {
-                    layer.msg("编辑失败");
-                    return false;
-                }
-                layer.closeAll();
-                marketTableIndex.reload();
+                callback(data);
             });
-        }
+        },
+        /**
+         * 预览快递空包商品信息 韦德 2018年8月3日10:36:57
+         * @param param
+         * @param callback
+         */
+        goodsView: function (param, callback) {
+            $.get(r + "/goodsView", param, function (data) {
+                callback(data);
+            });
+        },
+        /**
+         * 获取商品编辑页视图 韦德 2018年8月3日10:45:01
+         * @param param
+         * @param callback
+         */
+        getGoodsEditView: function (param, callback) {
+            $.get(r + "/goodsEditView", param, function (data) {
+                callback(data);
+            });
+        },
+        /**
+         * 获取品牌公司数据
+         * @param param
+         * @param callback
+         */
+        getBusinesses: function(param, callback) {
+            $.get("/business-brands/get",param, function (data) {
+                callback(data);
+            })
+        },
+        /**
+         * 编辑商品 韦德 2018年8月3日15:50:40
+         * @param param
+         * @param callback
+         */
+        editGoods: function (param,callback) {
+            $.post(route + "/editGoods", param , function (data) {
+                callback(data);
+            });
+        },
+        getAddGoodsView: function (callback) {
+            $.get(r + "/addGoodsView",function (data) {
+                callback(data);
+            })
+        },
+
     }
 }
 
 /**
  * 加载快递空包公司集合
  */
-function initPlatforms(){
+function initPlatforms(clickFunc){
     layui.use(['tree'], function () {
         // 获取平台集合
         service.getPlatforms(function (data) {
@@ -289,7 +337,14 @@ function initPlatforms(){
             layui.tree({
                 elem: '#tree'
                 , click: function (item) {
-                    // your code
+                    $("#tree li").removeClass("li-active");
+                    $("#tree li").each(function(i,o){
+                        if($(o).find("cite").text() == item.name){
+                            $(o).addClass("li-active");
+                            return;
+                        }
+                    })
+                   clickFunc(item);
                 }
                 , nodes: nodes
             });
@@ -307,7 +362,7 @@ function initMarketDataTable(url,callback,loadDone) {
     var cols = [[
         {type: "numbers"}
         , {type: "checkbox"}
-        , {field: 'expp_id', title: 'ID', width: 80}
+        , {field: 'expp_id', title: 'ID', width: 80, sort: true}
         , {field: 'name', title: '空包公司名称', width: 120}
         , {field: 'url', title: '网址', width: 240}
         , {field: 'isEnable', title: '状态', width: 120, templet: function (d) {
@@ -402,25 +457,7 @@ function initGoodsDataTable(url, callback, loadDone) {
     var $queryButton = $("#goods-data-table-query"),
         $queryCondition = $("#goods-data-table-condition");
 
-    var cols = [[
-        {type: "numbers"}
-        , {type: "checkbox"}
-        , {field: 'goods_id', title: 'ID', width: 80}
-        , {field: 'category_name', title: '电商公司', width: 120}
-        , {field: 'name', title: '物流公司', width: 120}
-        , {field: 'price', title: '进价', width: 120}
-        , {field: 'rate', title: '利率', width: 120, templet: function (d) {
-                var rate = d.rate;
-                return rate + "%";
-            }}
-        , {field: 'sell_price', title: '销售价', width: 120, templet: function (d) {
-                return d.price * (100 + d.rate) / 100;
-            }}
-        , {field: 'isEnable', title: '状态', width: 120, templet: function (d) {
-                return d.isEnable != null  &&  d.isEnable == 1 ? "启用" : "禁用";
-            }}
-        , {fixed: 'right', title: '操作', width: 150, align: 'center', toolbar: '#barOption'} //这里的toolbar值是模板元素的选择器
-    ]];
+    var cols = getGoodsTableColumns();
 
     // 注册查询事件
     $queryButton.click(function () {
@@ -469,9 +506,31 @@ function initGoodsDataTable(url, callback, loadDone) {
     });
 }
 
-
 function resetPager() {
     $(".layui-table-body.layui-table-main").each(function (i, o) {
         $(o).height(569);
     });
+}
+
+function getGoodsTableColumns() {
+    return [[
+        {type: "numbers"}
+        , {type: "checkbox"}
+        , {field: 'goods_id', title: 'ID', width: 80, sort: true}
+        , {field: 'expp_name', title: '空包网站', width: 120}
+        , {field: 'category_name', title: '电商网站', width: 120}
+        , {field: 'name', title: '名称', width: 240}
+        , {field: 'price', title: '进价', width: 120}
+        , {field: 'rate', title: '利率', width: 120, templet: function (d) {
+                var rate = d.rate;
+                return rate + "%";
+            }}
+        , {field: 'sell_price', title: '销售价', width: 120, templet: function (d) {
+                return d.price * (100 + d.rate) / 100;
+            }}
+        , {field: 'isEnable', title: '状态', width: 120, templet: function (d) {
+                return d.isEnable != null  &&  d.isEnable == 1 ? "启用" : "禁用";
+            }}
+        , {fixed: 'right', title: '操作', width: 150, align: 'center', toolbar: '#barOption'} //这里的toolbar值是模板元素的选择器
+    ]];
 }

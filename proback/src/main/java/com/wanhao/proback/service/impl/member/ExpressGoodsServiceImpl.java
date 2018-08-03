@@ -47,9 +47,18 @@ public class ExpressGoodsServiceImpl implements ExpressGoodsService {
         // 封装查询条件
         String where = " AND 1=1";
         if(condition != null) {
-            where = " AND t1.`name` LIKE '%" + condition + "%' OR t1.goods_id LIKE '%" + condition + "%'";
+            where = " AND  t1.`expp_id` LIKE '%" + condition + "%' OR t1.`name` LIKE '%" + condition + "%' OR t1.goods_id LIKE '%" + condition + "%'";
         }
-        return expressGoodsMapper.selectLimit(page, limit, where);
+
+        List<ExpressGoodsView> expressGoodsViews = expressGoodsMapper.selectLimit(page, limit, where);
+
+        // 计算视图字段值
+        expressGoodsViews.stream().forEach(o -> {
+            o.setSell_price((o.getPrice() * (100 + o.getRate())) / 100);
+            o.setDiff_price(o.getSell_price() - o.getPrice());
+        });
+
+        return expressGoodsViews;
     }
 
     /**
@@ -59,7 +68,23 @@ public class ExpressGoodsServiceImpl implements ExpressGoodsService {
      */
     @Override
     public int getGoodsCount() {
-        //return expressGoodsMapper.count();
-        return 35;
+        return expressGoodsMapper.count();
+    }
+
+    @Override
+    public void update(ExpressGoods v) {
+        int res = expressGoodsMapper.updateSingle(v);
+        if(res <= 0) throw new RuntimeException("编辑失败");
+    }
+
+    @Override
+    public void add(ExpressGoods v) {
+        /*int res = expressGoodsMapper.insertSingle(v);
+        if(res <= 0) throw new RuntimeException("添加失败");*/
+    }
+
+    @Override
+    public void delete(Integer id) {
+
     }
 }

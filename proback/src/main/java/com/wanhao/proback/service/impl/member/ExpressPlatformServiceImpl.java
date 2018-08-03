@@ -34,7 +34,7 @@ public class ExpressPlatformServiceImpl implements ExpressPlatformService {
      * @param condition
      */
     @Override
-    public List<ExpressPlatform> getPlatforms(Integer page, String limit, String condition) {
+    public List<ExpressPlatform> getPlatformsLimit(Integer page, String limit, String condition) {
         // 计算分页位置
         if(!limit.equalsIgnoreCase("-1")){
             page = page - 1;
@@ -52,13 +52,24 @@ public class ExpressPlatformServiceImpl implements ExpressPlatformService {
     }
 
     /**
+     * 查询快递平台集合-不带分页 韦德 2018年8月3日13:24:37
+     *
+     * @return
+     */
+    @Override
+    public List<ExpressPlatform> getPlatforms() {
+        return expressPlatformMapper.selectList();
+    }
+
+
+    /**
      * 删除快递空包平台(支持多个) 韦德 2018年8月1日23:09:44
      * @param expp_id
      */
     @Override
     public void delete(String expp_id) {
         int res = expressPlatformMapper.deleteSingle(expp_id);
-        if(res <= 0) throw new RuntimeException("删除空包公司失败");
+        if(res <= 0) throw new RuntimeException("删除失败");
     }
 
     /**
@@ -75,17 +86,19 @@ public class ExpressPlatformServiceImpl implements ExpressPlatformService {
     @Override
     public void update(ExpressPlatform v) {
         int res = expressPlatformMapper.updateSingle(v);
-        if(res <= 0) throw new RuntimeException("编辑空包公司失败");
+        if(res <= 0) throw new RuntimeException("编辑失败");
     }
 
     @Override
     public void add(ExpressPlatform v) {
         int res = expressPlatformMapper.insertSingle(v);
-        if(res <= 0) throw new RuntimeException("添加空包公司失败");
+        if(res <= 0) throw new RuntimeException("添加失败");
     }
 
     @Override
     public void delete(Integer id) {
 
     }
+
+
 }

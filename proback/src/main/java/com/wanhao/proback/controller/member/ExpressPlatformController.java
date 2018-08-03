@@ -14,7 +14,6 @@ import com.wanhao.proback.bean.util.JsonArrayResult;
 import com.wanhao.proback.bean.util.JsonResult;
 import com.wanhao.proback.service.member.ExpressGoodsService;
 import com.wanhao.proback.service.member.ExpressPlatformService;
-import com.wanhao.proback.utils.ResponseUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -61,9 +60,10 @@ public class ExpressPlatformController {
      * @return
      */
     @PostMapping("/add")
-    public String add(ExpressPlatform param) throws Exception {
+    @ResponseBody
+    public JsonResult add(ExpressPlatform param) {
         expressPlatformService.add(param);
-        return "redirect:/express-platform";
+        return new JsonResult(0);
     }
 
     /**
@@ -96,9 +96,10 @@ public class ExpressPlatformController {
      * @return
      */
     @PostMapping("/edit")
-    public String edit(ExpressPlatform param){
+    @ResponseBody
+    public JsonResult edit(ExpressPlatform param){
         expressPlatformService.update(param);
-        return "redirect:/express-platform";
+        return new JsonResult(0);
     }
 
     /**
@@ -113,15 +114,14 @@ public class ExpressPlatformController {
         return new JsonResult(0);
     }
 
-
     /**
      * 查询快递空包集合 韦德 2018年8月1日23:09:44
      * @return
      */
-    @GetMapping("/get")
+    @GetMapping("/getLimit")
     @ResponseBody
-    public JsonArrayResult<ExpressPlatform> getPlatformList(Integer page, String  limit, String condition){
-        List<ExpressPlatform> list = expressPlatformService.getPlatforms(page, limit, condition);
+    public JsonArrayResult<ExpressPlatform> getPlatformListLimit(Integer page, String  limit, String condition){
+        List<ExpressPlatform> list = expressPlatformService.getPlatformsLimit(page, limit, condition);
         if (condition == null || condition.isEmpty()){
             int count = expressPlatformService.getPlatformCount();
             JsonArrayResult jsonArrayResult = new JsonArrayResult(0, list);
@@ -131,6 +131,16 @@ public class ExpressPlatformController {
         return new JsonArrayResult(0, list);
     }
 
+    /**
+     * 查询快递空包集合 韦德 2018年8月1日23:09:44
+     * @return
+     */
+    @GetMapping("/get")
+    @ResponseBody
+    public JsonArrayResult<ExpressPlatform> getPlatformList(){
+        List<ExpressPlatform> list = expressPlatformService.getPlatforms();
+        return new JsonArrayResult(0, list);
+    }
 
     /**
      * 查询快递商品集合 韦德 2018年8月2日23:42:29
@@ -148,4 +158,48 @@ public class ExpressPlatformController {
         }
         return new JsonArrayResult(0, list);
     }
+
+    /**
+     * 预览商品信息 韦德 2018年8月3日10:25:14
+     * @return
+     */
+    @GetMapping("/goodsView")
+    public String goodsView(ExpressGoodsView param, final Model model){
+        model.addAttribute("model", param);
+        return "v2/express/goods/view";
+    }
+
+    /**
+     * 商品编辑视图 韦德 2018年8月1日22:11:31
+     * @param param
+     * @param model
+     * @return
+     */
+    @GetMapping("/goodsEditView")
+    public String goodsEditView(ExpressGoodsView param, final Model model){
+        model.addAttribute("model", param);
+        return "v2/express/goods/edit";
+    }
+
+    /**
+     * 编辑商品 韦德 2018年8月3日15:49:11
+     * @param param
+     * @return
+     */
+    @PostMapping("/editGoods")
+    @ResponseBody
+    public JsonResult editGoods(ExpressGoods param){
+        expressGoodsService.update(param);
+        return new JsonResult(0);
+    }
+
+    /**
+     * 添加商品 韦德 2018年8月3日16:17:44
+     * @return
+     */
+    @GetMapping("/addGoodsView")
+    public String addGoodsView(){
+        return "v2/express/goods/add";
+    }
+
 }

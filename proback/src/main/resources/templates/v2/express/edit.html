@@ -21,28 +21,40 @@
     <div class="layui-form-item">
         <label class="layui-form-label">状态</label>
         <div class="layui-input-block"  >
-            <input th:id="isEnable" type="checkbox" lay-skin="switch">
-            <div th:if="${model.getIsEnable()} eq 1" class="layui-unselect layui-form-switch layui-form-onswitch" lay-skin="_switch"><em>启用</em><i></i></div>
-            <div th:if="${model.getIsEnable()} eq 0" class="layui-unselect layui-form-switch" lay-skin="_switch"><em>启用</em><i></i></div>
+            <input name="isEnable" th:id="isEnable" th:if="${model.getIsEnable()} eq 1" type="checkbox" lay-skin="switch" lay-text="开启|关闭" checked>
+            <input name="isEnable" th:id="isEnable" th:if="${model.getIsEnable()} eq 0" type="checkbox" lay-skin="switch" lay-text="开启|关闭">
         </div>
     </div>
     <div class="layui-form-item">
         <i style="line-height: 38px;">* 编辑后的数据会在商家后台和前台显示</i>
-        <button onclick="service.edit({ expp_id: $('#expp_id').val(), name: $('#name').val(), url: $('#url').val(), isEnable: $('#isEnable').attr('checked') == 'checked' ? 1 : 0})" class="layui-btn" style="float: right;">编辑</button>
+        <button onclick="edit()" class="layui-btn" style="float: right;">编辑</button>
     </div>
 </div>
 
 <script>
-    $(function () {
-        var $enabledButton = $("#isEnable");
-        $enabledButton.next().click(function () {
-            if($enabledButton.next().hasClass("layui-form-onswitch")){
-                $enabledButton.next().removeClass("layui-form-onswitch");
-                $enabledButton.removeAttr("checked");
-            }else{
-                $enabledButton.next().addClass("layui-form-onswitch");
-                $enabledButton.attr("checked",true);
-            }
-        });
+    layui.use(['form', 'layedit', 'laydate'], function(){
+        var form = layui.form
+            ,layer = layui.layer
+            ,layedit = layui.layedit
+            ,laydate = layui.laydate;
+        form.render();
+
+
     })
+
+    function edit() {
+        service.edit({
+            expp_id: $('#expp_id').val(),
+            name: $('#name').val(),
+            url: $('#url').val(),
+            isEnable: $('#isEnable').next().find("em").text() == '开启' ? 1 : 0
+        }, function (data) {
+                if(!isNaN(data.error) || data.code != 0) {
+                    layer.msg("修改失败");
+                    return;
+                }
+                layer.closeAll();
+                marketTableIndex.reload();
+        })
+    }
 </script>

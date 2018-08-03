@@ -61,4 +61,11 @@ public interface ExpressPlatformMapper  extends MyMapper<Member>{
      * @return
      */
     int count();
+
+    @Select("SELECT * FROM tb_express_platforms WHERE isDelete=0 ORDER BY expp_id DESC")
+    /**
+     * 查询快递平台集合-不带分页 韦德 2018年8月3日13:24:37
+     * @return
+     */
+    List<ExpressPlatform> selectList();
 }

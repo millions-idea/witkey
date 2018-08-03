@@ -11,13 +11,6 @@
     <link rel="stylesheet" th:href="@{/v2/frame/static/css/style.css}">
     <link rel="stylesheet" th:href="@{/v2/css/express/index.css}">
     <link rel="icon" th:href="@{/v2/frame/static/image/code.png}">
-    <style>
-
-        .layui-table-page {
-            position:fixed;
-        }
-
-    </style>
 </head>
 <body>
 
@@ -30,7 +23,7 @@
        <!--树插件-->
        <div class="layui-col-md2" style="margin-right: 10px;height: 800px">
            <div class="layui-card" style="box-shadow: -2px 3px 5px 1px #0000001c;height: 100%;">
-               <div class="layui-card-header">快递空包网站</div>
+               <div class="layui-card-header"  style="font-weight: bold">快递空包品牌网站</div>
                <div class="layui-card-body">
                    <ul id="tree" class="tree-table-tree-box"></ul>
                </div>
@@ -39,9 +32,9 @@
 
        <!--选项卡-->
        <div class="layui-tab layui-tab-card layui-col-md10" style="min-height: 770px">
-           <ul class="layui-tab-title" lay-filter="tab-goods">
+           <ul id="tab-channel" class="layui-tab-title" lay-filter="tab-goods">
                <li id="active-express-market" class="layui-this">进货渠道</li>
-               <li id="active-express-goods">销售分类</li>
+               <li id="active-express-goods">商品管理</li>
                <li>电商公司</li>
                <li>代发审核</li>
                <li>空包代发</li>
