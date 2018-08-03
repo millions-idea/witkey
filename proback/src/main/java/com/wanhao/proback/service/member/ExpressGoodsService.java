@@ -30,4 +30,10 @@ public interface ExpressGoodsService extends BaseService<ExpressGoods> {
      * @return
      */
     int getGoodsCount();
+
+    /**
+     * 删除商品 韦德 2018年8月3日21:49:02
+     * @param id
+     */
+    void deleteBy(String id);
 }

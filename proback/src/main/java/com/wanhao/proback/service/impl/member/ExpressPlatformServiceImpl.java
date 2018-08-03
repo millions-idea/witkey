@@ -51,7 +51,7 @@ public class ExpressPlatformServiceImpl implements ExpressPlatformService {
         // 封装查询条件
         String where = " AND 1=1";
         if(condition != null) {
-            where = " AND `name` LIKE '%" + condition + "%' OR expp_id LIKE '%" + condition + "%'";
+            where = " AND (`name` LIKE '%" + condition + "%' OR expp_id LIKE '%" + condition + "%') ";
         }
         return expressPlatformMapper.selectLimit(page, limit, where);
     }
@@ -73,14 +73,6 @@ public class ExpressPlatformServiceImpl implements ExpressPlatformService {
      */
     @Override
     public void delete(String expp_id) {
-        List<String> list = Arrays.asList(expp_id.split(","));
-        List<Integer> iList = new ArrayList<Integer>();
-        CollectionUtils.collect(list, new Transformer() {
-            @Override
-            public Object transform(Object o) {
-                return Integer.valueOf(o.toString());
-            }
-        }, iList);
         int res = expressPlatformMapper.deleteBy(expp_id);
         if(res <= 0) throw new RuntimeException("删除失败");
     }

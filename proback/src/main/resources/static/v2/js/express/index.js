@@ -107,32 +107,32 @@ var marketTableIndex,
     // 加载销售分类数据表
     initGoodsDataTable(route + "/getGoods", function (form, table, layer, vipTable, tableIns) {
         // 动态注册事件
-        var $tableDelete = $("#market-data-table-delete"),
+        var $tableDelete = $("#goods-data-table-delete"),
             $tableAdd = $("#goods-data-table-add");
         $tableDelete.click(function () {
-            /*layer.confirm('您确定要删除这些数据？', {
+            layer.confirm('您确定要删除这些数据？', {
                 title: "敏感操作提示",
                 btn: ['确定','取消'],
                 shade: 0.3,
                 shadeClose: true
             },function () {
-                var data = layui.table.checkStatus('dataCheck').data;
-                var expIdArr = new Array();
+                var data = table.checkStatus('goods-data-table').data;
+                var idArr = new Array();
                 data.forEach(function (value) {
-                    expIdArr.push(value.exp_id);
+                    idArr.push(value.goods_id);
                 });
                 var param = {
-                    exp_id: expIdArr.join(",")
+                    id: idArr.join(",")
                 };
-                service.delete(param, function (data) {
-                    if(data.code == 1){
+                service.deleteGoods(param, function (data) {
+                    if(!isNaN(data.error) || data.code == 1){
                         layer.msg("删除失败");
                         return
                     }
                     layer.msg("删除成功");
-                    tableIns.reload();
+                    goodsTableIndex.reload();
                 })
-            })*/
+            })
         })
         $tableAdd.click(function () {
             service.getAddGoodsView(function (data) {
@@ -167,10 +167,10 @@ var marketTableIndex,
             } else if(layEvent === 'del'){ //删除
                 layer.confirm('确定要删除此项吗？', function(index){
                     var param = {
-                        exp_id: obj.data.expp_id.toString()
+                        id: obj.data.goods_id.toString()
                     };
-                    service.delete(param, function (data) {
-                        if(data.code == 1){
+                    service.deleteGoods(param, function (data) {
+                        if(!isNaN(data.error) || data.code == 1){
                             layer.msg("删除失败");
                             return
                         }
@@ -332,6 +332,16 @@ function initService(r) {
          */
         addGoods: function (param,callback) {
             $.post(route + "/addGoods", param , function (data) {
+                callback(data);
+            });
+        },
+        /**
+         * 删除商品 韦德 2018年8月3日21:47:43
+         * @param param
+         * @param callback
+         */
+        deleteGoods: function (param, callback) {
+            $.get(r + "/deleteGoods", param, function (data) {
                 callback(data);
             });
         },
@@ -524,6 +534,10 @@ function resetPager() {
     });
 }
 
+/**
+ * 获取商品表格列属性
+ * @returns {*[]}
+ */
 function getGoodsTableColumns() {
     return [[
         {type: "numbers"}

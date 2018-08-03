@@ -21,7 +21,6 @@ import java.util.List;
 @Mapper
 public interface ExpressGoodsMapper extends MyMapper<Member> {
 
-    /*@Select("SELECT * FROM tb_express_goods WHERE isDelete=0 ${condition} LIMIT #{page},${limit}")*/
     @Select("SELECT t1.*,t2.`name` AS category_name,t3.`name` AS expp_name  " +
             "FROM tb_express_goods t1 " +
             "LEFT JOIN tb_business_brands t2 ON t1.category_id = t2.business_id " +
@@ -58,4 +57,12 @@ public interface ExpressGoodsMapper extends MyMapper<Member> {
      * @return
      */
     int insertSingle(ExpressGoods v);
+
+    @Update("UPDATE tb_express_goods SET isEnable=0,isDelete=1 WHERE goods_id IN(${id})")
+    /**
+     * 删除商品 韦德 2018年8月3日21:50:01
+     * @param expp_id
+     * @return
+     */
+    int deleteBy(@Param("id") String id);
 }

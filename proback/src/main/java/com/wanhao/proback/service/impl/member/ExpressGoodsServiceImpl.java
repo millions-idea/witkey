@@ -12,9 +12,13 @@ import com.wanhao.proback.bean.member.ExpressGoods;
 import com.wanhao.proback.bean.member.ExpressGoodsView;
 import com.wanhao.proback.dao.member.ExpressGoodsMapper;
 import com.wanhao.proback.service.member.ExpressGoodsService;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections.Transformer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -47,7 +51,7 @@ public class ExpressGoodsServiceImpl implements ExpressGoodsService {
         // 封装查询条件
         String where = " AND 1=1";
         if(condition != null) {
-            where = " AND  t3.`name` LIKE '%" + condition + "%' OR t1.`name` LIKE '%" + condition + "%' OR t1.goods_id LIKE '%" + condition + "%'";
+            where = " AND  (t3.`name` LIKE '%" + condition + "%' OR t1.`name` LIKE '%" + condition + "%' OR t1.goods_id LIKE '%" + condition + "%') ";
         }
 
         List<ExpressGoodsView> expressGoodsViews = expressGoodsMapper.selectLimit(page, limit, where);
@@ -69,6 +73,17 @@ public class ExpressGoodsServiceImpl implements ExpressGoodsService {
     @Override
     public int getGoodsCount() {
         return expressGoodsMapper.count();
+    }
+
+    /**
+     * 删除商品 韦德 2018年8月3日21:49:02
+     *
+     * @param id
+     */
+    @Override
+    public void deleteBy(String id) {
+        int res = expressGoodsMapper.deleteBy(id);
+        if(res <= 0) throw new RuntimeException("删除失败");
     }
 
     @Override

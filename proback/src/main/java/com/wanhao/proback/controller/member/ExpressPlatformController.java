@@ -217,4 +217,15 @@ public class ExpressPlatformController {
     }
 
 
+    /**
+     * 删除商品(支持多个) 韦德 2018年8月3日21:48:01
+     * @param id
+     * @return
+     */
+    @GetMapping("/deleteGoods")
+    @ResponseBody
+    public JsonResult deleteGoods(String id){
+        expressGoodsService.deleteBy(id);
+        return new JsonResult(0);
+    }
 }
