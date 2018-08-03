@@ -50,7 +50,7 @@ public interface ExpressGoodsMapper extends MyMapper<Member> {
      */
     int updateSingle(ExpressGoods v);
 
-    @Insert("INSERT INTO tb_express_goods(expp_id,category_id,name,price,rate,isEnable,isDelete) VALUES(#{expp_id}, #{category_id}, #{name}, #{price}, #{rate}, 1, 0)")
+    @Insert("INSERT INTO tb_express_goods(expp_id,category_id,name,price,rate,isEnable,isDelete) VALUES(#{expp_id}, #{category_id}, #{name}, #{price}, #{rate}, ${isEnable}, 0)")
     /**
      * 新增商品 韦德 2018年8月3日17:15:08
      * @param v
@@ -61,7 +61,7 @@ public interface ExpressGoodsMapper extends MyMapper<Member> {
     @Update("UPDATE tb_express_goods SET isEnable=0,isDelete=1 WHERE goods_id IN(${id})")
     /**
      * 删除商品 韦德 2018年8月3日21:50:01
-     * @param expp_id
+     * @param id
      * @return
      */
     int deleteBy(@Param("id") String id);

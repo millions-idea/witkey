@@ -248,13 +248,7 @@ function initService(r) {
             $.get(route + "/get",function (data) {
                 if(data.error != null && data.error == 1) return;
                 if(data.code == 0){
-                    var arr = new Array();
-                    data.data.forEach(function(item){
-                        if(item.isEnable == 1){
-                            arr.push(item);
-                        }
-                    })
-                    callback(arr);
+                    callback(data.data);
                 }
             });
         },
@@ -303,7 +297,13 @@ function initService(r) {
          */
         getBusinesses: function(param, callback) {
             $.get("/business-brands/get",param, function (data) {
-                callback(data);
+                var arr = new Array();
+                data.data.forEach(function(item){
+                    if(item.isEnable == 1){
+                        arr.push(item);
+                    }
+                })
+                callback(arr);
             })
         },
         /**
@@ -451,10 +451,10 @@ function initMarketDataTable(url,callback,loadDone) {
  */
 function loadTable(index,id,elem,cols,url,loadDone) {
     index.reload({
-        elem: '#goods-data-table'
+        elem: elem
         , height: 650    //容器高度
         , cols: cols
-        , id: 'goods-data-table'
+        , id: id
         , url: url
         , method: 'get'
         , page: true

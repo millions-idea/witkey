@@ -30,7 +30,7 @@ public interface ExpressPlatformMapper  extends MyMapper<Member>{
      */
     List<ExpressPlatform> selectLimit(@Param("page") Integer page, @Param("limit") String limit,@Param("condition")  String condition);
 
-    @Insert("INSERT INTO tb_express_platforms(`name`,url,isEnable) VALUES(#{name},#{url},1)")
+    @Insert("INSERT INTO tb_express_platforms(`name`,url,isEnable) VALUES(#{name},#{url},${isEnable})")
             @Options(keyProperty = "expp_id",useGeneratedKeys = true)
     /**
      * 插入记录返回主键ID 韦德 2018年8月1日15:30:13

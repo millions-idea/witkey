@@ -26,7 +26,8 @@ CREATE TABLE `tb_express_goods` (
   `isEnable` int(11) DEFAULT '1' COMMENT '状态',
   `isDelete` int(11) DEFAULT '0' COMMENT '是否删除',
   PRIMARY KEY (`goods_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='快递平台商品表';
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COMMENT='快递平台商品表';
+
 
 
 
@@ -35,13 +36,16 @@ CREATE TABLE `tb_express_goods` (
 CREATE TABLE `tb_business_brands` (
   `business_id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(32) NOT NULL COMMENT '电商公司名称',
+  `isEnable` int(11) DEFAULT '1' COMMENT '状态',
+  `isDelete` int(11) DEFAULT '0' COMMENT '是否删除',
   PRIMARY KEY (`business_id`),
   UNIQUE KEY `uq_name` (`name`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='电商公司品牌表';
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='品牌电商公司表';
 
 
 
-INSERT INTO `lianmeng`.`tb_business_brands` (`business_id`, `name`) VALUES ('1', '淘宝网');
-INSERT INTO `lianmeng`.`tb_business_brands` (`business_id`, `name`) VALUES ('2', '天猫商城');
-INSERT INTO `lianmeng`.`tb_business_brands` (`business_id`, `name`) VALUES ('3', '京东商城');
-INSERT INTO `lianmeng`.`tb_business_brands` (`business_id`, `name`) VALUES ('4', '拼多多');
+
+INSERT INTO `lianmeng`.`tb_business_brands` (`business_id`, `name`, `isEnable`, `isDelete`) VALUES ('1', '淘宝网', '1', '0');
+INSERT INTO `lianmeng`.`tb_business_brands` (`business_id`, `name`, `isEnable`, `isDelete`) VALUES ('2', '天猫商城', '1', '0');
+INSERT INTO `lianmeng`.`tb_business_brands` (`business_id`, `name`, `isEnable`, `isDelete`) VALUES ('3', '京东商城', '1', '0');
+INSERT INTO `lianmeng`.`tb_business_brands` (`business_id`, `name`, `isEnable`, `isDelete`) VALUES ('4', '拼多多', '1', '0');

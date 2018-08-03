@@ -26,7 +26,7 @@ layui.define(['layer', 'element'], function (exports) {
                                 if(vo.target){
                                     view += '<a href="' + vo.href + '" target="_blank">';
                                 }else{
-                                    view += '<a href="javascript:;" href-url="' + vo.href + '">';
+                                    view += '<a href="javascript:;" lay-href="' + vo.href + '">';
                                 }
                                 view += '<i class="layui-icon">' + vo.icon + '</i>' + vo.text + '</a></dd>';
                             });
@@ -35,7 +35,7 @@ layui.define(['layer', 'element'], function (exports) {
                             if (v.target) {
                                 view += '<a href="' + v.href + '" target="_blank">';
                             } else {
-                                view += '<a href="javascript:;" href-url="' + v.href + '">';
+                                view += '<a href="javascript:;" lay-href="' + v.href + '">';
                             }
                             view += '<i class="layui-icon">' + v.icon + '</i>' + v.text + '</a>';
                         }
@@ -46,8 +46,19 @@ layui.define(['layer', 'element'], function (exports) {
                 }
                 // 添加到 HTML
                 $(document).find(".layui-nav[lay-filter=" + obj + "]").html(view);
+
                 // 更新渲染
                 element.init();
+
+                // 跳转导航
+                $(".layui-nav *[lay-href]").each(function (o) {
+                    if(location.href.indexOf($(this).attr("lay-href")) != -1){
+                        $(this).parent().removeClass("layui-this").addClass("layui-this")
+                    }
+                })
+                $(".layui-nav *[lay-href]").on("click",function () {
+                    location.href = $(this).attr("lay-href");
+                })
             },'json');
         }
         // 左侧主体菜单 [请求地址,过滤ID,是否展开,携带参数]
