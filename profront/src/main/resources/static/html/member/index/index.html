@@ -33,7 +33,7 @@
         $(document).ready(function () {
             var userresult_json = eval("("+sessionStorage.getItem("member")+")");
 
-            var stateindex_top_username = userresult_json.username
+            var stateindex_top_username = userresult_json.username;
                 +"<b></b>";
             $("#index_top_username").html(stateindex_top_username);
 
@@ -67,11 +67,9 @@
                 $("#shoper_per311").show();
                 $("#vip_update").attr("href","../usercenter/user_upgrade.html");
                 $("#update_vip").attr("href","../usercenter/user_upgrade.html");
-
             }else{
                 $("#update_vip").attr("href","../usercenter/buyer_upgrade.html");
                 $("#vip_update").attr("href","../usercenter/user_upgrade.html");
-
             }
 
 
@@ -259,8 +257,8 @@
         </div>
     </div>
 
-    <input id="member_id" type="hidden" th:value="${session.member.id}" />
-    <input id="member_username" type="hidden" th:value="${session.member.username}" />
+    <input id="member_id" type="hidden" />
+    <input id="member_username" type="hidden" />
 
 </div>
 <link rel="stylesheet" href="http://001.topaaa.com/file/script/layim/css/layui.css">

@@ -10,6 +10,8 @@ var pick_task_url = request_url +"intf_shop/pickTask";
 //任务领取
 var user_task_list = request_url +"intf_shop/getUserApplyTaskList";
 
+//任务开始
+var user_task_start = request_url +"intf_shop/getUserTaskStep";
 
 //用户信息
 var userresult_json = eval("("+sessionStorage.getItem("member")+")");
