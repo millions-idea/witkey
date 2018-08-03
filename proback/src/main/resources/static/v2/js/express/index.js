@@ -77,9 +77,9 @@ var marketTableIndex,
             } else if(layEvent === 'del'){ //删除
                 layer.confirm('确定要删除此项吗？', function(index){
                     var param = {
-                        exp_id: obj.data.expp_id.toString()
+                        id: obj.data.expp_id.toString()
                     };
-                    service.delete(param, function (data) {
+                    service.deleteBy(param, function (data) {
                         if(data.code == 1){
                             layer.msg("删除失败");
                             return
@@ -470,7 +470,7 @@ function loadTable(index,id,elem,cols,url,loadDone) {
 }
 
 /**
- * 加载销售分类数据表
+ * 加载商品数据表
  * @param url
  * @param callback
  * @param loadDone

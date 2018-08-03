@@ -109,8 +109,8 @@ public class ExpressPlatformController {
      */
     @GetMapping("/delete")
     @ResponseBody
-    public JsonResult delete(String expp_id){
-        expressPlatformService.delete(expp_id);
+    public JsonResult delete(String id){
+        expressPlatformService.delete(id);
         return new JsonResult(0);
     }
 
