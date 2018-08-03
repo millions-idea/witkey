@@ -3,7 +3,7 @@
 <mapper namespace="com.wanhao.proback.dao.member.ExpressPlatformMapper">
     <insert id="insertSingle" parameterType="com.wanhao.proback.bean.member.ExpressPlatform"
         keyColumn="expp_id" keyProperty="expp_id" useGeneratedKeys="true">
-        INSERT INTO tb_express_platforms(`name`,url,isEnabled) VALUES(#{name},#{url},#{isEnabled})
+        INSERT INTO tb_express_platforms(`name`,url,isEnable) VALUES(#{name},#{url},#{isEnable})
     </insert>
 
 </mapper>

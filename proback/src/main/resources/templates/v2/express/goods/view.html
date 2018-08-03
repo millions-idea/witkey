@@ -1,0 +1,68 @@
+<form class="layui-form layui-form-pane my-view" method="post" action="./express-platform/add"
+      enctype="application/x-www-form-urlencoded" xmlns:th="http://www.thymeleaf.org">
+    <input type="hidden" name="goods_id" th:value="${model.getGoods_id()}">
+    <div class="layui-form-item">
+        <label class="layui-form-label">品牌电商</label>
+
+        <div class="layui-input-block">
+            <input disabled="disabled" type="text" name="category_name" autocomplete="off"
+                   lay-verify="required" class="layui-input" th:value="${model.getCategory_name()}">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">空包网站</label>
+
+        <div class="layui-input-block">
+            <input disabled="disabled" type="text" name="expp_name" autocomplete="off"
+                    lay-verify="required" class="layui-input" th:value="${model.getExpp_name()}">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">物流公司</label>
+
+        <div class="layui-input-block">
+            <input disabled="disabled" type="text" name="name" autocomplete="off"
+                   lay-verify="required" class="layui-input" th:value="${model.getName()}">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">进价</label>
+
+        <div class="layui-input-block">
+            <input disabled="disabled" type="text" name="price" autocomplete="off"
+                   lay-verify="required" class="layui-input" th:value="${model.getPrice()}">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">利率</label>
+
+        <div class="layui-input-block">
+            <input disabled="disabled" type="text" name="rate" autocomplete="off"
+                   lay-verify="required" class="layui-input" th:value="${model.getRate()}">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">销售价</label>
+
+        <div class="layui-input-block">
+            <input disabled="disabled" type="text" name="sell_price" autocomplete="off"
+                   lay-verify="required" class="layui-input" th:value="${model.getSell_price()}">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">利润</label>
+
+        <div class="layui-input-block">
+            <input disabled="disabled" type="text" name="diff_price" autocomplete="off"
+                   lay-verify="required" class="layui-input" th:value='${model.getDiff_price()}'>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">状态</label>
+        <div class="layui-input-block"  >
+            <input th:id="isEnable" type="checkbox" lay-skin="switch">
+            <div th:if="${model.getIsEnable()} eq 1" class="layui-unselect layui-form-switch layui-form-onswitch" lay-skin="_switch"><em>开启</em><i></i></div>
+            <div th:if="${model.getIsEnable()} eq 0" class="layui-unselect layui-form-switch" lay-skin="_switch"><em>关闭</em><i></i></div>
+        </div>
+    </div>
+</form>

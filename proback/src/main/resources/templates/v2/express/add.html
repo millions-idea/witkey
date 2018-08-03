@@ -3,19 +3,44 @@
         <label class="layui-form-label">名称</label>
 
         <div class="layui-input-block">
-            <input type="text" id="name" autocomplete="off" placeholder="请输入快递空包网站名称" lay-verify="required" class="layui-input">
+            <input type="text" id="add-name" value="" autocomplete="off" placeholder="请输入快递空包网站名称" lay-verify="required" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">网址</label>
 
         <div class="layui-input-block">
-            <input type="text" id="url" autocomplete="off" placeholder="请输入快递空包网站地址" lay-verify="required" class="layui-input">
+            <input type="text" id="add-url" value="" autocomplete="off" placeholder="请输入快递空包网站地址" lay-verify="required" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
         <i style="line-height: 38px;">* 添加后的数据会在商家后台和前台显示</i>
-        <button onclick="service.add({ name: $('#name').val(), url: $('#url').val()})" class="layui-btn" style="float: right;">添加</button>
+        <button lay-submit lay-filter="my-form" class="layui-btn" style="float: right;">添加</button>
     </div>
 </div>
+
+<script>
+    layui.use(['form', 'layedit', 'laydate'], function(){
+        var form = layui.form,
+            layer = layui.layer
+            ,layedit = layui.layedit
+            ,laydate = layui.laydate;
+        // 表单提交验证
+        form.on('submit(my-form)',function(data){
+            service.add({
+                name: $('#add-name').val(),
+                url: $('#add-url').val()
+            }, function (data) {
+                if(!isNaN(data.error) || data.code != 0) {
+                    layer.msg("添加失败");
+                    return;
+                }
+                layer.closeAll();
+                marketTableIndex.reload();
+            })
+            return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
+        });
+        form.render();
+    });
+</script>
 
