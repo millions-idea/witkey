@@ -87,3 +87,14 @@ CREATE TABLE `tb_express_postal_address` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='快递发货地址表';
 
 
+#财务钱包表
+CREATE TABLE `tb_wallets` (
+  `wallet_id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL COMMENT '用户ID',
+  `balance` decimal(12,2) NOT NULL DEFAULT '0.00' COMMENT '余额',
+  `edit_date` datetime DEFAULT NULL COMMENT '最后更新时间',
+  `version` int(11) DEFAULT NULL,
+  PRIMARY KEY (`wallet_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='财务钱包表';
+
+
