@@ -16,12 +16,14 @@ $(function () {
                 loadDefaultTable();
                 break;
             case 1:
-                // 加载销售分类数据表
+                // 加载商品数据表
                 initGoodsDataTable(route + "/getGoods", function (form, table, layer, vipTable, tableIns) {
                     // 动态注册事件
                     var $tableDelete = $("#goods-data-table-delete"),
                         $tableAdd = $("#goods-data-table-add");
-                    $tableDelete.click(function () {
+                    $tableDelete.unbind("click");
+                    $tableAdd.unbind("click");
+                    $tableDelete.bind('click',function () {
                         layer.confirm('您确定要删除这些数据？', {
                             title: "敏感操作提示",
                             btn: ['确定','取消'],
@@ -46,7 +48,7 @@ $(function () {
                             })
                         })
                     })
-                    $tableAdd.click(function () {
+                    $tableAdd.bind('click',function () {
                         service.getAddGoodsView(function (data) {
                             layer.open({
                                 type: 1,
@@ -107,12 +109,14 @@ $(function () {
                 });
                 break;
             case 2:
-                // 加载订单数据表
-                initOrdersDataTable("./../v2/json/express/orders/index.json", function (form, table, layer, vipTable, tableIns) {
+                // 加载订单数据表 "./../v2/json/express/orders/index.json"
+                initOrdersDataTable("/express-orders/get", function (form, table, layer, vipTable, tableIns) {
                     // 动态注册事件
                     var $tableDelete = $("#orders-data-table-delete"),
                         $tableAdd = $("#orders-data-table-add");
-                    $tableDelete.click(function () {
+                    $tableDelete.unbind("click");
+                    $tableAdd.unbind("click");
+                    $tableDelete.bind('click',function () {
                         layer.confirm('您确定要删除这些数据？', {
                             title: "敏感操作提示",
                             btn: ['确定','取消'],
@@ -137,7 +141,7 @@ $(function () {
                             })
                         })
                     })
-                    $tableAdd.click(function () {
+                    $tableAdd.bind('click',function () {
                         service.getAddGoodsView(function (data) {
                             layer.open({
                                 type: 1,
@@ -157,7 +161,7 @@ $(function () {
                         var tr = obj.tr; //获得当前行 tr 的DOM对象
 
                         if(layEvent === 'detail'){ //查看
-                            service.goodsView(data,function (html) {
+                            service.ordersView(data,function (html) {
                                 layer.open({
                                     type: 1,
                                     skin: 'layui-layer-rim',
@@ -183,12 +187,12 @@ $(function () {
                                 })
                             });
                         } else if(layEvent === 'edit'){ //编辑
-                            service.getGoodsEditView(data, function (html) {
+                            service.getOrdersEditView(data, function (html) {
                                 layer.open({
                                     type: 1,
                                     skin: 'layui-layer-rim',
                                     title: '编辑',
-                                    area: ['420px', 'auto'],
+                                    area: ['750px', 'auto'],
                                     shadeClose:true,
                                     content: html
                                 });
@@ -362,6 +366,27 @@ function initService(r) {
                 callback(data);
             });
         },
+        /**
+         * 预览订单 韦德 2018年8月4日16:37:04
+         * @param param
+         * @param callback
+         */
+        ordersView: function (param, callback) {
+            $.get("./express-orders/view", param, function (data) {
+                callback(data);
+            });
+        },
+        /**
+         * 编辑订单视图 韦德 2018年8月4日18:12:00
+         * @param param
+         * @param callback
+         */
+        getOrdersEditView: function (param, callback) {
+            $.get("./express-orders/editView", param, function (data) {
+                callback(data);
+            });
+        },
+
     }
 }
 
@@ -407,11 +432,12 @@ function initMarketDataTable(url,callback,loadDone) {
         , {field: 'isEnable', title: '状态', width: 120, templet: function (d) {
                 return d.isEnable != null  && d.isEnable == 1 ? "启用" : "禁用";
             }}
-        , {fixed: 'right', title: '操作', width: 160, align: 'center', toolbar: '#barOption'}
+        , {title: '操作', width: 160, align: 'center', toolbar: '#barOption'}
     ]];
 
     // 注册查询事件
-    $queryButton.click(function () {
+    $queryButton.unbind('click');
+    $queryButton.bind('click',function () {
         $queryButton.attr("disabled",true);
         loadTable(marketTableIndex,"market-data-table", "#market-data-table", cols, url + "?condition=" + $queryCondition.val(), function (res, curr, count) {
             $queryButton.removeAttr("disabled");
@@ -499,7 +525,8 @@ function initGoodsDataTable(url, callback, loadDone) {
     var cols = getGoodsTableColumns();
 
     // 注册查询事件
-    $queryButton.click(function () {
+    $queryButton.unbind('click');
+    $queryButton.bind('click',function () {
         $queryButton.attr("disabled",true);
         loadTable(goodsTableIndex,"goods-data-table", "#goods-data-table", cols, url + "?condition=" + $queryCondition.val(), function (res, curr, count) {
             $queryButton.removeAttr("disabled");
@@ -558,7 +585,8 @@ function initOrdersDataTable(url, callback, loadDone) {
     var cols = getOrdersTableColumns();
 
     // 注册查询事件
-    $queryButton.click(function () {
+    $queryButton.unbind('click');
+    $queryButton.bind('click',function () {
         $queryButton.attr("disabled",true);
         loadTable(goodsTableIndex,"orders-data-table", "#orders-data-table", cols, url + "?condition=" + $queryCondition.val(), function (res, curr, count) {
             $queryButton.removeAttr("disabled");
@@ -642,7 +670,7 @@ function getGoodsTableColumns() {
         , {field: 'isEnable', title: '状态', width: 120, templet: function (d) {
                 return d.isEnable != null  &&  d.isEnable == 1 ? "启用" : "禁用";
             }}
-        , {fixed: 'right', title: '操作', width: 160, align: 'center', toolbar: '#barOption'} //这里的toolbar值是模板元素的选择器
+        , {title: '操作', width: 160, align: 'center', toolbar: '#barOption'} //这里的toolbar值是模板元素的选择器
     ]];
 }
 
@@ -657,7 +685,7 @@ function getOrdersTableColumns() {
         , {fixed: 'left', field: 'order_id', title: 'ID', width: 80, sort: true}
         , {fixed: 'left', field: 'username', title: '用户名', width: 120}
         , {fixed: 'left', field: 'amount', title: '总计', width: 80,templet: function (d) {
-                return "<i style='font-weight: bold;color:#ff6c00;font-size:16px'>" + d.amount + "</i>"
+                return "<i style='font-weight: bold;color:#000000;font-size:16px'>" + d.amount + "</i>"
             }}
         , {field: 'real_name', title: '真实姓名', width: 120}
         , {field: 'phone', title: '手机号', width: 120}
@@ -666,7 +694,7 @@ function getOrdersTableColumns() {
                 var str = "待发货";
                 switch (d.status){
                     case 0:
-                        str = "<span style='color:#8d8d8d;'>" + "待发货" + "</span>"
+                        str = "<span style='color:#3337d4;'>" + "待发货" + "</span>"
                         break;
                     case 1:
                         str = "<span style='color:#009b1a;'>" + "已发货" + "</span>"
@@ -675,7 +703,7 @@ function getOrdersTableColumns() {
                         str = "<span style='color:#000;'>" + "已拒绝" + "</span>"
                         break;
                     case 3:
-                        str = "<span style='color:#8d8d8d;'>" + "已取消" + "</span>"
+                        str = "<span style='color:#e83535;'>" + "已取消" + "</span>"
                         break;
                     default:
                         str = "未知";
@@ -687,7 +715,9 @@ function getOrdersTableColumns() {
         , {field: 'recv_address', title: '收货地址', width: 340}
         , {field: 'address_remark', title: '备注', width: 240}
         , {field: 'send_address', title: '发货地址', width: 340}
-        , {field: 'edit_date', title: '最后更新时间', width: 240}
+        , {field: 'edit_date', title: '最后更新时间', width: 240, templet: function (d) {
+                return new Date(d.edit_date).format('yyyy-MM-dd hh:mm:ss');
+        }}
         , {field: 'isEnable', fixed: 'right', align:"center", title: '状态', width: 80, templet: function (d) {
                 return d.isEnable != null  &&  d.isEnable == 1 ? "启用" : "禁用";
             }}
@@ -705,7 +735,9 @@ function loadDefaultTable() {
         // 动态注册事件
         var $tableDelete = $("#market-data-table-delete"),
             $tableAdd = $("#market-data-table-add");
-        $tableDelete.click(function () {
+        $tableDelete.unbind("click");
+        $tableAdd.unbind("click");
+        $tableDelete.bind('click',function () {
             layer.confirm('您确定要删除这些数据？', {
                 title: "敏感操作提示",
                 btn: ['确定','取消'],
@@ -730,7 +762,7 @@ function loadDefaultTable() {
                 })
             })
         })
-        $tableAdd.click(function () {
+        $tableAdd.bind('click',function () {
             service.getAddView(function (data) {
                 layer.open({
                     type: 1,
