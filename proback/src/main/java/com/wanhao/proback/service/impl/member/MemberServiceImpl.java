@@ -123,7 +123,8 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public void addMember(Member member) {
-        memberMapper.insertSelective(member);
+        int i = memberMapper.insertSelective(member);
+        if (i<=0) throw new RuntimeException("添加失败");
     }
 
     @Override
@@ -225,5 +226,11 @@ public class MemberServiceImpl implements MemberService {
     @Transactional(readOnly = true)
     public List<InviteResult> getInviteDataByMonth() {
         return memberMapper.getInviteDataByMonth();
+    }
+
+    @Override
+    public void delete(String id) {
+        int i = memberMapper.deleteByPrimaryKey(new Member(Integer.parseInt(id)));
+        if (i<=0) throw new RuntimeException("删除失败");
     }
 }

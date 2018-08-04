@@ -4,6 +4,8 @@ import com.github.pagehelper.PageInfo;
 import com.google.gson.JsonObject;
 import com.wanhao.proback.bean.Area;
 import com.wanhao.proback.bean.member.*;
+import com.wanhao.proback.bean.util.JsonArrayResult;
+import com.wanhao.proback.bean.util.JsonResult;
 import com.wanhao.proback.service.AreaService;
 import com.wanhao.proback.service.member.*;
 import com.wanhao.proback.utils.DateUtil;
@@ -12,6 +14,7 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
@@ -39,7 +42,77 @@ public class MemberController {
 
     private static final String PREFIX = "express/";
 
+//////////////////////////////分割线///////////////////////////////////
 
+    @GetMapping
+    public String index(){
+        return "v2/member/index";
+    }
+
+//    @RequestMapping("/get")
+//    @ResponseBody
+//    public JsonArrayResult<BusinessBrands> getBusinesses(String condition){
+//        return new JsonArrayResult(0, );
+//    }
+
+    @GetMapping("/view")
+    public String view(Member param, final Model model, BindingResult result){
+        model.addAttribute("model", param);
+        return "v2/member/view";
+    }
+
+
+    /**
+     * @return
+     */
+    @RequestMapping("/getLimit")
+    @ResponseBody
+    public JsonArrayResult<BusinessBrands> getBusinessLimit(Integer page){
+        Member member = new Member();
+        if (page!=null && page>0){
+            member.setPage(page);
+        }
+        List<Member> members = memberService.getMembers(member);
+
+        return new JsonArrayResult(0, members);
+    }
+
+    /**
+     * 删除
+     * @param id
+     * @return
+     */
+    @GetMapping("/delete")
+    @ResponseBody
+    public JsonResult delete(String id){
+        memberService.delete(id);
+        return new JsonResult(0);
+    }
+
+    @GetMapping("/addView")
+    public String addView(){
+        return "v2/member/add";
+    }
+
+    @GetMapping("/editView")
+    public String editView(Member param, final Model model,BindingResult result){
+        model.addAttribute("model", param);
+        return "v2/member/edit";
+    }
+
+    /**
+     * 添加会员
+     * @param param
+     * @return
+     */
+    @PostMapping("/add")
+    @ResponseBody
+    public JsonResult add(Member param) {
+        memberService.addMember(param);
+        return new JsonResult(0);
+    }
+
+//////////////////////////////分割线///////////////////////////////////
     @RequestMapping(value = "forbidden")
     public String toForbidden(Model model) {
         //查询出来

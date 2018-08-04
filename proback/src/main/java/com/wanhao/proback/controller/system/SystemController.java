@@ -1,6 +1,7 @@
 package com.wanhao.proback.controller.system;
 
 import com.wanhao.proback.bean.Setting;
+import com.wanhao.proback.bean.util.JsonResult;
 import com.wanhao.proback.service.SettingService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * Created by LiuLiHao on 2018/7/20 15:55.
@@ -19,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class SystemController {
 
-    private static final String PREFIX = "system/";
+    private static final String PREFIX = "v2/setting/tixian/";
 
 
     @Autowired
@@ -35,7 +37,7 @@ public class SystemController {
         //放入前台
         model.addAttribute("setting",setting);
 
-        return PREFIX+ "tixian-setting";
+        return PREFIX+ "index";
     }
 
     /**
@@ -67,6 +69,31 @@ public class SystemController {
 
         return PREFIX+ "tixian-setting";
     }
+
+    /**
+     * 编辑视图
+     * @param param
+     * @param model
+     * @return
+     */
+    @GetMapping("/editView")
+    public String editView(Setting param, final Model model){
+        model.addAttribute("model", param);
+        return PREFIX+"edit";
+    }
+
+    /**
+     * 提交编辑提现设置
+     * @param param
+     * @return
+     */
+    @PostMapping("/edit")
+    @ResponseBody
+    public JsonResult edit(Setting param){
+        settingService.update(param);
+        return new JsonResult(0);
+    }
+
 
     /**
      * 网站设置

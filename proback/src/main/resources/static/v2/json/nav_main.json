@@ -12,6 +12,10 @@
           "text": "快递空包",
           "icon": "&#xe621;",
           "href": "/express-platform"
+        },{
+          "text": "提现设置",
+          "icon": "&#xe621;",
+          "href": "/system/tixian"
         }
       ]
     },{
@@ -26,10 +30,32 @@
         }
       ]
     },{
-      "text": "预留",
+      "text": "会员管理",
       "icon": "&#xe601;",
-      "target": true,
-      "href": "￥"
+      "subset": [
+        {
+          "text": "会员列表",
+          "icon": "&#xe621;",
+          "href": "/member"
+        },{
+          "text": "会员实名认证",
+          "icon": "&#xe621;",
+          "href": "/express-platform"
+        }      ,{
+          "text": "会员买号审核",
+          "icon": "&#xe621;",
+          "href": "/express-platform"
+        },{
+          "text": "会员银行卡审核",
+          "icon": "&#xe621;",
+          "href": "/express-platform"
+        },{
+          "text": "会员提现审核",
+          "icon": "&#xe621;",
+          "href": "/express-platform"
+        }
+
+      ]
     }
   ]
 }

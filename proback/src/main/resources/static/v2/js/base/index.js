@@ -11,7 +11,7 @@ $(function () {
         // 顶部左侧菜单生成 [请求地址,过滤ID,是否展开,携带参数]
         //vipNav.top_left('./v2/json/nav_top_left.json','side-top-left',false);
         // 主体菜单生成 [请求地址,过滤ID,是否展开,携带参数]
-        vipNav.main('./v2/json/nav_main.json','side-main',true);
+        vipNav.main('/v2/json/nav_main.json','side-main',true);
 
     });
 })

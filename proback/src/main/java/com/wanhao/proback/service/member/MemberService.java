@@ -68,5 +68,6 @@ public interface MemberService {
     List<InviteResult> getInviteDataByMonth();
 
 
+    void delete(String id);
 
 }

@@ -1,0 +1,58 @@
+<form class="layui-form layui-form-pane my-view" method="post" action="./express-platform/add"
+      enctype="application/x-www-form-urlencoded" xmlns:th="http://www.thymeleaf.org">
+    <input type="hidden" name="id" th:value="${model.getId()}">
+    
+    <div class="layui-form-item">
+        <label class="layui-form-label">会员Id</label>
+        <div class="layui-input-block">
+            <input disabled="disabled" type="text" name="platform_name" autocomplete="off"
+                   lay-verify="required" class="layui-input" th:value="${model.getUsername()}">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">邮箱</label>
+        <div class="layui-input-block">
+            <input disabled="disabled" type="text" name="platform_name" autocomplete="off"
+                   lay-verify="required" class="layui-input" th:value="${model.getEmail()}">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">手机号</label>
+        <div class="layui-input-block">
+            <input disabled="disabled" type="text" name="platform_name" autocomplete="off"
+                   lay-verify="required" class="layui-input" th:value="${model.getMobile()}">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">最后登录IP</label>
+        <div class="layui-input-block">
+            <input disabled="disabled" type="text" name="platform_name" autocomplete="off"
+                   lay-verify="required" class="layui-input" th:value="${model.getLogin_ip()}">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">用户组</label>
+        <div class="layui-input-block">
+            <input disabled="disabled" type="text" name="platform_name" autocomplete="off"
+                   lay-verify="required" class="layui-input" th:value="${model.getVipmodel()}">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">是否是商家</label>
+        <div class="layui-input-block">
+            <input disabled="disabled" type="text" name="platform_name" autocomplete="off"
+                   lay-verify="required" class="layui-input"
+                   th:value="${model.getIs_seller()==1?'是':'否'}">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">是否封号</label>
+        <div class="layui-input-block"  >
+            <input th:id="isEnable" type="checkbox" lay-skin="switch">
+            <div th:if="${model.getStatus()} eq 1"
+                 class="layui-unselect layui-form-switch layui-form-onswitch" lay-skin="_switch"><em>开启</em><i></i></div>
+            <div th:if="${model.getStatus()} eq 0" class="layui-unselect layui-form-switch" lay-skin="_switch"><em>关闭</em><i></i></div>
+        </div>
+    </div>
+</form>
