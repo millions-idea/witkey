@@ -2,9 +2,203 @@
 var route = "./express-platform";
 var service;
 var marketTableIndex,
-    goodsTableIndex;
-(function () {
+    goodsTableIndex,
+    ordersTableIndex;
+$(function () {
     service = initService(route);
+
+    // 切换tab键
+    $("#tab-channel li").click(function () {
+        var index = $(this).index();
+        switch(index){
+            case 0:
+                // 加载默认数据表
+                loadDefaultTable();
+                break;
+            case 1:
+                // 加载销售分类数据表
+                initGoodsDataTable(route + "/getGoods", function (form, table, layer, vipTable, tableIns) {
+                    // 动态注册事件
+                    var $tableDelete = $("#goods-data-table-delete"),
+                        $tableAdd = $("#goods-data-table-add");
+                    $tableDelete.click(function () {
+                        layer.confirm('您确定要删除这些数据？', {
+                            title: "敏感操作提示",
+                            btn: ['确定','取消'],
+                            shade: 0.3,
+                            shadeClose: true
+                        },function () {
+                            var data = table.checkStatus('goods-data-table').data;
+                            var idArr = new Array();
+                            data.forEach(function (value) {
+                                idArr.push(value.goods_id);
+                            });
+                            var param = {
+                                id: idArr.join(",")
+                            };
+                            service.deleteGoods(param, function (data) {
+                                if(!isNaN(data.error) || data.code == 1){
+                                    layer.msg("删除失败");
+                                    return
+                                }
+                                layer.msg("删除成功");
+                                goodsTableIndex.reload();
+                            })
+                        })
+                    })
+                    $tableAdd.click(function () {
+                        service.getAddGoodsView(function (data) {
+                            layer.open({
+                                type: 1,
+                                skin: 'layui-layer-rim',
+                                title: '添加',
+                                area: ['420px', 'auto'],
+                                shadeClose: true,
+                                content: data
+                            });
+                        })
+                    })
+                },function (table, res, curr, count) {
+                    // 监听工具条
+                    table.on('tool(goods-data-table)', function(obj){
+                        var data = obj.data; //获得当前行数据
+                        var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
+                        var tr = obj.tr; //获得当前行 tr 的DOM对象
+
+                        if(layEvent === 'detail'){ //查看
+                            service.goodsView(data,function (html) {
+                                layer.open({
+                                    type: 1,
+                                    skin: 'layui-layer-rim',
+                                    title: '预览',
+                                    area: ['420px', 'auto'],
+                                    shadeClose:true,
+                                    content: html
+                                });
+                            })
+                        } else if(layEvent === 'del'){ //删除
+                            layer.confirm('确定要删除此项吗？', function(index){
+                                var param = {
+                                    id: obj.data.goods_id.toString()
+                                };
+                                service.deleteGoods(param, function (data) {
+                                    if(!isNaN(data.error) || data.code == 1){
+                                        layer.msg("删除失败");
+                                        return
+                                    }
+                                    layer.msg("删除成功");
+                                    obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
+                                    layer.close(index);
+                                })
+                            });
+                        } else if(layEvent === 'edit'){ //编辑
+                            service.getGoodsEditView(data, function (html) {
+                                layer.open({
+                                    type: 1,
+                                    skin: 'layui-layer-rim',
+                                    title: '编辑',
+                                    area: ['420px', 'auto'],
+                                    shadeClose:true,
+                                    content: html
+                                });
+                            });
+                        }
+                    });
+                });
+                break;
+            case 2:
+                // 加载订单数据表
+                initOrdersDataTable("./../v2/json/express/orders/index.json", function (form, table, layer, vipTable, tableIns) {
+                    // 动态注册事件
+                    var $tableDelete = $("#orders-data-table-delete"),
+                        $tableAdd = $("#orders-data-table-add");
+                    $tableDelete.click(function () {
+                        layer.confirm('您确定要删除这些数据？', {
+                            title: "敏感操作提示",
+                            btn: ['确定','取消'],
+                            shade: 0.3,
+                            shadeClose: true
+                        },function () {
+                            var data = table.checkStatus('orders-data-table').data;
+                            var idArr = new Array();
+                            data.forEach(function (value) {
+                                idArr.push(value.goods_id);
+                            });
+                            var param = {
+                                id: idArr.join(",")
+                            };
+                            service.deleteGoods(param, function (data) {
+                                if(!isNaN(data.error) || data.code == 1){
+                                    layer.msg("删除失败");
+                                    return
+                                }
+                                layer.msg("删除成功");
+                                goodsTableIndex.reload();
+                            })
+                        })
+                    })
+                    $tableAdd.click(function () {
+                        service.getAddGoodsView(function (data) {
+                            layer.open({
+                                type: 1,
+                                skin: 'layui-layer-rim',
+                                title: '添加',
+                                area: ['420px', 'auto'],
+                                shadeClose: true,
+                                content: data
+                            });
+                        })
+                    })
+                },function (table, res, curr, count) {
+                    // 监听工具条
+                    table.on('tool(orders-data-table)', function(obj){
+                        var data = obj.data; //获得当前行数据
+                        var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
+                        var tr = obj.tr; //获得当前行 tr 的DOM对象
+
+                        if(layEvent === 'detail'){ //查看
+                            service.goodsView(data,function (html) {
+                                layer.open({
+                                    type: 1,
+                                    skin: 'layui-layer-rim',
+                                    title: '预览',
+                                    area: ['420px', 'auto'],
+                                    shadeClose:true,
+                                    content: html
+                                });
+                            })
+                        } else if(layEvent === 'del'){ //删除
+                            layer.confirm('确定要删除此项吗？', function(index){
+                                var param = {
+                                    id: obj.data.goods_id.toString()
+                                };
+                                service.deleteGoods(param, function (data) {
+                                    if(!isNaN(data.error) || data.code == 1){
+                                        layer.msg("删除失败");
+                                        return
+                                    }
+                                    layer.msg("删除成功");
+                                    obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
+                                    layer.close(index);
+                                })
+                            });
+                        } else if(layEvent === 'edit'){ //编辑
+                            service.getGoodsEditView(data, function (html) {
+                                layer.open({
+                                    type: 1,
+                                    skin: 'layui-layer-rim',
+                                    title: '编辑',
+                                    area: ['420px', 'auto'],
+                                    shadeClose:true,
+                                    content: html
+                                });
+                            });
+                        }
+                    });
+                });
+                break;
+        }
+    })
 
     // 加载快递空包公司集合
     initPlatforms(function (item) {
@@ -14,186 +208,9 @@ var marketTableIndex,
         }
     });
 
-    // 加载市场进货渠道数据表
-    initMarketDataTable(route + "/getLimit", function (form, table, layer, vipTable, tableIns) {
-        // 动态注册事件
-        var $tableDelete = $("#market-data-table-delete"),
-            $tableAdd = $("#market-data-table-add");
-        $tableDelete.click(function () {
-            layer.confirm('您确定要删除这些数据？', {
-                title: "敏感操作提示",
-                btn: ['确定','取消'],
-                shade: 0.3,
-                shadeClose: true
-            },function () {
-                var data = table.checkStatus('market-data-table').data;
-                var expIdArr = new Array();
-                data.forEach(function (value) {
-                    expIdArr.push(value.expp_id);
-                });
-                var param = {
-                    expp_id: expIdArr.join(",")
-                };
-                service.deleteBy(param, function (data) {
-                    if(!isNaN(data.error) || data.code == 1){
-                        layer.msg("删除失败");
-                        return;
-                    }
-                    layer.closeAll();
-                    marketTableIndex.reload();
-                })
-            })
-        })
-        $tableAdd.click(function () {
-            service.getAddView(function (data) {
-                layer.open({
-                    type: 1,
-                    skin: 'layui-layer-rim',
-                    title: '添加',
-                    area: ['420px', 'auto'],
-                    shadeClose: true,
-                    content: data
-                });
-            })
-        })
-    },function (table, res, curr, count) {
-        // 监听工具条
-        table.on('tool(market-data-table)', function(obj){
-            var data = obj.data; //获得当前行数据
-            var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
-            var tr = obj.tr; //获得当前行 tr 的DOM对象
-
-            if(layEvent === 'detail'){ //查看
-                service.view(data,function (html) {
-                    layer.open({
-                        type: 1,
-                        skin: 'layui-layer-rim',
-                        title: '预览',
-                        area: ['420px', 'auto'],
-                        shadeClose:true,
-                        content: html
-                    });
-                })
-            } else if(layEvent === 'del'){ //删除
-                layer.confirm('确定要删除此项吗？', function(index){
-                    var param = {
-                        id: obj.data.expp_id.toString()
-                    };
-                    service.deleteBy(param, function (data) {
-                        if(data.code == 1){
-                            layer.msg("删除失败");
-                            return
-                        }
-                        layer.msg("删除成功");
-                        obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
-                        layer.close(index);
-                    })
-                });
-            } else if(layEvent === 'edit'){ //编辑
-                service.getEditView(data, function (html) {
-                    layer.open({
-                        type: 1,
-                        skin: 'layui-layer-rim',
-                        title: '编辑',
-                        area: ['420px', 'auto'],
-                        shadeClose:true,
-                        content: html
-                    });
-                });
-            }
-        });
-    });
-
-    // 加载销售分类数据表
-    initGoodsDataTable(route + "/getGoods", function (form, table, layer, vipTable, tableIns) {
-        // 动态注册事件
-        var $tableDelete = $("#goods-data-table-delete"),
-            $tableAdd = $("#goods-data-table-add");
-        $tableDelete.click(function () {
-            layer.confirm('您确定要删除这些数据？', {
-                title: "敏感操作提示",
-                btn: ['确定','取消'],
-                shade: 0.3,
-                shadeClose: true
-            },function () {
-                var data = table.checkStatus('goods-data-table').data;
-                var idArr = new Array();
-                data.forEach(function (value) {
-                    idArr.push(value.goods_id);
-                });
-                var param = {
-                    id: idArr.join(",")
-                };
-                service.deleteGoods(param, function (data) {
-                    if(!isNaN(data.error) || data.code == 1){
-                        layer.msg("删除失败");
-                        return
-                    }
-                    layer.msg("删除成功");
-                    goodsTableIndex.reload();
-                })
-            })
-        })
-        $tableAdd.click(function () {
-            service.getAddGoodsView(function (data) {
-                layer.open({
-                    type: 1,
-                    skin: 'layui-layer-rim',
-                    title: '添加',
-                    area: ['420px', 'auto'],
-                    shadeClose: true,
-                    content: data
-                });
-            })
-        })
-    },function (table, res, curr, count) {
-        // 监听工具条
-        table.on('tool(goods-data-table)', function(obj){
-            var data = obj.data; //获得当前行数据
-            var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
-            var tr = obj.tr; //获得当前行 tr 的DOM对象
-
-            if(layEvent === 'detail'){ //查看
-                service.goodsView(data,function (html) {
-                    layer.open({
-                        type: 1,
-                        skin: 'layui-layer-rim',
-                        title: '预览',
-                        area: ['420px', 'auto'],
-                        shadeClose:true,
-                        content: html
-                    });
-                })
-            } else if(layEvent === 'del'){ //删除
-                layer.confirm('确定要删除此项吗？', function(index){
-                    var param = {
-                        id: obj.data.goods_id.toString()
-                    };
-                    service.deleteGoods(param, function (data) {
-                        if(!isNaN(data.error) || data.code == 1){
-                            layer.msg("删除失败");
-                            return
-                        }
-                        layer.msg("删除成功");
-                        obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
-                        layer.close(index);
-                    })
-                });
-            } else if(layEvent === 'edit'){ //编辑
-                service.getGoodsEditView(data, function (html) {
-                    layer.open({
-                        type: 1,
-                        skin: 'layui-layer-rim',
-                        title: '编辑',
-                        area: ['420px', 'auto'],
-                        shadeClose:true,
-                        content: html
-                    });
-                });
-            }
-        });
-    });
-})()
+    // 加载默认数据表
+    loadDefaultTable();
+})
 
 /**
  * 加载模块
@@ -390,7 +407,7 @@ function initMarketDataTable(url,callback,loadDone) {
         , {field: 'isEnable', title: '状态', width: 120, templet: function (d) {
                 return d.isEnable != null  && d.isEnable == 1 ? "启用" : "禁用";
             }}
-        , {fixed: 'right', title: '操作', width: 150, align: 'center', toolbar: '#barOption'}
+        , {fixed: 'right', title: '操作', width: 160, align: 'center', toolbar: '#barOption'}
     ]];
 
     // 注册查询事件
@@ -528,6 +545,74 @@ function initGoodsDataTable(url, callback, loadDone) {
     });
 }
 
+/**
+ * 加载订单数据表
+ * @param url
+ * @param callback
+ * @param loadDone
+ */
+function initOrdersDataTable(url, callback, loadDone) {
+    var $queryButton = $("#orders-data-table-query"),
+        $queryCondition = $("#orders-data-table-condition");
+
+    var cols = getOrdersTableColumns();
+
+    // 注册查询事件
+    $queryButton.click(function () {
+        $queryButton.attr("disabled",true);
+        loadTable(goodsTableIndex,"orders-data-table", "#orders-data-table", cols, url + "?condition=" + $queryCondition.val(), function (res, curr, count) {
+            $queryButton.removeAttr("disabled");
+        });
+    })
+
+    layui.use(['table', 'form', 'layer', 'vip_table', 'layedit', 'tree','element'], function () {
+        // 操作对象
+        var form = layui.form
+            , table = layui.table
+            , layer = layui.layer
+            , vipTable = layui.vip_table
+            , $ = layui.jquery
+            , layedit = layui.layedit
+            , element = layui.element;
+
+        // 表格渲染
+        goodsTableIndex = table.render({
+            elem: '#orders-data-table'                  //指定原始表格元素选择器（推荐id选择器）
+            , height: 650    //容器高度
+            , cols: cols
+            , id: 'orders-data-table'
+            , url: url
+            , method: 'get'
+            , page: true
+            , limits: [30, 60, 90, 150, 300]
+            , limit: 30 //默认采用30
+            , loading: false
+            , even: true
+            , done: function (res, curr, count) {
+                resetPager();
+                loadDone(table, res, curr, count);
+            }
+        });
+
+        // 刷新
+        $('#btn-refresh-orders-data-table').on('click', function () {
+            ordersTableIndex.reload();
+        });
+
+        //监听单元格编辑
+        table.on('edit(orders-data-table)', function(obj){
+            debugger;
+            var value = obj.value //得到修改后的值
+                ,data = obj.data //得到所在行所有键值
+                ,field = obj.field; //得到字段
+            layer.msg(value);
+        });
+
+        // you code ...
+        callback(form, table, layer, vipTable, ordersTableIndex);
+    });
+}
+
 function resetPager() {
     $(".layui-table-body.layui-table-main").each(function (i, o) {
         $(o).height(569);
@@ -557,6 +642,151 @@ function getGoodsTableColumns() {
         , {field: 'isEnable', title: '状态', width: 120, templet: function (d) {
                 return d.isEnable != null  &&  d.isEnable == 1 ? "启用" : "禁用";
             }}
-        , {fixed: 'right', title: '操作', width: 150, align: 'center', toolbar: '#barOption'} //这里的toolbar值是模板元素的选择器
+        , {fixed: 'right', title: '操作', width: 160, align: 'center', toolbar: '#barOption'} //这里的toolbar值是模板元素的选择器
     ]];
+}
+
+/**
+ * 获取订单表格列属性
+ * @returns {*[]}
+ */
+function getOrdersTableColumns() {
+    return [[
+        {fixed: 'left', type: "numbers"}
+        , {fixed: 'left', type: "checkbox"}
+        , {fixed: 'left', field: 'order_id', title: 'ID', width: 80, sort: true}
+        , {fixed: 'left', field: 'username', title: '用户名', width: 120}
+        , {fixed: 'left', field: 'amount', title: '总计', width: 80,templet: function (d) {
+                return "<i style='font-weight: bold;color:#ff6c00;font-size:16px'>" + d.amount + "</i>"
+            }}
+        , {field: 'real_name', title: '真实姓名', width: 120}
+        , {field: 'phone', title: '手机号', width: 120}
+        , {field: 'express_id', title: '运单号', width: 160, edit: 'text'}
+        , {field: 'status', title: '订单状态', width: 120, templet: function (d) {
+                var str = "待发货";
+                switch (d.status){
+                    case 0:
+                        str = "<span style='color:#8d8d8d;'>" + "待发货" + "</span>"
+                        break;
+                    case 1:
+                        str = "<span style='color:#009b1a;'>" + "已发货" + "</span>"
+                        break;
+                    case 2:
+                        str = "<span style='color:#000;'>" + "已拒绝" + "</span>"
+                        break;
+                    case 3:
+                        str = "<span style='color:#8d8d8d;'>" + "已取消" + "</span>"
+                        break;
+                    default:
+                        str = "未知";
+                        break;
+                }
+                return str;
+            }}
+        , {field: 'orders_remark', title: '订单备注', width: 240}
+        , {field: 'recv_address', title: '收货地址', width: 340}
+        , {field: 'address_remark', title: '备注', width: 240}
+        , {field: 'send_address', title: '发货地址', width: 340}
+        , {field: 'edit_date', title: '最后更新时间', width: 240}
+        , {field: 'isEnable', fixed: 'right', align:"center", title: '状态', width: 80, templet: function (d) {
+                return d.isEnable != null  &&  d.isEnable == 1 ? "启用" : "禁用";
+            }}
+        , {fixed: 'right', title: '快捷操作', width: 150, align: 'center', toolbar: '#switchTpl'} //这里的toolbar值是模板元素的选择器
+        , {fixed: 'right', title: '操作', width: 160, align: 'center', toolbar: '#barOption'} //这里的toolbar值是模板元素的选择器
+    ]];
+}
+
+/**
+ * 加载默认表格
+ */
+function loadDefaultTable() {
+    // 加载市场进货渠道数据表
+    initMarketDataTable(route + "/getLimit", function (form, table, layer, vipTable, tableIns) {
+        // 动态注册事件
+        var $tableDelete = $("#market-data-table-delete"),
+            $tableAdd = $("#market-data-table-add");
+        $tableDelete.click(function () {
+            layer.confirm('您确定要删除这些数据？', {
+                title: "敏感操作提示",
+                btn: ['确定','取消'],
+                shade: 0.3,
+                shadeClose: true
+            },function () {
+                var data = table.checkStatus('market-data-table').data;
+                var expIdArr = new Array();
+                data.forEach(function (value) {
+                    expIdArr.push(value.expp_id);
+                });
+                var param = {
+                    expp_id: expIdArr.join(",")
+                };
+                service.deleteBy(param, function (data) {
+                    if(!isNaN(data.error) || data.code == 1){
+                        layer.msg("删除失败");
+                        return;
+                    }
+                    layer.closeAll();
+                    marketTableIndex.reload();
+                })
+            })
+        })
+        $tableAdd.click(function () {
+            service.getAddView(function (data) {
+                layer.open({
+                    type: 1,
+                    skin: 'layui-layer-rim',
+                    title: '添加',
+                    area: ['420px', 'auto'],
+                    shadeClose: true,
+                    content: data
+                });
+            })
+        })
+    },function (table, res, curr, count) {
+        // 监听工具条
+        table.on('tool(market-data-table)', function(obj){
+            var data = obj.data; //获得当前行数据
+            var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
+            var tr = obj.tr; //获得当前行 tr 的DOM对象
+
+            if(layEvent === 'detail'){ //查看
+                service.view(data,function (html) {
+                    layer.open({
+                        type: 1,
+                        skin: 'layui-layer-rim',
+                        title: '预览',
+                        area: ['420px', 'auto'],
+                        shadeClose:true,
+                        content: html
+                    });
+                })
+            } else if(layEvent === 'del'){ //删除
+                layer.confirm('确定要删除此项吗？', function(index){
+                    var param = {
+                        id: obj.data.expp_id.toString()
+                    };
+                    service.deleteBy(param, function (data) {
+                        if(data.code == 1){
+                            layer.msg("删除失败");
+                            return
+                        }
+                        layer.msg("删除成功");
+                        obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
+                        layer.close(index);
+                    })
+                });
+            } else if(layEvent === 'edit'){ //编辑
+                service.getEditView(data, function (html) {
+                    layer.open({
+                        type: 1,
+                        skin: 'layui-layer-rim',
+                        title: '编辑',
+                        area: ['420px', 'auto'],
+                        shadeClose:true,
+                        content: html
+                    });
+                });
+            }
+        });
+    });
 }

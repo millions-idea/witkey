@@ -1,7 +1,7 @@
 {
   "data": [
     {
-      "text": "客服运营",
+      "text": "基础模块管理",
       "icon": "&#xe620;",
       "subset": [
         {
@@ -20,16 +20,16 @@
       "href": "",
       "subset": [
         {
-          "text": "登录页",
+          "text": "预留",
           "icon": "&#xe621;",
-          "href": "demo/login.html"
+          "href": "#"
         }
       ]
     },{
-      "text": "加入群下载源码",
+      "text": "预留",
       "icon": "&#xe601;",
       "target": true,
-      "href": "//shang.qq.com/wpa/qunwpa?idkey=ad6ba602ae228be2222ddb804086e0cfa42da3d74e34b383b665c2bec1adfc6e"
+      "href": "￥"
     }
   ]
 }
