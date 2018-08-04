@@ -71,6 +71,7 @@ var tableIndex;
                         id: obj.data.id.toString()
                     };
                     service.deleteBy(param, function (data) {
+                        debugger
                         if(!isNaN(data.error) || data.code == 1){
                             layer.msg("删除失败");
                             return
@@ -161,6 +162,7 @@ function initService(r) {
          * @param callback
          */
         deleteBy: function (param, callback) {
+            debugger
             $.get(r + "/delete", param, function (data) {
                 callback(data);
             });

@@ -11,10 +11,10 @@ import com.wanhao.proback.service.member.*;
 import com.wanhao.proback.utils.DateUtil;
 import com.wanhao.proback.utils.ResponseUtils;
 import org.apache.commons.lang.StringUtils;
+import org.apache.ibatis.binding.BindingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
@@ -56,7 +56,7 @@ public class MemberController {
 //    }
 
     @GetMapping("/view")
-    public String view(Member param, final Model model, BindingResult result){
+    public String view(Member param, final Model model, BindingException result){
         model.addAttribute("model", param);
         return "v2/member/view";
     }
@@ -95,7 +95,7 @@ public class MemberController {
     }
 
     @GetMapping("/editView")
-    public String editView(Member param, final Model model,BindingResult result){
+    public String editView(Member param, final Model model,BindingException result){
         model.addAttribute("model", param);
         return "v2/member/edit";
     }
