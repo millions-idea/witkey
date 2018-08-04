@@ -113,9 +113,11 @@ $(function () {
                 initOrdersDataTable("/express-orders/get", function (form, table, layer, vipTable, tableIns) {
                     // 动态注册事件
                     var $tableDelete = $("#orders-data-table-delete"),
-                        $tableAdd = $("#orders-data-table-add");
+                        $tableAdd = $("#orders-data-table-add"),
+                        $tableSend = $("#orders-data-table-send");
                     $tableDelete.unbind("click");
                     $tableAdd.unbind("click");
+                    $tableSend.unbind("click");
                     $tableDelete.bind('click',function () {
                         layer.confirm('您确定要删除这些数据？', {
                             title: "敏感操作提示",
@@ -126,18 +128,18 @@ $(function () {
                             var data = table.checkStatus('orders-data-table').data;
                             var idArr = new Array();
                             data.forEach(function (value) {
-                                idArr.push(value.goods_id);
+                                idArr.push(value.order_id);
                             });
                             var param = {
                                 id: idArr.join(",")
                             };
-                            service.deleteGoods(param, function (data) {
+                            service.deleteOrders(param, function (data) {
                                 if(!isNaN(data.error) || data.code == 1){
                                     layer.msg("删除失败");
                                     return
                                 }
                                 layer.msg("删除成功");
-                                goodsTableIndex.reload();
+                                ordersTableIndex.reload();
                             })
                         })
                     })
@@ -153,6 +155,31 @@ $(function () {
                             });
                         })
                     })
+                    $tableSend.bind('click',function () {
+                        layer.confirm('您确定要对这些数据进行发货操作？', {
+                            title: "敏感操作提示",
+                            btn: ['确定','取消'],
+                            shade: 0.3,
+                            shadeClose: true
+                        },function () {
+                            var data = table.checkStatus('orders-data-table').data;
+                            var idArr = new Array();
+                            data.forEach(function (value) {
+                                idArr.push(value.order_id);
+                            });
+                            var param = {
+                                id: idArr.join(",")
+                            };
+                            service.editOrderStatus(param, function (data) {
+                                if(!isNaN(data.error) || data.code == 1){
+                                    layer.msg("发货失败");
+                                    return
+                                }
+                                layer.msg("发货成功");
+                                ordersTableIndex.reload();
+                            })
+                        })
+                    })
                 },function (table, res, curr, count) {
                     // 监听工具条
                     table.on('tool(orders-data-table)', function(obj){
@@ -166,7 +193,7 @@ $(function () {
                                     type: 1,
                                     skin: 'layui-layer-rim',
                                     title: '预览',
-                                    area: ['420px', 'auto'],
+                                    area: ['750px', 'auto'],
                                     shadeClose:true,
                                     content: html
                                 });
@@ -174,9 +201,9 @@ $(function () {
                         } else if(layEvent === 'del'){ //删除
                             layer.confirm('确定要删除此项吗？', function(index){
                                 var param = {
-                                    id: obj.data.goods_id.toString()
+                                    id: obj.data.order_id.toString()
                                 };
-                                service.deleteGoods(param, function (data) {
+                                service.deleteOrders(param, function (data) {
                                     if(!isNaN(data.error) || data.code == 1){
                                         layer.msg("删除失败");
                                         return
@@ -386,7 +413,46 @@ function initService(r) {
                 callback(data);
             });
         },
-
+        /**
+         * 编辑订单 韦德 2018年8月4日23:19:43
+         * @param param
+         * @param callback
+         */
+        editOrder: function (param,callback) {
+            $.post("./express-orders/edit", param , function (data) {
+                callback(data);
+            });
+        },
+        /**
+         * 编辑订单运单号 韦德 2018年8月4日23:25:49
+         * @param param
+         * @param callback
+         */
+        editOrderExpressId: function (param,callback) {
+            $.post("./express-orders/editExpressId", param , function (data) {
+                callback(data);
+            });
+        },
+        /**
+         * 编辑订单状态 韦德 2018年8月5日00:15:54
+         * @param param
+         * @param callback
+         */
+        editOrderStatus: function (param,callback) {
+            $.post("./express-orders/editStatuses", param , function (data) {
+                callback(data);
+            });
+        },
+        /**
+         * 删除订单 韦德 2018年8月5日00:59:22
+         * @param param
+         * @param callback
+         */
+        deleteOrders: function (param,callback) {
+            $.get("./express-orders/delete", param , function (data) {
+                callback(data);
+            });
+        },
     }
 }
 
@@ -588,7 +654,7 @@ function initOrdersDataTable(url, callback, loadDone) {
     $queryButton.unbind('click');
     $queryButton.bind('click',function () {
         $queryButton.attr("disabled",true);
-        loadTable(goodsTableIndex,"orders-data-table", "#orders-data-table", cols, url + "?condition=" + $queryCondition.val(), function (res, curr, count) {
+        loadTable(ordersTableIndex,"orders-data-table", "#orders-data-table", cols, url + "?condition=" + $queryCondition.val(), function (res, curr, count) {
             $queryButton.removeAttr("disabled");
         });
     })
@@ -604,7 +670,7 @@ function initOrdersDataTable(url, callback, loadDone) {
             , element = layui.element;
 
         // 表格渲染
-        goodsTableIndex = table.render({
+        ordersTableIndex = table.render({
             elem: '#orders-data-table'                  //指定原始表格元素选择器（推荐id选择器）
             , height: 650    //容器高度
             , cols: cols
@@ -629,11 +695,35 @@ function initOrdersDataTable(url, callback, loadDone) {
 
         //监听单元格编辑
         table.on('edit(orders-data-table)', function(obj){
-            debugger;
             var value = obj.value //得到修改后的值
                 ,data = obj.data //得到所在行所有键值
                 ,field = obj.field; //得到字段
-            layer.msg(value);
+            service.editOrderExpressId({
+                order_id: data.order_id,
+                user_id: data.user_id,
+                express_id: value
+            },function (data) {
+                if(!isNaN(data.error) || data.code == 1){
+                    layer.msg("编辑失败");
+                    return
+                }
+                layer.msg("编辑成功");
+            })
+        });
+
+        // 开关监听
+        form.on("switch(item-status)",function (obj) {
+            service.editOrderStatus({
+                order_id: $(this).data("order_id"),
+                user_id: $(this).data("user_id"),
+                status: obj.elem.checked ? 1 : 0
+            },function (data) {
+                if(!isNaN(data.error) || data.code == 1){
+                    layer.msg("编辑失败");
+                    return;
+                }
+                layer.msg("编辑成功，如需查看最新数据，请点击刷新按钮");
+            })
         });
 
         // you code ...
@@ -721,7 +811,9 @@ function getOrdersTableColumns() {
         , {field: 'isEnable', fixed: 'right', align:"center", title: '状态', width: 80, templet: function (d) {
                 return d.isEnable != null  &&  d.isEnable == 1 ? "启用" : "禁用";
             }}
-        , {fixed: 'right', title: '快捷操作', width: 150, align: 'center', toolbar: '#switchTpl'} //这里的toolbar值是模板元素的选择器
+        , {fixed: 'right', title: '快捷操作', width: 150, align: 'center', templet: function (obj) {
+                return getSendOutButton(obj);
+            }} //这里的toolbar值是模板元素的选择器
         , {fixed: 'right', title: '操作', width: 160, align: 'center', toolbar: '#barOption'} //这里的toolbar值是模板元素的选择器
     ]];
 }
@@ -821,4 +913,28 @@ function loadDefaultTable() {
             }
         });
     });
+}
+
+
+/**
+ * 获取发货按钮
+ */
+function getSendOutButton(param) {
+    var html = " <input type=\"checkbox\" name=\"item-status\" lay-filter=\"item-status\"\n" +
+        "               data-order_id=\"" + param.order_id + "\"\n" +
+        "               data-user_id=\"" + param.user_id + "\"\n";
+    if(param.status == 1){
+        html +=         "               lay-skin=\"switch\" lay-text=\"已发货|待发货\"\n";
+        html += " checked";
+    }else if (param.status == 2){
+        html +=         "               lay-skin=\"switch\" lay-text=\"允许操作|禁止操作\"\n";
+        html += " disabled";
+    }else if (param.status == 3){
+        html +=         "               lay-skin=\"switch\" lay-text=\"允许操作|禁止操作\"\n";
+        html += " disabled";
+    }else{
+        html +=         "               lay-skin=\"switch\" lay-text=\"已发货|待发货\"\n";
+    }
+    html += ">";
+    return html;
 }

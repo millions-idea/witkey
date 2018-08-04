@@ -65,8 +65,14 @@ public class ExpressOrdersServiceImpl implements ExpressOrdersService {
         // 封装查询条件
         String where = " AND 1=1";
         if(condition != null) {
-            where = " AND (" + ConditionUtil.like("remark", condition, true, "t1");
-            where += " OR " + ConditionUtil.like("order_id", condition, true, "t1") + ")";
+            where = " AND (" + ConditionUtil.like("username", condition, true, "t3");
+            where += " OR " + ConditionUtil.like("real_name", condition, true, "t2");
+            where += " OR " + ConditionUtil.like("phone", condition, true, "t2");
+            where += " OR " + ConditionUtil.like("address", condition, true, "t2");
+            where += " OR " + ConditionUtil.like("recv_address", condition, true, "t1");
+            where += " OR " + ConditionUtil.like("remark", condition, true, "t1");
+            where += " OR " + ConditionUtil.like("remark", condition, true, "t2");
+            where += " OR " + ConditionUtil.like("express_id", condition, true, "t1") + ")";
         }
 
         List<ExpressOrdersView> list = expressOrdersMapper.selectLimit(page, limit, where);
@@ -93,6 +99,40 @@ public class ExpressOrdersServiceImpl implements ExpressOrdersService {
     @Override
     public int getOrdersCount() {
         return expressOrdersMapper.count();
+    }
+
+    /**
+     * 编辑运单号 韦德 2018年8月4日23:24:46
+     *
+     * @param param
+     */
+    @Override
+    public void updateExpressId(ExpressOrders param) {
+        int res = expressOrdersMapper.updateExpressId(param);
+        if(res <= 0) throw new RuntimeException("编辑失败");
+    }
+
+    /**
+     * 编辑状态 韦德 2018年8月5日00:14:32
+     *
+     * @param param
+     */
+    @Override
+    public void updateStatus(ExpressOrders param) {
+        param.setExpress_id("test123456");
+        int res = expressOrdersMapper.updateStatus(param);
+        if(res <= 0) throw new RuntimeException("编辑失败");
+    }
+
+    /**
+     * 批量编辑状态 韦德 2018年8月5日01:04:28
+     *
+     * @param id
+     */
+    @Override
+    public void updateStatuses(String id) {
+        int res = expressOrdersMapper.updateStatuses(id);
+        if(res <= 0) throw new RuntimeException("编辑失败");
     }
 
     @Override

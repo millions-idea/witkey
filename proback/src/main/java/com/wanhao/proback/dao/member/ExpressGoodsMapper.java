@@ -58,7 +58,7 @@ public interface ExpressGoodsMapper extends MyMapper<Member> {
      */
     int insertSingle(ExpressGoods v);
 
-    @Update("UPDATE tb_express_goods SET isEnable=0,isDelete=1 WHERE goods_id IN(${id})")
+    @Update("UPDATE tb_express_goods SET edit_date=NOW(),isEnable=0,isDelete=1 WHERE goods_id IN(${id})")
     /**
      * 删除商品 韦德 2018年8月3日21:50:01
      * @param id

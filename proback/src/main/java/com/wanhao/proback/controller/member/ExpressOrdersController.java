@@ -86,7 +86,7 @@ public class ExpressOrdersController {
      */
     @PostMapping("/edit")
     @ResponseBody
-    public JsonResult editOrders(ExpressOrders param){
+    public JsonResult edit(ExpressOrders param){
         expressOrdersService.update(param);
         return new JsonResult(0);
     }
@@ -124,6 +124,42 @@ public class ExpressOrdersController {
         return new JsonResult(0);
     }
 
+
+    /**
+     * 编辑运单号 韦德 2018年8月4日23:24:12
+     * @param param
+     * @return
+     */
+    @PostMapping("/editExpressId")
+    @ResponseBody
+    public JsonResult editExpressId(ExpressOrders param){
+        expressOrdersService.updateExpressId(param);
+        return new JsonResult(0);
+    }
+
+    /**
+     * 编辑状态 韦德 2018年8月5日00:14:10
+     * @param param
+     * @return
+     */
+    @PostMapping("/editStatus")
+    @ResponseBody
+    public JsonResult editStatus(ExpressOrders param){
+        expressOrdersService.updateStatus(param);
+        return new JsonResult(0);
+    }
+
+    /**
+     * 编辑状态 韦德 2018年8月5日00:14:10
+     * @param param
+     * @return
+     */
+    @PostMapping("/editStatuses")
+    @ResponseBody
+    public JsonResult editStatuses(String id){
+        expressOrdersService.updateStatuses(id);
+        return new JsonResult(0);
+    }
 
     static class Utility {
         /**

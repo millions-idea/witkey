@@ -87,17 +87,16 @@
                    <!-- 工具集 -->
                    <div class="my-btn-box">
                     <span class="fl">
-                        <a id="express-data-table-delete" class="layui-btn layui-btn-danger radius btn-delect">批量删除</a>
-                        <a id="express-data-table-send" class="layui-btn  layui-btn-normal radius">批量发货</a>
-                        <a id="express-data-table-add" class="layui-btn btn-add btn-default" >添加</a>
-                        <a class="layui-btn btn-add btn-default" id="btn-refresh-express-data-table"><i class="layui-icon layui-icon-refresh"></i></a>
+                        <a id="orders-data-table-delete" class="layui-btn layui-btn-danger radius btn-delect">批量删除</a>
+                        <a id="orders-data-table-send" class="layui-btn  layui-btn-normal radius">批量发货</a>
+                        <a class="layui-btn btn-add btn-default" id="btn-refresh-orders-data-table"><i class="layui-icon layui-icon-refresh"></i></a>
                     </span>
                        <span class="fr">
                         <span class="layui-form-label">搜索条件：</span>
                         <div class="layui-input-inline">
-                            <input id="express-data-table-condition" type="text" autocomplete="off" placeholder="请输入搜索条件" class="layui-input">
+                            <input id="orders-data-table-condition" type="text" autocomplete="off" placeholder="请输入搜索条件" class="layui-input">
                         </div>
-                        <button id="express-data-table-query" class="layui-btn mgl-20">查询</button>
+                        <button id="orders-data-table-query" class="layui-btn mgl-20">查询</button>
                     </span>
                    </div>
                    <!-- 表格 -->
@@ -118,9 +117,6 @@
         <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
         <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
         <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
-    </script>
-    <script type="text/html" id="switchTpl">
-        <input type="checkbox" name="sex" value="{{d.id}}" lay-skin="switch" lay-text="已发货|待发货" lay-filter="sexDemo" {{ d.id == 10003 ? 'checked' : '' }}>
     </script>
 </th:block>
 </body>

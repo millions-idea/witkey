@@ -39,4 +39,22 @@ public interface ExpressOrdersService extends BaseService<ExpressOrders> {
      * @return
      */
     int getOrdersCount();
+
+    /**
+     * 编辑运单号 韦德 2018年8月4日23:24:46
+     * @param param
+     */
+    void updateExpressId(ExpressOrders param);
+
+    /**
+     * 编辑状态 韦德 2018年8月5日00:14:32
+     * @param param
+     */
+    void updateStatus(ExpressOrders param);
+
+    /**
+     * 批量编辑状态 韦德 2018年8月5日01:04:28
+     * @param id
+     */
+    void updateStatuses(String id);
 }
