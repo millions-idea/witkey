@@ -7,18 +7,18 @@
  */
 package com.wanhao.proback.service.impl.finance;
 
-import com.wanhao.proback.dao.member.MoneysMapper;
-import com.wanhao.proback.dao.member.TransactionsMapper;
-import com.wanhao.proback.dao.member.WalletsMapper;
+import com.wanhao.proback.dao.finance.MoneysMapper;
+import com.wanhao.proback.dao.finance.TransactionsMapper;
+import com.wanhao.proback.dao.finance.WalletsMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /***
  * 财务模块抽象业务类
  */
 public abstract class FinanceAbstract {
-    private final TransactionsMapper transactionsMapper;
-    private final MoneysMapper moneysMapper;
-    private final WalletsMapper walletsMapper;
+    protected final TransactionsMapper transactionsMapper;
+    protected final MoneysMapper moneysMapper;
+    protected final WalletsMapper walletsMapper;
 
     @Autowired
     protected FinanceAbstract(TransactionsMapper transactionsMapper, MoneysMapper moneysMapper, WalletsMapper walletsMapper) {

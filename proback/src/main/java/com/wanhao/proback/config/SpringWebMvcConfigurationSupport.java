@@ -10,13 +10,21 @@ package com.wanhao.proback.config;
 import com.wanhao.proback.interceptor.FinanceAuthenticationInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 
 @Configuration
 public class SpringWebMvcConfigurationSupport extends WebMvcConfigurationSupport {
+
+    /**
+     * 注入财务验签-isOpen可以控制验签系统的开闭
+     * @return
+     */
+    @Bean
+    public FinanceAuthenticationInterceptor FinanceAuthenticationInterceptor() {
+        return new FinanceAuthenticationInterceptor(true);
+    }
 
 
     @Override
@@ -35,9 +43,5 @@ public class SpringWebMvcConfigurationSupport extends WebMvcConfigurationSupport
         super.addResourceHandlers(registry);
     }
 
-    @Bean
-    public FinanceAuthenticationInterceptor FinanceAuthenticationInterceptor() {
-        return new FinanceAuthenticationInterceptor();
-    }
 
 }

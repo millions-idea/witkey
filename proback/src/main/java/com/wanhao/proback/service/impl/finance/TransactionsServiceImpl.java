@@ -5,11 +5,11 @@
  * @date 2018/8/5
  * @desc
  */
-package com.wanhao.proback.service.impl.member;
+package com.wanhao.proback.service.impl.finance;
 
 import com.wanhao.proback.bean.member.Transactions;
 import com.wanhao.proback.service.BaseServiceImpl;
-import com.wanhao.proback.service.member.TransactionsService;
+import com.wanhao.proback.service.finance.TransactionsService;
 import org.springframework.stereotype.Service;
 
 /***

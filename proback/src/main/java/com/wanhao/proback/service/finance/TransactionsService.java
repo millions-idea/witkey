@@ -5,7 +5,7 @@
  * @date 2018/8/5
  * @desc
  */
-package com.wanhao.proback.service.member;
+package com.wanhao.proback.service.finance;
 
 import com.wanhao.proback.bean.member.Transactions;
 import com.wanhao.proback.service.BaseService;

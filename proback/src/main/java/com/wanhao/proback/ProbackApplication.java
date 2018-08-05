@@ -7,6 +7,7 @@ import org.springframework.boot.web.servlet.MultipartConfigFactory;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
+import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
@@ -19,12 +20,21 @@ import javax.servlet.MultipartConfigElement;
 @SpringBootApplication
 @EnableCaching
 @EnableAspectJAutoProxy
+@EnableAsync
 public class ProbackApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(ProbackApplication.class, args);
     }
 
+    /**
+     * 注入财务日志框架
+     * @return
+     */
+    @Bean
+    public FinanceLogAspectConfiguration getFinanceLogAspectConfiguration(){
+        return new FinanceLogAspectConfiguration(true);
+    }
 
     //设置ajax跨域请求
     @Bean
@@ -47,9 +57,5 @@ public class ProbackApplication {
         return factory.createMultipartConfig();
     }
 
-    @Bean
-    public FinanceLogAspectConfiguration getFinanceLogAspectConfiguration(){
-        return new FinanceLogAspectConfiguration();
-    }
 
 }

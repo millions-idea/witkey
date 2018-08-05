@@ -8,12 +8,18 @@
 package com.wanhao.proback.config;
 
 import com.wanhao.proback.annotaion.AspectLog;
+import com.wanhao.proback.bean.UserDetailView;
+import com.wanhao.proback.bean.finance.MaxExceptions;
+import com.wanhao.proback.service.finance.MaxExceptionsService;
 import com.wanhao.proback.utils.GsonUtils;
 import com.wanhao.proback.utils.RequestUtil;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -21,7 +27,6 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
-import java.util.Map;
 
 /**
  * 财务模块日志切面配置类
@@ -33,17 +38,35 @@ public class FinanceLogAspectConfiguration {
     private long endTimeMillis = 0;
     private HttpServletRequest request = null;
 
-    @Pointcut("execution(* com.wanhao.proback.service.impl.finance.*.*(..))")
-    public void point(){}
+    @Autowired
+    private MaxExceptionsService maxExceptionsService;
+
+    /**
+     * 控制是否上报数据库
+     */
+    private final Boolean isUpload;
+
+    public FinanceLogAspectConfiguration(Boolean isUpload) {
+        this.isUpload = isUpload;
+    }
+
+
+    @Pointcut(value = "execution(* com.wanhao.proback.service.impl.finance.*.*(..))")
+    public boolean point() { return false; }
 
     @Before("point()")
-    public void before(){
+    public boolean before(JoinPoint joinPoint){
+        if(!isLog(joinPoint)) return false;
+
         request = getHttpServletRequest();
         startTimeMillis = System.currentTimeMillis(); //记录方法开始执行的时间
+        return true;
     }
 
     @After("point()")
-    public void after(JoinPoint joinPoint){
+    public boolean after(JoinPoint joinPoint){
+        if(!isLog(joinPoint)) return false;
+
         request = getHttpServletRequest();
         JsonView jsonView = getJsonView(joinPoint);
         jsonView.setType("after");
@@ -55,10 +78,13 @@ public class FinanceLogAspectConfiguration {
         String body = GsonUtils.toJsonText(jsonView);
 
         logger.info(body);
+        return true;
     }
 
     @AfterReturning(pointcut = "point()",returning = "rvt")
-    public void afterReturning(JoinPoint joinPoint, Object rvt){
+    public boolean afterReturning(JoinPoint joinPoint, Object rvt){
+        if(!isLog(joinPoint)) return false;
+
         JsonView jsonView = getJsonView(joinPoint);
         jsonView.setType("afterReturning");
         jsonView.setRet(rvt);
@@ -66,17 +92,28 @@ public class FinanceLogAspectConfiguration {
 
         String body = GsonUtils.toJsonText(jsonView);
         logger.info(body);
+        return true;
     }
 
     @AfterThrowing(pointcut = "point()", throwing = "ex")
-    public void afterThrowing(JoinPoint joinPoint, Throwable ex){
+    public boolean afterThrowing(JoinPoint joinPoint, Throwable ex){
+        if(!isLog(joinPoint)) return false;
+
         JsonView jsonView = getJsonView(joinPoint);
         jsonView.setType("afterThrowing");
         jsonView.setThrowable(ex);
         if(ex == null) jsonView.setThrowable(new Throwable());
 
         String body = GsonUtils.toJsonText(jsonView);
-        logger.info(body);
+        logger.error(body);
+
+        if(isUpload){
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            UserDetailView userDetailView = (UserDetailView) authentication.getPrincipal();
+            MaxExceptions maxExceptions = new MaxExceptions(userDetailView.getUser_id(), body);
+            maxExceptionsService.asyncInsert(maxExceptions);
+        }
+        return true;
     }
 
     /**
@@ -124,6 +161,29 @@ public class FinanceLogAspectConfiguration {
         view.setArguments(arguments);
         view.setDescription(desc);
         return view;
+    }
+
+    private Boolean isLog(JoinPoint joinPoint){
+        String targetName = joinPoint.getTarget().getClass().getName();
+        String methodName = joinPoint.getSignature().getName();
+        Object[] arguments = joinPoint.getArgs();
+        Class targetClass = null;
+        try {
+            targetClass = Class.forName(targetName);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        // 获取方法描述
+        Method[] methods = targetClass.getMethods();
+        for (Method method : methods) {
+            if (method.getName().equals(methodName)) {
+                Class[] clazzs = method.getParameterTypes();
+                if (clazzs!=null&&clazzs.length == arguments.length&&method.getAnnotation(AspectLog.class)!=null) {
+                   return true;
+                }
+            }
+        }
+        return false;
     }
 
     class JsonView{

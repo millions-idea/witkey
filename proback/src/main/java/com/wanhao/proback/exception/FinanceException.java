@@ -77,7 +77,27 @@ public class FinanceException extends RuntimeException {
     }
 
     public enum Errors{
-        SIGN_ERROR("E0001");
+        /**
+         * 签名错误
+         */
+        SIGN_ERROR("E0001"),
+        /**
+         * 生成流水失败
+         */
+        CREATE_TRANSACTION("E0002"),
+        /**
+         * 增加余额失败
+         */
+        WALLET_ADD_ERROR("E0003"),
+        /**
+         * 扣减余额失败
+         */
+        WALLET_REDUCE_ERROR("E0004"),
+        /**
+         * 资金变化更新失败
+         */
+        WALLET_BALANCE_LOG("E0005");
+
 
         private String code;
 

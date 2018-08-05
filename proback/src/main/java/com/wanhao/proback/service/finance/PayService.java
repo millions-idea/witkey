@@ -16,7 +16,7 @@ import com.wanhao.proback.bean.finance.TransferParam;
 public interface PayService {
     /**
      * 转账
-     * @param transferParam
+     * @param param
      */
-    void transfer(TransferParam transferParam);
+    void transfer(TransferParam param);
 }

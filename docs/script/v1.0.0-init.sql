@@ -99,6 +99,7 @@ CREATE TABLE `tb_wallets` (
 
 
 
+
 #交易流水表
 CREATE TABLE `tb_transactions` (
   `transaction_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -125,5 +126,17 @@ CREATE TABLE `tb_moneys` (
   `add_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '交易日',
   PRIMARY KEY (`log_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='资金变化表';
+
+
+#重要异常日志表
+CREATE TABLE `tb_max_exceptions` (
+  `log_id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL COMMENT '用户id',
+  `username` varchar(20) NOT NULL COMMENT '用户名',
+  `body` text NOT NULL COMMENT '日志主体',
+  `add_date` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '上报时间',
+  PRIMARY KEY (`log_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='重要异常日志表';
+
 
 

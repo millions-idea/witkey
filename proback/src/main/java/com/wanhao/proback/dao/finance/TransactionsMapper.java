@@ -5,7 +5,7 @@
  * @date 2018/8/5
  * @desc
  */
-package com.wanhao.proback.dao.member;
+package com.wanhao.proback.dao.finance;
 
 import com.wanhao.proback.bean.member.Transactions;
 import com.wanhao.proback.utils.MyMapper;

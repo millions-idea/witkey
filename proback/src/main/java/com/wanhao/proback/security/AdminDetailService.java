@@ -1,5 +1,6 @@
 package com.wanhao.proback.security;
 
+import com.wanhao.proback.bean.UserDetailView;
 import com.wanhao.proback.bean.admin.Admin;
 import com.wanhao.proback.service.admin.AdminService;
 import org.slf4j.Logger;
@@ -32,7 +33,7 @@ public class AdminDetailService implements UserDetailsService {
         }
 
         // 封装用户信息，并返回。参数分别是：用户名，密码，用户权限
-        User user = new User(username, admin.getPassword(),
+        UserDetailView user = new UserDetailView(admin.getId(), username, admin.getPassword(),
         AuthorityUtils.commaSeparatedStringToAuthorityList("admin"));
         return user;
     }

@@ -33,6 +33,6 @@ public class PayController {
     @ResponseBody
     public JsonResult transfer(TransferParam transferParam){
         payService.transfer(transferParam);
-        return new JsonResult(1);
+        return new JsonResult(0);
     }
 }

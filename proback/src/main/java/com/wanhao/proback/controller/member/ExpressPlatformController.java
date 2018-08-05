@@ -15,6 +15,8 @@ import com.wanhao.proback.bean.util.JsonResult;
 import com.wanhao.proback.service.member.ExpressGoodsService;
 import com.wanhao.proback.service.member.ExpressPlatformService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -227,5 +229,12 @@ public class ExpressPlatformController {
     public JsonResult deleteGoods(String id){
         expressGoodsService.deleteBy(id);
         return new JsonResult(0);
+    }
+
+
+    @GetMapping("/userInfo")
+    @ResponseBody
+    public Object getCurrentUserInfo(Authentication authentication){
+        return SecurityContextHolder.getContext().getAuthentication();
     }
 }

@@ -19,30 +19,46 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.lang.reflect.Method;
-import java.util.Enumeration;
 
 /***
  * 财务验证拦截器
  */
 public class FinanceAuthenticationInterceptor implements HandlerInterceptor {
+    /**
+     * 控制验签系统开闭
+     */
+    private final Boolean isOpen;
+
+    public FinanceAuthenticationInterceptor(Boolean isOpen) {
+        this.isOpen = isOpen;
+    }
+
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
-        // 只拦截method级别的处理器
-        if (!(handler instanceof HandlerMethod)) return true;
-        // 只拦截financeToken注解过的方法
-        HandlerMethod handlerMethod = (HandlerMethod) handler;
-        Method method = handlerMethod.getMethod();
-        // 判断接口是否需要登录
-        FinanceToken financeToken = method.getAnnotation(FinanceToken.class);
-        if (financeToken != null){
-            String url = RequestUtil.getParameters(request);
-            String sign = request.getParameter("sign");
-            try {
-                if(sign != null && getDecrypt(sign).equals(url)) return true;
-            } catch (Exception e) {
-                throw new FinanceException(e, FinanceException.Errors.SIGN_ERROR, "验签失败");
+        if (isOpen){
+            // 只拦截method级别的处理器
+            if (!(handler instanceof HandlerMethod)) return true;
+            // 只拦截financeToken注解过的方法
+            HandlerMethod handlerMethod = (HandlerMethod) handler;
+            Method method = handlerMethod.getMethod();
+            // 判断接口是否需要登录
+            FinanceToken financeToken = method.getAnnotation(FinanceToken.class);
+            if (financeToken != null){
+                String url = RequestUtil.getParameters(request);
+                String sign = request.getParameter("sign");
+                try {
+                    if(sign != null && getDecrypt(sign).equals(url)) return true;
+                } catch (Exception e) {
+                    try {
+                        System.err.println("正确验签:" + getEncrypt(url));
+                    } catch (Exception e1) {}
+                    throw new FinanceException(e, FinanceException.Errors.SIGN_ERROR, "验签失败");
+                }
+                try {
+                    System.err.println("正确验签:" + getEncrypt(url));
+                } catch (Exception e1) {}
+                throw new FinanceException(FinanceException.Errors.SIGN_ERROR, "验签失败");
             }
-            throw new FinanceException(FinanceException.Errors.SIGN_ERROR, "验签失败");
         }
         return true;
     }
