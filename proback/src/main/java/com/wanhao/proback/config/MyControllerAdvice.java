@@ -62,7 +62,7 @@ public class MyControllerAdvice {
     public Map financeErrorHandler(FinanceException ex) {
         Map map = new HashMap();
         map.put("error", 1);
-        map.put("message", ex.getCode());
+        map.put("message", ex.getMsg());
         return map;
     }
 }

@@ -1,10 +1,12 @@
 package com.wanhao.proback;
 
+import com.wanhao.proback.config.FinanceLogAspectConfiguration;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.MultipartConfigFactory;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
@@ -16,6 +18,7 @@ import javax.servlet.MultipartConfigElement;
  */
 @SpringBootApplication
 @EnableCaching
+@EnableAspectJAutoProxy
 public class ProbackApplication {
 
     public static void main(String[] args) {
@@ -42,6 +45,11 @@ public class ProbackApplication {
         //设置上传总数据大小
         factory.setMaxRequestSize("5MB");
         return factory.createMultipartConfig();
+    }
+
+    @Bean
+    public FinanceLogAspectConfiguration getFinanceLogAspectConfiguration(){
+        return new FinanceLogAspectConfiguration();
     }
 
 }
