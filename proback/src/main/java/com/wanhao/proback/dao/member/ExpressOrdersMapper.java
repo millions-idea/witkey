@@ -8,8 +8,10 @@
 package com.wanhao.proback.dao.member;
 
 
+import com.wanhao.proback.bean.member.ExpressGoodsView;
 import com.wanhao.proback.bean.member.ExpressOrders;
 import com.wanhao.proback.bean.member.ExpressOrdersView;
+import com.wanhao.proback.utils.MyMapper;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -18,7 +20,7 @@ import java.util.List;
  * 快递订单仓储接口
  */
 @Mapper
-public interface ExpressOrdersMapper {
+public interface ExpressOrdersMapper extends MyMapper<ExpressOrdersView> {
     @Select("SELECT t1.*,t1.remark AS orders_remark " +
             ",t2.phone,t2.address AS send_address,t2.real_name,t2.postal_code,t2.remark AS address_remark " +
             ",t3.username " +

@@ -9,6 +9,7 @@ package com.wanhao.proback.dao.member;
 
 import com.wanhao.proback.bean.member.BusinessBrands;
 import com.wanhao.proback.bean.member.ExpressPlatform;
+import com.wanhao.proback.utils.MyMapper;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -17,7 +18,7 @@ import java.util.List;
  * 电商公司品牌仓储接口
  */
 @Mapper
-public interface BusinessBrandsMapper {
+public interface BusinessBrandsMapper extends MyMapper<BusinessBrands> {
     @Select("SELECT * FROM tb_business_brands WHERE isDelete=0 ${condition} LIMIT #{page},${limit}")
     /**
      * 查询品牌公司集合-分页 韦德 2018年8月3日11:40:57

@@ -19,7 +19,7 @@ import java.util.List;
  * 快递平台商品表仓储接口
  */
 @Mapper
-public interface ExpressGoodsMapper extends MyMapper<Member> {
+public interface ExpressGoodsMapper extends MyMapper<ExpressGoodsView> {
 
     @Select("SELECT t1.*,t2.`name` AS category_name,t3.`name` AS expp_name  " +
             "FROM tb_express_goods t1 " +

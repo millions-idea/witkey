@@ -774,9 +774,7 @@ function getOrdersTableColumns() {
         , {fixed: 'left', type: "checkbox"}
         , {fixed: 'left', field: 'order_id', title: 'ID', width: 80, sort: true}
         , {fixed: 'left', field: 'username', title: '用户名', width: 120}
-        , {fixed: 'left', field: 'amount', title: '总计', width: 80,templet: function (d) {
-                return "<i style='font-weight: bold;color:#000000;font-size:16px'>" + d.amount + "</i>"
-            }}
+        , {fixed: 'left', field: 'amount', title: '总计', width: 80}
         , {field: 'real_name', title: '真实姓名', width: 120}
         , {field: 'phone', title: '手机号', width: 120}
         , {field: 'express_id', title: '运单号', width: 160, edit: 'text'}
