@@ -1,4 +1,3 @@
-/*! 快递空包服务管理 韦德 2018年8月1日18:58:23*/
 var route = "/member";
 var service;
 var tableIndex;
@@ -6,12 +5,15 @@ var tableIndex;
     service = initService(route);
 
     // 加载数据表
-    initDataTable(route + "/getLimit", function (form, table, layer, vipTable, tableIns) {
+    initDataTable("/member/queryMemberAuth", function (form, table, layer, vipTable, tableIns) {
         // 动态注册事件
-        var $tableDelete = $("#my-data-table-delete"),
-            $tableAdd = $("#my-data-table-add");
+        var $tableDelete = $("#my-data-table-delete");
+        var  $tableReject = $("#my-data-table-reject");
+        var $rejectReason = $("#reject-reason");
+
+        //批量通过实名验证
         $tableDelete.click(function () {
-            layer.confirm('您确定要删除这些数据？', {
+            layer.confirm('您确定要通过这些认证？', {
                 title: "敏感操作提示",
                 btn: ['确定','取消'],
                 shade: 0.3,
@@ -27,26 +29,44 @@ var tableIndex;
                 };
                 service.deleteBy(param, function (data) {
                     if(!isNaN(data.error) || data.code == 1){
-                        layer.msg("删除失败");
-                        return
+                        layer.msg("更新失败");
+                        return;
                     }
-                    layer.msg("删除成功");
+                    layer.msg("更新成功");
                     tableIndex.reload();
                 })
             })
         })
-        $tableAdd.click(function () {
-            service.getAddView(function (data) {
-                layer.open({
-                    type: 1,
-                    skin: 'layui-layer-rim',
-                    title: '添加',
-                    area: ['420px', 'auto'],
-                    shadeClose: true,
-                    content: data
+
+        $tableReject.click(function () {
+            layer.confirm('您确定要拒绝这些认证？', {
+                title: "敏感操作提示",
+                btn: ['确定','取消'],
+                shade: 0.3,
+                shadeClose: true
+            },function () {
+                var data = table.checkStatus('my-data-table').data;
+                var idArr = new Array();
+                var reason = $rejectReason.val();
+
+                data.forEach(function (value) {
+                    idArr.push(value.id);
                 });
+                var param = {
+                    id: idArr.join(","),
+                    reason:reason
+                };
+                service.rejectBy(param, function (data) {
+                    if(!isNaN(data.error) || data.code == 1){
+                        layer.msg("更新失败");
+                        return;
+                    }
+                    layer.msg("更新成功");
+                    tableIndex.reload();
+                })
             })
         })
+
     },function (table, res, curr, count) {
         // 监听工具条
         table.on('tool(my-data-table)', function(obj){
@@ -66,21 +86,6 @@ var tableIndex;
                     });
                 })
             } else if(layEvent === 'del'){ //删除
-                layer.confirm('确定要删除此项吗？', function(index){
-                    var param = {
-                        id: obj.data.id.toString()
-                    };
-                    service.deleteBy(param, function (data) {
-                        debugger
-                        if(!isNaN(data.error) || data.code == 1){
-                            layer.msg("删除失败");
-                            return
-                        }
-                        layer.msg("删除成功");
-                        obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
-                        layer.close(index);
-                    })
-                });
             } else if(layEvent === 'edit'){ //编辑
                 service.getEditView(data, function (html) {
                     layer.open({
@@ -105,15 +110,6 @@ var tableIndex;
 function initService(r) {
     return {
         /**
-         * 获取添加视图 韦德 2018年8月3日23:29:26
-         * @param callback
-         */
-        getAddView: function (callback) {
-            $.get(r + "/addView",function (data) {
-                callback(data);
-            })
-        },
-        /**
          * 获取品牌 韦德 2018年8月3日22:54:11
          */
         getBrands: function (callback) {
@@ -135,35 +131,20 @@ function initService(r) {
             });
         },
         /**
-         * 获取编辑页视图 韦德 2018年8月3日23:19:44
-         * @param param
-         * @param callback
-         */
-        getEditView: function (param, callback) {
-            $.get(r + "/editView", param, function (data) {
-                callback(data);
-            });
-        },
-
-        /**
-         * 编辑会员
-         * @param param
-         * @param callback
-         */
-        edit: function (param,callback) {
-            $.post(route + "/edit", param , function (data) {
-                callback(data);
-            });
-        },
-
-        /**
-         * 删除会员
-         * @param param
-         * @param callback
+         * 审核通过
          */
         deleteBy: function (param, callback) {
-            debugger
-            $.get(r + "/delete", param, function (data) {
+
+            $.get(r + "/agreeAuth", param, function (data) {
+                callback(data);
+            });
+        },
+
+        /**
+         * 审核通过
+         */
+        rejectBy: function (param, callback) {
+            $.get(r + "/rejectAuth", param, function (data) {
                 callback(data);
             });
         },
@@ -191,10 +172,12 @@ function initDataTable(url, callback, loadDone) {
     var $queryButton = $("#my-data-table-query"),
         //搜索值
         $queryCondition = $("#my-data-table-condition");
-    //性别
-    $gender = $("#gender");
-    //搜索条件
-    $cond = $("#cond");
+        //性别
+        var $gender = $("#gender");
+        //搜索条件
+        var $cond = $("#cond");
+        //是否认证
+        var is_auth = $("#is_auth");
 
     var cols = getTableColumns();
 
@@ -202,7 +185,10 @@ function initDataTable(url, callback, loadDone) {
     $queryButton.click(function () {
         $queryButton.attr("disabled",true);
         loadTable(tableIndex,"my-data-table", "#my-data-table", cols,
-            url + "?cond="+$cond.val()+"&content=" + $queryCondition.val() +"&gender="+$gender.val(),
+            url +
+            "?cond="+$cond.val()+"&content=" + $queryCondition.val()
+            +"&is_auth=" + is_auth.val()
+            +"&gender="+$gender.val(),
 
             function (res, curr, count) {
             $queryButton.removeAttr("disabled");
@@ -257,16 +243,16 @@ function getTableColumns() {
         , {type: "checkbox"}
         , {field: 'id', title: '会员ID', width: 80, sort: true}
         , {field: 'username', title: '会员名', width: 120}
-        , {field: 'invite_id', title: '推荐人', width: 120}
-        , {field: 'real_name', title: '真实姓名', width: 120}
-        , {field: 'money', title: '资金', width: 120}
-        , {field: 'memRegistTime', title: '注册时间', width: 120}
-        , {field: 'loin_count', title: '登录次数', width: 120}
+        , {field: 'id_card', title: '身份证号', width: 120}
+        , {field: 'login_ip', title: '上次登录IP', width: 120}
+        , {field: 'real_name_time', title: '提交时间', width: 120}
 
         , {field: 'isEnable', title: '状态', width: 120, templet: function (d) {
-                return d.isEnable != null  &&  d.isEnable == 1 ? "启用" : "禁用";
+                return d.is_real_name != null  &&  d.is_real_name == 1 ? "已认证" : "未认证";
         }}
-        , {fixed: 'right', title: '操作', width: 150, align: 'center', toolbar: '#barOption'} //这里的toolbar值是模板元素的选择器
+        , {fixed: 'right', title: '操作',
+            width: 150, align: 'center',
+            toolbar: '#barOption'} //这里的toolbar值是模板元素的选择器
     ]];
 }
 

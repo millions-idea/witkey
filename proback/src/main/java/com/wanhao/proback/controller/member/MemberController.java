@@ -8,18 +8,21 @@ import com.wanhao.proback.bean.util.JsonArrayResult;
 import com.wanhao.proback.bean.util.JsonResult;
 import com.wanhao.proback.service.AreaService;
 import com.wanhao.proback.service.member.*;
-import com.wanhao.proback.utils.DateUtil;
+import com.wanhao.proback.utils.GsonUtils;
+import com.wanhao.proback.utils.IsNullUtils;
 import com.wanhao.proback.utils.ResponseUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.ibatis.binding.BindingException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
+import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -49,26 +52,57 @@ public class MemberController {
         return "v2/member/index";
     }
 
-//    @RequestMapping("/get")
-//    @ResponseBody
-//    public JsonArrayResult<BusinessBrands> getBusinesses(String condition){
-//        return new JsonArrayResult(0, );
-//    }
-
     @GetMapping("/view")
     public String view(Member param, final Model model, BindingException result){
         model.addAttribute("model", param);
         return "v2/member/view";
     }
 
+    @InitBinder
+    public void init(WebDataBinder binder) {
+        binder.registerCustomEditor(Date.class, new CustomDateEditor(new SimpleDateFormat("yyyy-MM-dd"), true));
+    }
 
     /**
      * @return
      */
     @RequestMapping("/getLimit")
     @ResponseBody
-    public JsonArrayResult<BusinessBrands> getBusinessLimit(Integer page){
+    public JsonArrayResult<BusinessBrands> getBusinessLimit(Integer page,String cond,
+                                                            String content,String gender){
         Member member = new Member();
+        //判断条件查询
+        if (IsNullUtils.isNotNull(cond,content)){
+            switch (cond){
+                case "0":
+                    break;
+                case "1"://代理商
+                    break;
+                case "2"://会员名
+                    member.setUsername(content);
+                    break;
+                case "4"://真实姓名
+                    member.setReal_name(content);
+                    break;
+                case "5"://手机号码
+                    member.setMobile(content);
+                    break;
+                case "7"://QQ
+                    member.setQq(content);
+                    break;
+                case "12"://推荐人id
+                    member.setInvite_id(Integer.valueOf(content));
+                    break;
+                case "14"://身份证号
+                    member.setId_card(content);
+                    break;
+            }
+        }
+        //性别限制
+        if (IsNullUtils.isNotNull(gender)){
+            member.setGender(gender);
+        }
+        //分页
         if (page!=null && page>0){
             member.setPage(page);
         }
@@ -100,6 +134,13 @@ public class MemberController {
         return "v2/member/edit";
     }
 
+    @PostMapping("/edit")
+    @ResponseBody
+    public JsonResult edit(Member param){
+        memberService.updateMember(param);
+        return new JsonResult(0);
+    }
+
     /**
      * 添加会员
      * @param param
@@ -113,12 +154,19 @@ public class MemberController {
     }
 
 //////////////////////////////分割线///////////////////////////////////
-    @RequestMapping(value = "forbidden")
-    public String toForbidden(Model model) {
+
+    @GetMapping(value = "toForbiddenHtml")
+    public String toForbiddenHtml(){
+        return "v2/setting/membername/index";
+    }
+
+    @GetMapping(value = "forbidden")
+    public void toForbidden(HttpServletResponse response) {
         //查询出来
         NameForbidden forbidden = nameForbiddenService.query();
-        model.addAttribute("forbidden", forbidden.getName());
-        return "member/set-forbidden";
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("name",GsonUtils.toJson(forbidden.getName()));
+        ResponseUtils.retnSuccessMsg(response,jsonObject);
     }
 
     /**
@@ -126,17 +174,17 @@ public class MemberController {
      *
      * @return
      */
-    @RequestMapping(value = "forbidden", method = RequestMethod.POST)
-    public String setForbidden(String name_forbidden, Model model) {
+    @PostMapping(value = "setForbidden")
+    public void setForbidden(String name_forbidden,HttpServletResponse response) {
         //保存到数据库
         NameForbidden nameForbidden = new NameForbidden();
         nameForbidden.setName(name_forbidden);
         nameForbidden.setId(1);
         nameForbiddenService.update(nameForbidden);
-        //查询出来
-        model.addAttribute("forbidden", name_forbidden);
-        return PREFIX + "set-forbidden";
+
+        ResponseUtils.retnSuccessMsg(response,new JsonObject());
     }
+////////////////////////////////////////////////////////////////////
 
     /**
      * 会员列表
@@ -205,17 +253,6 @@ public class MemberController {
         return "member/member-list";
     }
 
-    /**
-     * 添加
-     *
-     * @return
-     */
-    @GetMapping(value = "memberAdd")
-    public String memberAdd() {
-
-        return PREFIX + "add";
-    }
-
     //////////////////////////认证部分////////////////////////
 
     /**
@@ -224,80 +261,77 @@ public class MemberController {
      * @return
      */
     @GetMapping(value = "toMemberRealNameAuth")
-    public String toMemberAuth(Model model) {
-        Member member = new Member();
-        member.setIs_real_name(0);
-        member.setZheng("1");
-        member.setFan("1");
-        member.setShou_chi("1");
-        //查询已经上传图片 并且没有通过认证的
-        List<Member> members = memberService.getMembers(member);
-        model.addAttribute("members", members);
-        return PREFIX + "realname-auth";
+    public String toMemberAuth() {
+//        Member member = new Member();
+//        member.setIs_real_name(0);
+//        member.setZheng("1");
+//        member.setFan("1");
+//        member.setShou_chi("1");
+//        //查询已经上传图片 并且没有通过认证的
+//        List<Member> members = memberService.getMembers(member);
+//        model.addAttribute("members", members);
+        return "v2/authentication/realname/index";
     }
 
     /**
-     * @param condition 条件类型
-     * @param value
-     * @param auth_type 认证类型
-     * @param status    状态
      * @return
      */
-    @PostMapping(value = "queryMemberAuth")
-    public String queryMemberAuth(Integer condition, String value,
-                                  String fromtime, String totime,
-                                  Integer auth_type, Integer status, Model model) {
+    @RequestMapping(value = "queryMemberAuth")
+    @ResponseBody
+    public JsonArrayResult<Member> queryMemberAuth(Integer page,String cond,
+                                                   String content,String gender,Integer is_auth,
+                                  HttpServletResponse response) {
         Member member = new Member();
-        //按照会员名查找
-        if (condition != null && condition.equals(1)) {
-            member.setUsername(value);
+        //判断条件查询
+        if (IsNullUtils.isNotNull(cond,content)){
+            switch (cond){
+                case "0":
+                    break;
+                case "1"://代理商
+                    break;
+                case "2"://会员名
+                    member.setUsername(content);
+                    break;
+                case "4"://真实姓名
+                    member.setReal_name(content);
+                    break;
+                case "5"://手机号码
+                    member.setMobile(content);
+                    break;
+                case "7"://QQ
+                    member.setQq(content);
+                    break;
+                case "12"://推荐人id
+                    member.setInvite_id(Integer.valueOf(content));
+                    break;
+                case "14"://身份证号
+                    member.setId_card(content);
+                    break;
+            }
+        }
+        //是否认证了
+        if (is_auth!=null && !is_auth.equals(3)){
+            member.setIs_real_name(is_auth);
         }
 
-        //是否实名
-        if (auth_type != null && auth_type.equals(1) && !status.equals(3)) {
-            member.setIs_real_name(status);
+        //性别限制
+        if (IsNullUtils.isNotNull(gender)){
+            member.setGender(gender);
+        }
+        //分页
+        if (page!=null && page>0){
+            member.setPage(page);
         }
 
         //查询出来
         List<Member> members = memberService.getMembers(member);
 
-        List<Member> sm = members;
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("members",GsonUtils.toJson(members));
 
-        //过滤时间要求
-        if (StringUtils.isNotBlank(fromtime)) {
-            Date formatDate = DateUtil.getDateFromString(fromtime, "yyyy-MM-dd");
-            long time = formatDate.getTime();
-            sm = new LinkedList<>();
-            if (members != null && members.size() > 0) {
-                for (Member temp : members) {
-                    if (temp.getReal_name_time().getTime() > time) {
-                        sm.add(temp);
-                    }
-                }
+        //ResponseUtils.retnSuccessMsg(response,jsonObject);
+        return new JsonArrayResult(0, members);
 
-            }
-        }
-
-        //限制结束时间
-        List<Member> dm = sm;
-        if (StringUtils.isNotBlank(totime)) {
-            Date toDate = DateUtil.getDateFromString(totime, "yyyy-MM-dd");
-            long time = toDate.getTime();
-            dm = new LinkedList<>();
-
-            if (sm != null && sm.size() > 0) {
-                for (Member temp : sm) {
-                    if (temp.getReal_name_time().getTime() < time) {
-                        dm.add(temp);
-                    }
-                }
-
-            }
-        }
-
-        model.addAttribute("members", dm);
-
-        return PREFIX + "realname-auth";
     }
 
     /**
@@ -306,6 +340,26 @@ public class MemberController {
     @PostMapping(value = "memberAuth")
     public void memberAuth(@RequestBody AuthData data, HttpServletResponse response) {
         auth(data, 1, response);
+    }
+
+    /**
+     * 同意实名
+     */
+    @RequestMapping(value = "agreeAuth")
+    @ResponseBody
+    public JsonResult agreeAuth(String id,HttpServletResponse response){
+        memberService.agreeAll(id);
+        return new JsonResult(0);
+    }
+
+    /**
+     * 拒绝实名
+     */
+    @RequestMapping(value = "rejectAuth")
+    @ResponseBody
+    public JsonResult rejectAuth(String id,String reason,HttpServletResponse response){
+        memberService.rejectAll(id,reason);
+        return new JsonResult(0);
     }
 
     /**

@@ -230,7 +230,17 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public void delete(String id) {
-        int i = memberMapper.deleteByPrimaryKey(new Member(Integer.parseInt(id)));
+        int i = memberMapper.deleteAll(id);
         if (i<=0) throw new RuntimeException("删除失败");
+    }
+
+    @Override
+    public void agreeAll(String id) {
+        memberMapper.agreeAll(id);
+    }
+
+    @Override
+    public void rejectAll(String id, String reason) {
+        memberMapper.rejectAll(id,reason);
     }
 }

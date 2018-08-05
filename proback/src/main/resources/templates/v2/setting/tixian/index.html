@@ -21,30 +21,16 @@
     <div class="layui-row">
         <!--选项卡-->
         <div class="layui-tab layui-tab-card layui-col-md12" style="min-height: 770px">
-            <ul id="tab-channel" class="layui-tab-title" lay-filter="tab-goods">
-                <li class="layui-this">提现设置</li>
-            </ul>
-            <div class="layui-tab-content" style="height: 100px;padding: 20px">
+            <div class="layui-tab-content" style="height: 900px;padding: 10px;overflow: scroll;">
                 <!--主体 begin-->
                 <div class="layui-tab-item layui-show">
-                    <!-- 工具集 -->
-                    <div class="my-btn-box">
-                    </div>
-                        <form class="layui-form layui-form-pane" action="store/updatestore" method="post" >
+                        <form class="layui-form layui-form-pane" style="height: 1300px;"
+                              action="store/updatestore" method="post" >
 
-                            <input id="storeId" name="storeId" type="hidden">
-
-                            <div class="layui-form-item">
-                                <label class="layui-form-label">店铺fffffff名</label>
-                                <div class="layui-input-inline">
-                                    <input type="text" name="storeName" id="storeName" lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
-                                </div>
-                            </div>
-
-                            <div class="layui-form-item" style="display: flex">
+                            <div class="layui-form-item layui-form-text">
                                 <label class="layui-form-label">设置24小时内提现次数</label>
                                 <div  class="layui-input-block">
-                                    <select name="tixian_count" lay-verify="required">
+                                    <select name="tixian_count" id="tixian_count" lay-verify="required">
                                         <option value="0" selected="">为0时关闭提现</option>
                                         <option value="1">1</option>
                                         <option value="2">2</option>
@@ -56,45 +42,45 @@
                                 </div>
                             </div>
 
-                            <div class="layui-form-item">
+                            <div class="layui-form-item layui-form-text">
                                 <label class="layui-form-label">单次提现最小金额</label>
                                 <div class="layui-input-block">
-                                    <input type="text" name="title" required  lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
-                                </div>
-                            </div>
-
-
-                            <div class="layui-form-item">
-                                <label class="layui-form-label">单次提现最大金额</label>
-                                <div class="layui-input-block">
-                                    <input type="text" name="title" required  lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
-                                </div>
-                            </div>
-
-                            <div class="layui-form-item">
-                                <label class="layui-form-label">提现手续费(百分比)</label>
-                                <div class="layui-input-block">
-                                    <input type="text" name="title" required  lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
-                                </div>
-                            </div>
-
-                            <div class="layui-form-item">
-                                <label class="layui-form-label">费率最小值</label>
-                                <div class="layui-input-block">
-                                    <input type="text" name="title" required  lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
-                                </div>
-                            </div>
-
-                            <div class="layui-form-item">
-                                <label class="layui-form-label">费率最大值</label>
-                                <div class="layui-input-block">
-                                    <input type="text" name="title" required
-                                           lay-verify="required" placeholder="请输入标题"
+                                    <input type="text" name="storeName"
+                                           id="min_money"
+                                           lay-verify="required" placeholder="请输入"
                                            autocomplete="off" class="layui-input">
                                 </div>
                             </div>
+                            <div class="layui-form-item layui-form-text">
+                                <label class="layui-form-label">单次提现最大金额</label>
+                                <div class="layui-input-block">
+                                    <input type="text" id="max_money" name="storeName" lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
+                                </div>
+                            </div>
 
+                            <div class="layui-form-item layui-form-text">
+                                <label class="layui-form-label">提现手续费(百分比)</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="storeName" id="shouxu" lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item layui-form-text">
+                                <label class="layui-form-label">费率最小值</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="storeName" id="min_shouxu" lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item layui-form-text">
+                                <label class="layui-form-label">费率最大值</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="storeName" id="max_shouxu" lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
+                                </div>
+                            </div>
 
+                            <button lay-submit lay-filter="my-form"
+                                    id="my-data-table-query"
+                                    type="submit" class="layui-btn mgl-20">修改
+                            </button>
 
                         </form>
                 </div>
@@ -118,6 +104,23 @@
 </html>
 
 <script>
+    //数据加载
+    $(function () {
+        $.get("/system/tiXianSetting", function (data) {
+            if (data.error == 0) {
+                var tixian =$.parseJSON(data.tixian);
+                //填充
+                $("#min_money").val(tixian.min_money);
+                $("#max_money").val(tixian.max_money);
+                $("#shouxu").val(tixian.shouxu);
+                $("#min_shouxu").val(tixian.min_shouxu);
+                $("#max_shouxu").val(tixian.max_shouxu);
+
+            }
+        });
+    });
+
+
     layui.use(['form', 'layedit', 'laydate'], function(){
         var form = layui.form,
             layer = layui.layer
@@ -125,18 +128,26 @@
             ,laydate = layui.laydate;
         // 表单提交验证
         form.on('submit(my-form)',function(data){
-            service.edit({
-                business_id: $('#business_id').val(),
-                name: $('#name').val(),
-                isEnable: $('#isEnable').next().find("em").text() == '开启' ? 1 : 0
-            }, function (data) {
-                if(!isNaN(data.error) || data.code != 0) {
+
+            var params = {};
+            params.tixian_count = $('#tixian_count').val();
+            params.min_money = $('#min_money').val();
+            params.max_money = $('#max_money').val();
+            params.shouxu = $('#shouxu').val();
+            params.min_shouxu = $('#min_shouxu').val();
+            params.max_shouxu = $('#max_shouxu').val();
+
+            $.post("/system/tixian", params , function (data) {
+                if (data.error == 0) {
+                    layer.msg("修改成功");
+                    layer.closeAll();
+                    window.location.href = "/system/toTiXianSetting";
+                    window.location.reload(true);
+                }else {
                     layer.msg("修改失败");
-                    return;
                 }
-                layer.closeAll();
-                tableIndex.reload();
-            })
+            });
+
             return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
         });
         form.render();

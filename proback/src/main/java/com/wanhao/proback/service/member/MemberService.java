@@ -70,4 +70,7 @@ public interface MemberService {
 
     void delete(String id);
 
+    void agreeAll(String id);
+
+    void rejectAll(String id, String reason);
 }

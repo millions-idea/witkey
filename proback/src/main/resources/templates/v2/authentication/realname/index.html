@@ -6,7 +6,7 @@
       layout:decorate="~{v2/layout/layout}">
 <head>
     <meta charset="UTF-8">
-    <title>会员列表</title>
+    <title>会员实名认证</title>
     <link rel="stylesheet" th:href="@{/v2/frame/layui/css/layui.css}">
     <link rel="stylesheet" th:href="@{/v2/frame/static/css/style.css}">
     <link rel="icon" th:href="@{/v2/frame/static/image/code.png}">
@@ -14,7 +14,7 @@
 <body>
 
 <th:block layout:fragment="current_page">
-    <a><cite>会员管理</cite></a>
+    <a><cite>会员实名认证</cite></a>
 </th:block>
 
 <th:block layout:fragment="body">
@@ -22,20 +22,28 @@
         <!--选项卡-->
         <div class="layui-tab layui-tab-card layui-col-md12" style="min-height: 770px">
             <ul id="tab-channel" class="layui-tab-title" lay-filter="tab-goods">
-                <li class="layui-this">会员管理</li>
+                <li class="layui-this">会员实名认证</li>
             </ul>
             <div class="layui-tab-content" style="height: 100px;padding: 20px">
                 <!--主体 begin-->
                 <div class="layui-tab-item layui-show">
                     <!-- 工具集 -->
                     <div class="my-btn-box" style="display: flex;">
-                    <span style="flex: 1;">
-                        <a id="my-data-table-delete" class="layui-btn layui-btn-danger radius btn-delect">批量删除</a>
-                        <a id="my-data-table-add" class="layui-btn btn-add btn-default">添加</a>
+                    <span style="flex: 4;">
+                        <a id="my-data-table-delete"
+                           class="layui-btn layui-btn-danger radius btn-delect">批量通过
+                        </a>
+
+                         <input id="reject-reason" type="text" placeholder="请输入拒绝原因"
+                                name="content">
+                        <a id="my-data-table-reject"
+                           class="layui-btn layui-btn-danger radius btn-delect">批量拒绝
+                        </a>
+                        <!--<a id="my-data-table-add" class="layui-btn btn-add btn-default">添加</a>-->
                         <a class="layui-btn btn-add btn-default" id="btn-refresh-my-data-table"><i
                                 class="layui-icon layui-icon-refresh"></i></a>
                     </span>
-                        <span style="flex: 2;">
+                        <span style="flex: 5;">
                             <label class="layui-form-label">查询条件</label>
                             <div class="layui-input-inline">
                               <select name="cond" id="cond">
@@ -51,9 +59,17 @@
                               </select>
                             </div>
                         <div class="layui-input-inline">
-                            <input id="my-data-table-condition"  type="text" autocomplete="off"
+                            <input id="my-data-table-condition" type="text" autocomplete="off"
                                    placeholder="请输入搜索条件" class="layui-input" name="content">
                         </div>
+
+                            <div class="layui-input-inline">
+                              <select name="auth" id="is_auth">
+                                <option value="3" selected=selected>是否已认证</option>
+                                <option value="1">已认证</option>
+                                <option value="0">未认证</option>
+                              </select>
+                            </div>
 
                         <div class="layui-input-inline">
                           <select name="gender" id="gender">
@@ -81,7 +97,7 @@
 <th:block layout:fragment="free_footer">
     <script type="text/javascript" th:src="@{/v2/frame/layui/layui.js}"></script>
     <script type="text/javascript" th:src="@{/v2/js/index.js}"></script>
-    <script type="text/javascript" th:src="@{/v2/js/member/index.js}"></script>
+    <script type="text/javascript" th:src="@{/v2/js/authentication/realname/index.js}"></script>
     <!-- 表格操作按钮集 -->
     <script type="text/html" id="barOption">
         <a name="item-view" class="layui-btn layui-btn layui-btn-xs" lay-event="detail">查看</a>

@@ -1,11 +1,13 @@
 package com.wanhao.proback.bean.member;
 
 import com.wanhao.proback.bean.BaseBean;
+import com.wanhao.proback.utils.DateUtil;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import java.util.Date;
 
 /**
@@ -108,4 +110,17 @@ public class Member extends BaseBean {
     public Member(Integer id){
         setId(id);
     }
+
+    private Integer is_delete;
+
+    private String real_name_reason;
+
+    @Transient
+    private String memRegistTime;
+
+    public String getMemRegistTime(){
+        return regist_time==null? "无": DateUtil.getFormatTime(regist_time);
+    }
+
+
 }

@@ -1,8 +1,11 @@
 package com.wanhao.proback.controller.system;
 
+import com.google.gson.JsonObject;
 import com.wanhao.proback.bean.Setting;
 import com.wanhao.proback.bean.util.JsonResult;
 import com.wanhao.proback.service.SettingService;
+import com.wanhao.proback.utils.GsonUtils;
+import com.wanhao.proback.utils.ResponseUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,6 +14,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * Created by LiuLiHao on 2018/7/20 15:55.
@@ -23,21 +28,26 @@ public class SystemController {
 
     private static final String PREFIX = "v2/setting/tixian/";
 
-
     @Autowired
     SettingService settingService;
+
 
     /**
      * 进入提现设置页面
      * @return
      */
-    @GetMapping(value = "tixian")
-    public String toTiXianSetting(Model model){
-        Setting setting = settingService.query();
-        //放入前台
-        model.addAttribute("setting",setting);
-
+    @GetMapping(value = "toTiXianSetting")
+    public String toTiXianSetting(){
         return PREFIX+ "index";
+    }
+
+    //获取数据
+    @GetMapping(value = "tiXianSetting")
+    public void getTiXianSetting(HttpServletResponse response){
+        Setting setting = settingService.query();
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("tixian",GsonUtils.toJson(setting));
+        ResponseUtils.retnSuccessMsg(response,jsonObject);
     }
 
     /**
@@ -45,14 +55,17 @@ public class SystemController {
      * @return
      */
     @PostMapping(value = "tixian")
-    public String modTiXian(Integer open_tixian,Integer tixian_count,
+    public void modTiXian(Integer open_tixian,Integer tixian_count,
                             Double min_money,Double max_money,
                             Double shouxu,Double min_shouxu,
                             Double max_shouxu,
-                            Model model){
+                          HttpServletResponse response){
         //设置保存到数据库
         Setting setting = new Setting();
-        setting.setOpen_tixian(open_tixian);
+        //判断是否开启提现
+        if (tixian_count!=null){
+            setting.setOpen_tixian( tixian_count==0?0:1);
+        }
         setting.setTixian_count(tixian_count);
         setting.setMin_money(min_money);
         setting.setMax_money(max_money);
@@ -62,12 +75,7 @@ public class SystemController {
 
         settingService.update(setting);
 
-        //保存成功 message 设置为: 保存成功
-        model.addAttribute("message","保存成功");
-        model.addAttribute("setting",setting);
-
-
-        return PREFIX+ "tixian-setting";
+        ResponseUtils.retnSuccessMsg(response,new JsonObject());
     }
 
     /**

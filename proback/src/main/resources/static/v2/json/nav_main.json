@@ -15,7 +15,11 @@
         },{
           "text": "提现设置",
           "icon": "&#xe621;",
-          "href": "/system/tixian"
+          "href": "/system/toTiXianSetting"
+        },{
+          "text": "会员禁用名设置",
+          "icon": "&#xe621;",
+          "href": "/member/toForbiddenHtml"
         }
       ]
     },{
@@ -40,7 +44,7 @@
         },{
           "text": "会员实名认证",
           "icon": "&#xe621;",
-          "href": "/express-platform"
+          "href": "/member/toMemberRealNameAuth"
         }      ,{
           "text": "会员买号审核",
           "icon": "&#xe621;",

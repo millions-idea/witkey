@@ -37,6 +37,39 @@
                    lay-verify="required" class="layui-input" th:value="${model.getVipmodel()}">
         </div>
     </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">账户余额</label>
+        <div class="layui-input-block">
+            <input disabled="disabled" type="text" name="platform_name" autocomplete="off"
+                   lay-verify="required" class="layui-input" th:value="${model.getMoney()}">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">真实姓名</label>
+        <div class="layui-input-block">
+            <input disabled="disabled" type="text" name="platform_name" autocomplete="off"
+                   lay-verify="required" class="layui-input" th:value="${model.getReal_name()}">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">联系QQ</label>
+        <div class="layui-input-block">
+            <input disabled="disabled" type="text" name="platform_name" autocomplete="off"
+                   lay-verify="required" class="layui-input" th:value="${model.getQq()}">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">注册时IP</label>
+        <div class="layui-input-block">
+            <input disabled="disabled" type="text" name="platform_name" autocomplete="off"
+                   lay-verify="required" class="layui-input" th:value="${model.getRegist_ip()}">
+        </div>
+    </div>
+
     <div class="layui-form-item">
         <label class="layui-form-label">是否是商家</label>
         <div class="layui-input-block">
