@@ -1,12 +1,12 @@
-/*! 快递空包服务管理 韦德 2018年8月1日18:58:23*/
-var route = "/member";
+/*!财务模块-交易清单 韦德 2018年8月5日22:50:57*/
+var route = "./business-brands";
 var service;
 var tableIndex;
 (function () {
     service = initService(route);
 
     // 加载数据表
-    initDataTable(route + "/getLimit", function (form, table, layer, vipTable, tableIns) {
+    initDataTable("./../v2/json/finance/statement/index.json", function (form, table, layer, vipTable, tableIns) {
         // 动态注册事件
         var $tableDelete = $("#my-data-table-delete"),
             $tableAdd = $("#my-data-table-add");
@@ -20,7 +20,7 @@ var tableIndex;
                 var data = table.checkStatus('my-data-table').data;
                 var idArr = new Array();
                 data.forEach(function (value) {
-                    idArr.push(value.id);
+                    idArr.push(value.business_id);
                 });
                 var param = {
                     id: idArr.join(",")
@@ -68,10 +68,9 @@ var tableIndex;
             } else if(layEvent === 'del'){ //删除
                 layer.confirm('确定要删除此项吗？', function(index){
                     var param = {
-                        id: obj.data.id.toString()
+                        id: obj.data.goods_id.toString()
                     };
                     service.deleteBy(param, function (data) {
-                        debugger
                         if(!isNaN(data.error) || data.code == 1){
                             layer.msg("删除失败");
                             return
@@ -144,9 +143,8 @@ function initService(r) {
                 callback(data);
             });
         },
-
         /**
-         * 编辑会员
+         * 编辑品牌 韦德 2018年8月3日23:21:55
          * @param param
          * @param callback
          */
@@ -155,21 +153,18 @@ function initService(r) {
                 callback(data);
             });
         },
-
         /**
-         * 删除会员
+         * 删除品牌 韦德 2018年8月3日23:26:11
          * @param param
          * @param callback
          */
         deleteBy: function (param, callback) {
-            debugger
             $.get(r + "/delete", param, function (data) {
                 callback(data);
             });
         },
-
         /**
-         * 添加会员
+         * 添加品牌 韦德 2018年8月3日23:28:37
          * @param param
          * @param callback
          */
@@ -189,22 +184,14 @@ function initService(r) {
  */
 function initDataTable(url, callback, loadDone) {
     var $queryButton = $("#my-data-table-query"),
-        //搜索值
         $queryCondition = $("#my-data-table-condition");
-    //性别
-    $gender = $("#gender");
-    //搜索条件
-    $cond = $("#cond");
 
     var cols = getTableColumns();
 
     // 注册查询事件
     $queryButton.click(function () {
         $queryButton.attr("disabled",true);
-        loadTable(tableIndex,"my-data-table", "#my-data-table", cols,
-            url + "?cond="+$cond.val()+"&content=" + $queryCondition.val() +"&gender="+$gender.val(),
-
-            function (res, curr, count) {
+        loadTable(tableIndex,"my-data-table", "#my-data-table", cols, url + "?condition=" + $queryCondition.val(), function (res, curr, count) {
             $queryButton.removeAttr("disabled");
         });
     })
@@ -222,7 +209,7 @@ function initDataTable(url, callback, loadDone) {
         // 表格渲染
         tableIndex = table.render({
             elem: '#my-data-table'                  //指定原始表格元素选择器（推荐id选择器）
-            , height: 650    //容器高度
+            , height: 480    //容器高度
             , cols: cols
             , id: 'my-data-table'
             , url: url
@@ -231,7 +218,6 @@ function initDataTable(url, callback, loadDone) {
             , limits: [30, 60, 90, 150, 300]
             , limit: 30 //默认采用30
             , loading: true
-            , even: true
             , done: function (res, curr, count) {
                 loadDone(table, res, curr, count);
             }
@@ -248,28 +234,34 @@ function initDataTable(url, callback, loadDone) {
 }
 
 /**
- * 获取商品表格列属性
+ * 获取表格列属性
  * @returns {*[]}
  */
 function getTableColumns() {
     return [[
         {type: "numbers"}
-        , {type: "checkbox"}
-        , {field: 'id', title: '会员ID', width: 80, sort: true}
-        , {field: 'username', title: '会员名', width: 120}
-        , {field: 'invite_id', title: '推荐人', width: 120}
-        , {field: 'real_name', title: '真实姓名', width: 120}
-        , {field: 'money', title: '资金', width: 120}
-        , {field: 'memRegistTime', title: '注册时间', width: 120}
-        , {field: 'loin_count', title: '登录次数', width: 120}
-
-        , {field: 'isEnable', title: '状态', width: 120, templet: function (d) {
-                return d.isEnable != null  &&  d.isEnable == 1 ? "启用" : "禁用";
-        }}
-        , {fixed: 'right', title: '操作', width: 150, align: 'center', toolbar: '#barOption'} //这里的toolbar值是模板元素的选择器
+        , {field: 'transaction_id', title: 'ID', width: 80, sort: true}
+        , {field: 'record_id', title: '交易号', width: 260}
+        , {field: 'record_no', title: '流水号', width: 200, templet: function (d) {
+                return d.record_no == null ? "站内交易" : d.record_no;
+            }}
+        , {field: 'from_username', title: '甲方', width: 150}
+        , {field: 'to_username', title: '乙方', width: 150}
+        , {field: 'trade_date', title: '交易日', width: 240}
+        , {field: 'trade_type', title: '交易类型', width: 120, templet: function (d) {
+                return d.trade_type == 1 ? "收入" : "支出";
+            }}
+        , {field: 'trade_amount', title: '金额', width: 180, align: "center", templet: function (d) {
+                if(d.trade_type == 1){
+                    return "<span style='color: #2fc253;font-size: 15px;'>+" + d.trade_amount + "</span>";
+                }else{
+                    return "<span style='color: #c2330f;font-size: 15px;'>-" + d.trade_amount + "</span>";
+                }
+                return "<span>" + d.trade_amount + "</span>";
+            }}
+        , {field: 'remark', title: '摘要', width: 240}
     ]];
 }
-
 
 /**
  * 加载表格数据
@@ -283,7 +275,7 @@ function getTableColumns() {
 function loadTable(index,id,elem,cols,url,loadDone) {
     index.reload({
         elem: elem
-        , height: 650    //容器高度
+        , height: 480    //容器高度
         , cols: cols
         , id: id
         , url: url

@@ -1,0 +1,29 @@
+{
+  "code": 0,
+  "msg": "success",
+  "count": 2,
+  "data": [
+    {
+      "transaction_id": 1,
+      "record_id": "6f3e2ad6-985c-11e8-a10e-00163e06a68d",
+      "record_no": null,
+      "from_username": "admin",
+      "to_username": "xiaoming",
+      "trade_date": "2018-8-4 10:46:32",
+      "trade_type": 1,
+      "trade_amount": 1000.00,
+      "remark": "充值"
+    },
+    {
+      "transaction_id": 2,
+      "record_id": "ca04988d-c99a-4ab8-88c7-9a63c5973fe3",
+      "record_no": null,
+      "from_username": "xiaoming",
+      "to_username": "admin",
+      "trade_date": "2018-8-6 00:35:32",
+      "trade_type": 2,
+      "trade_amount": 999.00,
+      "remark": "消费"
+    }
+  ]
+}

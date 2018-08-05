@@ -23,6 +23,16 @@
         }
       ]
     },{
+      "text": "财务模块",
+      "icon": "&#xe65e;",
+      "subset": [
+        {
+          "text": "交易清单",
+          "icon": "&#xe63c;",
+          "href": "/finance/statement"
+        }
+      ]
+    },{
       "text": "扩展",
       "icon": "&#xe628;",
       "href": "",

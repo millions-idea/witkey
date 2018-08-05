@@ -94,7 +94,7 @@ function initSettingData(url, callback, loadDone) {
             , page: true
             , limits: [30, 60, 90, 150, 300]
             , limit: 30 //默认采用30
-            , loading: false
+            , loading: true
             , even: true
             , done: function (res, curr, count) {
                 loadDone(table, res, curr, count);
@@ -151,7 +151,7 @@ function loadTable(index, id, elem, cols, url, loadDone) {
         , page: true
         , limits: [30, 60, 90, 150, 300]
         , limit: 30 //默认采用30
-        , loading: false
+        , loading: true
         , even: true
         , done: function (res, curr, count) {
             resetPager();

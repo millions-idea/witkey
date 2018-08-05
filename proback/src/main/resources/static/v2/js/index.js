@@ -9,3 +9,15 @@ layui.config({
     , vip_tab: 'vip_tab'
     , vip_table: 'vip_table'
 });
+
+
+$(function () {
+    layui.use(['form','laydate'], function(){
+        var form = layui.form,
+            laydate = layui.laydate;
+        form.render();
+        laydate.render({
+            elem: "#date"
+        });
+    });
+})

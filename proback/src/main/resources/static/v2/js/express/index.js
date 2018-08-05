@@ -109,7 +109,7 @@ $(function () {
                 });
                 break;
             case 2:
-                // 加载订单数据表 "./../v2/json/express/orders/index.json"
+                // 加载订单数据表
                 initOrdersDataTable("/express-orders/get", function (form, table, layer, vipTable, tableIns) {
                     // 动态注册事件
                     var $tableDelete = $("#orders-data-table-delete"),
@@ -530,7 +530,7 @@ function initMarketDataTable(url,callback,loadDone) {
             , page: true
             , limits: [30, 60, 90, 150, 300]
             , limit: 30 //默认采用30
-            , loading: false
+            , loading: true
             , even: true
             , done: function (res, curr, count) {
                 resetPager();
@@ -569,7 +569,7 @@ function loadTable(index,id,elem,cols,url,loadDone) {
         , page: true
         , limits: [30, 60, 90, 150, 300]
         , limit: 30 //默认采用30
-        , loading: false
+        , loading: true
         , even: true
         , done: function (res, curr, count) {
             resetPager();
@@ -620,7 +620,7 @@ function initGoodsDataTable(url, callback, loadDone) {
             , page: true
             , limits: [30, 60, 90, 150, 300]
             , limit: 30 //默认采用30
-            , loading: false
+            , loading: true
             , even: true
             , done: function (res, curr, count) {
                 resetPager();
@@ -680,7 +680,7 @@ function initOrdersDataTable(url, callback, loadDone) {
             , page: true
             , limits: [30, 60, 90, 150, 300]
             , limit: 30 //默认采用30
-            , loading: false
+            , loading: true
             , even: true
             , done: function (res, curr, count) {
                 resetPager();

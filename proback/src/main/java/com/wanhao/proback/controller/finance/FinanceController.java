@@ -19,9 +19,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 @RequestMapping("/finance")
 public class FinanceController {
-    @GetMapping
-    @ResponseBody
-    public JsonResult index(){
-        return new JsonResult(0);
+    /**
+     * 交易清单
+     * @return
+     */
+    @GetMapping("/statement")
+    public String  statement(){
+        return "v2/finance/statement/index";
     }
 }
