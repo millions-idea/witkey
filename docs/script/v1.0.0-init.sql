@@ -98,3 +98,32 @@ CREATE TABLE `tb_wallets` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='财务钱包表';
 
 
+
+#交易流水表
+CREATE TABLE `tb_transactions` (
+  `transaction_id` int(11) NOT NULL AUTO_INCREMENT,
+  `record_id` varchar(36) NOT NULL COMMENT '流水号(uuid)',
+  `record_no` varchar(128) NULL COMMENT '交易号(用来存支付宝、微信以及银行的，站内交易留空)',
+  `from_uid` int(11) NOT NULL COMMENT '发起方账户',
+  `to_uid` int(11) NOT NULL COMMENT '对方账户',
+  `trade_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '交易日',
+  `trade_type` int(11) NOT NULL COMMENT '交易类别(1=充值,2=消费)',
+  `trade_amount` decimal(16,4) NOT NULL COMMENT '交易额',
+  `remark` varchar(100) NOT NULL COMMENT '摘要',
+  PRIMARY KEY (`transaction_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='交易流水表';
+
+#资金变化表
+CREATE TABLE `tb_moneys` (
+  `log_id` int(11) NOT NULL AUTO_INCREMENT, 
+  `record_id` varchar(36) NOT NULL COMMENT '流水号',
+  `from_uid` int(11) NOT NULL COMMENT '用户id',
+  `trade_type` int(11) NOT NULL COMMENT '1=增 2=减',
+  `trade_amount` decimal(16,4) NOT NULL COMMENT '交易额',
+  `account_balance` decimal(16,4) NOT NULL COMMENT '余额',
+  `remark` varchar(32) NOT NULL COMMENT '摘要',
+  `add_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '交易日',
+  PRIMARY KEY (`log_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='资金变化表';
+
+
