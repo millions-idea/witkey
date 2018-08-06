@@ -5,7 +5,7 @@
  * @date 2018/8/5
  * @desc
  */
-package com.wanhao.proback.bean.member;
+package com.wanhao.proback.bean.finance;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;

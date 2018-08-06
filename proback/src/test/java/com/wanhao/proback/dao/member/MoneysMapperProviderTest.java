@@ -1,7 +1,7 @@
 package com.wanhao.proback.dao.member;
 
 import com.google.common.collect.Lists;
-import com.wanhao.proback.bean.member.Moneys;
+import com.wanhao.proback.bean.finance.Moneys;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.junit4.SpringRunner;

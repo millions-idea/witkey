@@ -7,7 +7,7 @@
  */
 package com.wanhao.proback.service.impl.finance;
 
-import com.wanhao.proback.bean.member.Transactions;
+import com.wanhao.proback.bean.finance.Transactions;
 import com.wanhao.proback.service.BaseServiceImpl;
 import com.wanhao.proback.service.finance.TransactionsService;
 import org.springframework.stereotype.Service;

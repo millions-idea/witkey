@@ -7,7 +7,7 @@
  */
 package com.wanhao.proback.dao.finance;
 
-import com.wanhao.proback.bean.member.Moneys;
+import com.wanhao.proback.bean.finance.Moneys;
 import com.wanhao.proback.dao.provider.MoneysMapperProvider;
 import com.wanhao.proback.utils.MyMapper;
 import org.apache.ibatis.annotations.InsertProvider;
