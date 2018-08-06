@@ -1,6 +1,7 @@
 package com.wanhao.proback.dao.member;
 
 import com.wanhao.proback.bean.member.Member;
+import com.wanhao.proback.bean.member.MemberView;
 import com.wanhao.proback.bean.util.InviteResult;
 import com.wanhao.proback.utils.MyMapper;
 import org.apache.ibatis.annotations.Mapper;
@@ -84,4 +85,10 @@ public interface MemberMapper extends MyMapper<Member> {
     void rejectAll(@Param("id") String id,@Param("reason")String reason);
 
 
+    @Select("SELECT t1.*,t2.balance FROM tb_member t1 LEFT JOIN tb_wallets t2 ON t1.id = t2.user_id WHERE id=#{id} ")
+    /**
+     * 根据id查询用户,钱包信息 韦德 2018年8月7日00:18:34
+     * @param id
+     */
+    MemberView selectById(@Param("id") Integer id);
 }

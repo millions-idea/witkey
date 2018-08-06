@@ -70,8 +70,6 @@ CREATE TABLE `tb_express_orders` (
 
 
 
-
-
 #快递发货地址表
 CREATE TABLE `tb_express_postal_address` (
   `address_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -96,7 +94,6 @@ CREATE TABLE `tb_wallets` (
   `version` int(11) DEFAULT NULL,
   PRIMARY KEY (`wallet_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='财务钱包表';
-
 
 
 
@@ -137,6 +134,57 @@ CREATE TABLE `tb_max_exceptions` (
   `add_date` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '上报时间',
   PRIMARY KEY (`log_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='重要异常日志表';
+
+
+#字典表
+CREATE TABLE `tb_setting` (
+  `id` int(11) NOT NULL,
+  `open_tixian` int(11) DEFAULT NULL COMMENT '是否开启提现 1是 0否',
+  `tixian_count` int(11) DEFAULT NULL COMMENT '24小时可以提现次数',
+  `min_money` double DEFAULT NULL COMMENT '单笔提现最小金额',
+  `max_money` double DEFAULT NULL COMMENT '单笔提现最大金额',
+  `shouxu` double DEFAULT NULL COMMENT '手续费',
+  `min_shouxu` double DEFAULT NULL COMMENT '最小手续费',
+  `max_shouxu` double DEFAULT NULL COMMENT '最大手续费',
+  `web_name` varchar(30) DEFAULT NULL COMMENT '网站名称',
+  `web_url` varchar(50) DEFAULT NULL COMMENT '网站链接',
+  `web_logo` varchar(100) DEFAULT NULL COMMENT '网站logo地址',
+  `mobile_logo` varchar(100) DEFAULT NULL COMMENT '移动端logo地址',
+  `app_logo` varchar(100) DEFAULT NULL COMMENT 'app_logo地址',
+  `goods_default_img` varchar(200) DEFAULT NULL COMMENT '商品列表图的默认图片',
+  `slide_1_img` varchar(150) DEFAULT NULL COMMENT '幻灯片1地址',
+  `slide_1_url` varchar(150) DEFAULT NULL COMMENT '点击幻灯片跳转地址',
+  `slide_2_img` varchar(150) DEFAULT NULL COMMENT '幻灯片2',
+  `slide_2_url` varchar(150) DEFAULT NULL,
+  `slide_3_img` varchar(150) DEFAULT NULL,
+  `slide_3_url` varchar(150) DEFAULT NULL,
+  `copy_info` varchar(200) DEFAULT '(c)2013-2015 销量联盟 All Rights Reserved' COMMENT '版权信息',
+  `vip_member_name` varchar(100) DEFAULT 'VIP' COMMENT 'VIP会员名称',
+  `money_name` varchar(20) DEFAULT '人民币' COMMENT '货币名称',
+  `money_unit` varchar(5) DEFAULT '元' COMMENT '货币单位',
+  `virtual_name` varchar(10) DEFAULT '任务金币' COMMENT '虚拟货币名称',
+  `virtual_unit` varchar(5) DEFAULT '个' COMMENT '虚拟货币单位',
+  `yongjin_name` varchar(10) DEFAULT NULL COMMENT '佣金名称',
+  `message_open` int(11) DEFAULT '1' COMMENT '短信是否开启 1开 0关',
+  `alipay_qrcode` varchar(100) DEFAULT NULL COMMENT '支付宝二维码',
+  `zhijie_fabu_shiyong` double DEFAULT '0' COMMENT '直接发布试用奖励',
+  `jianjie_fabu_shiyong` double DEFAULT '0' COMMENT '间接推荐人发布试用奖励',
+  `zhijie_shenqing_shiyong` double DEFAULT '0' COMMENT '直接推荐人申请试用奖励',
+  `jianjie_shenqing_shiyong` double DEFAULT '0' COMMENT '间接推荐人申请试用奖励',
+  `zhijie_fabu_shiyong_fw` double DEFAULT '0' COMMENT '直接推荐人发布试用奖励',
+  `jianjie_fabu_shiyong_fw` double DEFAULT '0' COMMENT '间接推荐人发布试用奖励',
+  `shangjia_wancheng_yiji` double DEFAULT '0' COMMENT '商家发布的任务被完成,完成后奖励推广上级人',
+  `shike_wancheng_yiji` double DEFAULT '0' COMMENT '试客完成一单给上级返利',
+  `shike_wancheng_erji` double DEFAULT '0' COMMENT '试客完成一单给上级返利',
+  `yiji_jiangli` double DEFAULT NULL COMMENT '推广一个一级奖励',
+  `erji_jiangli` double DEFAULT NULL COMMENT '二级奖励',
+  `task_cancel_time` int(11) DEFAULT NULL COMMENT '任务自动取消时间',
+  `system_account` int(11) DEFAULT NULL COMMENT '系统账户',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+#预置数据
+INSERT INTO `lianmeng`.`tb_setting` (`id`, `open_tixian`, `tixian_count`, `min_money`, `max_money`, `shouxu`, `min_shouxu`, `max_shouxu`, `web_name`, `web_url`, `web_logo`, `mobile_logo`, `app_logo`, `goods_default_img`, `slide_1_img`, `slide_1_url`, `slide_2_img`, `slide_2_url`, `slide_3_img`, `slide_3_url`, `copy_info`, `vip_member_name`, `money_name`, `money_unit`, `virtual_name`, `virtual_unit`, `yongjin_name`, `message_open`, `alipay_qrcode`, `zhijie_fabu_shiyong`, `jianjie_fabu_shiyong`, `zhijie_shenqing_shiyong`, `jianjie_shenqing_shiyong`, `zhijie_fabu_shiyong_fw`, `jianjie_fabu_shiyong_fw`, `shangjia_wancheng_yiji`, `shike_wancheng_yiji`, `shike_wancheng_erji`, `yiji_jiangli`, `erji_jiangli`, `task_cancel_time`, `system_account`) VALUES ('1', '1', '1', '1', '100', '0.2', '1', '10', '58同城', 'www.baidu.com', 'https://www.baidu.com/img/bd_logo1.png', 'http://192.168.43.181:8081/images/upload/20180722164603774317.png', 'https://www.baidu.com/img/bd_logo1.png', 'https://www.baidu.com/img/bd_logo1.png', 'https://www.baidu.com/img/bd_logo1.png', 'https://www.baidu.com/img/bd_logo1.png', 'https://www.baidu.com/img/bd_logo1.png', 'https://www.baidu.com/img/bd_logo1.png', 'https://www.baidu.com/img/bd_logo1.png', '', '(c)2015-2018 销量联盟 All Rights Reserved', 'VIP', '的', '发', '任务金币', '是', '啊', '1', NULL, '0.3', '0.2', '0.2', '0.2', '0.2', '0.2', '1', '4', '5', '2', '3', NULL, '1');
 
 
 

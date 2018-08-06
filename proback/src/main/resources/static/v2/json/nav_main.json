@@ -27,9 +27,17 @@
       "icon": "&#xe65e;",
       "subset": [
         {
+          "text": "人工充值",
+          "icon": "&#xe63c;",
+          "href": "/finance/pay/recharge"
+        }, {
           "text": "交易清单",
           "icon": "&#xe63c;",
           "href": "/finance/statement"
+        }, {
+          "text": "记账凭证",
+          "icon": "&#xe63c;",
+          "href": "/finance/account-voucher"
         }
       ]
     },{
