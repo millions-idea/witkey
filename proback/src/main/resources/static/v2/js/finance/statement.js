@@ -1,12 +1,12 @@
 /*!财务模块-交易清单 韦德 2018年8月5日22:50:57*/
-var route = "./business-brands";
+var route = "./statement";
 var service;
 var tableIndex;
 (function () {
     service = initService(route);
 
-    // 加载数据表
-    initDataTable("./../v2/json/finance/statement/index.json", function (form, table, layer, vipTable, tableIns) {
+    // 加载数据表 "./../v2/json/finance/statement/index.json"
+    initDataTable(route + "/getLimit", function (form, table, layer, vipTable, tableIns) {
         // 动态注册事件
         var $tableDelete = $("#my-data-table-delete"),
             $tableAdd = $("#my-data-table-add");
@@ -184,14 +184,27 @@ function initService(r) {
  */
 function initDataTable(url, callback, loadDone) {
     var $queryButton = $("#my-data-table-query"),
-        $queryCondition = $("#my-data-table-condition");
+        $queryCondition = $("#my-data-table-condition"),
+        $tradeTypeInput = $("select[name='trade_type']"),
+        $tradeDateBeginInput = $("input[name='trade_date_begin']"),
+        $tradeDateEndInput = $("input[name='trade_date_end']");
 
     var cols = getTableColumns();
 
     // 注册查询事件
     $queryButton.click(function () {
         $queryButton.attr("disabled",true);
-        loadTable(tableIndex,"my-data-table", "#my-data-table", cols, url + "?condition=" + $queryCondition.val(), function (res, curr, count) {
+
+        console.error($tradeTypeInput.val())
+        console.error($tradeDateBeginInput.val())
+        console.error($tradeDateEndInput.val())
+
+        var param =  "?condition=" + $queryCondition.val();
+        param += "&trade_type=" + $tradeTypeInput.val();
+        param += "&trade_date_begin=" + $tradeDateBeginInput.val();
+        param += "&trade_date_end=" + $tradeDateEndInput.val();
+
+        loadTable(tableIndex,"my-data-table", "#my-data-table", cols, url + param, function (res, curr, count) {
             $queryButton.removeAttr("disabled");
         });
     })
@@ -294,6 +307,6 @@ function loadTable(index,id,elem,cols,url,loadDone) {
 
 function resetPager() {
     $(".layui-table-body.layui-table-main").each(function (i, o) {
-        $(o).height(569);
+        $(o).height(395);
     });
 }

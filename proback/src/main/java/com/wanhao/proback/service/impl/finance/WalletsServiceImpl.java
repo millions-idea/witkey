@@ -7,7 +7,7 @@
  */
 package com.wanhao.proback.service.impl.finance;
 
-import com.wanhao.proback.bean.member.Wallets;
+import com.wanhao.proback.bean.finance.Wallets;
 import com.wanhao.proback.service.BaseServiceImpl;
 import com.wanhao.proback.service.finance.WalletsService;
 import org.springframework.stereotype.Service;

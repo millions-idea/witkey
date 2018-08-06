@@ -7,7 +7,7 @@
  */
 package com.wanhao.proback.service.finance;
 
-import com.wanhao.proback.bean.member.Moneys;
+import com.wanhao.proback.bean.finance.Moneys;
 import com.wanhao.proback.service.BaseService;
 
 /***

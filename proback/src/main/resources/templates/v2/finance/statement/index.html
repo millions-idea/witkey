@@ -87,7 +87,7 @@
                        <label class="layui-form-label">交易类型</label>
                    </div>
                    <div class="layui-inline">
-                       <select name="city" lay-verify="required">
+                       <select name="trade_type" lay-verify="required">
                            <option value="">请选择一项条件</option>
                            <option value="0">全部</option>
                            <option value="1">收入</option>
@@ -97,14 +97,23 @@
                    <!--交易类型 end-->
 
                    <!--交易日 begin-->
-                   <div class="layui-inline" style="margin-left: -40px;">
-                       <label class="layui-form-label">交易日</label>
+                   <div class="layui-inline" >
+                       <label class="layui-form-label">开始交易日</label>
                    </div>
                    <div class="layui-inline">
-                       <input type="text" class="layui-input" id="date">
+                       <input name="trade_date_begin" type="text" class="layui-input" id="date">
                    </div>
                    <!--交易日 end-->
 
+
+                   <!--交易日 begin-->
+                   <div class="layui-inline" >
+                       <label class="layui-form-label">截止交易日</label>
+                   </div>
+                   <div class="layui-inline">
+                       <input name="trade_date_end" type="text" class="layui-input" id="date2">
+                   </div>
+                   <!--交易日 end-->
 
                    <span class="fl layui-inline" style="margin-right: -20px;">
                         <a class="layui-btn btn-add btn-default" id="btn-refresh-my-data-table"><i class="layui-icon layui-icon-refresh"></i></a>
@@ -141,7 +150,9 @@
             var laydate = layui.laydate;
             laydate.render({
                 elem: "#date"
-                ,value: new Date()
+            });
+            laydate.render({
+                elem: "#date2"
             });
         });
     </script>

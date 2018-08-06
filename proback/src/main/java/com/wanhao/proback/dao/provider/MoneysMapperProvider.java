@@ -8,7 +8,7 @@
 package com.wanhao.proback.dao.provider;
 
 import com.google.common.collect.Lists;
-import com.wanhao.proback.bean.member.Moneys;
+import com.wanhao.proback.bean.finance.Moneys;
 import com.wanhao.proback.dao.utils.SqlBufferUtil;
 
 import java.util.List;
