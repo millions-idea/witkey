@@ -21,4 +21,10 @@ public interface TiXianService  extends BaseService<TiXian> {
      */
     List<TiXian> getTodayList(Integer id);
 
+    List<TiXian> getTiXianData(TiXian tiXian);
+
+    void agreeAllTiXian(String id);
+
+    void rejectAllTiXian(String id, String reason);
+
 }

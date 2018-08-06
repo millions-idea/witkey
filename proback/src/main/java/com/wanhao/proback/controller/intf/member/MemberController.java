@@ -247,7 +247,7 @@ public class MemberController {
      * 实名认证
      */
     @PostMapping(value = "realName")
-    @ISLogin
+    //@ISLogin
     public void realName(HttpServletRequest request, HttpServletResponse response,
                          String realname, String idcard,
                          String url1, String url2,
@@ -272,6 +272,7 @@ public class MemberController {
         member.setZheng(url1);
         member.setFan(url2);
         member.setShou_chi(url3);
+        member.setIs_real_name(1);
         memberService.updateMember(member);
         ResponseUtils.retnSuccessMsg(response, jsonObject);
     }

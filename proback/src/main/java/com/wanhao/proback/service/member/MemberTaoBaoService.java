@@ -19,4 +19,16 @@ public interface MemberTaoBaoService extends BaseService<MemberTaoBao> {
 
     MemberTaoBao getOne(Integer id);
 
+    /**
+     * 通过
+     * @param id
+     */
+    void agreeAllBuyAccount(String id);
+
+    /**
+     * 拒绝
+     * @param id
+     * @param reason
+     */
+    void rejectAllBuyAccount(String id, String reason);
 }

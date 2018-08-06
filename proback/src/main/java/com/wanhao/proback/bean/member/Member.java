@@ -84,7 +84,7 @@ public class Member extends BaseBean {
     private String bank_type;
     //银行地址
     private String bank_addr;
-    //是否实名认证
+    //是否实名0未提交 1提交了 2通过 3拒绝
     private Integer is_real_name=0;
     private Integer is_real_mobile=0;
     private Integer is_real_bank=0;

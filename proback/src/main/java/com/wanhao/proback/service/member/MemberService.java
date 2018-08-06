@@ -73,4 +73,5 @@ public interface MemberService {
     void agreeAll(String id);
 
     void rejectAll(String id, String reason);
+
 }

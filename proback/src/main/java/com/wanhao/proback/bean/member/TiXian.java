@@ -36,6 +36,11 @@ public class TiXian extends BaseBean {
 
     //不存储
     @Transient
-    private Member member;
+    private String username;
+    @Transient
+    private String real_name;
+    @Transient
+    private String mobile;
+
 
 }

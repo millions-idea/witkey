@@ -1,0 +1,37 @@
+<form class="layui-form layui-form-pane my-view" method="post" action="./express-platform/add"
+      enctype="application/x-www-form-urlencoded" xmlns:th="http://www.thymeleaf.org">
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">实名截图</label>
+        <div class="layui-input-block">
+            <img width="210" height="100" th:src="@{'http://localhost:8081/images/upload/'+ ${model.shoot_real_name}}" alt="" />
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">芝麻信用截图</label>
+        <div class="layui-input-block">
+            <img width="210" height="100"  th:src="@{'http://localhost:8081/images/upload/'+ ${model.shoot_zhi_ma}}" alt="" />
+
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">信用积分截图</label>
+        <div class="layui-input-block">
+            <img width="210" height="100" th:src="@{'http://localhost:8081/images/upload/'+ ${model.shoot_honor}}" alt="" />
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">淘气值截图</label>
+        <div class="layui-input-block">
+            <img width="210" height="100" th:src="@{'http://localhost:8081/images/upload/'+ ${model.shoot_taoqi}}" alt="" />
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">花呗额度截图</label>
+        <div class="layui-input-block">
+            <img width="210" height="100" th:src="@{'http://localhost:8081/images/upload/'+ ${model.shoot_huabei}}" alt="" />
+        </div>
+    </div>
+</form>

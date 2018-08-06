@@ -79,5 +79,17 @@ public class MemberTaoBaoServiceImpl extends BaseServiceImpl<MemberTaoBao>
         return taoBaoMapper.selectOne(memberTaoBao);
     }
 
+    @Override
+    public void agreeAllBuyAccount(String id) {
+        int i = taoBaoMapper.agreeAllBuyAccount(id);
+        if (i<=0) throw new RuntimeException("更新失败");
+    }
+
+    @Override
+    public void rejectAllBuyAccount(String id, String reason) {
+        int i = taoBaoMapper.rejectAllBuyAccount(id,reason);
+        if (i<=0) throw new RuntimeException("更新失败");
+    }
+
 }
 

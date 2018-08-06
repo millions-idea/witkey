@@ -7,7 +7,6 @@
  */
 package com.wanhao.proback.bean;
 
-import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.security.core.GrantedAuthority;
 
 import java.util.Collection;

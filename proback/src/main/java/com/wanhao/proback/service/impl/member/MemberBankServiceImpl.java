@@ -55,7 +55,7 @@ public class MemberBankServiceImpl extends BaseServiceImpl<MemberBank> implement
 
         //bank_num
         if (StringUtils.isNotBlank(memberBank.getBank_num())){
-            criteria.andLike("bank_num",memberBank.getBank_num());
+            criteria.andLike("bank_num","%" + memberBank.getBank_num());
         }
 
         //type
@@ -63,6 +63,16 @@ public class MemberBankServiceImpl extends BaseServiceImpl<MemberBank> implement
             criteria.andEqualTo("bank_type",memberBank.getBank_type());
         }
         return bankMapper.selectByExample(example);
+    }
+
+    @Override
+    public void agreeAllBank(String id) {
+        int i = bankMapper.agreeAllBank(id);
+    }
+
+    @Override
+    public void rejectAllBuyBank(String id, String reason) {
+        int i = bankMapper.rejectAllBuyBank(id,reason);
     }
 
 }

@@ -19,4 +19,8 @@ public interface MemberBankService  extends BaseService<MemberBank> {
      */
     List<MemberBank> findByPages(MemberBank memberBank);
 
+    void agreeAllBank(String id);
+
+    void rejectAllBuyBank(String id, String reason);
+
 }

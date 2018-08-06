@@ -1,0 +1,23 @@
+<form class="layui-form layui-form-pane my-view" method="post" action="./express-platform/add"
+      enctype="application/x-www-form-urlencoded" xmlns:th="http://www.thymeleaf.org">
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">身份证正面</label>
+        <div class="layui-input-block">
+            <img width="210" height="100" th:src="@{'http://localhost:8081/images/upload/'+ ${model.zheng}}" alt="" />
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">身份证反面</label>
+        <div class="layui-input-block">
+            <img width="210" height="100"  th:src="@{'http://localhost:8081/images/upload/'+ ${model.fan}}" alt="" />
+
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">手持身份证</label>
+        <div class="layui-input-block">
+            <img width="210" height="100" th:src="@{'http://localhost:8081/images/upload/'+ ${model.shou_chi}}" alt="" />
+        </div>
+    </div>
+</form>

@@ -1,3 +1,6 @@
+/**
+ * 提现
+ */
 var route = "/member";
 var service;
 var tableIndex;
@@ -5,7 +8,7 @@ var tableIndex;
     service = initService(route);
 
     // 加载数据表
-    initDataTable("/member/queryMemberAuth", function (form, table, layer, vipTable, tableIns) {
+    initDataTable("/member/toTiXian", function (form, table, layer, vipTable, tableIns) {
         // 动态注册事件
         var $tableDelete = $("#my-data-table-delete");
         var  $tableReject = $("#my-data-table-reject");
@@ -71,8 +74,8 @@ var tableIndex;
         // 监听工具条
         table.on('tool(my-data-table)', function(obj){
             var data = obj.data; //获得当前行数据
-            //清空注册时间 避免报错
-            data.regist_time = null;
+            //清除时间
+            data.create_time = null;
 
             var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
             var tr = obj.tr; //获得当前行 tr 的DOM对象
@@ -88,10 +91,31 @@ var tableIndex;
                         content: html
                     });
                 })
-            } else if(layEvent === 'del'){ //删除
-                layer.msg('不能删除');
-            } else if(layEvent === 'edit'){ //编辑
-                layer.msg('不能编辑');
+            } else if(layEvent === 'del'){
+                //拒绝
+                var param = {};
+                param.id = data.id;
+                service.rejectBy(param, function (data) {
+                    if(!isNaN(data.error) || data.code == 1){
+                        layer.msg("更新失败");
+                        return;
+                    }
+                    layer.msg("更新成功");
+                    tableIndex.reload();
+                })
+            } else if(layEvent === 'edit'){
+                //通过
+                var param = {};
+                param.id = data.id;
+
+                service.deleteBy(param, function (data) {
+                    if(!isNaN(data.error) || data.code == 1){
+                        layer.msg("更新失败");
+                        return;
+                    }
+                    layer.msg("更新成功");
+                    tableIndex.reload();
+                })
             }
         });
     });
@@ -104,9 +128,6 @@ var tableIndex;
  */
 function initService(r) {
     return {
-        /**
-         * 获取品牌 韦德 2018年8月3日22:54:11
-         */
         getBrands: function (callback) {
             $.get(route + "/getLimit",function (data) {
                 if(data.error != null && data.error == 1) return;
@@ -115,13 +136,8 @@ function initService(r) {
                 }
             });
         },
-        /**
-         * 预览品牌信息 韦德 2018年8月3日23:10:46
-         * @param param
-         * @param callback
-         */
         view: function (param, callback) {
-            $.get(r + "/viewRealNameImg", param, function (data) {
+            $.get(r + "/viewBankDetail", param, function (data) {
                 callback(data);
             });
         },
@@ -130,25 +146,20 @@ function initService(r) {
          */
         deleteBy: function (param, callback) {
 
-            $.get(r + "/agreeAuth", param, function (data) {
+            $.get(r + "/agreeTiXian", param, function (data) {
                 callback(data);
             });
         },
 
         /**
-         * 审核通过
+         * 审核拒绝
          */
         rejectBy: function (param, callback) {
-            $.get(r + "/rejectAuth", param, function (data) {
+            $.get(r + "/rejectTiXian", param, function (data) {
                 callback(data);
             });
         },
 
-        /**
-         * 添加会员
-         * @param param
-         * @param callback
-         */
         add: function (param,callback) {
             $.post(route + "/add", param , function (data) {
                 callback(data);
@@ -167,8 +178,6 @@ function initDataTable(url, callback, loadDone) {
     var $queryButton = $("#my-data-table-query"),
         //搜索值
         $queryCondition = $("#my-data-table-condition");
-        //性别
-        var $gender = $("#gender");
         //搜索条件
         var $cond = $("#cond");
         //是否认证
@@ -182,9 +191,7 @@ function initDataTable(url, callback, loadDone) {
         loadTable(tableIndex,"my-data-table", "#my-data-table", cols,
             url +
             "?cond="+$cond.val()+"&content=" + $queryCondition.val()
-            +"&is_auth=" + is_auth.val()
-            +"&gender="+$gender.val(),
-
+            +"&is_auth=" + is_auth.val(),
             function (res, curr, count) {
             $queryButton.removeAttr("disabled");
         });
@@ -236,23 +243,25 @@ function getTableColumns() {
     return [[
         {type: "numbers"}
         , {type: "checkbox"}
-        , {field: 'id', title: '会员ID', width: 80, sort: true}
-        , {field: 'username', title: '会员名', width: 120}
-        , {field: 'id_card', title: '身份证号', width: 120}
-        , {field: 'login_ip', title: '上次登录IP', width: 120}
-        , {field: 'real_name_time', title: '提交时间', width: 120}
+        , {field: 'memid', title: '会员ID', width: 80, sort: true}
+         , {field: 'username', title: '会员名', width: 80}
+         , {field: 'real_name', title: '姓名', width: 80}
+        , {field: 'money', title: '提现金额', width: 90}
+        , {field: 'shouxu', title: '手续费', width: 80}
+         , {field: 'mobile', title: '联系方式', width: 120}
+        , {field: 'shenqing_shijian', title: '申请时间', width: 120}
+        , {field: 'shenqing_ip', title: '申请IP', width: 120}
 
         , {field: 'isEnable', title: '状态', width: 120, templet: function (d) {
 
             var  result = '';
-            if (d.is_real_name != null && d.is_real_name == 1) {
-                result = '未认证';
-            }else if(d.is_real_name != null && d.is_real_name == 2){
-                result = '已认证';
-            }else if(d.is_real_name != null && d.is_real_name == 2){
-                result = '已拒绝';
+            if (d.flag != null && d.flag == 0) {
+                result = '未审核';
+            }else if(d.flag != null && d.flag == 1){
+                result = '成功';
+            }else if(d.flag != null && d.flag == 3){
+                result = '拒绝';
             }
-            //                return d.is_real_name != null  &&  d.is_real_name == 2 ? "已认证" : "未认证";
                 return result;
         }}
         , {fixed: 'right', title: '操作',

@@ -74,14 +74,14 @@ public interface MemberMapper extends MyMapper<Member> {
      * @param id
      */
     @Update("UPDATE tb_member SET is_real_name=1 WHERE id IN( ${id} )")
-    void agreeAll(@Param("id") String id);
+    int agreeAll(@Param("id") String id);
 
     /**
      * 拒绝全部实名认证
      * @param id
      */
     @Update("UPDATE tb_member SET is_real_name=2,real_name_reason=#{reason} WHERE id IN( ${id} )")
-    void rejectAll(@Param("id") String id,@Param("reason")String reason);
+    int rejectAll(@Param("id") String id,@Param("reason")String reason);
 
 
 }

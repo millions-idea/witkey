@@ -1,0 +1,25 @@
+<form class="layui-form layui-form-pane my-view" method="post" action="./express-platform/add"
+      enctype="application/x-www-form-urlencoded" xmlns:th="http://www.thymeleaf.org">
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">省份</label>
+        <div class="layui-input-block">
+            <input disabled="disabled" type="text" name="platform_name" autocomplete="off"
+                   lay-verify="required" class="layui-input" th:value="${model.bank_province}">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">城市</label>
+        <div class="layui-input-block">
+            <input disabled="disabled" type="text" name="platform_name" autocomplete="off"
+                   lay-verify="required" class="layui-input" th:value="${model.bank_city}">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">详细地址</label>
+        <div class="layui-input-block">
+            <input disabled="disabled" type="text" name="platform_name" autocomplete="off"
+                   lay-verify="required" class="layui-input" th:value="${model.bank_addr}">
+        </div>
+    </div>
+</form>

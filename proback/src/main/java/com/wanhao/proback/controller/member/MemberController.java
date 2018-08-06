@@ -1,8 +1,6 @@
 package com.wanhao.proback.controller.member;
 
-import com.github.pagehelper.PageInfo;
 import com.google.gson.JsonObject;
-import com.wanhao.proback.bean.Area;
 import com.wanhao.proback.bean.member.*;
 import com.wanhao.proback.bean.util.JsonArrayResult;
 import com.wanhao.proback.bean.util.JsonResult;
@@ -11,7 +9,6 @@ import com.wanhao.proback.service.member.*;
 import com.wanhao.proback.utils.GsonUtils;
 import com.wanhao.proback.utils.IsNullUtils;
 import com.wanhao.proback.utils.ResponseUtils;
-import org.apache.commons.lang.StringUtils;
 import org.apache.ibatis.binding.BindingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -24,7 +21,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by LiuLiHao on 2018/7/14 17:43.
@@ -45,7 +41,7 @@ public class MemberController {
 
     private static final String PREFIX = "express/";
 
-//////////////////////////////分割线///////////////////////////////////
+//////////////////////////////分割线 会员管理部分///////////////////////////////////
 
     @GetMapping
     public String index(){
@@ -153,7 +149,8 @@ public class MemberController {
         return new JsonResult(0);
     }
 
-//////////////////////////////分割线///////////////////////////////////
+//////////////////////////////分割线 会员管理部分结束///////////////////////////////////
+//////////////////////////////分割线 设置禁用名部分///////////////////////////////////
 
     @GetMapping(value = "toForbiddenHtml")
     public String toForbiddenHtml(){
@@ -184,76 +181,9 @@ public class MemberController {
 
         ResponseUtils.retnSuccessMsg(response,new JsonObject());
     }
-////////////////////////////////////////////////////////////////////
+    //////////////////////////////分割线 设置禁用名部分///////////////////////////////////
 
-    /**
-     * 会员列表
-     *
-     * @return
-     */
-    @RequestMapping(value = "memberList")
-    public String toMemberList(Map<String, Object> map) {
-        //查找第一页
-        List<Member> members = memberService.getMembers(new Member());
-        //查询省份
-        List<Area> provinces = areaService.getAllProvince();
-        map.put("members", members);
-        map.put("provinces", provinces);
-        return "member/member-list";
-    }
-
-    /**
-     * 会员列表查询
-     *
-     * @return
-     */
-    @PostMapping(value = "memberList")
-    public String memberList(Member member,
-                             String type,
-                             String type_value,
-                             Double minmoney,
-                             Double maxmoney,
-                             Model model) {
-        if (type != null) {
-            switch (type) {
-                case "0":
-                    break;
-                case "1":
-                    //代理商
-                    member.setProxy(type_value);
-                    break;
-                case "2":
-                    member.setUsername(type_value);
-                    break;
-                case "4":
-                    member.setReal_name(type_value);
-                    break;
-                case "5":
-                    member.setMobile(type_value);
-                    break;
-                case "7":
-                    member.setQq(type_value);
-                    break;
-                case "13":
-                    member.setInvite_id(Integer.valueOf(type_value));
-                    break;
-                case "14":
-                    member.setId_card(type_value);
-                    break;
-            }
-        }
-
-
-        //查找第一页
-        List<Member> members = memberService.getMembers(member);
-        //查询省份
-        List<Area> provinces = areaService.getAllProvince();
-        model.addAttribute("members", members);
-        model.addAttribute("provinces", provinces);
-        return "member/member-list";
-    }
-
-    //////////////////////////认证部分////////////////////////
+    //////////////////////////实名认证部分开始////////////////////////
 
     /**
      * 实名认证审核页面
@@ -262,18 +192,11 @@ public class MemberController {
      */
     @GetMapping(value = "toMemberRealNameAuth")
     public String toMemberAuth() {
-//        Member member = new Member();
-//        member.setIs_real_name(0);
-//        member.setZheng("1");
-//        member.setFan("1");
-//        member.setShou_chi("1");
-//        //查询已经上传图片 并且没有通过认证的
-//        List<Member> members = memberService.getMembers(member);
-//        model.addAttribute("members", members);
         return "v2/authentication/realname/index";
     }
 
     /**
+     * 查询提交了实名信息的会员列表
      * @return
      */
     @RequestMapping(value = "queryMemberAuth")
@@ -309,9 +232,12 @@ public class MemberController {
                     break;
             }
         }
+
         //是否认证了
-        if (is_auth!=null && !is_auth.equals(3)){
+        if (is_auth!=null && !is_auth.equals(4)){
             member.setIs_real_name(is_auth);
+        }else {
+            member.setIs_real_name(1);
         }
 
         //性别限制
@@ -334,13 +260,12 @@ public class MemberController {
 
     }
 
-    /**
-     * 同意实名
-     */
-    @PostMapping(value = "memberAuth")
-    public void memberAuth(@RequestBody AuthData data, HttpServletResponse response) {
-        auth(data, 1, response);
+    @GetMapping("/viewRealNameImg")
+    public String viewRealNameImg(Member param, final Model model){
+        model.addAttribute("model", param);
+        return "v2/authentication/realname/view";
     }
+
 
     /**
      * 同意实名
@@ -361,200 +286,98 @@ public class MemberController {
         memberService.rejectAll(id,reason);
         return new JsonResult(0);
     }
+    //////////////////////////实名认证部分结束////////////////////////
 
-    /**
-     * 拒绝实名
-     *
-     * @param data
-     * @param response
-     */
-    @PostMapping(value = "refuseAuth")
-    public void refuseAuth(@RequestBody AuthData data, HttpServletResponse response) {
-        auth(data, 2, response);
-    }
-
-    /**
-     * 从新实名
-     *
-     * @param data
-     * @param response
-     */
-    @PostMapping(value = "redoAuth")
-    public void redoAuth(@RequestBody AuthData data, HttpServletResponse response) {
-        auth(data, 0, response);
-    }
-
-    /**
-     * 实名操作
-     *
-     * @param data
-     * @param type     1同意 2 拒绝 0从新实名
-     * @param response
-     */
-    public void auth(AuthData data, Integer type, HttpServletResponse response) {
-        JsonObject jsonObject = new JsonObject();
-        if (data.data == null || data.data.length <= 0) {
-            //返回错误
-            jsonObject.addProperty("error", "1");
-            ResponseUtils.renderJson(response, jsonObject.toString());
-            return;
-        }
-        Member member = new Member();
-        for (Integer auth : data.data) {
-            member.setId(auth);
-            Member temp = memberService.getMember(member);
-            temp.setIs_real_name(type);
-            //说明信息
-            temp.setRemark(data.reason);
-            //保存
-            memberService.updateMember(temp);
-        }
-        //返回结果
-        jsonObject.addProperty("error", "0");
-        ResponseUtils.renderJson(response, jsonObject.toString());
-    }
-
-
-    //////////////////////////会员买号认证////////////////////////////
+    //////////////////////////会员买号认证部分开始////////////////////////////
 
     @Autowired
     MemberTaoBaoService memberTaoBaoService;
 
     /**
-     * 跳转到买号列表
-     *
+     * 跳转到买号列表页面
      * @return
      */
     @RequestMapping(value = "toAuthAccount")
-    public String toAuthAccount(Model model, String gender,
-                                String pass, String fields,
-                                String input_val) {
+    public String toAuthAccount(){
+        return "v2/authentication/buy-account/index";
+    }
+
+    /**
+     * 条件查询买号列表
+     *
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "getAuthAccount")
+    public JsonArrayResult<MemberTaoBao> getAuthAccount(Integer page,String cond,
+                                                        String content,String gender,Integer is_auth,
+                                                        HttpServletResponse response) {
         MemberTaoBao memberTaoBao = new MemberTaoBao();
-
-        //条件查询
-        if (StringUtils.isNotBlank(fields) && !fields.equals("0") && StringUtils.isNotBlank(input_val)) {
-            switch (fields) {
-                case "2":
-                    memberTaoBao.setMem_id(Integer.valueOf(input_val));
+        //判断条件查询
+        if (IsNullUtils.isNotNull(cond,content)){
+            switch (cond){
+                case "0":
                     break;
-                case "4":
-
+                case "2": //会员名
                     break;
-                case "5":
+                case "3"://会员id
+                    memberTaoBao.setMem_id(Integer.valueOf(content));
                     break;
             }
         }
 
-        //性别
-        if (StringUtils.isNotBlank(gender) && !gender.equals("0")) {
+        //买号性别
+        if (IsNullUtils.isNotNull(gender)&& !gender.equals("0")){
             memberTaoBao.setAccount_gender(gender);
         }
-
-        //是否审核通过
-        if (StringUtils.isNotBlank(pass) && !pass.equals("5")) {
-            memberTaoBao.setIs_pass(Integer.valueOf(pass));
+        //分页
+        if (page!=null && page>0){
+            memberTaoBao.setPage(page);
         }
-
+        //是否已经认证
+        if (is_auth!=null && !is_auth.equals(4)){
+            memberTaoBao.setIs_pass(is_auth);
+        }else {
+            //默认查询没有认证的
+            memberTaoBao.setIs_pass(0);
+        }
 
         List<MemberTaoBao> taoBaos = memberTaoBaoService.queryMemberBuyList(memberTaoBao);
-        model.addAttribute("taoBaos", taoBaos);
 
-        return PREFIX + "auth/auth-account";
+        return new JsonArrayResult(0, taoBaos);
     }
 
     /**
-     * 买号认证--同意
-     *
+     * 同意买号
+     */
+    @RequestMapping(value = "agreeBuyAccount")
+    @ResponseBody
+    public JsonResult agreeBuyAccount(String id,HttpServletResponse response){
+        memberTaoBaoService.agreeAllBuyAccount(id);
+        return new JsonResult(0);
+    }
+
+    /**
+     * 拒绝买号
+     */
+    @RequestMapping(value = "rejectBuyAccount")
+    @ResponseBody
+    public JsonResult rejectBuyAccount(String id,String reason,HttpServletResponse response){
+        memberTaoBaoService.rejectAllBuyAccount(id,reason);
+        return new JsonResult(0);
+    }
+
+    /**
+     * 买号截图页面
+     * @param param
+     * @param model
      * @return
      */
-    @PostMapping(value = "buyAccountAgree")
-    public void buyAccountAgree(@RequestBody AuthData data, HttpServletResponse response) {
-        account(data, 1, response);
+    @GetMapping("/viewBuyAccountImg")
+    public String viewBuyAccountImg(MemberTaoBao param, final Model model){
+        model.addAttribute("model", param);
+        return "v2/authentication/buy-account/view";
     }
-
-    /**
-     * 买号认证--同意
-     *
-     * @return
-     */
-    @PostMapping(value = "buyAccountRefuse")
-    public void buyAccountRefuse(@RequestBody AuthData data, HttpServletResponse response) {
-        account(data, 2, response);
-    }
-
-    /**
-     * 买号认证--从新认证
-     *
-     * @return
-     */
-    @PostMapping(value = "buyAccountRedo")
-    public void buyAccountRedo(@RequestBody AuthData data, HttpServletResponse response) {
-        account(data, 0, response);
-    }
-
-    /**
-     * 买号认证操作
-     *
-     * @param data
-     * @param type     1同意 2 拒绝
-     * @param response
-     */
-    public void account(AuthData data, Integer type, HttpServletResponse response) {
-        JsonObject jsonObject = new JsonObject();
-        if (data.data == null || data.data.length <= 0) {
-            //返回错误
-            jsonObject.addProperty("error", "1");
-            ResponseUtils.renderJson(response, jsonObject.toString());
-            return;
-        }
-
-        MemberTaoBao taoBao = new MemberTaoBao();
-
-        Member member = new Member();
-
-        for (Integer auth : data.data) {
-            taoBao.setId(auth);
-            List<MemberTaoBao> list = memberTaoBaoService.queryMemberBuyList(taoBao);
-            if (list != null && list.size() > 0) {
-                MemberTaoBao bank1 = list.get(0);
-                bank1.setIs_pass(type);
-                bank1.setRemark(data.reason);
-                //保存更新
-                memberTaoBaoService.update(bank1);
-                //更新会员买号是否完成
-                if (type == 1) {
-                    member.setId(bank1.getMem_id());
-                    Member dbMember = memberService.getMember(member);
-                    if (dbMember != null) {
-                        if (dbMember.getIs_bind_buy_account() == null || dbMember.getIs_bind_buy_account() == 0) {
-                            dbMember.setIs_bind_buy_account(1);
-                            //设置为已经绑定买号
-                            memberService.updateMember(dbMember);
-                        }
-                    }
-
-                }
-            }
-        }
-
-        //返回结果
-        jsonObject.addProperty("error", "0");
-        ResponseUtils.renderJson(response, jsonObject.toString());
-    }
-
-    /**
-     * 跳转到买号详细信息
-     *
-     * @return
-     */
-    @GetMapping(value = "toAuthAccountDetail/{id}")
-    public String toAuthAccountDetail(@PathVariable("id") Integer id, Model model) {
-        MemberTaoBao taoBao = memberTaoBaoService.getOne(id);
-        model.addAttribute("taobao", taoBao);
-
-        return PREFIX + "auth/auth-account-detail";
-    }
-
 
     //////////////////////////会员银行卡认证////////////////////////////
 
@@ -562,248 +385,154 @@ public class MemberController {
     MemberBankService memberBankService;
 
     /**
-     * 到银行卡认证审核页面
-     *
+     * 页面跳转
      * @return
      */
+    @RequestMapping(value = "toAuthBankHtml")
+    public String toAuthBankHtml() {
+        return "v2/authentication/bank/index";
+    }
+
+        /**
+         * 查询记录
+         * @return
+         */
     @RequestMapping(value = "toAuthBank")
-    public String toAuthBank(Model model, MemberBank bank, Integer selectOps, String selectVal) {
+    @ResponseBody
+    public JsonArrayResult<MemberBank> toAuthBank(Integer page,String cond,
+                                                  String content,Integer is_auth,
+                                                  HttpServletResponse response) {
+
         MemberBank memberBank = new MemberBank();
 
-        if (bank != null && bank.getPage() != null) {
-            memberBank.setPage(bank.getPage());
+        //判断条件查询
+        if (IsNullUtils.isNotNull(cond,content)){
+            switch (cond){
+                case "0":
+                    break;
+                case "2": //银行卡号
+                    memberBank.setBank_num(content);
+                    break;
+                case "1"://会员id
+                    memberBank.setMem_id(Integer.valueOf(content));
+                    break;
+                case "3"://卡类型
+                    memberBank.setBank_type(content);
+                    break;
+                case "4"://姓名
+                    memberBank.setBank_username(content);
+                    break;
+            }
         }
         //判断查询条件
-        if (selectOps != null) {
-            switch (selectOps) {
-                case 1://姓名
-                    memberBank.setBank_username(selectVal);
-                    break;
-                case 2://银行卡号
-                    memberBank.setBank_num(selectVal);
-                    break;
-                case 3://卡类型
-                    memberBank.setBank_type(selectVal);
-                    break;
-                case 4://会员id
-                    memberBank.setMem_id(Integer.valueOf(selectVal));
-                    break;
-            }
+        if (is_auth!=null && !is_auth.equals(4)){
+            memberBank.setIs_auth(is_auth);
+        }
+        if (page!=null && page>0){
+            memberBank.setPage(page);
         }
         List<MemberBank> banks = memberBankService.findByPages(memberBank);
-        //返回pageinfo
-        PageInfo<MemberBank> info = new PageInfo<MemberBank>(banks);
-        //前台可以使用分页
-        model.addAttribute("pageinfo", info);
-        return PREFIX + "auth/auth-bank";
+        return new JsonArrayResult(0, banks);
     }
 
 
     /**
-     * 银行卡认证--同意
-     *
-     * @return
+     * 同意银行卡
      */
-    @PostMapping(value = "authBankAgree")
-    public void authBankAgree(@RequestBody AuthData data, HttpServletResponse response) {
-        authBank(data, 1, response);
+    @RequestMapping(value = "agreeMemberBank")
+    @ResponseBody
+    public JsonResult agreeMemberBank(String id,HttpServletResponse response){
+        memberBankService.agreeAllBank(id);
+        return new JsonResult(0);
     }
 
     /**
-     * 银行卡认证---拒绝
-     *
-     * @return
+     * 拒绝银行卡
      */
-    @PostMapping(value = "authBankRefuse")
-    public void authBankRefuse(@RequestBody AuthData data, HttpServletResponse response) {
-        authBank(data, 3, response);
+    @RequestMapping(value = "rejectMemberBank")
+    @ResponseBody
+    public JsonResult rejectMemberBank(String id,String reason,HttpServletResponse response){
+        memberBankService.rejectAllBuyBank(id,reason);
+        return new JsonResult(0);
     }
 
-    /**
-     * 银行卡认证--从新填写
-     *
-     * @return
-     */
-    @PostMapping(value = "authBankRedo")
-    public void authBankRedo(@RequestBody AuthData data, HttpServletResponse response) {
-        authBank(data, 2, response);
-    }
-
-    /**
-     * 银行卡操作
-     *
-     * @param data
-     * @param type     1同意 2 拒绝 0从新实名
-     * @param response
-     */
-    public void authBank(AuthData data, Integer type, HttpServletResponse response) {
-        JsonObject jsonObject = new JsonObject();
-        if (data.data == null || data.data.length <= 0) {
-            //返回错误
-            jsonObject.addProperty("error", "1");
-            ResponseUtils.renderJson(response, jsonObject.toString());
-            return;
-        }
-        MemberBank bank = new MemberBank();
-
-        Member member = new Member();
-
-        for (Integer auth : data.data) {
-            bank.setId(auth);
-            List<MemberBank> byPages = memberBankService.findByPages(bank);
-            if (byPages != null && byPages.size() > 0) {
-                MemberBank bank1 = byPages.get(0);
-                bank1.setIs_auth(type);
-                bank1.setRemark(data.reason);
-                //保存更新
-                memberBankService.update(bank1);
-                //更新用户已认证银行卡
-                if (type == 1) {
-                    Integer mem_id = bank1.getMem_id();
-                    if (mem_id != null) {
-                        member.setId(mem_id);
-                        Member dbMember = memberService.getMember(member);
-                        if (dbMember.getIs_real_bank() == null || dbMember.getIs_real_bank() == 0) {
-                            dbMember.setIs_real_bank(1);
-                            memberService.updateMember(dbMember);
-                        }
-                    }
-                }
-            }
-        }
-        //返回结果
-        jsonObject.addProperty("error", "0");
-        ResponseUtils.renderJson(response, jsonObject.toString());
+    @GetMapping("/viewBankDetail")
+    public String viewBankDetail(MemberBank param, final Model model){
+        model.addAttribute("model", param);
+        return "v2/authentication/bank/view";
     }
 
 
+///////////////////////////////////////////////////////////
     @Autowired
     TiXianService tiXianService;
 
-    /**
-     * 审核提现
-     *
-     * @return
-     */
-    @RequestMapping(value = "toTiXian")
-    public String toTiXian(Model model, Integer pass,
-                           Integer fields, String input_val,
-                           Integer page) {
-        TiXian tiXian = new TiXian();
+    //提现页面
+    @RequestMapping(value = "tiXianHtml")
+    public String tiXianHtml(){
+        return "v2/authentication/withdraw-deposit/index";
+    }
 
-        //页码
-        if (page!=null && page>=0){
+
+   /**
+    * 审核提现
+    *
+    * @return
+    */
+    @RequestMapping(value = "toTiXian")
+    @ResponseBody
+    public JsonArrayResult<TiXian> toTiXian(Integer page,String cond,
+                                            String content,Integer is_auth,
+                                            HttpServletResponse response) {
+        TiXian tiXian = new TiXian();
+        //判断条件查询
+        if (IsNullUtils.isNotNull(cond,content)){
+            switch (cond){
+                case "0":
+                    break;
+                case "1"://会员id
+                    tiXian.setMemid(Integer.valueOf(content));
+                    break;
+                case "2"://真实姓名
+                    tiXian.setReal_name(content);
+                    break;
+            }
+        }
+        //判断查询条件
+        if (is_auth!=null && !is_auth.equals(4)){
+            tiXian.setFlag(is_auth);
+        }
+        if (page!=null && page>0){
             tiXian.setPage(page);
         }
 
-        //检查条件搜索
-        if (pass != null) {
-            if (pass != 5) {
-                tiXian.setFlag(pass);
-            }
-        }
-        if (fields != null && StringUtils.isNotBlank(input_val)) {
-            switch (fields) {
-                case 0:
-                    break;
-                case 2://会员id
-                    tiXian.setMemid(Integer.valueOf(input_val));
-                    break;
-            }
-        }
-        List<TiXian> datas = tiXianService.getDatas(tiXian);
-        Member member = new Member();
-        if (datas != null && datas.size() > 0) {
-            for (TiXian data : datas) {
-                Integer memid = data.getMemid();
-                member.setId(memid);
-                //对应的会员
-                Member dbMember = memberService.getMember(member);
-                data.setMember(dbMember);
-            }
-        }
-        PageInfo<TiXian> pageInfo = new PageInfo<>(datas);
+        List<TiXian> datas = tiXianService.getTiXianData(tiXian);
 
-        //放入前台
-        model.addAttribute("pageinfo", pageInfo);
-        return PREFIX + "tixian/list";
+        return new JsonArrayResult(0, datas);
     }
-
 
 
 
     /**
-     * 提现--付款成功
-     *
-     * @return
+     * 同意提现
      */
-    @PostMapping(value = "tixianAgree")
-    public void tixianAgree(@RequestBody AuthData data, HttpServletResponse response) {
-        tixian2Account(data, 1, response);
+    @RequestMapping(value = "agreeTiXian")
+    @ResponseBody
+    public JsonResult agreeTiXian(String id,HttpServletResponse response){
+        tiXianService.agreeAllTiXian(id);
+        return new JsonResult(0);
     }
 
     /**
-     * 提现--付款失败
-     *
-     * @return
+     * 拒绝提现
      */
-    @PostMapping(value = "tixianFail")
-    public void tixianFail(@RequestBody AuthData data, HttpServletResponse response) {
-        tixian2Account(data, 2, response);
-    }
-
-    /**
-     * 提现--拒绝
-     *
-     * @return
-     */
-    @PostMapping(value = "tixianDisAgree")
-    public void tixianDisAgree(@RequestBody AuthData data, HttpServletResponse response) {
-        tixian2Account(data, 3, response);
-    }
-
-
-    /**
-     * 提现操作
-     *
-     * @param data
-     * @param type     1付款成功 2付款失败 3拒绝
-     * @param response
-     */
-    public void tixian2Account(AuthData data, Integer type, HttpServletResponse response) {
-        JsonObject jsonObject = new JsonObject();
-        if (data.data == null || data.data.length <= 0) {
-            //返回错误
-            jsonObject.addProperty("error", "1");
-            ResponseUtils.renderJson(response, jsonObject.toString());
-            return;
-        }
-
-        TiXian tiXian = new TiXian();
-
-        for (Integer auth : data.data) {
-            tiXian.setId(auth);
-
-            List<TiXian> datas = tiXianService.getDatas(tiXian);
-            if (datas != null && datas.size() > 0) {
-                TiXian dbTiXian = datas.get(0);
-
-                dbTiXian.setFlag(type);
-                dbTiXian.setRemark(data.reason);
-                //保存更新
-                tiXianService.update(dbTiXian);
-            }
-        }
-        //返回结果
-        jsonObject.addProperty("error", "0");
-        ResponseUtils.renderJson(response, jsonObject.toString());
+    @RequestMapping(value = "rejectTiXian")
+    @ResponseBody
+    public JsonResult rejectTiXian(String id,String reason,HttpServletResponse response){
+        tiXianService.rejectAllTiXian(id,reason);
+        return new JsonResult(0);
     }
 
 
 
-    //接收参数
-    static class AuthData {
-        public Integer[] data;
-        public String reason;
-    }
 }

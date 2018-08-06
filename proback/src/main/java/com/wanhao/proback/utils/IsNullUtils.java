@@ -51,6 +51,10 @@ public class IsNullUtils {
         return false;
     }
 
+    public static boolean arrayIsNotNull(Object[] arr){
+        return arr!=null && arr.length>0;
+    }
+
 
     /**
      * 是否不为空

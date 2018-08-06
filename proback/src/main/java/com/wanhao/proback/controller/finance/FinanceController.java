@@ -7,11 +7,9 @@
  */
 package com.wanhao.proback.controller.finance;
 
-import com.wanhao.proback.bean.util.JsonResult;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 /***
  * 财务模块

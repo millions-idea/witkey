@@ -23,7 +23,7 @@ public class SpringWebMvcConfigurationSupport extends WebMvcConfigurationSupport
      */
     @Bean
     public FinanceAuthenticationInterceptor FinanceAuthenticationInterceptor() {
-        return new FinanceAuthenticationInterceptor(true);
+        return new FinanceAuthenticationInterceptor(false);
     }
 
 

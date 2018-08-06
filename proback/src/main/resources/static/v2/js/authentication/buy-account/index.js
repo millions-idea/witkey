@@ -1,3 +1,7 @@
+/**
+ * 会员买号认证页面
+ */
+
 var route = "/member";
 var service;
 var tableIndex;
@@ -5,13 +9,13 @@ var tableIndex;
     service = initService(route);
 
     // 加载数据表
-    initDataTable("/member/queryMemberAuth", function (form, table, layer, vipTable, tableIns) {
+    initDataTable("/member/getAuthAccount", function (form, table, layer, vipTable, tableIns) {
         // 动态注册事件
         var $tableDelete = $("#my-data-table-delete");
         var  $tableReject = $("#my-data-table-reject");
         var $rejectReason = $("#reject-reason");
 
-        //批量通过实名验证
+        //批量通过验证
         $tableDelete.click(function () {
             layer.confirm('您确定要通过这些认证？', {
                 title: "敏感操作提示",
@@ -121,7 +125,7 @@ function initService(r) {
          * @param callback
          */
         view: function (param, callback) {
-            $.get(r + "/viewRealNameImg", param, function (data) {
+            $.get(r + "/viewBuyAccountImg", param, function (data) {
                 callback(data);
             });
         },
@@ -130,30 +134,19 @@ function initService(r) {
          */
         deleteBy: function (param, callback) {
 
-            $.get(r + "/agreeAuth", param, function (data) {
+            $.get(r + "/agreeBuyAccount", param, function (data) {
                 callback(data);
             });
         },
 
         /**
-         * 审核通过
+         * 审核拒绝
          */
         rejectBy: function (param, callback) {
-            $.get(r + "/rejectAuth", param, function (data) {
+            $.get(r + "/rejectBuyAccount", param, function (data) {
                 callback(data);
             });
-        },
-
-        /**
-         * 添加会员
-         * @param param
-         * @param callback
-         */
-        add: function (param,callback) {
-            $.post(route + "/add", param , function (data) {
-                callback(data);
-            });
-        },
+        }
     }
 }
 
@@ -237,22 +230,23 @@ function getTableColumns() {
         {type: "numbers"}
         , {type: "checkbox"}
         , {field: 'id', title: '会员ID', width: 80, sort: true}
-        , {field: 'username', title: '会员名', width: 120}
-        , {field: 'id_card', title: '身份证号', width: 120}
-        , {field: 'login_ip', title: '上次登录IP', width: 120}
-        , {field: 'real_name_time', title: '提交时间', width: 120}
+        , {field: 'account_type', title: '买号类型', width: 120}
+        , {field: 'account', title: '买号名称', width: 120}
+        , {field: 'account_gender', title: '买号性别', width: 120}
+        , {field: 'honor', title: '信誉度', width: 90}
+        , {field: 'taoqi', title: '淘气值', width: 120}
+        , {field: 'create_time', title: '申请时间', width: 120}
 
         , {field: 'isEnable', title: '状态', width: 120, templet: function (d) {
 
             var  result = '';
-            if (d.is_real_name != null && d.is_real_name == 1) {
-                result = '未认证';
-            }else if(d.is_real_name != null && d.is_real_name == 2){
+            if (d.is_pass != null && d.is_pass == 0) {
+                result = '未审核';
+            }else if(d.is_pass != null && d.is_pass == 1){
                 result = '已认证';
-            }else if(d.is_real_name != null && d.is_real_name == 2){
+            }else if(d.is_pass != null && d.is_pass == 2){
                 result = '已拒绝';
             }
-            //                return d.is_real_name != null  &&  d.is_real_name == 2 ? "已认证" : "未认证";
                 return result;
         }}
         , {fixed: 'right', title: '操作',

@@ -58,15 +58,15 @@
         }      ,{
           "text": "会员买号审核",
           "icon": "&#xe621;",
-          "href": "/express-platform"
+          "href": "/member/toAuthAccount"
         },{
           "text": "会员银行卡审核",
           "icon": "&#xe621;",
-          "href": "/express-platform"
+          "href": "/member/toAuthBankHtml"
         },{
           "text": "会员提现审核",
           "icon": "&#xe621;",
-          "href": "/express-platform"
+          "href": "/member/tiXianHtml"
         }
 
       ]
