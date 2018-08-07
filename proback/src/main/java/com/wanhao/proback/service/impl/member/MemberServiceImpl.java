@@ -2,9 +2,12 @@ package com.wanhao.proback.service.impl.member;
 
 import com.github.pagehelper.PageHelper;
 import com.wanhao.proback.bean.member.Member;
+import com.wanhao.proback.bean.member.MemberView;
 import com.wanhao.proback.bean.util.InviteResult;
 import com.wanhao.proback.dao.member.MemberMapper;
 import com.wanhao.proback.service.member.MemberService;
+import com.wanhao.proback.utils.GsonUtils;
+import com.wanhao.proback.utils.JsonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -14,6 +17,7 @@ import tk.mybatis.mapper.entity.Example;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by LiuLiHao on 2018/7/16 12:29.
@@ -70,6 +74,10 @@ public class MemberServiceImpl implements MemberService {
         //用户类型
         if (member.getVipmodel() != null && member.getVipmodel().length() > 0) {
             criteria.andEqualTo("real_name", member.getVipmodel());
+        }
+        //是否已实名
+        if (member.getIs_real_name() != null && member.getIs_real_name() > 0) {
+            criteria.andEqualTo("is_real_name", member.getIs_real_name());
         }
         //性别
         if (member.getGender() != null && member.getGender().length() > 0 && !member.getGender().equals("0")) {
@@ -240,4 +248,42 @@ public class MemberServiceImpl implements MemberService {
         memberMapper.rejectAll(id,reason);
     }
 
+    /**
+     * 根据id查询用户,钱包信息 韦德 2018年8月7日00:18:34
+     *
+     * @param id
+     * @return
+     */
+    @Override
+    public MemberView getMemberByIdForDB(Integer id) {
+        MemberView memberView = memberMapper.selectById(id);
+        if(memberView != null) redisTemplate.opsForValue().set("member_"+memberView.getId(), JsonUtil.getJson(memberView),45, TimeUnit.MINUTES);
+        return memberView;
+    }
+
+    /**
+     * 根据id查询用户的缓存 韦德 2018年8月7日00:32:41
+     *
+     * @param id
+     * @return
+     */
+    @Override
+    public MemberView getMemberByIdForCache(Integer id) {
+        Object obj = redisTemplate.opsForValue().get("member_" + id);
+        if(obj != null) return JsonUtil.getModel(String.valueOf(obj), MemberView.class);
+        return null;
+    }
+
+    /**
+     * 根据id查询用户视图信息-先查缓存后查数据库 韦德 2018年8月7日00:37:52
+     *
+     * @param id
+     * @return
+     */
+    @Override
+    public MemberView getMemberById(Integer id) {
+        MemberView memberView = this.getMemberByIdForCache(id);
+        if(memberView == null) memberView = this.getMemberByIdForDB(id);
+        return memberView;
+    }
 }

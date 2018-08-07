@@ -1,19 +1,9 @@
 /*!财务模块-交易清单 韦德 2018年8月5日22:50:57*/
-var route = "./statement";
+var route = "./account-voucher";
 var service;
 var tableIndex;
 (function () {
     service = initService(route);
-
-    // 获取系统账户信息
-    service.getSystemAccount(function (data) {
-        console.log(data)
-        if(!isNaN(data.error) || (!isNaN(data.code) && data.code != 0)) return;
-        $("#sys_username").text(data.username);
-        $("#sys_balance").text(data.balance);
-        $("#income-amount").text(data.incomeAmount);
-        $("#expend-amount").text(data.expendAmount);
-    });
 
     // 加载数据表
     initDataTable(route + "/getLimit", function (form, table, layer, vipTable, tableIns) {
@@ -167,7 +157,7 @@ function initDataTable(url, callback, loadDone) {
         // 表格渲染
         tableIndex = table.render({
             elem: '#my-data-table'                  //指定原始表格元素选择器（推荐id选择器）
-            , height: 480    //容器高度
+            , height: 720    //容器高度
             , cols: cols
             , id: 'my-data-table'
             , url: url
@@ -199,18 +189,14 @@ function initDataTable(url, callback, loadDone) {
 function getTableColumns() {
     return [[
         {type: "numbers"}
-        , {field: 'transaction_id', title: 'ID', width: 80, sort: true}
+        , {field: 'log_id', title: 'ID', width: 80, sort: true}
         , {field: 'record_id', title: '流水号', width: 300}
-        , {field: 'record_no', title: '交易号', width: 200, templet: function (d) {
-                return d.record_no == null ? "站内交易" : d.record_no;
-            }}
-        , {field: 'from_username', title: '甲方', width: 150}
-        , {field: 'to_username', title: '乙方', width: 150}
-        , {field: 'trade_date', title: '交易日', width: 240}
+        , {field: 'username', title: '用户名', width: 150}
+        , {field: 'add_date', title: '创建时间', width: 240}
         , {field: 'trade_type', title: '交易类型', width: 120, templet: function (d) {
-                return d.trade_type == 1 ? "收入" : "支出";
+                return d.trade_type == 1 ? "增" : "减";
             }}
-        , {field: 'trade_amount', title: '金额', width: 120, align: "center", templet: function (d) {
+        , {field: 'trade_amount', title: '交易额', width: 120, templet: function (d) {
                 if(d.trade_type == 1){
                     return "<span style='color: #2fc253;font-size: 15px;'>+" + d.trade_amount + "</span>";
                 }else{
@@ -218,6 +204,7 @@ function getTableColumns() {
                 }
                 return "<span>" + d.trade_amount + "</span>";
             }}
+        , {field: 'account_balance', title: '金额', width: 120, align: "center"}
         , {field: 'remark', title: '摘要', width: 240}
     ]];
 }
@@ -234,7 +221,7 @@ function getTableColumns() {
 function loadTable(index,id,elem,cols,url,loadDone) {
     index.reload({
         elem: elem
-        , height: 480    //容器高度
+        , height: 720    //容器高度
         , cols: cols
         , id: id
         , url: url
@@ -253,6 +240,6 @@ function loadTable(index,id,elem,cols,url,loadDone) {
 
 function resetPager() {
     $(".layui-table-body.layui-table-main").each(function (i, o) {
-        $(o).height(395);
+        $(o).height(640);
     });
 }

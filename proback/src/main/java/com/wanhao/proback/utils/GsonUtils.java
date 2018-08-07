@@ -32,4 +32,19 @@ public class GsonUtils {
         return gsonText.toJson(object);
     }
 
+    /**
+     * json字符串转换成具体的类型
+     * @param jsonString
+     * @param clazz
+     * @param <T>
+     * @return
+     */
+    public static <T> T toType(String jsonString, Class<T> clazz){
+        try{
+            return gson.fromJson(jsonString,clazz);
+        }catch (Exception e){
+            System.err.println(e.toString());
+            return null;
+        }
+    }
 }

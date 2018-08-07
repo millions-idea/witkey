@@ -191,7 +191,8 @@
             </tr>
             <tr>
                 <td class="tl">&nbsp;</td>
-                <td class="tr" height="30"><input type="button" name="submit" value=" 确 定 " class="btn" onclick="okbtn_click()"/>&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" value=" 返 回 " class="btn" onclick="history.back(-1);"/>
+                <td class="tr" height="30"><input type="button"
+                                                  name="submit" value=" 确 定 " class="btn" onclick="okbtn_click()"/>&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" value=" 返 回 " class="btn" onclick="history.back(-1);"/>
                 </td>
             </tr>
             </tbody>
@@ -200,6 +201,7 @@
             function okbtn_click() {
 
                 var params = {};
+                debugger
                 params.realname = $("#realname").text();
                 params.idcard =  $("#idcard").val();
                 params.url1 = $("#path1").val();
@@ -225,7 +227,6 @@
             }
         </script>
     </div>
-    <script type="text/javascript" src="http://001.topaaa.com/file/script/clear.js"></script>
     <script type="text/javascript">
     //检查填写完毕
 

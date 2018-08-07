@@ -96,7 +96,12 @@ public class FinanceException extends RuntimeException {
         /**
          * 资金变化更新失败
          */
-        WALLET_BALANCE_LOG("E0005");
+        WALLET_BALANCE_LOG("E0005"),
+
+        /**
+         * 找不到用户
+         */
+        NOT_FOUND_USER("E0006");
 
 
         private String code;

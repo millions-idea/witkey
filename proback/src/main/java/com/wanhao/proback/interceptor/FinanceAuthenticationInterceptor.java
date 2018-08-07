@@ -47,16 +47,14 @@ public class FinanceAuthenticationInterceptor implements HandlerInterceptor {
                 String url = RequestUtil.getParameters(request);
                 String sign = request.getParameter("sign");
                 try {
-                    if(sign != null && getDecrypt(sign).equals(url)) return true;
+                    String encrypt = getEncrypt(url);
+                    System.err.println("请求参数:" + url);
+                    System.err.println("请求验签:" + sign);
+                    System.err.println("系统验签:" + encrypt);
+                    if(sign != null && encrypt.equals(sign)) return true;
                 } catch (Exception e) {
-                    try {
-                        System.err.println("正确验签:" + getEncrypt(url));
-                    } catch (Exception e1) {}
                     throw new FinanceException(e, FinanceException.Errors.SIGN_ERROR, "验签失败");
                 }
-                try {
-                    System.err.println("正确验签:" + getEncrypt(url));
-                } catch (Exception e1) {}
                 throw new FinanceException(FinanceException.Errors.SIGN_ERROR, "验签失败");
             }
         }
@@ -73,7 +71,7 @@ public class FinanceAuthenticationInterceptor implements HandlerInterceptor {
      */
     private String getEncrypt(String body) throws Exception {
         // formUid=1&toUid=2&amount=1.9&remark=充值&token=
-        byte[] bytes = RSAUtil.encryptByPublicKey(body.getBytes(), Constants.PUB_KEY);
+        byte[] bytes = RSAUtil.encryptByPublicKey(body.getBytes(), Constants.FINANCE_PUB_KEY);
         return  Base64Utils.encode(bytes);
     }
 
@@ -85,6 +83,6 @@ public class FinanceAuthenticationInterceptor implements HandlerInterceptor {
      */
     private String getDecrypt(String body) throws Exception {
         byte[] decode = Base64Utils.decode(body);
-        return new String(RSAUtil.decryptByPrivateKey(decode, Constants.PRI_KEY), "UTF-8");
+        return new String(RSAUtil.decryptByPrivateKey(decode, Constants.FINANCE_PRIVATE_KEY), "UTF-8");
     }
 }

@@ -1,6 +1,7 @@
 package com.wanhao.proback.service.member;
 
 import com.wanhao.proback.bean.member.Member;
+import com.wanhao.proback.bean.member.MemberView;
 import com.wanhao.proback.bean.util.InviteResult;
 
 import java.util.List;
@@ -74,4 +75,24 @@ public interface MemberService {
 
     void rejectAll(String id, String reason);
 
+    /**
+     * 根据id查询用户,钱包信息 韦德 2018年8月7日00:18:34
+     * @param id
+     * @return
+     */
+    MemberView getMemberByIdForDB(Integer id);
+
+    /**
+     * 根据id查询用户的缓存 韦德 2018年8月7日00:32:41
+     * @param id
+     * @return
+     */
+    MemberView getMemberByIdForCache(Integer id);
+
+    /**
+     * 根据id查询用户视图信息-先查缓存后查数据库 韦德 2018年8月7日00:37:52
+     * @param id
+     * @return
+     */
+    MemberView getMemberById(Integer id);
 }
