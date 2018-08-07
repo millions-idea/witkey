@@ -204,7 +204,7 @@ function getTableColumns() {
                 }
                 return "<span>" + d.trade_amount + "</span>";
             }}
-        , {field: 'account_balance', title: '金额', width: 120, align: "center"}
+        , {field: 'account_balance', title: '余额', width: 120, align: "center"}
         , {field: 'remark', title: '摘要', width: 240}
     ]];
 }

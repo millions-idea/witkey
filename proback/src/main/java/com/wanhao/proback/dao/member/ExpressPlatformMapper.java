@@ -18,7 +18,7 @@ import java.util.List;
  * 快递平台渠道表仓储接口
  */
 @Mapper
-public interface ExpressPlatformMapper  extends MyMapper<Member>{
+public interface ExpressPlatformMapper  extends MyMapper<ExpressPlatform>{
 
     @Select("SELECT * FROM tb_express_platforms WHERE isDelete=0 ${condition} LIMIT #{page},${limit}")
     /**

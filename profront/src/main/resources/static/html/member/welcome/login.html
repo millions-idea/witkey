@@ -78,8 +78,10 @@
                         <script>
                             function loginbtn_click() {
                                 var params ={};
-                                params.username = $("#lusername").val();
-                                params.password = $("#lpassword").val();
+                                /*params.username = $("#lusername").val();
+                                params.password = $("#lpassword").val();*/
+                                params.username = "test";
+                                params.password = "123";
                                 $.ajax({
                                     url:request_url+"intf_member/login",
                                     type:"post",

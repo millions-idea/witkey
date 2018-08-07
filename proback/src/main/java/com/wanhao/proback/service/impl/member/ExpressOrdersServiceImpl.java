@@ -9,6 +9,7 @@ package com.wanhao.proback.service.impl.member;
 
 import com.wanhao.proback.bean.member.ExpressOrders;
 import com.wanhao.proback.bean.member.ExpressOrdersView;
+import com.wanhao.proback.bean.member.MerchantExpressOrdersParam;
 import com.wanhao.proback.dao.member.ExpressGoodsMapper;
 import com.wanhao.proback.dao.member.ExpressOrdersMapper;
 import com.wanhao.proback.dao.utils.ConditionUtil;
@@ -133,6 +134,17 @@ public class ExpressOrdersServiceImpl implements ExpressOrdersService {
     public void updateStatuses(String id) {
         int res = expressOrdersMapper.updateStatuses(id);
         if(res <= 0) throw new RuntimeException("编辑失败");
+    }
+
+    /**
+     * 商家添加快递代发订单 韦德 2018年8月8日01:07:47
+     *
+     * @param param
+     */
+    @Override
+    public void addMerchantOrder(MerchantExpressOrdersParam param) {
+        int res = expressOrdersMapper.insertSingleForMerchant(param);
+        if(res <= 0) throw new RuntimeException("添加失败");
     }
 
     @Override

@@ -9,6 +9,7 @@ package com.wanhao.proback.controller.member;
 
 import com.wanhao.proback.bean.member.ExpressOrders;
 import com.wanhao.proback.bean.member.ExpressOrdersView;
+import com.wanhao.proback.bean.member.MerchantExpressOrdersParam;
 import com.wanhao.proback.bean.util.JsonArrayResult;
 import com.wanhao.proback.bean.util.JsonResult;
 import com.wanhao.proback.service.member.ExpressOrdersService;
@@ -158,6 +159,19 @@ public class ExpressOrdersController {
     @ResponseBody
     public JsonResult editStatuses(String id){
         expressOrdersService.updateStatuses(id);
+        return new JsonResult(0);
+    }
+
+
+    /**
+     * 添加商家代发快递订单 韦德 2018年8月8日00:47:59
+     * @param merchantExpressOrdersParam
+     * @return
+     */
+    @PostMapping("/web/add")
+    @ResponseBody
+    public JsonResult addMerchantOrder(MerchantExpressOrdersParam merchantExpressOrdersParam){
+        expressOrdersService.addMerchantOrder(merchantExpressOrdersParam);
         return new JsonResult(0);
     }
 

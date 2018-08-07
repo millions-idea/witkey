@@ -9,6 +9,7 @@ package com.wanhao.proback.service.impl.member;
 
 import com.google.common.collect.Lists;
 import com.wanhao.proback.bean.member.ExpressGoods;
+import com.wanhao.proback.bean.member.ExpressGoodsJsonView;
 import com.wanhao.proback.bean.member.ExpressGoodsView;
 import com.wanhao.proback.dao.member.ExpressGoodsMapper;
 import com.wanhao.proback.dao.utils.ConditionUtil;
@@ -40,7 +41,7 @@ public class ExpressGoodsServiceImpl implements ExpressGoodsService {
      * @return
      */
     @Override
-    public List<ExpressGoodsView> getGoodses(Integer page, String limit, String condition) {
+    public List<ExpressGoodsView> getGoodsLimit(Integer page, String limit, String condition) {
         // 计算分页位置
         if(!limit.equalsIgnoreCase("-1")){
             page = page - 1;
@@ -89,6 +90,26 @@ public class ExpressGoodsServiceImpl implements ExpressGoodsService {
     public void deleteBy(String id) {
         int res = expressGoodsMapper.deleteBy(id);
         if(res <= 0) throw new RuntimeException("删除失败");
+    }
+
+    /**
+     * 获取快递平台商品集合 韦德 2018年8月7日23:44:22
+     *
+     * @return
+     */
+    @Override
+    public List<ExpressGoodsJsonView> getGoods() {
+        List<ExpressGoodsView> list = expressGoodsMapper.selectList();
+        if(list == null) return null;
+        List<ExpressGoodsJsonView> nList = new ArrayList<>();
+        list.forEach(exp -> {
+            ExpressGoodsJsonView expressGoodsJsonView = new ExpressGoodsJsonView();
+            expressGoodsJsonView.setGoods_id(exp.getGoods_id());
+            expressGoodsJsonView.setName(exp.getName());
+            expressGoodsJsonView.setPrice(exp.getPrice());
+            nList.add(expressGoodsJsonView);
+        });
+        return nList;
     }
 
     @Override

@@ -778,6 +778,7 @@ function getOrdersTableColumns() {
         , {field: 'real_name', title: '真实姓名', width: 120}
         , {field: 'phone', title: '手机号', width: 120}
         , {field: 'express_id', title: '运单号', width: 160, edit: 'text'}
+        , {field: 'weight', title: '重量', width: 80}
         , {field: 'status', title: '订单状态', width: 120, templet: function (d) {
                 var str = "待发货";
                 switch (d.status){
@@ -912,7 +913,6 @@ function loadDefaultTable() {
         });
     });
 }
-
 
 /**
  * 获取发货按钮

@@ -36,16 +36,6 @@ public class ProbackApplication {
         return new FinanceLogAspectConfiguration(true);
     }
 
-    //设置ajax跨域请求
-    @Bean
-    public WebMvcConfigurer corsConfigurer(){
-        return new WebMvcConfigurerAdapter(){
-            @Override
-            public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/**").allowedOrigins("*");
-            }
-        };
-    }
 
     @Bean
     public MultipartConfigElement multipartConfigElement(){

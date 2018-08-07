@@ -57,6 +57,7 @@ CREATE TABLE `tb_express_orders` (
   `user_id` int(11) NOT NULL COMMENT '用户ID',
   `send_address_id` int(11) NOT NULL COMMENT '发货地址',
   `recv_address` varchar(255) NOT NULL COMMENT '收货地址',
+  `weight` double COMMENT '重量',
   `express_id` varchar(62) DEFAULT NULL COMMENT '快递单号',
   `amount` decimal(12,2) NOT NULL COMMENT '订单总金额',
   `status` int(11) NOT NULL DEFAULT '0' COMMENT '订单状态(0=待审核,1=已发货,2=拒绝,3=取消)',
@@ -67,6 +68,8 @@ CREATE TABLE `tb_express_orders` (
   `isDelete` int(11) DEFAULT '0' COMMENT '是否删除',
   PRIMARY KEY (`order_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='快递平台订单表';
+
+
 
 
 

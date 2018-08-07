@@ -65,4 +65,15 @@ public interface ExpressGoodsMapper extends MyMapper<ExpressGoodsView> {
      * @return
      */
     int deleteBy(@Param("id") String id);
+
+    @Select("SELECT t1.*,t2.`name` AS category_name,t3.`name` AS expp_name  " +
+            "FROM tb_express_goods t1 " +
+            "LEFT JOIN tb_business_brands t2 ON t1.category_id = t2.business_id " +
+            "LEFT JOIN tb_express_platforms t3 ON t1.expp_id = t3.expp_id " +
+            "WHERE t1.isDelete = 0 AND t1.isEnable = 1")
+    /**
+     * 查询集合 韦德 2018年8月7日23:45:48
+     * @return
+     */
+    List<ExpressGoodsView> selectList();
 }

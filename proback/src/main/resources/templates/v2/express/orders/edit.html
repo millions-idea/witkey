@@ -39,6 +39,13 @@
         </div>
     </div>
     <div class="layui-form-item">
+        <label class="layui-form-label">重量</label>
+        <div class="layui-input-block">
+            <input  type="text" name="weight" autocomplete="off"
+                   lay-verify="required" class="layui-input" th:value="${model.getWeight()}">
+        </div>
+    </div>
+    <div class="layui-form-item">
         <label class="layui-form-label">订单状态</label>
         <div class="layui-input-block">
             <select id="select-status" lay-verify="required" >
@@ -112,6 +119,7 @@
                 order_id: $('input[name="order_id"]').val(),
                 user_id: $('input[name="user_id"]').val(),
                 express_id: $('input[name="express_id"]').val(),
+                weight: $('input[name="weight"]').val(),
                 status: $('#select-status').val(),
                 isEnable: $('#isEnable').next().find("em").text() == '开启' ? 1 : 0
             }, function (data) {

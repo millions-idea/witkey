@@ -8,6 +8,7 @@
 package com.wanhao.proback.service.member;
 
 import com.wanhao.proback.bean.member.ExpressGoods;
+import com.wanhao.proback.bean.member.ExpressGoodsJsonView;
 import com.wanhao.proback.bean.member.ExpressGoodsView;
 import com.wanhao.proback.service.BaseService;
 import org.springframework.stereotype.Service;
@@ -22,7 +23,7 @@ public interface ExpressGoodsService extends BaseService<ExpressGoods> {
      * @param condition
      * @return
      */
-    List<ExpressGoodsView> getGoodses(Integer page, String limit, String condition);
+    List<ExpressGoodsView> getGoodsLimit(Integer page, String limit, String condition);
 
 
     /**
@@ -36,4 +37,10 @@ public interface ExpressGoodsService extends BaseService<ExpressGoods> {
      * @param id
      */
     void deleteBy(String id);
+
+    /**
+     * 获取快递平台商品集合 韦德 2018年8月7日23:44:22
+     * @return
+     */
+    List<ExpressGoodsJsonView> getGoods();
 }

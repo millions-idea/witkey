@@ -7,16 +7,13 @@
  */
 package com.wanhao.proback.controller.member;
 
-import com.wanhao.proback.bean.member.ExpressGoods;
-import com.wanhao.proback.bean.member.ExpressGoodsView;
-import com.wanhao.proback.bean.member.ExpressPlatform;
+import com.wanhao.proback.bean.member.*;
 import com.wanhao.proback.bean.util.JsonArrayResult;
 import com.wanhao.proback.bean.util.JsonResult;
 import com.wanhao.proback.service.member.ExpressGoodsService;
 import com.wanhao.proback.service.member.ExpressPlatformService;
+import com.wanhao.proback.service.member.ExpressPostalAddressService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,6 +34,10 @@ public class ExpressPlatformController {
 
     @Autowired
     private ExpressGoodsService expressGoodsService;
+
+    @Autowired
+    private ExpressPostalAddressService expressPostalAddressService;
+
 
     /**
      * 快递空包服务管理-首页 韦德 2018年8月1日22:10:41
@@ -151,7 +152,7 @@ public class ExpressPlatformController {
     @GetMapping("/getGoods")
     @ResponseBody
     public JsonArrayResult<ExpressGoodsView> getGoodsList(Integer page, String  limit, String condition){
-        List<ExpressGoodsView> list = expressGoodsService.getGoodses(page, limit, condition);
+        List<ExpressGoodsView> list = expressGoodsService.getGoodsLimit(page, limit, condition);
         if (condition == null || condition.isEmpty()){
             int count = expressGoodsService.getGoodsCount();
             JsonArrayResult jsonArrayResult = new JsonArrayResult(0, list);
@@ -218,7 +219,6 @@ public class ExpressPlatformController {
         return new JsonResult(0);
     }
 
-
     /**
      * 删除商品(支持多个) 韦德 2018年8月3日21:48:01
      * @param id
@@ -232,9 +232,27 @@ public class ExpressPlatformController {
     }
 
 
-    @GetMapping("/userInfo")
+    /**
+     * 获取发货地址列表 韦德 2018年8月7日22:49:14
+     * @return
+     */
+    @GetMapping("/web/getPostalAddresses")
     @ResponseBody
-    public Object getCurrentUserInfo(Authentication authentication){
-        return SecurityContextHolder.getContext().getAuthentication();
+    public JsonArrayResult<ExpressPostalAddress> getPostalAddresses(){
+        List<ExpressPostalAddress> list = expressPostalAddressService.getPostalAddresses();
+        return new JsonArrayResult(0, list);
     }
+
+
+    /**
+     * 获取快递分类 韦德 2018年8月7日23:42:19
+     * @return
+     */
+    @GetMapping("/web/getExpressCategory")
+    @ResponseBody
+    public JsonArrayResult<ExpressGoodsJsonView> getExpressCategory(){
+        List<ExpressGoodsJsonView> list = expressGoodsService.getGoods();
+        return new JsonArrayResult(0, list);
+    }
+
 }

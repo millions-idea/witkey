@@ -1,6 +1,6 @@
-var request_url = "http://192.168.0.101:8081/";
+var request_url = "http://192.168.1.103:8081/";
 
-var img_prefix_url = "http://192.168.0.101:8081/images/upload/";
+var img_prefix_url = "http://192.168.1.103:8081/images/upload/";
 
 //获取全局配置 网站名称 Logo等
 var get_setting_url = request_url+ "intf_setting/getSetting";

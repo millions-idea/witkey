@@ -28,6 +28,7 @@ public class ExpressOrders {
     private Integer user_id;
     private Integer send_address_id;
     private String recv_address;
+    private Double weight;
     private String express_id;
     private Double amount;
     private Integer status;

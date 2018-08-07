@@ -1,0 +1,13 @@
+.my-error{
+    border: 2px solid #FF0000 !important;
+    box-shadow: 0px 3px 11px #0000004f;
+    background-color: #fff7f0;
+}
+
+.my-text-color{
+    display: none !important;
+    line-height: 30px;
+    display: block;
+    height: 30px;
+    color: #ff0000;
+}

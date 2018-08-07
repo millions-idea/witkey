@@ -9,6 +9,7 @@ package com.wanhao.proback.service.member;
 
 import com.wanhao.proback.bean.member.ExpressOrders;
 import com.wanhao.proback.bean.member.ExpressOrdersView;
+import com.wanhao.proback.bean.member.MerchantExpressOrdersParam;
 import com.wanhao.proback.service.BaseService;
 
 import java.util.List;
@@ -57,4 +58,10 @@ public interface ExpressOrdersService extends BaseService<ExpressOrders> {
      * @param id
      */
     void updateStatuses(String id);
+
+    /**
+     * 商家添加快递代发订单 韦德 2018年8月8日01:07:47
+     * @param merchantExpressOrdersParam
+     */
+    void addMerchantOrder(MerchantExpressOrdersParam merchantExpressOrdersParam);
 }
