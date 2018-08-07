@@ -15,6 +15,7 @@ import com.wanhao.proback.bean.shop.Shop;
 import com.wanhao.proback.bean.util.InviteResult;
 import com.wanhao.proback.service.AreaService;
 import com.wanhao.proback.service.SettingService;
+import com.wanhao.proback.service.finance.PayService;
 import com.wanhao.proback.service.finance.WalletsService;
 import com.wanhao.proback.service.member.MemberBankService;
 import com.wanhao.proback.service.member.MemberService;
@@ -55,8 +56,7 @@ public class MemberController {
     @Autowired
     MemberBankService bankService;
 
-    @Autowired
-    WalletsService walletsService;
+
     /**
      * 注册
      * @return
@@ -770,6 +770,7 @@ public class MemberController {
             ResponseUtils.retnFailMsg(response,jsonObject,"参数错误");
             return;
         }
+
         //判断钱数是否为负数
         if (add_val<=0){
             ResponseUtils.retnFailMsg(response,jsonObject,"金额错误");
@@ -778,27 +779,35 @@ public class MemberController {
         Member member = new Member(memid);
         //查询数据库的记录
         Member dbMember = memberService.getMember(member);
-        Double money = dbMember.getMoney();
-        // todo 幂等操作
+
+        //获取用户钱包
+        Wallets wallets = walletsService.selectOneByUid(dbMember.getId());
+        //用户当前的余额
+        Double money = wallets.getBalance();
 
         Double permis_money = dbMember.getPermis_money();
+
         if (money!=null && money>=add_val){
             //扣款
-            double saveMoney = ComputeUtil.sub(money, add_val);
-            dbMember.setMoney(saveMoney);
-            //加保证金
-            if (permis_money==null)
-                permis_money=0.0;
-            Double savePermiss = ComputeUtil.add(permis_money, add_val);
-            dbMember.setPermis_money(savePermiss);
-            //保存到数据库
-            memberService.updateMember(dbMember);
-            //查询最新信息
-            Member newMem = memberService.getMember(dbMember);
+            if(payService.recharge(dbMember.getId(),-add_val)){
+                //加保证金
+                if (permis_money==null)
+                    permis_money=0.0;
+                Double savePermiss = ComputeUtil.add(permis_money, add_val);
+                dbMember.setPermis_money(savePermiss);
+                //保存到数据库
+                memberService.updateMember(dbMember);
+                //查询最新信息
+                Member newMem = memberService.getMember(dbMember);
 
-            jsonObject.addProperty("express",GsonUtils.toJson(newMem));
+                jsonObject.addProperty("express",GsonUtils.toJson(newMem));
 
-            ResponseUtils.retnSuccessMsg(response,jsonObject,"保证金缴纳成功");
+                ResponseUtils.retnSuccessMsg(response,jsonObject,"保证金缴纳成功");
+            }else {
+                throw new RuntimeException("操作失败");
+            }
+
+
         }else {
             ResponseUtils.retnFailMsg(response,jsonObject,"保证金缴纳失败");
         }
@@ -806,6 +815,12 @@ public class MemberController {
 
     @Autowired
     SettingService settingService;
+
+    @Autowired
+    WalletsService walletsService;
+
+    @Autowired
+    PayService payService;
 
     /**
      * 提现
@@ -869,45 +884,52 @@ public class MemberController {
             }
 
 
+            //查询钱包
+            Wallets wallets = walletsService.selectOneByUid(dbMember.getId());
 
-            if (dbMember!=null && dbMember.getMoney()!=null){
-                Double dbMoney = dbMember.getMoney();
+            if (dbMember!=null && wallets.getBalance()!=null){
+                Double dbMoney = wallets.getBalance();
                 if (dbMoney>=money){
                     //扣款
-                    double dbResult = ComputeUtil.sub(dbMoney, money);
-                    dbMember.setMoney(dbResult);
+                    if(payService.recharge(member.getId(), money)){
+                        //扣款成功了
+                        //增加数据库提现记录
+                        TiXian tiXian = new TiXian();
+                        tiXian.setMoney(money);
 
-                    //增加数据库提现记录
-                    TiXian tiXian = new TiXian();
-                    tiXian.setMoney(money);
+                        //计算手续费
+                        Double shouxu = setting.getShouxu();
+                        if (shouxu!=null && shouxu>0){
+                            Double resultShouXu = ComputeUtil.mul(money, shouxu);
+                            tiXian.setShouxu(resultShouXu);
+                        }
 
-                    //计算手续费
-                    Double shouxu = setting.getShouxu();
-                    if (shouxu!=null && shouxu>0){
-                        Double resultShouXu = ComputeUtil.mul(money, shouxu);
-                        tiXian.setShouxu(resultShouXu);
+                        tiXian.setMemid(memid);
+                        tiXian.setFlag(0);
+                        tiXian.setShoukuanren(member.getReal_name());
+                        tiXian.setShenqing_shijian(new Date());
+                        tiXian.setShoukuan_fangshi(sk_fangshi);
+                        //记录IP
+                        String ipAdrress = IpUtils.getIpAdrress(request);
+                        tiXian.setShenqing_ip(ipAdrress);
+
+                        tiXianService.add(tiXian);
+
+                        //保存
+                        memberService.updateMember(dbMember);
+                        ResponseUtils.retnFailMsg(response,jsonObject,"提现已经提交,等待审核(1工作日左右到账)");
+
+                    }else{
+                        throw new RuntimeException("操作失败");
                     }
 
-                    tiXian.setMemid(memid);
-                    tiXian.setFlag(0);
-                    tiXian.setShoukuanren(member.getReal_name());
-                    tiXian.setShenqing_shijian(new Date());
-                    tiXian.setShoukuan_fangshi(sk_fangshi);
-                    //记录IP
-                    String ipAdrress = IpUtils.getIpAdrress(request);
-                    tiXian.setShenqing_ip(ipAdrress);
-
-                    tiXianService.add(tiXian);
-
-                    //保存
-                    memberService.updateMember(dbMember);
-                    ResponseUtils.retnFailMsg(response,jsonObject,"提现已经提交,等待审核(1工作日左右到账)");
 
                 }else {
                     //金额不足
                     ResponseUtils.retnFailMsg(response,jsonObject,"金额不足");
                 }
             }
+
         }
     }
 

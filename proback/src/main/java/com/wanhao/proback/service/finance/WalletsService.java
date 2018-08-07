@@ -14,4 +14,11 @@ import com.wanhao.proback.service.BaseService;
  * 财务钱包业务接口
  */
 public interface WalletsService extends BaseService<Wallets> {
+    /**
+     * 查询钱包
+     * @param user_id
+     * @return
+     */
+    Wallets selectOneByUid(Integer user_id);
+
 }

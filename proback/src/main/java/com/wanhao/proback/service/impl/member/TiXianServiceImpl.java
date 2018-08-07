@@ -103,9 +103,44 @@ public class TiXianServiceImpl extends BaseServiceImpl<TiXian> implements TiXian
                         throw new RuntimeException("已经提现过了,不能重复操作");
                     }
                     Double money = dbTiXian.getMoney();
+                    dbTiXian.setFlag(1);
+                    //todo 真实转账 不用再扣钱了,已经扣过了
+//                    if(payService.recharge(dbTiXian.getMemid(), money)) {
+//                        //没有异常就是交易成功
+//                        dbTiXian.setFlag(1);
+//                    }else{
+//                        //失败了
+//                        dbTiXian.setFlag(2);
+//                    }
+                   tiXianMapper.updateByPrimaryKey(dbTiXian);
+                }
+
+            }
+        }
+    }
+
+    @Override
+    public void rejectAllTiXian(String id, String reason) {
+        TiXian tiXian = new TiXian();
+
+        //拒绝提现就是把钱再充值回去
+        if (IsNullUtils.isNotNull(id)){
+            String[] split = id.split(",");
+            if (IsNullUtils.arrayIsNotNull(split)){
+                //循环设置
+                for (String tixianId : split) {
+                    tiXian.setId(Integer.valueOf(tixianId));
+                    //数据库中的
+                    TiXian dbTiXian = tiXianMapper.selectByPrimaryKey(tiXian);
+                    //判断是否已经提现过了
+                    if (dbTiXian!=null && dbTiXian.getFlag()!=null && dbTiXian.getFlag()==3){
+                        //已经提现了 不能重复
+                        throw new RuntimeException("已经拒绝了,不能重复操作");
+                    }
+                    Double money = dbTiXian.getMoney();
                     if(payService.recharge(dbTiXian.getMemid(), money)) {
                         //没有异常就是交易成功
-                        dbTiXian.setFlag(1);
+                        dbTiXian.setFlag(3);
                     }else{
                         //失败了
                         dbTiXian.setFlag(2);
@@ -115,13 +150,6 @@ public class TiXianServiceImpl extends BaseServiceImpl<TiXian> implements TiXian
 
             }
         }
-    }
-
-    @Override
-    public void rejectAllTiXian(String id, String reason) {
-        //直接设置拒绝
-        int i = tiXianMapper.rejectAllTiXian(id,reason);
-        if (i<=0) throw new RuntimeException("更新失败");
     }
 
 

@@ -26,8 +26,9 @@ public class Member extends BaseBean {
     private String email;
     private String mobile;
     private String img;
-    //账户金额
-    private Double money;
+    //去掉账户金额
+    //private Double money;
+
     //手机验证码
     private String mobile_code;
     //修改密码验证码
@@ -73,9 +74,9 @@ public class Member extends BaseBean {
     //支付宝
     private String alipay;
     //差评
-    private Integer bad_comment=0;
-    private Integer good_comment=0;
-    private Integer mid_comment=0;
+    private Integer bad_comment;
+    private Integer good_comment;
+    private Integer mid_comment;
     //是否通过考试
     private Integer pass_exam;
     //银行卡号
@@ -85,10 +86,10 @@ public class Member extends BaseBean {
     //银行地址
     private String bank_addr;
     //是否实名0未提交 1提交了 2通过 3拒绝
-    private Integer is_real_name=0;
-    private Integer is_real_mobile=0;
-    private Integer is_real_bank=0;
-    private Integer is_seller=0;
+    private Integer is_real_name;
+    private Integer is_real_mobile;
+    private Integer is_real_bank;
+    private Integer is_seller;
     //用户类型
     private String vipmodel;
     private String zheng;
