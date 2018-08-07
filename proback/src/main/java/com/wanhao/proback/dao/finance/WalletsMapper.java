@@ -30,13 +30,14 @@ public interface WalletsMapper extends MyMapper<Wallets> {
      */
     int reduceBalance(@Param("formUid") Integer formUid,  @Param("amount") Double amount,  @Param("version") Integer version);
 
-    @Update("UPDATE tb_wallets SET balance = balance + #{amount}, edit_date = NOW() WHERE `user_id`=#{formUid} AND balance >= #{amount}")
+   // @Update("UPDATE tb_wallets SET balance = balance + #{amount}, edit_date = NOW() WHERE `user_id`=#{formUid} AND balance >= #{amount}")
     /**
      * 增加余额 韦德 2018年8月5日17:14:27
      * @param formUid
      * @param amount
      * @return
      */
+    @Update("UPDATE tb_wallets SET balance = balance + #{amount}, edit_date = NOW() WHERE `user_id`=#{formUid} ")
     int addBalance(@Param("formUid") Integer formUid, @Param("amount") Double amount);
 
 

@@ -7,7 +7,7 @@ var tableIndex;
 
     // 加载数据表
     initDataTable(route + "/getLimit", function (form, table, layer, vipTable, tableIns) {
-        // 动态注册事件
+        // 动态注册事件getSign
         var $tableDelete = $("#my-data-table-delete"),
             $tableAdd = $("#my-data-table-add");
         $tableDelete.click(function () {

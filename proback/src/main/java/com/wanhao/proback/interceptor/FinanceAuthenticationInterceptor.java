@@ -53,7 +53,7 @@ public class FinanceAuthenticationInterceptor implements HandlerInterceptor {
                     System.err.println("请求验签:" + sign);
                     System.err.println("系统验签:" + encrypt);
                     System.err.println("系统验签解密结果:" + decrypt);
-                    if(sign != null && decrypt.equals(sign)) return true;
+                    if(sign != null && decrypt.equals(url)) return true;
                 } catch (Exception e) {
                     throw new FinanceException(e, FinanceException.Errors.SIGN_ERROR, "验签失败");
                 }

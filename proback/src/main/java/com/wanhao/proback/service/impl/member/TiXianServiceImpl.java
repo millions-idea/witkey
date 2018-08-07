@@ -100,9 +100,12 @@ public class TiXianServiceImpl extends BaseServiceImpl<TiXian> implements TiXian
                     TiXian dbTiXian = tiXianMapper.selectByPrimaryKey(tiXian);
                     Double money = dbTiXian.getMoney();
                     //todo 转账 39 为admin的id
-                    TransferParam transferParam = new TransferParam(39, dbTiXian.getMemid(), money, "提现",
+
+                    TransferParam transferParam = new TransferParam(39,
+                            dbTiXian.getMemid(), money, "提现",
                             1, null);
                     payService.transfer(transferParam);
+
                     //没有异常就是交易成功
                     dbTiXian.setFlag(1);
 

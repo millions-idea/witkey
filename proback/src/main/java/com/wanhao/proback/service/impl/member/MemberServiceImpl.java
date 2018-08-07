@@ -6,7 +6,6 @@ import com.wanhao.proback.bean.member.MemberView;
 import com.wanhao.proback.bean.util.InviteResult;
 import com.wanhao.proback.dao.member.MemberMapper;
 import com.wanhao.proback.service.member.MemberService;
-import com.wanhao.proback.utils.GsonUtils;
 import com.wanhao.proback.utils.JsonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;

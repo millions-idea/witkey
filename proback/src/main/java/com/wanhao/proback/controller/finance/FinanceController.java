@@ -8,7 +8,6 @@
 package com.wanhao.proback.controller.finance;
 
 import com.fasterxml.jackson.annotation.JsonView;
-import com.wanhao.proback.bean.finance.Moneys;
 import com.wanhao.proback.bean.finance.MoneysView;
 import com.wanhao.proback.bean.finance.TransactionsView;
 import com.wanhao.proback.bean.member.MemberView;
