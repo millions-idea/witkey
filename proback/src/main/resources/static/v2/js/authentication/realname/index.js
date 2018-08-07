@@ -240,7 +240,13 @@ function getTableColumns() {
         , {field: 'username', title: '会员名', width: 120}
         , {field: 'id_card', title: '身份证号', width: 120}
         , {field: 'login_ip', title: '上次登录IP', width: 120}
-        , {field: 'real_name_time', title: '提交时间', width: 120}
+        , {field: 'real_name_time', title: '提交时间', width: 120,templet:function(d){
+            if (d.real_name_time!=null){
+                return new Date(d.real_name_time).toLocaleString();
+            }else{
+                return '无';
+            }
+        }}
 
         , {field: 'isEnable', title: '状态', width: 120, templet: function (d) {
 

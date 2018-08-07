@@ -249,7 +249,13 @@ function getTableColumns() {
         , {field: 'money', title: '提现金额', width: 90}
         , {field: 'shouxu', title: '手续费', width: 80}
          , {field: 'mobile', title: '联系方式', width: 120}
-        , {field: 'shenqing_shijian', title: '申请时间', width: 120}
+        , {field: 'shenqing_shijian', title: '申请时间', width: 120,templet:function(d){
+            if (d.shenqing_shijian!=null){
+                return new Date(d.shenqing_shijian).toLocaleString();
+            }else{
+                return '无';
+            }
+        }}
         , {field: 'shenqing_ip', title: '申请IP', width: 120}
 
         , {field: 'isEnable', title: '状态', width: 120, templet: function (d) {

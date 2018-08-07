@@ -235,7 +235,13 @@ function getTableColumns() {
         , {field: 'account_gender', title: '买号性别', width: 120}
         , {field: 'honor', title: '信誉度', width: 90}
         , {field: 'taoqi', title: '淘气值', width: 120}
-        , {field: 'create_time', title: '申请时间', width: 120}
+        , {field: 'create_time', title: '申请时间', width: 120,templet:function(d){
+            if (d.create_time!=null){
+                return new Date(d.create_time).toLocaleString();
+            }else{
+                return '无';
+            }
+        }}
 
         , {field: 'isEnable', title: '状态', width: 120, templet: function (d) {
 

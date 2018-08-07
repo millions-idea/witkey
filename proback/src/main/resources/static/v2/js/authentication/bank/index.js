@@ -248,7 +248,13 @@ function getTableColumns() {
         , {field: 'bank_type', title: '银行类型', width: 100}
         , {field: 'bank_num', title: '银行卡号', width: 120}
         , {field: 'bank_mobile', title: '银行手机号', width: 120}
-        , {field: 'create_time', title: '提交时间', width: 120}
+        , {field: 'create_time', title: '提交时间', width: 120, templet: function (d) {
+            if (d.create_time!=null){
+                return new Date(d.create_time).toLocaleString();
+            }else{
+                return '无';
+            }
+        }}
 
         , {field: 'isEnable', title: '状态', width: 120, templet: function (d) {
 
