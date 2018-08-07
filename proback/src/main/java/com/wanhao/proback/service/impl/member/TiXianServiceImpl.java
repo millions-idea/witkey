@@ -1,7 +1,6 @@
 package com.wanhao.proback.service.impl.member;
 
 import com.github.pagehelper.PageHelper;
-import com.wanhao.proback.bean.finance.TransferParam;
 import com.wanhao.proback.bean.member.TiXian;
 import com.wanhao.proback.dao.member.TiXianMapper;
 import com.wanhao.proback.service.BaseServiceImpl;
@@ -98,17 +97,20 @@ public class TiXianServiceImpl extends BaseServiceImpl<TiXian> implements TiXian
                     tiXian.setId(Integer.valueOf(tixianId));
                     //数据库中的
                     TiXian dbTiXian = tiXianMapper.selectByPrimaryKey(tiXian);
+                    //判断是否已经提现过了
+                    if (dbTiXian!=null && dbTiXian.getFlag()!=null && dbTiXian.getFlag()==1){
+                        //已经提现了 不能重复
+                        throw new RuntimeException("已经提现过了,不能重复操作");
+                    }
                     Double money = dbTiXian.getMoney();
-                    //todo 转账 39 为admin的id
-
-                    TransferParam transferParam = new TransferParam(39,
-                            dbTiXian.getMemid(), money, "提现",
-                            1, null);
-                    payService.transfer(transferParam);
-
-                    //没有异常就是交易成功
-                    dbTiXian.setFlag(1);
-
+                    if(payService.recharge(dbTiXian.getMemid(), money)) {
+                        //没有异常就是交易成功
+                        dbTiXian.setFlag(1);
+                    }else{
+                        //失败了
+                        dbTiXian.setFlag(2);
+                    }
+                    tiXianMapper.updateByPrimaryKey(dbTiXian);
                 }
 
             }

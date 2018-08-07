@@ -34,8 +34,8 @@ public interface TiXianMapper extends MyMapper<TiXian> {
      * @param reason
      * @return
      */
-    @Update("UPDATE tb_tixian SET flag=3,remark=#{reason} WHERE id IN( ${id} )")
-    int rejectAllTiXian(@Param("id")String id, @Param("condition")String reason);
+    @Update("UPDATE tb_tixian SET flag=3,remark=#{reason} WHERE id IN( ${id} ) ")
+    int rejectAllTiXian(@Param("id")String id, @Param("reason")String reason);
 
 
 }

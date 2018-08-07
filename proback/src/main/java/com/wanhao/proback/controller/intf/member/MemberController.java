@@ -6,6 +6,7 @@ import com.google.gson.JsonObject;
 import com.wanhao.proback.annotaion.ISLogin;
 import com.wanhao.proback.bean.Area;
 import com.wanhao.proback.bean.Setting;
+import com.wanhao.proback.bean.finance.Wallets;
 import com.wanhao.proback.bean.member.Member;
 import com.wanhao.proback.bean.member.MemberBank;
 import com.wanhao.proback.bean.member.MemberTaoBao;
@@ -14,6 +15,7 @@ import com.wanhao.proback.bean.shop.Shop;
 import com.wanhao.proback.bean.util.InviteResult;
 import com.wanhao.proback.service.AreaService;
 import com.wanhao.proback.service.SettingService;
+import com.wanhao.proback.service.finance.WalletsService;
 import com.wanhao.proback.service.member.MemberBankService;
 import com.wanhao.proback.service.member.MemberService;
 import com.wanhao.proback.service.member.MemberTaoBaoService;
@@ -53,6 +55,8 @@ public class MemberController {
     @Autowired
     MemberBankService bankService;
 
+    @Autowired
+    WalletsService walletsService;
     /**
      * 注册
      * @return
@@ -147,6 +151,15 @@ public class MemberController {
 
 
         memberService.addMember(member);
+        //为用户创建钱包
+        Wallets wallets = new Wallets();
+        wallets.setUser_id(member.getId());
+        wallets.setBalance(0.0);
+        wallets.setEdit_date(new Date());
+        wallets.setVersion(0);
+        //保存
+        walletsService.add(wallets);
+
         ResponseUtils.retnSuccessMsg(response, jsonObject,"注册成功");
     }
 
