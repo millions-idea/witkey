@@ -48,10 +48,12 @@ public class FinanceAuthenticationInterceptor implements HandlerInterceptor {
                 String sign = request.getParameter("sign");
                 try {
                     String encrypt = getEncrypt(url);
+                    String decrypt = getDecrypt(sign);
                     System.err.println("请求参数:" + url);
                     System.err.println("请求验签:" + sign);
                     System.err.println("系统验签:" + encrypt);
-                    if(sign != null && encrypt.equals(sign)) return true;
+                    System.err.println("系统验签解密结果:" + decrypt);
+                    if(sign != null && decrypt.equals(sign)) return true;
                 } catch (Exception e) {
                     throw new FinanceException(e, FinanceException.Errors.SIGN_ERROR, "验签失败");
                 }
