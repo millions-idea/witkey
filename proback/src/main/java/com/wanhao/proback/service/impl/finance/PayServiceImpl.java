@@ -93,21 +93,24 @@ public class PayServiceImpl extends FinanceAbstract implements PayService {
 
         // 生成资金变化日志
         List<Moneys> moneyList = new ArrayList<>();
-        Moneys reduceMoney = new Moneys();
-        reduceMoney.setRecord_id(recordId);
-        reduceMoney.setFrom_uid(param.getFromUid());
-        reduceMoney.setTrade_type(1);
-        reduceMoney.setTrade_amount(param.getAmount());
-        reduceMoney.setRemark("收入");
-        moneyList.add(reduceMoney);
 
         Moneys addMoney = new Moneys();
         addMoney.setRecord_id(recordId);
         addMoney.setFrom_uid(param.getToUid());
-        addMoney.setTrade_type(2);
+        addMoney.setTrade_type(1);
         addMoney.setTrade_amount(param.getAmount());
-        addMoney.setRemark("支出");
+        addMoney.setRemark("收入");
         moneyList.add(addMoney);
+
+        Moneys reduceMoney = new Moneys();
+        reduceMoney.setRecord_id(recordId);
+        reduceMoney.setFrom_uid(param.getFromUid());
+        reduceMoney.setTrade_type(2);
+        reduceMoney.setTrade_amount(param.getAmount());
+        reduceMoney.setRemark("支出");
+        moneyList.add(reduceMoney);
+
+
         count = 0;
         count = moneysMapper.batchInsert(moneyList);
         if(count <= 0) throw new FinanceException(FinanceException.Errors.WALLET_BALANCE_LOG, "资金变化更新失败");
@@ -167,7 +170,11 @@ public class PayServiceImpl extends FinanceAbstract implements PayService {
                 MemberView memberView = new MemberView();
                 memberView.setIncomeAmount(incomeAmount.getAmount());
                 memberView.setExpendAmount(expendAmount.getAmount());
-                redisTemplate.opsForValue().set("accountAmount_" + id, JsonUtil.getJson(memberView), 45, TimeUnit.MINUTES);
+                try {
+                    redisTemplate.opsForValue().set("accountAmount_" + id, JsonUtil.getJson(memberView), 45, TimeUnit.MINUTES);
+                }catch (Exception e){
+                    System.err.println(e.toString());
+                }
                 return memberView;
             }
         }
@@ -182,7 +189,12 @@ public class PayServiceImpl extends FinanceAbstract implements PayService {
      */
     @Override
     public MemberView getAccountAmountForCache(Integer id) {
-        Object obj = redisTemplate.opsForValue().get("accountAmount_" + id);
+        Object obj = null;
+        try{
+            obj = redisTemplate.opsForValue().get("accountAmount_" + id);
+        }catch (Exception e) {
+            System.err.println(e.toString());
+        }
         if(obj != null) return JsonUtil.getModel(String.valueOf(obj), MemberView.class);
         return null;
     }

@@ -256,7 +256,13 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public MemberView getMemberByIdForDB(Integer id) {
         MemberView memberView = memberMapper.selectById(id);
-        if(memberView != null) redisTemplate.opsForValue().set("member_"+memberView.getId(), JsonUtil.getJson(memberView),45, TimeUnit.MINUTES);
+        if(memberView != null) {
+            try {
+                redisTemplate.opsForValue().set("member_"+memberView.getId(), JsonUtil.getJson(memberView),45, TimeUnit.MINUTES);
+            }catch (Exception e){
+                System.err.println(e.toString());
+            }
+        }
         return memberView;
     }
 
@@ -268,7 +274,12 @@ public class MemberServiceImpl implements MemberService {
      */
     @Override
     public MemberView getMemberByIdForCache(Integer id) {
-        Object obj = redisTemplate.opsForValue().get("member_" + id);
+        Object obj = null;
+        try{
+            obj = redisTemplate.opsForValue().get("member_" + id);
+        }catch (Exception e) {
+            System.err.println(e.toString());
+        }
         if(obj != null) return JsonUtil.getModel(String.valueOf(obj), MemberView.class);
         return null;
     }
