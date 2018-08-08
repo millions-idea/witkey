@@ -32,6 +32,13 @@
         </div>
     </div>
     <div class="layui-form-item">
+        <label class="layui-form-label">快递名称</label>
+        <div class="layui-input-block">
+            <input disabled="disabled" type="text" name="goods_name" autocomplete="off"
+                   lay-verify="required" class="layui-input" th:value="${model.getGoods_name()}">
+        </div>
+    </div>
+    <div class="layui-form-item">
         <label class="layui-form-label">运单号</label>
         <div class="layui-input-block">
             <input disabled="disabled" type="text" name="express_id" autocomplete="off"
@@ -67,19 +74,13 @@
         </div>
     </div>
     <div class="layui-form-item">
-        <label class="layui-form-label">备注</label>
-        <div class="layui-input-block">
-            <input disabled="disabled" type="text" name="address_remark" autocomplete="off"
-                   lay-verify="required" class="layui-input" th:value="${model.getAddress_remark()}">
-        </div>
-    </div>
-    <div class="layui-form-item">
         <label class="layui-form-label">发货地址</label>
         <div class="layui-input-block">
             <input disabled="disabled" type="text" name="send_address" autocomplete="off"
                    lay-verify="required" class="layui-input" th:value="${model.getSend_address()}">
         </div>
     </div>
+
     <div class="layui-form-item">
         <label class="layui-form-label">最后更新时间</label>
         <div class="layui-input-block">

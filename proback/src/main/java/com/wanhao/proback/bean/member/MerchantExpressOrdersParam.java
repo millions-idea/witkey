@@ -19,6 +19,6 @@ public class MerchantExpressOrdersParam {
     private Integer send_address_id;
     private String recv_address;
     private Double weight;
-    private Integer express_id;
+    private Integer goods_id;
     private String remark;
 }

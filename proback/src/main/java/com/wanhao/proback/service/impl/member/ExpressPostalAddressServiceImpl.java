@@ -27,12 +27,14 @@ public class ExpressPostalAddressServiceImpl extends BaseServiceImpl<ExpressPost
 
     /**
      * 获取发货地址列表 韦德 2018年8月7日22:56:12
-     *
+     * @param userId
      * @return
      */
     @Override
-    public List<ExpressPostalAddress> getPostalAddresses() {
-        List<ExpressPostalAddress> list = expressPostalAddressMapper.selectAll();
+    public List<ExpressPostalAddress> getPostalAddresses(Integer userId) {
+        ExpressPostalAddress expressPostalAddress = new ExpressPostalAddress();
+        expressPostalAddress.setUser_id(userId);
+        List<ExpressPostalAddress> list = expressPostalAddressMapper.select(expressPostalAddress);
         list.stream().forEach(exp -> {
             exp.setPhone(null);
             exp.setReal_name(null);

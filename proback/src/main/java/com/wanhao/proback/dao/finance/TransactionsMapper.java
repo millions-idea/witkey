@@ -13,10 +13,7 @@ import com.wanhao.proback.bean.finance.TransactionsView;
 import com.wanhao.proback.bean.member.ExpressOrdersView;
 import com.wanhao.proback.bean.member.MemberView;
 import com.wanhao.proback.utils.MyMapper;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.ResultMap;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 import java.util.Map;
@@ -58,4 +55,5 @@ public interface TransactionsMapper extends MyMapper<Transactions> {
      * @return
      */
     List<Amount> getAccountAmount(@Param("id") Integer id);
+
 }

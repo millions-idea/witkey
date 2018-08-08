@@ -8,26 +8,20 @@
 package com.wanhao.proback.controller.member;
 
 import com.wanhao.proback.bean.member.ExpressOrders;
+import com.wanhao.proback.bean.member.ExpressOrdersParam;
 import com.wanhao.proback.bean.member.ExpressOrdersView;
 import com.wanhao.proback.bean.member.MerchantExpressOrdersParam;
 import com.wanhao.proback.bean.util.JsonArrayResult;
 import com.wanhao.proback.bean.util.JsonResult;
+import com.wanhao.proback.facade.member.express.ExpressOrderFacade;
 import com.wanhao.proback.service.member.ExpressOrdersService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.ServletRequestDataBinder;
-import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.context.request.WebRequest;
 
-import javax.servlet.http.HttpServletRequest;
-import java.sql.Time;
-import java.sql.Timestamp;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -37,13 +31,16 @@ public class ExpressOrdersController {
     @Autowired
     private ExpressOrdersService expressOrdersService;
 
+    @Autowired
+    private ExpressOrderFacade expressOrderFacade;
+
     /**
      * 查询快递商品集合 韦德 2018年8月2日23:42:29
      * @return
      */
     @GetMapping("/get")
     @ResponseBody
-    public JsonArrayResult<ExpressOrdersView> getOrdersList(Integer page, String  limit, String condition){
+    public JsonArrayResult<ExpressOrdersView> getOrdersList(Integer page, String  limit, @RequestParam(required = false) String condition){
         List<ExpressOrdersView> list = expressOrdersService.getOrdersLimit(page, limit, condition);
         if (condition == null || condition.isEmpty()){
             int count = expressOrdersService.getOrdersCount();
@@ -62,7 +59,9 @@ public class ExpressOrdersController {
     public String view(ExpressOrdersView param, final Model model){
         Utility.formatViewFields(param, model);
         model.addAttribute("model", param);
-        model.addAttribute("edit_date", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(param.getEdit_date()));
+        if (param.getEdit_date() != null) {
+            model.addAttribute("edit_date", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(param.getEdit_date()));
+        }
         return "v2/express/orders/view";
     }
 
@@ -76,7 +75,9 @@ public class ExpressOrdersController {
     public String editView(ExpressOrdersView param, final Model model){
         Utility.formatViewFields(param, model);
         model.addAttribute("model", param);
-        model.addAttribute("edit_date", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(param.getEdit_date()));
+        if (param.getEdit_date() != null) {
+            model.addAttribute("edit_date", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(param.getEdit_date()));
+        }
         return "v2/express/orders/edit";
     }
 
@@ -139,29 +140,28 @@ public class ExpressOrdersController {
     }
 
     /**
-     * 编辑状态 韦德 2018年8月5日00:14:10
+     * 一键发货 韦德 2018年8月5日00:14:10
      * @param param
      * @return
      */
-    @PostMapping("/editStatus")
+    @PostMapping("/sendOut")
     @ResponseBody
-    public JsonResult editStatus(ExpressOrders param){
-        expressOrdersService.updateStatus(param);
+    public JsonResult sendOut(ExpressOrders param){
+        expressOrderFacade.placeOrder(param);
         return new JsonResult(0);
     }
 
     /**
-     * 编辑状态 韦德 2018年8月5日00:14:10
-     * @param param
+     * 批量下单 韦德 2018年8月5日00:14:10
+     * @param expressOrdersParams
      * @return
      */
-    @PostMapping("/editStatuses")
+    @PostMapping("/batchSendOut")
     @ResponseBody
-    public JsonResult editStatuses(String id){
-        expressOrdersService.updateStatuses(id);
+    public JsonResult batchSendOut(@RequestBody List<ExpressOrdersParam> expressOrdersParams){
+        expressOrderFacade.placeOrder(expressOrdersParams);
         return new JsonResult(0);
     }
-
 
     /**
      * 添加商家代发快递订单 韦德 2018年8月8日00:47:59

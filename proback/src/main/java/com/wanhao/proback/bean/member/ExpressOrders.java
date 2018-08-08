@@ -26,6 +26,7 @@ import java.util.Date;
 public class ExpressOrders {
     private Integer order_id;
     private Integer user_id;
+    private Integer goods_id;
     private Integer send_address_id;
     private String recv_address;
     private Double weight;
@@ -45,12 +46,14 @@ public class ExpressOrders {
     public ExpressOrders() {
     }
 
-    public ExpressOrders(Integer order_id, Integer user_id, Integer send_address_id, String recv_address, String express_id, Double amount, Integer status, Date add_date, Date edit_date, String remark, Integer isEnable, Integer isDelete) {
+    public ExpressOrders(Integer order_id, Integer user_id, Integer goods_id, Integer send_address_id, String recv_address, Double weight, String express_id, Double amount, Integer status, Date add_date, Date edit_date, String remark, Integer isEnable, Integer isDelete) {
 
         this.order_id = order_id;
         this.user_id = user_id;
+        this.goods_id = goods_id;
         this.send_address_id = send_address_id;
         this.recv_address = recv_address;
+        this.weight = weight;
         this.express_id = express_id;
         this.amount = amount;
         this.status = status;

@@ -1,2 +1,5 @@
 /proback/src/main/resources/application-dev.properties
 /.idea
+/proback/src/main/resources/mapper/member/ExpressPlatformMapper.xml
+/profront/pom.xml
+/profront/src/main/resources/application-dev.properties

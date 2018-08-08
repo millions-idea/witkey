@@ -7,20 +7,17 @@
  */
 package com.wanhao.proback.service.impl.member;
 
-import com.google.common.collect.Lists;
 import com.wanhao.proback.bean.member.ExpressGoods;
 import com.wanhao.proback.bean.member.ExpressGoodsJsonView;
 import com.wanhao.proback.bean.member.ExpressGoodsView;
 import com.wanhao.proback.dao.member.ExpressGoodsMapper;
 import com.wanhao.proback.dao.utils.ConditionUtil;
 import com.wanhao.proback.service.member.ExpressGoodsService;
-import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.collections.Transformer;
+import com.wanhao.proback.utils.PriceUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -62,14 +59,12 @@ public class ExpressGoodsServiceImpl implements ExpressGoodsService {
 
         // 计算视图字段值
         expressGoodsViews.stream().forEach(o -> {
-            o.setSell_price((o.getPrice() * (100 + o.getRate())) / 100);
+            o.setSell_price(PriceUtil.getSellPrice(o.getPrice(), o.getRate()));
             o.setDiff_price(o.getSell_price() - o.getPrice());
         });
 
         return expressGoodsViews;
     }
-
-
 
     /**
      * 查询快递商品记录总数 韦德 2018年8月2日23:43:13
@@ -106,10 +101,35 @@ public class ExpressGoodsServiceImpl implements ExpressGoodsService {
             ExpressGoodsJsonView expressGoodsJsonView = new ExpressGoodsJsonView();
             expressGoodsJsonView.setGoods_id(exp.getGoods_id());
             expressGoodsJsonView.setName(exp.getName());
-            expressGoodsJsonView.setPrice(exp.getPrice());
+            expressGoodsJsonView.setPrice(PriceUtil.getSellPrice(exp.getPrice(), exp.getRate()));
             nList.add(expressGoodsJsonView);
         });
         return nList;
+    }
+
+    /**
+     * 根据id查询商品信息 韦德 2018年8月8日16:22:42
+     *
+     * @param goodsId
+     * @return
+     */
+    @Override
+    public ExpressGoodsView getById(Integer goodsId) {
+        ExpressGoods model = expressGoodsMapper.selectById(goodsId);
+        if(model == null) return null;
+        ExpressGoodsView view = new ExpressGoodsView();
+        view.setSell_price(PriceUtil.getSellPrice(model.getPrice(), model.getRate()));
+        return view;
+    }
+
+    /**
+     * 通过id数组查询商品信息-不去重 韦德 2018年8月8日19:39:28
+     *
+     * @param goodsList
+     * @return
+     */
+    public List<ExpressGoods> getInIdByUnionAll(List<Integer> goodsList) {
+        return expressGoodsMapper.selectInIdByUnionAll(goodsList);
     }
 
     @Override
@@ -128,4 +148,5 @@ public class ExpressGoodsServiceImpl implements ExpressGoodsService {
     public void delete(Integer id) {
 
     }
-}
+
+ }

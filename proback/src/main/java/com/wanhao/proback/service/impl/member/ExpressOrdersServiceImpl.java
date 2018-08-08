@@ -10,18 +10,24 @@ package com.wanhao.proback.service.impl.member;
 import com.wanhao.proback.bean.member.ExpressOrders;
 import com.wanhao.proback.bean.member.ExpressOrdersView;
 import com.wanhao.proback.bean.member.MerchantExpressOrdersParam;
-import com.wanhao.proback.dao.member.ExpressGoodsMapper;
 import com.wanhao.proback.dao.member.ExpressOrdersMapper;
 import com.wanhao.proback.dao.utils.ConditionUtil;
 import com.wanhao.proback.service.member.ExpressOrdersService;
+import com.wanhao.proback.utils.JsonUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class ExpressOrdersServiceImpl implements ExpressOrdersService {
     private final ExpressOrdersMapper expressOrdersMapper;
+    private final Logger logger = LoggerFactory.getLogger(getClass());
 
     @Autowired
     public ExpressOrdersServiceImpl(ExpressOrdersMapper expressOrdersMapper) {
@@ -114,26 +120,51 @@ public class ExpressOrdersServiceImpl implements ExpressOrdersService {
     }
 
     /**
-     * 编辑状态 韦德 2018年8月5日00:14:32
+     * 快递发货  韦德 2018年8月5日00:14:32
      *
      * @param param
      */
     @Override
-    public void updateStatus(ExpressOrders param) {
-        param.setExpress_id("test123456");
+    public void toSendOut(ExpressOrders param) {
+        param.setStatus(1);
+
+        List<String> strings = this.sendOut(String.valueOf(param.getOrder_id()));
+        if(strings.size() == 0) throw new RuntimeException("第三方接口快递发货失败");
+        param.setExpress_id(strings.get(0));
+
         int res = expressOrdersMapper.updateStatus(param);
-        if(res <= 0) throw new RuntimeException("编辑失败");
+        if(res <= 0) throw new RuntimeException("一键发货失败");
     }
 
     /**
-     * 批量编辑状态 韦德 2018年8月5日01:04:28
+     * 批量发货 韦德 2018年8月5日01:04:28
      *
      * @param id
      */
     @Override
-    public void updateStatuses(String id) {
-        int res = expressOrdersMapper.updateStatuses(id);
-        if(res <= 0) throw new RuntimeException("编辑失败");
+    public void batchToSendOut(String id) {
+        List<String> expresses = this.sendOut(id);
+        if(expresses.size() == 0) throw new RuntimeException("第三方接口快递发货失败");
+
+        String[] split = id.split(",");
+        if(split.length != expresses.size()){
+            logger.error(split.length + "长度不一致" + JsonUtil.getJson(split));
+            logger.error(expresses.size() + "长度不一致" + JsonUtil.getJson(expresses));
+            throw new RuntimeException("第三方接口快递发货失败");
+        }
+
+        List<ExpressOrders> expressOrders = new ArrayList<>();
+        for (int i = 0; i < expresses.size(); i++) {
+            ExpressOrders expressOrder = new ExpressOrders();
+            expressOrder.setOrder_id(Integer.valueOf(split[i]));
+            expressOrder.setExpress_id(expresses.get(i));
+            expressOrders.add(expressOrder);
+        }
+        logger.info(JsonUtil.getJson(expressOrders));
+
+
+        int res = expressOrdersMapper.batchToSendOut(expressOrders);
+        if(res <= 0) throw new RuntimeException("批量发货失败");
     }
 
     /**
@@ -145,6 +176,23 @@ public class ExpressOrdersServiceImpl implements ExpressOrdersService {
     public void addMerchantOrder(MerchantExpressOrdersParam param) {
         int res = expressOrdersMapper.insertSingleForMerchant(param);
         if(res <= 0) throw new RuntimeException("添加失败");
+    }
+
+    /**
+     * 快递发货 韦德 2018年8月8日14:12:44
+     *
+     * @param orderId
+     * @return
+     */
+    @Override
+    public List<String> sendOut(String orderId) {
+        String[] strings = orderId.split(",");
+        List<String> expressList = new ArrayList<>();
+        Arrays.stream(strings).forEach(str -> {
+            expressList.add(UUID.randomUUID().toString());
+        });
+        logger.info("expressOrders-sendOut_result" + JsonUtil.getJson(expressList));
+        return expressList;
     }
 
     @Override

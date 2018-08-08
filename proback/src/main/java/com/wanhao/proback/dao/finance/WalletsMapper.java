@@ -14,6 +14,8 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
+import java.util.List;
+
 /***
  * 财务钱包仓储接口
  */
@@ -48,4 +50,16 @@ public interface WalletsMapper extends MyMapper<Wallets> {
      * @return
      */
     Wallets selectOneByUid(@Param("user_id") Integer user_id);
+
+    @Select("<script>" +
+            "<foreach collection='list' item='id' separator='union all'> " +
+            "            SELECT * FROM tb_wallets WHERE user_id = #{id}" +
+            "        </foreach>" +
+            "</script>")
+    /**
+     * 批量查询用户钱包信息 韦德 2018年8月8日18:07:44
+     * @param uidList
+     * @return
+     */
+    List<Wallets> selectInUidByUnionAll(@Param("list") List<Integer> uidList);
 }

@@ -7,28 +7,35 @@
         <label class="layui-form-label">用户名</label>
         <div class="layui-input-block">
             <input disabled="disabled" type="text" name="username" autocomplete="off"
-                   lay-verify="required" class="layui-input" th:value="${model.getUsername()}">
+                   class="layui-input" th:value="${model.getUsername()}">
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">总计</label>
         <div class="layui-input-block">
             <input disabled="disabled" type="text" name="amount" autocomplete="off"
-                   lay-verify="required" class="layui-input" th:value="${model.getAmount()}">
+                   class="layui-input" th:value="${model.getAmount()}">
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">真实姓名</label>
         <div disabled="disabled" class="layui-input-block">
             <input disabled="disabled" type="text" name="real_name" autocomplete="off"
-                   lay-verify="required" class="layui-input" th:value="${model.getReal_name()}">
+                   class="layui-input" th:value="${model.getReal_name()}">
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">手机号</label>
         <div disabled="disabled" class="layui-input-block">
             <input disabled="disabled" type="text" name="phone" autocomplete="off"
-                   lay-verify="required" class="layui-input" th:value="${model.getPhone()}">
+                   class="layui-input" th:value="${model.getPhone()}">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">快递名称</label>
+        <div class="layui-input-block">
+            <input disabled="disabled" type="text" name="goods_name" autocomplete="off"
+                   lay-verify="required" class="layui-input" th:value="${model.getGoods_name()}">
         </div>
     </div>
     <div class="layui-form-item">
@@ -42,7 +49,7 @@
         <label class="layui-form-label">重量</label>
         <div class="layui-input-block">
             <input  type="text" name="weight" autocomplete="off"
-                   lay-verify="required" class="layui-input" th:value="${model.getWeight()}">
+                    class="layui-input" th:value="${model.getWeight()}">
         </div>
     </div>
     <div class="layui-form-item">
@@ -59,35 +66,35 @@
         <label class="layui-form-label">订单备注</label>
         <div disabled="disabled" class="layui-input-block">
             <input disabled="disabled" type="text" name="orders_remark" autocomplete="off"
-                   lay-verify="required" class="layui-input" th:value="${model.getOrders_remark()}">
+                   class="layui-input" th:value="${model.getOrders_remark()}">
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">收货地址</label>
         <div class="layui-input-block">
             <input disabled="disabled" type="text" name="recv_address" autocomplete="off"
-                   lay-verify="required" class="layui-input" th:value="${model.getRecv_address()}">
-        </div>
-    </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label">备注</label>
-        <div class="layui-input-block">
-            <input disabled="disabled" type="text" name="address_remark" autocomplete="off"
-                   lay-verify="required" class="layui-input" th:value="${model.getAddress_remark()}">
+                   class="layui-input" th:value="${model.getRecv_address()}">
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">发货地址</label>
         <div class="layui-input-block">
             <input disabled="disabled" type="text" name="send_address" autocomplete="off"
-                   lay-verify="required" class="layui-input" th:value="${model.getSend_address()}">
+                   class="layui-input" th:value="${model.getSend_address()}">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">地址备注</label>
+        <div class="layui-input-block">
+            <input disabled="disabled" type="text" name="address_remark" autocomplete="off"
+                   class="layui-input" th:value="${model.getAddress_remark()}">
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">最后更新时间</label>
         <div class="layui-input-block">
             <input disabled="disabled" type="text" name="edit_date" autocomplete="off"
-                   lay-verify="required" class="layui-input" th:value='${edit_date}'>
+                   class="layui-input" th:value='${edit_date}'>
         </div>
     </div>
     <div class="layui-form-item">

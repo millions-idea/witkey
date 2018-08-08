@@ -11,6 +11,7 @@ import com.wanhao.proback.bean.member.ExpressGoods;
 import com.wanhao.proback.bean.member.ExpressGoodsView;
 import com.wanhao.proback.bean.member.Member;
 import com.wanhao.proback.utils.MyMapper;
+import jdk.nashorn.internal.objects.annotations.Setter;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -19,13 +20,13 @@ import java.util.List;
  * 快递平台商品表仓储接口
  */
 @Mapper
-public interface ExpressGoodsMapper extends MyMapper<ExpressGoodsView> {
+public interface ExpressGoodsMapper extends MyMapper<ExpressGoods> {
 
     @Select("SELECT t1.*,t2.`name` AS category_name,t3.`name` AS expp_name  " +
             "FROM tb_express_goods t1 " +
             "LEFT JOIN tb_business_brands t2 ON t1.category_id = t2.business_id " +
             "LEFT JOIN tb_express_platforms t3 ON t1.expp_id = t3.expp_id " +
-            "WHERE t1.isDelete = 0 ${condition} LIMIT #{page},${limit}")
+            "WHERE t1.isDelete = 0 ${condition} ORDER BY t1.goods_id DESC LIMIT #{page},${limit}")
     /**
      * 查询快递平台商品集合 韦德 2018年8月2日23:32:44
      * @param page
@@ -76,4 +77,24 @@ public interface ExpressGoodsMapper extends MyMapper<ExpressGoodsView> {
      * @return
      */
     List<ExpressGoodsView> selectList();
+
+    @Select("SELECT * FROM tb_express_goods WHERE goods_id=#{goods_id} AND isDelete=0")
+    /**
+     * 根据id查询信息 韦德 2018年8月8日16:59:02
+     * @param goodsId
+     * @return
+     */
+    ExpressGoods selectById(@Param("goods_id") Integer goodsId);
+
+    @Select("<script>" +
+            "<foreach collection='list' item='id' separator='union all'> " +
+            "            SELECT * FROM tb_express_goods WHERE goods_id = #{id} AND isDelete=0  " +
+            "        </foreach>" +
+            "</script>")
+    /**
+     * 根据多个id查询商品信息 韦德 2018年8月8日18:15:06
+     * @param goodsList
+     * @return
+     */
+    List<ExpressGoods> selectInIdByUnionAll(@Param("list") List<Integer> goodsList);
 }

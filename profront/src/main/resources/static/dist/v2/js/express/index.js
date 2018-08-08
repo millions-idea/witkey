@@ -2,6 +2,8 @@
 var route = request_url + "express-platform/web",
     service;
 (function () {
+    var user = eval("(" + sessionStorage.getItem("member") + ")");
+
     // 初始化service服务
     service = initService(route);
 
@@ -15,7 +17,9 @@ var route = request_url + "express-platform/web",
 
 
     // 获取发货地址列表
-    service.getPostalAddresses({}, function (data) {
+    service.getPostalAddresses({
+        userId: user.id
+    }, function (data) {
         if(!isNaN(data.error) || isNaN(data.code) || data.code != 0) {
             layer.msg("获取发货地址列表失败");
             return;
@@ -65,35 +69,40 @@ var route = request_url + "express-platform/web",
 
     // 提交表单
     $submitButton.click(function () {
+        $submitButton.attr("disabled",true)
+
         // 基本的表单验证
         if($postalAddressesSelector.val() == ""){
             layer.msg("请选择发货地址");
+            $submitButton.removeAttr("disabled")
             return;
         }
 
         if($titleInput.hasClass("my-error")){
             layer.msg("收货地址不能为空");
+            $submitButton.removeAttr("disabled")
             return;
         }
 
         if($expressCategorySelector.val() == ""){
             layer.msg("请选择发货地址");
+            $submitButton.removeAttr("disabled")
             return;
         }
 
         service.addMerchantOrder({
-            user_id: 6,
+            user_id: user.id,
             send_address_id: $postalAddressesSelector.val(),
             recv_address: $titleInput.val(),
             weight: $weightInput.val(),
-            express_id: $expressCategorySelector.val(),
+            goods_id: $expressCategorySelector.val(),
             remark: $remarkInput.val()
         }, function (data) {
+            $submitButton.removeAttr("disabled")
             if(!isNaN(data.error) || isNaN(data.code) || data.code != 0) {
                 layer.msg("添加失败");
                 return;
             }
-            layer.msg("添加成功");
             location.reload();
         })
     })

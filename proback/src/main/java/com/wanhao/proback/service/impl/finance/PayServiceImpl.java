@@ -7,6 +7,7 @@
  */
 package com.wanhao.proback.service.impl.finance;
 
+import com.google.common.base.Joiner;
 import com.wanhao.proback.annotaion.AspectLog;
 import com.wanhao.proback.bean.finance.*;
 import com.wanhao.proback.bean.member.MemberView;
@@ -114,6 +115,92 @@ public class PayServiceImpl extends FinanceAbstract implements PayService {
         count = 0;
         count = moneysMapper.batchInsert(moneyList);
         if(count <= 0) throw new FinanceException(FinanceException.Errors.WALLET_BALANCE_LOG, "资金变化更新失败");
+    }
+
+    /**
+     * 批量转账
+     *
+     * @param params
+     */
+    @Override
+    @AspectLog(description = "转账")
+    @Transactional
+    public void transfer(List<TransferParam> params) {
+        List<Transactions> transactions = new ArrayList<>();
+        List<Integer> fromUidList = new ArrayList<>();
+        List<Integer> toUidList = new ArrayList<>();
+
+        // 生成交易流水
+        params.forEach(param -> {
+            fromUidList.add(param.getFromUid());
+            toUidList.add(param.getToUid());
+            String recordId = UUID.randomUUID().toString();
+            Transactions transaction = new Transactions();
+            transaction.setFrom_uid(param.getFromUid());
+            transaction.setTo_uid(param.getToUid());
+            transaction.setRecord_id(recordId);
+            transaction.setRecord_no(param.getRecordNo());
+            transaction.setTrade_amount(param.getAmount());
+            transaction.setRemark(param.getRemark());
+            transaction.setTrade_type(param.getTradeType());
+            transaction.setTrade_date(new Date());
+            transactions.add(transaction);
+        });
+        int count = transactionsMapper.insertList(transactions);
+        if(count <= 0) throw new FinanceException(FinanceException.Errors.CREATE_TRANSACTION, "批量生成流水账单失败");
+
+        // 更新钱包余额
+        List<Wallets> fromUserWallets = walletsMapper.selectInUidByUnionAll(fromUidList);
+        for (int i = 0; i < params.size(); i++) {
+            TransferParam param = params.get(i);
+            // 判断操作类型 1=加款 2=扣款 切记要双向操作
+            if (param.getTradeType() == 1){
+                // 充值
+                count = 0;
+                count = walletsMapper.addBalance(param.getToUid(), param.getAmount());
+                if(count <= 0) throw new FinanceException(FinanceException.Errors.WALLET_ADD_ERROR, "批量加款失败");
+                // 消费
+                count = 0;
+                count = walletsMapper.reduceBalance(param.getFromUid(), param.getAmount(), fromUserWallets.get(i).getVersion());
+                if(count <= 0) throw new FinanceException(FinanceException.Errors.WALLET_REDUCE_ERROR, "批量扣款失败");
+            }else if (param.getTradeType() == 2){
+                List<Wallets> toUserWallets = walletsMapper.selectInUidByUnionAll(toUidList);
+
+                // 消费
+                count = 0;
+                count = walletsMapper.reduceBalance(param.getToUid(), param.getAmount(), toUserWallets.get(i).getVersion());
+                if(count <= 0) throw new FinanceException(FinanceException.Errors.WALLET_REDUCE_ERROR, "批量扣款失败");
+                // 充值
+                count = 0;
+                count = walletsMapper.addBalance(param.getFromUid(), param.getAmount());
+                if(count <= 0) throw new FinanceException(FinanceException.Errors.WALLET_ADD_ERROR, "批量加款失败");
+            }
+        }
+
+
+
+        // 生成资金变化日志
+        List<Moneys> moneyList = new ArrayList<>();
+        transactions.forEach(transaction -> {
+            Moneys addMoney = new Moneys();
+            addMoney.setRecord_id(transaction.getRecord_id());
+            addMoney.setFrom_uid(transaction.getTo_uid());
+            addMoney.setTrade_type(1);
+            addMoney.setTrade_amount(transaction.getTrade_amount());
+            addMoney.setRemark("收入");
+            moneyList.add(addMoney);
+
+            Moneys reduceMoney = new Moneys();
+            reduceMoney.setRecord_id(transaction.getRecord_id());
+            reduceMoney.setFrom_uid(transaction.getFrom_uid());
+            reduceMoney.setTrade_type(2);
+            reduceMoney.setTrade_amount(transaction.getTrade_amount());
+            reduceMoney.setRemark("支出");
+            moneyList.add(reduceMoney);
+        });
+        count = 0;
+        count = moneysMapper.batchInsert(moneyList);
+        if(count <= 0) throw new FinanceException(FinanceException.Errors.WALLET_BALANCE_LOG, "资金变化批量更新失败");
     }
 
     /**

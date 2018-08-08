@@ -234,12 +234,13 @@ public class ExpressPlatformController {
 
     /**
      * 获取发货地址列表 韦德 2018年8月7日22:49:14
+     * @param userId
      * @return
      */
     @GetMapping("/web/getPostalAddresses")
     @ResponseBody
-    public JsonArrayResult<ExpressPostalAddress> getPostalAddresses(){
-        List<ExpressPostalAddress> list = expressPostalAddressService.getPostalAddresses();
+    public JsonArrayResult<ExpressPostalAddress> getPostalAddresses(Integer userId){
+        List<ExpressPostalAddress> list = expressPostalAddressService.getPostalAddresses(userId);
         return new JsonArrayResult(0, list);
     }
 

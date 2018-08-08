@@ -48,20 +48,27 @@ public interface ExpressOrdersService extends BaseService<ExpressOrders> {
     void updateExpressId(ExpressOrders param);
 
     /**
-     * 编辑状态 韦德 2018年8月5日00:14:32
+     * 发货 韦德 2018年8月5日00:14:32
      * @param param
      */
-    void updateStatus(ExpressOrders param);
+    void toSendOut(ExpressOrders param);
 
     /**
-     * 批量编辑状态 韦德 2018年8月5日01:04:28
+     * 批量发货 韦德 2018年8月5日01:04:28
      * @param id
      */
-    void updateStatuses(String id);
+    void batchToSendOut(String id);
 
     /**
      * 商家添加快递代发订单 韦德 2018年8月8日01:07:47
      * @param merchantExpressOrdersParam
      */
     void addMerchantOrder(MerchantExpressOrdersParam merchantExpressOrdersParam);
+
+    /**
+     * 快递发货 韦德 2018年8月8日14:12:44
+     * @param orderId
+     * @return
+     */
+    List<String> sendOut(String orderId);
 }

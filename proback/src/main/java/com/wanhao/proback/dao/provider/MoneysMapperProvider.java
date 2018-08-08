@@ -24,11 +24,11 @@ public class MoneysMapperProvider {
      * @return
      */
     public String batchInsert(Map map) {
-        List<Moneys> moneysList = (List<Moneys>) map.get("list");
+        List<Moneys> list = (List<Moneys>) map.get("list");
         StringBuilder sb = new StringBuilder();
         sb.append(String.format("INSERT INTO tb_moneys(%s) ", SqlBufferUtil.getColumns(Moneys.class, Lists.newArrayList("log_id"))));
         sb.append("VALUES");
-        for (int i = 0; i < moneysList.size(); i++) {
+        for (int i = 0; i < list.size(); i++) {
             sb.append("(");
             sb.append(String.format("#{list[%d].%s},", i, "record_id"));
             sb.append(String.format("#{list[%d].%s},", i, "from_uid"));
@@ -38,7 +38,7 @@ public class MoneysMapperProvider {
             sb.append(String.format("#{list[%d].%s},", i, "remark"));
             sb.append("NOW()");
             sb.append(")");
-            if (i < moneysList.size() - 1) {
+            if (i < list.size() - 1) {
                 sb.append(",");
             }
         }

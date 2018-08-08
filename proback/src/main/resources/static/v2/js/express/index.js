@@ -163,19 +163,23 @@ $(function () {
                             shadeClose: true
                         },function () {
                             var data = table.checkStatus('orders-data-table').data;
-                            var idArr = new Array();
+
+                            var modelList = new Array();
+
                             data.forEach(function (value) {
-                                idArr.push(value.order_id);
+                                modelList.push({
+                                    userId: value.user_id,
+                                    goodsId: value.goods_id,
+                                    orderId: value.order_id
+                                });
                             });
-                            var param = {
-                                id: idArr.join(",")
-                            };
-                            service.editOrderStatus(param, function (data) {
+
+                            service.editOrderStatuses(modelList, function (data) {
                                 if(!isNaN(data.error) || data.code == 1){
-                                    layer.msg("发货失败");
+                                    layer.msg("批量发货失败");
                                     return
                                 }
-                                layer.msg("发货成功");
+                                layer.msg("批量发货成功");
                                 ordersTableIndex.reload();
                             })
                         })
@@ -438,8 +442,20 @@ function initService(r) {
          * @param param
          * @param callback
          */
+        editOrderStatuses: function (param, callback) {
+            $.ajax({
+                type:"post",
+                url:"./express-orders/batchSendOut",
+                data: JSON.stringify(param),
+                contentType : "application/json",
+                dataType:"json",
+                success:function (data) {
+                    callback(data);
+                }
+            });
+        },
         editOrderStatus: function (param,callback) {
-            $.post("./express-orders/editStatuses", param , function (data) {
+            $.post("./express-orders/sendOut", param , function (data) {
                 callback(data);
             });
         },
@@ -713,10 +729,13 @@ function initOrdersDataTable(url, callback, loadDone) {
 
         // 开关监听
         form.on("switch(item-status)",function (obj) {
+            if(!$(obj.othis).hasClass("layui-form-onswitch")){
+                return false;
+            }
             service.editOrderStatus({
                 order_id: $(this).data("order_id"),
-                user_id: $(this).data("user_id"),
-                status: obj.elem.checked ? 1 : 0
+                goods_id: $(this).data("goods_id"),
+                user_id: $(this).data("user_id")
             },function (data) {
                 if(!isNaN(data.error) || data.code == 1){
                     layer.msg("编辑失败");
@@ -774,9 +793,10 @@ function getOrdersTableColumns() {
         , {fixed: 'left', type: "checkbox"}
         , {fixed: 'left', field: 'order_id', title: 'ID', width: 80, sort: true}
         , {fixed: 'left', field: 'username', title: '用户名', width: 120}
-        , {fixed: 'left', field: 'amount', title: '总计', width: 80}
+        , {fixed: 'left', field: 'amount', title: '价格', width: 80}
         , {field: 'real_name', title: '真实姓名', width: 120}
         , {field: 'phone', title: '手机号', width: 120}
+        , {field: 'goods_name', title: '快递', width: 120}
         , {field: 'express_id', title: '运单号', width: 160, edit: 'text'}
         , {field: 'weight', title: '重量', width: 80}
         , {field: 'status', title: '订单状态', width: 120, templet: function (d) {
@@ -920,6 +940,7 @@ function loadDefaultTable() {
 function getSendOutButton(param) {
     var html = " <input type=\"checkbox\" name=\"item-status\" lay-filter=\"item-status\"\n" +
         "               data-order_id=\"" + param.order_id + "\"\n" +
+        "               data-goods_id=\"" + param.goods_id + "\"\n" +
         "               data-user_id=\"" + param.user_id + "\"\n";
     if(param.status == 1){
         html +=         "               lay-skin=\"switch\" lay-text=\"已发货|待发货\"\n";

@@ -25,7 +25,6 @@ public interface ExpressGoodsService extends BaseService<ExpressGoods> {
      */
     List<ExpressGoodsView> getGoodsLimit(Integer page, String limit, String condition);
 
-
     /**
      * 查询快递商品记录总数 韦德 2018年8月2日23:43:13
      * @return
@@ -43,4 +42,18 @@ public interface ExpressGoodsService extends BaseService<ExpressGoods> {
      * @return
      */
     List<ExpressGoodsJsonView> getGoods();
+
+    /**
+     * 根据id查询商品信息 韦德 2018年8月8日16:22:42
+     * @param goodsId
+     * @return
+     */
+    ExpressGoodsView getById(Integer goodsId);
+
+    /**
+     * 通过id数组查询商品信息-不去重 韦德 2018年8月8日19:39:28
+     * @param goodsList
+     * @return
+     */
+    List<ExpressGoods> getInIdByUnionAll(List<Integer> goodsList) ;
 }

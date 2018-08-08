@@ -17,7 +17,8 @@ public interface ExpressPostalAddressService extends BaseService<ExpressPostalAd
 
     /**
      * 获取发货地址列表 韦德 2018年8月7日22:56:12
+     * @param userId
      * @return
      */
-    List<ExpressPostalAddress> getPostalAddresses();
+    List<ExpressPostalAddress> getPostalAddresses(Integer userId);
 }

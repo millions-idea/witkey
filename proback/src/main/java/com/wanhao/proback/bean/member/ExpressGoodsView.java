@@ -10,6 +10,9 @@ package com.wanhao.proback.bean.member;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.persistence.Table;
+
+@Table(name = "tb_express_goods")
 @Setter
 @Getter
 public class ExpressGoodsView extends ExpressGoods {

@@ -27,6 +27,12 @@ public interface PayService {
     void transfer(TransferParam param);
 
     /**
+     * 批量转账
+     * @param param
+     */
+    void transfer(List<TransferParam> param);
+
+    /**
      * 查询记录-分页 韦德 2018年8月6日22:05:51
      * @param page
      * @param limit
