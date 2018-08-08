@@ -7,6 +7,7 @@
  */
 package com.wanhao.proback.bean.member;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 

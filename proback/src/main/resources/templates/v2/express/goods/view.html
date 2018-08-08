@@ -18,11 +18,19 @@
         </div>
     </div>
     <div class="layui-form-item">
-        <label class="layui-form-label">物流公司</label>
+        <label class="layui-form-label">快递名称</label>
 
         <div class="layui-input-block">
             <input disabled="disabled" type="text" name="name" autocomplete="off"
                    lay-verify="required" class="layui-input" th:value="${model.getName()}">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">快递编码</label>
+
+        <div class="layui-input-block">
+            <input disabled="disabled" type="text" name="express_code" autocomplete="off"
+                   lay-verify="required" class="layui-input" th:value="${model.getExpress_code()}">
         </div>
     </div>
     <div class="layui-form-item">

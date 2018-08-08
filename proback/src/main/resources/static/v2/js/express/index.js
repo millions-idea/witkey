@@ -236,12 +236,12 @@ $(function () {
     })
 
     // 加载快递空包公司集合
-    initPlatforms(function (item) {
+    /*initPlatforms(function (item) {
         // 空包商品
         if($("#tab-channel li[class$='layui-this']").index() == 1){
             loadTable(goodsTableIndex,"goods-data-table", "#goods-data-table", getGoodsTableColumns(), route + "/getGoods" + "?condition=" + item.name, function (res, curr, count){});
         }
-    });
+    });*/
 
     // 加载默认数据表
     loadDefaultTable();
@@ -765,9 +765,10 @@ function getGoodsTableColumns() {
         {type: "numbers"}
         , {type: "checkbox"}
         , {field: 'goods_id', title: 'ID', width: 80, sort: true}
-        , {field: 'expp_name', title: '空包网站', width: 120}
+        , {field: 'expp_name', title: '快递空包平台', width: 120}
         , {field: 'category_name', title: '电商网站', width: 120}
-        , {field: 'name', title: '名称', width: 240}
+        , {field: 'name', title: '快递名称', width: 240}
+        , {field: 'express_code', title: '快递编码', width: 240}
         , {field: 'price', title: '进价', width: 120}
         , {field: 'rate', title: '利率', width: 120, templet: function (d) {
                 var rate = d.rate;

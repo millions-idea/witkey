@@ -7,6 +7,7 @@
  */
 package com.wanhao.proback.bean.member;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -24,6 +25,7 @@ public class ExpressGoods {
     private Integer goods_id;
     private Integer expp_id;
     private Integer category_id;
+    private String express_code;
     private String name;
     private Double price;
     private Integer rate;
@@ -33,11 +35,12 @@ public class ExpressGoods {
     public ExpressGoods() {
     }
 
-    public ExpressGoods(Integer goods_id, Integer expp_id, Integer category_id, String name, Double price, Integer rate, Integer isEnable, Integer isDelete) {
+    public ExpressGoods(Integer goods_id, Integer expp_id, Integer category_id, String express_code, String name, Double price, Integer rate, Integer isEnable, Integer isDelete) {
 
         this.goods_id = goods_id;
         this.expp_id = expp_id;
         this.category_id = category_id;
+        this.express_code = express_code;
         this.name = name;
         this.price = price;
         this.rate = rate;

@@ -43,7 +43,7 @@ public interface ExpressGoodsMapper extends MyMapper<ExpressGoods> {
      */
     int count();
 
-    @Update("UPDATE tb_express_goods SET expp_id=#{expp_id}, category_id=#{category_id}, `name`=#{name}, price=#{price}, rate=#{rate}, isEnable=#{isEnable} WHERE goods_id=#{goods_id} AND isDelete=0 ")
+    @Update("UPDATE tb_express_goods SET express_code=#{express_code},expp_id=#{expp_id}, category_id=#{category_id}, `name`=#{name}, price=#{price}, rate=#{rate}, isEnable=#{isEnable} WHERE goods_id=#{goods_id} AND isDelete=0 ")
     /**
      * 更新商品 韦德 2018年8月3日16:06:10
      * @param v
@@ -51,7 +51,7 @@ public interface ExpressGoodsMapper extends MyMapper<ExpressGoods> {
      */
     int updateSingle(ExpressGoods v);
 
-    @Insert("INSERT INTO tb_express_goods(expp_id,category_id,name,price,rate,isEnable,isDelete) VALUES(#{expp_id}, #{category_id}, #{name}, #{price}, #{rate}, ${isEnable}, 0)")
+    @Insert("INSERT INTO tb_express_goods(express_code,expp_id,category_id,name,price,rate,isEnable,isDelete) VALUES(#{express_code},#{expp_id}, #{category_id}, #{name}, #{price}, #{rate}, ${isEnable}, 0)")
     /**
      * 新增商品 韦德 2018年8月3日17:15:08
      * @param v
