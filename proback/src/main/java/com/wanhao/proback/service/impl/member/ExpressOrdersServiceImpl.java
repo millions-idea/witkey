@@ -12,11 +12,13 @@ import com.wanhao.proback.bean.member.ExpressOrdersView;
 import com.wanhao.proback.bean.member.MerchantExpressOrdersParam;
 import com.wanhao.proback.dao.member.ExpressOrdersMapper;
 import com.wanhao.proback.dao.utils.ConditionUtil;
+import com.wanhao.proback.service.member.ExpressHttpService;
 import com.wanhao.proback.service.member.ExpressOrdersService;
 import com.wanhao.proback.utils.JsonUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -28,6 +30,13 @@ import java.util.UUID;
 public class ExpressOrdersServiceImpl implements ExpressOrdersService {
     private final ExpressOrdersMapper expressOrdersMapper;
     private final Logger logger = LoggerFactory.getLogger(getClass());
+
+    /**
+     * 空包网快递系统
+     */
+    @Autowired
+    @Qualifier("KBExpressHttpServiceImpl")
+    private ExpressHttpService expressHttpService;
 
     @Autowired
     public ExpressOrdersServiceImpl(ExpressOrdersMapper expressOrdersMapper) {
@@ -186,6 +195,7 @@ public class ExpressOrdersServiceImpl implements ExpressOrdersService {
      */
     @Override
     public List<String> sendOut(String orderId) {
+        expressHttpService.buyExpress(null);
         String[] strings = orderId.split(",");
         List<String> expressList = new ArrayList<>();
         Arrays.stream(strings).forEach(str -> {

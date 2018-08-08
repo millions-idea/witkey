@@ -78,6 +78,7 @@ public class ExpressOrderFacadeImpl implements ExpressOrderFacade {
      * @param expressOrdersParams
      */
     @Override
+    @Transactional
     public void placeOrder(List<ExpressOrdersParam> expressOrdersParams) {
         logger.info("ExpressOrderFacadeImpl_placeOrder_array" + JsonUtil.getJson(expressOrdersParams));
 
