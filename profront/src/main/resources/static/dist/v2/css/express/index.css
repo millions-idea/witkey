@@ -11,3 +11,15 @@
     height: 30px;
     color: #ff0000;
 }
+
+td {
+    line-height: 20px;
+}
+
+.my-tab-this{
+    display: block;
+}
+
+.my-tab-this-none{
+    display: none !important;
+}

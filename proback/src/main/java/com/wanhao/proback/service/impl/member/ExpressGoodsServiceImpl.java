@@ -102,6 +102,7 @@ public class ExpressGoodsServiceImpl implements ExpressGoodsService {
             expressGoodsJsonView.setGoods_id(exp.getGoods_id());
             expressGoodsJsonView.setName(exp.getName());
             expressGoodsJsonView.setPrice(PriceUtil.getSellPrice(exp.getPrice(), exp.getRate()));
+            expressGoodsJsonView.setExpress_code(exp.getExpress_code());
             nList.add(expressGoodsJsonView);
         });
         return nList;

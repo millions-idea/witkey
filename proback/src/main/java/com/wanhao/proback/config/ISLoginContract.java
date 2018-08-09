@@ -15,6 +15,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.request.RequestAttributes;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -37,23 +40,22 @@ public class ISLoginContract {
     @Autowired
     RedisTemplate redisTemplate;
 
+    /**
+     * 获取request对象
+     * @return
+     */
+    public HttpServletRequest getHttpServletRequest(){
+        RequestAttributes ra = RequestContextHolder.getRequestAttributes();
+        ServletRequestAttributes sra = (ServletRequestAttributes)ra;
+        HttpServletRequest request = sra.getRequest();
+        return request;
+    }
     @Before("within(@org.springframework.stereotype.Controller *) && @annotation(isLogin)")
     public void testToken(final JoinPoint joinPoint, ISLogin isLogin){
         try {
             if (isLogin != null) {
-                //获取 joinPoint 的全部参数
-                Object[] args = joinPoint.getArgs();
-                HttpServletRequest request = null;
-                HttpServletResponse response = null;
-                for (int i = 0; i < args.length; i++) {
-                    //获得参数中的 request && response
-                    if (args[i] instanceof HttpServletRequest) {
-                        request = (HttpServletRequest) args[i];
-                    }
-                    if (args[i] instanceof HttpServletResponse) {
-                        response = (HttpServletResponse) args[i];
-                    }
-                }
+                HttpServletRequest request = getHttpServletRequest();
+
                 //从请求头获取
                 String mobile1 = request.getHeader("mobile");
                 if (mobile1!=null){
@@ -65,7 +67,13 @@ public class ISLoginContract {
                 }
 
                 //redis里面的缓存
-                String mobile = (String) redisTemplate.opsForValue().get(sendToken2);
+                Object jsonObject = redisTemplate.opsForValue().get(sendToken2);
+                if(jsonObject == null) {
+                    //错误
+                    System.out.println("错误的token");
+                    throw new TokenInvalidException("登录信息不正确,请从新登录");
+                }
+                String mobile = ((Member)jsonObject).getMobile();
 
                 if (StringUtils.isNotBlank(mobile) && mobile.equals(mobile1)) {
                     //正确

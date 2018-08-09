@@ -1,6 +1,7 @@
 package com.wanhao.proback.config;
 
 import com.wanhao.proback.exception.FinanceException;
+import com.wanhao.proback.exception.NormalException;
 import com.wanhao.proback.exception.TokenInvalidException;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
@@ -60,6 +61,20 @@ public class MyControllerAdvice {
     @ResponseBody
     @ExceptionHandler(value = FinanceException.class)
     public Map financeErrorHandler(FinanceException ex) {
+        Map map = new HashMap();
+        map.put("error", 1);
+        map.put("message", ex.getMsg());
+        return map;
+    }
+
+    /**
+     * 拦截捕捉自定义异常 normal错误
+     * @param ex
+     * @return
+     */
+    @ResponseBody
+    @ExceptionHandler(value = NormalException.class)
+    public Map financeErrorHandler(NormalException ex) {
         Map map = new HashMap();
         map.put("error", 1);
         map.put("message", ex.getMsg());

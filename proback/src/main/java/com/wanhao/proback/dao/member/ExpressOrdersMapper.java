@@ -116,4 +116,22 @@ public interface ExpressOrdersMapper extends MyMapper<ExpressOrdersView> {
      * @return
      */
     int insertSingleForMerchant(MerchantExpressOrdersParam param);
+
+    @Select("SELECT " +
+            "t1.*, t2.address AS send_address, " +
+            "t2.phone,  " +
+            "t2.real_name, " +
+            "t3.`name` AS express_name " +
+            "FROM " +
+            "tb_express_orders t1 " +
+            "LEFT JOIN tb_express_postal_address t2 ON t1.send_address_id = t2.address_id " +
+            "LEFT JOIN tb_express_goods t3 ON t1.goods_id = t3.goods_id " +
+            "WHERE " +
+            "t1.user_id = #{userId}")
+    /**
+     * 根据用户id查询商家代发快递记录 韦德 2018年8月9日10:24:09
+     * @param userId
+     * @return
+     */
+    List<ExpressOrdersView> selectByUid(@Param("userId") Integer userId);
 }

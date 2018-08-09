@@ -21,4 +21,10 @@ public interface ExpressPostalAddressService extends BaseService<ExpressPostalAd
      * @return
      */
     List<ExpressPostalAddress> getPostalAddresses(Integer userId);
+
+    /**
+     * 创建并限制添加数量 韦德 2018年8月9日17:29:47
+     * @param param
+     */
+    void addExpressAddress(ExpressPostalAddress param);
 }

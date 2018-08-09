@@ -7,6 +7,7 @@
  */
 package com.wanhao.proback.controller.member;
 
+import com.wanhao.proback.annotaion.ISLogin;
 import com.wanhao.proback.bean.member.*;
 import com.wanhao.proback.bean.util.JsonArrayResult;
 import com.wanhao.proback.bean.util.JsonResult;
@@ -34,9 +35,6 @@ public class ExpressPlatformController {
 
     @Autowired
     private ExpressGoodsService expressGoodsService;
-
-    @Autowired
-    private ExpressPostalAddressService expressPostalAddressService;
 
 
     /**
@@ -107,7 +105,7 @@ public class ExpressPlatformController {
 
     /**
      * 删除快递空包平台(支持多个) 韦德 2018年8月1日23:09:44
-     * @param exp_id
+     * @param id
      * @return
      */
     @GetMapping("/delete")
@@ -232,28 +230,22 @@ public class ExpressPlatformController {
     }
 
 
-    /**
-     * 获取发货地址列表 韦德 2018年8月7日22:49:14
-     * @param userId
-     * @return
-     */
-    @GetMapping("/web/getPostalAddresses")
-    @ResponseBody
-    public JsonArrayResult<ExpressPostalAddress> getPostalAddresses(Integer userId){
-        List<ExpressPostalAddress> list = expressPostalAddressService.getPostalAddresses(userId);
-        return new JsonArrayResult(0, list);
-    }
 
 
     /**
      * 获取快递分类 韦德 2018年8月7日23:42:19
      * @return
      */
+    @ISLogin
     @GetMapping("/web/getExpressCategory")
     @ResponseBody
     public JsonArrayResult<ExpressGoodsJsonView> getExpressCategory(){
         List<ExpressGoodsJsonView> list = expressGoodsService.getGoods();
         return new JsonArrayResult(0, list);
     }
+
+
+
+
 
 }

@@ -7,6 +7,7 @@
  */
 package com.wanhao.proback.controller.member;
 
+import com.wanhao.proback.annotaion.ISLogin;
 import com.wanhao.proback.bean.member.ExpressOrders;
 import com.wanhao.proback.bean.member.ExpressOrdersParam;
 import com.wanhao.proback.bean.member.ExpressOrdersView;
@@ -126,7 +127,6 @@ public class ExpressOrdersController {
         return new JsonResult(0);
     }
 
-
     /**
      * 编辑运单号 韦德 2018年8月4日23:24:12
      * @param param
@@ -168,11 +168,25 @@ public class ExpressOrdersController {
      * @param merchantExpressOrdersParam
      * @return
      */
+    @ISLogin
     @PostMapping("/web/add")
     @ResponseBody
     public JsonResult addMerchantOrder(MerchantExpressOrdersParam merchantExpressOrdersParam){
         expressOrdersService.addMerchantOrder(merchantExpressOrdersParam);
         return new JsonResult(0);
+    }
+
+    /**
+     * 根据用户id查询商家代发快递记录 韦德 2018年8月9日10:24:09
+     * @param userId
+     * @return
+     */
+    @ISLogin
+    @GetMapping("/web/getMerchantExpressOrders")
+    @ResponseBody
+    public JsonArrayResult<ExpressOrdersView> getMerchantExpressOrders(Integer userId){
+        List<ExpressOrdersView> list = expressOrdersService.getMerchantExpressOrders(userId);
+        return new JsonArrayResult(0, list);
     }
 
     static class Utility {

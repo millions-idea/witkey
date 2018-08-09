@@ -20,14 +20,12 @@ public class ExpressGoodsJsonView  {
 
     @JsonView(MerchantView.class)
     private Integer goods_id;
-    private Integer expp_id;
-    private Integer category_id;
+    @JsonView(MerchantView.class)
+    private String express_code;
 
     @JsonView(MerchantView.class)
     private String name;
 
     @JsonView(MerchantView.class)
     private Double price;
-    private Integer isEnable = 0;
-    private Integer isDelete = 0;
 }

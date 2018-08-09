@@ -205,6 +205,18 @@ public class ExpressOrdersServiceImpl implements ExpressOrdersService {
         return expressList;
     }
 
+    /**
+     * 根据用户id查询商家代发快递记录 韦德 2018年8月9日10:24:09
+     *
+     * @param userId
+     * @return
+     */
+    @Override
+    public List<ExpressOrdersView> getMerchantExpressOrders(Integer userId) {
+        List<ExpressOrdersView> list = expressOrdersMapper.selectByUid(userId);
+        return list;
+    }
+
     @Override
     public void update(ExpressOrders v) {
         int res = expressOrdersMapper.updateSingle(v);

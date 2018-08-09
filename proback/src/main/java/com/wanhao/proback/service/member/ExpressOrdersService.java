@@ -71,4 +71,11 @@ public interface ExpressOrdersService extends BaseService<ExpressOrders> {
      * @return
      */
     List<String> sendOut(String orderId);
+
+    /**
+     * 根据用户id查询商家代发快递记录 韦德 2018年8月9日10:24:09
+     * @param userId
+     * @return
+     */
+    List<ExpressOrdersView> getMerchantExpressOrders(Integer userId);
 }

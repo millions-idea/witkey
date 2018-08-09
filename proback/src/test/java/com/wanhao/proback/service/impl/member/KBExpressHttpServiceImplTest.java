@@ -30,7 +30,14 @@ public class KBExpressHttpServiceImplTest {
     public void setUp() {
         String username = "52lingqian";
         String password = "52lingqian";
-        String sign = MD5Util.encrypt32(username.concat(MD5Util.encrypt16(password)).concat(UUID.randomUUID().toString()));
+        String uuid = UUID.randomUUID().toString();
+        String nPassword = MD5Util.encrypt16(password);
+        String sign = username + nPassword + uuid;
+        System.out.println("明文：" + username + password + uuid);
+        System.out.println("密码加密：" + username + nPassword + uuid);
+        sign = MD5Util.encrypt32(username.concat(nPassword).concat(uuid));
+        System.out.println("最终加密：" + sign);
+
         kongBaoExpressHttpParam = new KongBaoExpressHttpParam();
 
         kongBaoExpressHttpParam.setInfo(new Info(sign, UUID.randomUUID().toString(), "52lingqian"));
@@ -51,6 +58,7 @@ public class KBExpressHttpServiceImplTest {
         System.out.println(JsonUtil.getJson(kongBaoExpressHttpParam));
         HttpResponse<String> response = Unirest.post("http://www.kongbao10000.com/TestAPI/BuyKddh")
                 .header("Content-Type", "application/json")
+                .header("Cache-Control", "no-cache")
                 .body(JsonUtil.getJson(kongBaoExpressHttpParam))
                 .asString();
         String body = response.getBody();

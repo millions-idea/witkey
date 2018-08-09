@@ -1,7 +1,7 @@
 /*!商家代发快递 韦德 2018年8月7日22:43:53*/
 var route = request_url + "express-platform/web",
     service;
-(function () {
+$(function () {
     var user = eval("(" + sessionStorage.getItem("member") + ")");
 
     // 初始化service服务
@@ -13,15 +13,86 @@ var route = request_url + "express-platform/web",
         $weightInput = $("#weight"),
         $remarkInput = $("#remark"),
         $resetButton = $("input[name='reset']"),
-        $submitButton = $("input[name='submit']");
+        $submitButton = $("input[name='submit']"),
+        $tabButtons = $(".menu .tab a"),
+        $container = $(".my-container .item");
 
+    // 动态切换tab页
+    $tabButtons.click(function () {
+        // 移除样式
+        $tabButtons.removeClass("sb0");
+        // 给选中项添加样式
+        $(this).addClass("sb0");
+        if($(this).text() == "添加快递"){
+            $container.removeClass("my-tab-this");
+            $container.removeClass("my-tab-this-none");
+            $container.addClass("my-tab-this-none");
+            $container.eq(0).removeClass("my-tab-this-none");
+            $container.eq(0).addClass("my-tab-this");
+        }else{
+            $container.removeClass("my-tab-this");
+            $container.removeClass("my-tab-this-none");
+            $container.addClass("my-tab-this-none");
+            $container.eq(1).removeAttr("style");
+            $container.eq(1).removeClass("my-tab-this-none");
+            $container.eq(1).addClass("my-tab-this");
+
+
+            // 获取代发快递
+            service.getMerchantExpressOrders({
+                userId: user.id
+            }, function (data) {
+                if(!isNaN(data.error) || isNaN(data.code) || data.code != 0) {
+                    layer.msg("加载代发快递列表失败");
+                    return;
+                }
+
+                var str = "<tbody>";
+                str += "<tr>\n" +
+                    "                            <th width=\"70\">快递分类</th>\n" +
+                    "                            <th width=\"150\">状态/单号</th>\n" +
+                    "                            <th>地址(邮编)</th>\n" +
+                    "                            <th width=\"50\">姓名</th>\n" +
+                    "                            <th width=\"100\">手机</th>\n" +
+                    "                            <th width=\"120\">添加时间</th>\n" +
+                    "                        </tr>";
+                data.data.forEach(function (value) {
+                    str += "<tr onmouseover=\"this.className='on';\" onmouseout=\"this.className='';\" align=\"center\" class=\"\" data-obj='"+JSON.stringify(value)+"'>";
+                    str += "<td>"+ value.express_name +"</td>";
+                    str += "<td align=\"left\">";
+                    var status = "未发货";
+                    if(value.status != 0){
+                        if(value.status == 1) status = "已发货";
+                        if(value.status == 2) status = "被拒绝";
+                        if(value.status == 3) status = "已被取消";
+                    }
+                    var expressId = value.express_id;
+                    if(expressId == null) expressId = "";
+                    str += "&nbsp;&nbsp;"+status+"                    <br>&nbsp;&nbsp;"+ expressId +"                </td>";
+                    str += "<td align=\"left\">";
+                    str += "    <p class=\"h40\">发货地址：<input type=\"text\" value=\""+value.send_address+"\" size=\"35\"></p>";
+                    str += "    <p class=\"h40\">收货地址：<input type=\"text\" value=\""+value.recv_address+"\" size=\"35\"></p>";
+                    str += "</td>";
+                    str += "<td>"+value.real_name+"</td>";
+                    str += "<td>"+value.phone+"</td>";
+                    var editDate = value.edit_date;
+                    if(editDate == null) editDate = "";
+                    str += "<td class=\"px11 f_gray\" data-hasqtip=\"11\" oldtitle=\"更新时间 "+  editDate +"\" title=\"\">"+  editDate +"</td>";
+                    str += "</tr>";
+                })
+                str += "</tbody>";
+                $("#express-order-list").html("");
+                $("#express-order-list").append(str);
+            })
+        }
+    })
 
     // 获取发货地址列表
     service.getPostalAddresses({
         userId: user.id
     }, function (data) {
         if(!isNaN(data.error) || isNaN(data.code) || data.code != 0) {
-            layer.msg("获取发货地址列表失败");
+            layer.msg("加载发货地址列表失败");
             return;
         }
         var str = "";
@@ -34,7 +105,7 @@ var route = request_url + "express-platform/web",
     // 获取快递分类
     service.getExpressCategory({}, function (data) {
         if(!isNaN(data.error) || isNaN(data.code) || data.code != 0) {
-            layer.msg("获取发货地址列表失败");
+            layer.msg("加载发货地址列表失败");
             return;
         }
         var str = "";
@@ -43,6 +114,7 @@ var route = request_url + "express-platform/web",
         })
         $expressCategorySelector.append(str);
     })
+
 
     // 动态验证收货地址格式
     $titleInput.bind("input propertychange", function () {
@@ -106,7 +178,7 @@ var route = request_url + "express-platform/web",
             location.reload();
         })
     })
-})()
+})
 
 /**
  * 初始化service服务
@@ -120,9 +192,9 @@ function initService(r) {
          * @param callback
          */
         getPostalAddresses: function (param, callback) {
-            $.get(r + "/getPostalAddresses", param, function (data) {
+            $.request.get(request_url + "express-address/web/getPostalAddresses", param, function (data) {
                 callback(data);
-            });
+            })
         },
         /**
          * 获取快递分类
@@ -130,7 +202,7 @@ function initService(r) {
          * @param callback
          */
         getExpressCategory: function (param, callback) {
-            $.get(r + "/getExpressCategory", param, function (data) {
+            $.request.get(r + "/getExpressCategory", param, function (data) {
                 callback(data);
             });
         },
@@ -151,9 +223,14 @@ function initService(r) {
          * @param callback
          */
         addMerchantOrder: function (param, callback) {
-            $.post(request_url + "express-orders/web/add", param, function (data) {
+            $.request.post(request_url + "express-orders/web/add", param, function (data) {
                 callback(data);
             });
         },
+        getMerchantExpressOrders:function (param, callback) {
+            $.request.get(request_url + "express-orders/web/getMerchantExpressOrders", param, function (data) {
+                callback(data);
+            });
+        }
     }
 }

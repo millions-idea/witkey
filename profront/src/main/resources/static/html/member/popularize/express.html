@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
-
     <link rel="stylesheet" type="text/css" href="../../../dist/css/index-skin.css">
     <link rel="stylesheet" type="text/css" href="../../../dist/css/index-tp.css">
+    <link rel="stylesheet" type="text/css" href="../../../dist/layui/css/layui.css">
     <link rel="stylesheet" type="text/css" href="../../../dist/v2/css/express/index.css">
 
     <script type="text/javascript" src="../../../dist/js/lang.js"></script>
@@ -18,18 +18,17 @@
 
     <link rel="stylesheet" type="text/css" href="../../../dist/css/jq-tip.css">
     <script type="text/javascript" src="../../../dist/js/jq-tip.js"></script>
-    <script type="text/javascript" src="../../../dist/js/layer.js"></script>
+    <script type="text/javascript" src="../../../dist/layui/layui.js"></script>
 
     <script type="text/javascript" src="../../../dist/js/jquery.form.js"></script>
     <script type="text/javascript" src="../../../dist/js/template7.min.js"></script>
     <script type="text/javascript" src="../../../dist/js/cm.js"></script>
     <script type="text/javascript" src="../../../dist/js/ypfunction.js"></script>
 
-    <link rel="stylesheet" href="http://001.topaaa.com/file/script/layim/css/layui.css">
-    <script src="http://001.topaaa.com/file/script/layim/layui.js"></script>
-    <script src="http://001.topaaa.com/file/script/layim/func.js"></script>
     <!--配置服务器连接地址 -->
     <script type="text/javascript" src="../../../dist/js/gjy_serviceurl.js"></script>
+    <script type="text/javascript" src="../../../dist/v2/js/common/jquery.ajax.custom.js"></script>
+
 </head>
 
 <body class="rwdt_bg">
@@ -59,107 +58,82 @@
             <div class="menu">
                 <table cellpadding="0" cellspacing="0">
                     <tr>
-                        <td class="tab"><a id="m1" href="kuaidi.php?action=add"><span>添加快递</span></a></td>
-                        <td class="tab"><a id="m2" href="kuaidi.php"><span>查看快递</span></a></td>
+                        <td class="tab"><a href="javascript:void(0)" class="sb0"><span>添加快递</span></a></td>
+                        <td class="tab"><a href="javascript:void(0)"><span>查看快递</span></a></td>
                     </tr>
                 </table>
             </div>
-            <form method="post" action="kuaidi.php" id="dform" onsubmit="return check();">
-                <input type="hidden" name="action" value="add"/>
-                <input type="hidden" name="taskid" value=""/>
-                <input type="hidden" name="submit" value="1"/>
-                <table cellpadding="6" cellspacing="1" class="tb">
-                    <tr>
-                        <td class="tl"><span class="f_red">*</span> 发货地址</td>
-                        <td class="tr">
-                            <select name="post[addressid]" id="addressid">
-                                <option value="">请选择</option>
-                            </select>
-                            <a href="/member/address.php" target="_blank">管理地址</a>
-                            <a href="/member/address.php?action=add" target="_blank">添加地址</a>
-                            <span id="daddressid" class="f_red"></span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="tl"><span class="f_red">*</span> 收货地址</td>
-                        <td class="tr">
-                            <div class="h10"></div>
-                            <textarea name="post[title]" id="title" rows="5" cols="100"
-                                      style="max-width: 740px;"></textarea>
-                            <div class="h10 my-text-color">请严格按照此格式书写：<span style="color: #000">张三峰，13688888888，上海 上海市 长宁区 虹桥街道 虹桥路48号102室，100000</span></div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="tl"> 重量</td>
-                        <td class="tr"><input id="weight" name="post[weight]" type="text" size="20"/></td>
-                    </tr>
-                    <tr>
-                        <td class="tl"> 备注信息</td>
-                        <td class="tr"><input name="post[note]" type="text" id="remark" size="60"/>
-                            <span id="dnote" class="f_red"></span></td>
-                    </tr>
-                    <tr>
-                        <td class="tl"><span class="f_red">*</span> 快递分类</td>
-                        <td class="tr">
-                            <select name="post[kuaidicatid]" id="kuaidicatid">
-                                <option value="">请选择</option>
-                            </select>
-                            <span id="dkuaidicatid" class="f_red"></span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="tl">&nbsp;</td>
-                        <td class="tr" height="50">
-                            <input type="button" name="submit" value=" 确 定 "class="btn"/>
-                            &nbsp;&nbsp;&nbsp;&nbsp;
-                            <input type="reset" name="reset" value=" 重 置 " class="btn"/>
-                        </td>
-                    </tr>
-                </table>
-            </form>
-            <script type="text/javascript" src="http://001.topaaa.com/file/script/clear.js"></script>
+
+            <!-- 主体 begin -->
+            <div class="my-container">
+                <!--添加快递 begin-->
+                <div class="my-tab-this item">
+                    <form>
+                        <table cellpadding="6" cellspacing="1" class="tb">
+                            <tr>
+                                <td class="tl"><span class="f_red">*</span> 发货地址</td>
+                                <td class="tr">
+                                    <select name="post[addressid]" id="addressid">
+                                        <option value="">请选择</option>
+                                    </select>
+                                    <a href="./address.html" target="_blank">管理地址</a>
+                                    <a href="./address.html?action=add" target="_blank">添加地址</a>
+                                    <span id="daddressid" class="f_red"></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="tl"><span class="f_red">*</span> 收货地址</td>
+                                <td class="tr">
+                                    <div class="h10"></div>
+                                    <textarea name="post[title]" id="title" rows="5" cols="100"
+                                              style="max-width: 740px;"></textarea>
+                                    <div class="h10 my-text-color">请严格按照此格式书写：<span style="color: #000">张三峰，13688888888，上海 上海市 长宁区 虹桥街道 虹桥路48号102室，100000</span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="tl"> 重量</td>
+                                <td class="tr"><input id="weight" name="post[weight]" type="text" size="20"/></td>
+                            </tr>
+                            <tr>
+                                <td class="tl"> 备注信息</td>
+                                <td class="tr"><input name="post[note]" type="text" id="remark" size="60"/>
+                                    <span id="dnote" class="f_red"></span></td>
+                            </tr>
+                            <tr>
+                                <td class="tl"><span class="f_red">*</span> 快递分类</td>
+                                <td class="tr">
+                                    <select name="post[kuaidicatid]" id="kuaidicatid">
+                                        <option value="">请选择</option>
+                                    </select>
+                                    <span id="dkuaidicatid" class="f_red"></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="tl">&nbsp;</td>
+                                <td class="tr" height="50">
+                                    <input type="button" name="submit" value=" 确 定 " class="btn"/>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;
+                                    <input type="reset" name="reset" value=" 重 置 " class="btn"/>
+                                </td>
+                            </tr>
+                        </table>
+                    </form>
+                </div>
+                <!--添加快递 end-->
+
+                <!--查看快递 begin-->
+                <div class="ls item"  style="display: none">
+                    <table cellpadding="0" cellspacing="0" class="tb" id="express-order-list">
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+                <!--查看快递 end-->
+            </div>
+            <!-- 主体 end-->
         </div>
     </div>
-    <script type="text/javascript">
-        function check() {
-            var l;
-            var f;
-            f = 'addressid';
-            l = Dd(f).value.length;
-            if (l == 0) {
-                Dmsg('请选择发货地址', f);
-                return false;
-            }
-            f = 'title';
-            l = Dd(f).value.length;
-            if (l < 5) {
-                Dmsg('请填写收货地址', f);
-                return false;
-            }
-            f = 'kuaidicatid';
-            l = Dd(f).value.length;
-            if (l == 0) {
-                Dmsg('请选择快递分类', f);
-                return false;
-            }
-            var options = {
-                contentType: "application/x-www-form-urlencoded;charset=utf-8",
-                success: showResponse
-            };
-            $('#dform').ajaxSubmit(options);
-            return false;
-        }
-
-        function showResponse(response) {
-            if (response == 'success') {
-                layer.alert("操作成功，点击确定查看快递记录", {closeBtn: 0}, function () {
-                    location.href = "/member/kuaidi.php";
-                });
-            } else {
-                layer.alert(response);
-            }
-        }
-    </script>
     <script>
         $(function () {
             set_nav("m1", "sb0");
@@ -201,9 +175,6 @@
         </div>
     </div>
 </div>
-<link rel="stylesheet" href="http://001.topaaa.com/file/script/layim/css/layui.css">
-<script src="http://001.topaaa.com/file/script/layim/layui.js"></script>
-<script src="http://001.topaaa.com/file/script/layim/func.js"></script>
 <div class="main-im">
     <div id="open_im" class="open-im" style="display: none;"></div>
     <div class="im_main" id="im_main">
@@ -287,6 +258,7 @@
         });
     </script>
 </div>
-<script type="text/javascript" src="../../../dist/v2/js/express/index.js?v=081721"></script>
+<script type="text/javascript" src="../../../dist/layui/layui.js"></script>
+<script type="text/javascript" src="../../../dist/v2/js/express/index.js?v=081739"></script>
 </body>
 </html>
