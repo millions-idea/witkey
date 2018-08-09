@@ -237,8 +237,13 @@ public class MemberController {
                 Gson gson = new Gson();
                 save.setPassword(null);
                 String mem = gson.toJson(save);
+                //查询用户的钱包
+                Wallets wallets = walletsService.selectOneByUid(save.getId());
+
 
                 jsonObject.addProperty("express", mem);
+                //钱包
+                jsonObject.addProperty("wallets", GsonUtils.toJson(wallets));
 
             } else {
                 jsonObject.addProperty(Constants.ERROR, 1);
