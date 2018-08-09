@@ -15,6 +15,8 @@ import com.wanhao.proback.service.member.ExpressPostalAddressService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -33,13 +35,7 @@ public class ExpressPostalAddressServiceImpl extends BaseServiceImpl<ExpressPost
      */
     @Override
     public List<ExpressPostalAddress> getPostalAddresses(Integer userId) {
-        ExpressPostalAddress expressPostalAddress = new ExpressPostalAddress();
-        expressPostalAddress.setUser_id(userId);
-        List<ExpressPostalAddress> list = expressPostalAddressMapper.select(expressPostalAddress);
-       /* list.stream().forEach(exp -> {
-            exp.setPhone(null);
-            exp.setReal_name(null);
-        });*/
+        List<ExpressPostalAddress> list = expressPostalAddressMapper.selectByOrder(userId);
         return list;
     }
 
@@ -48,6 +44,11 @@ public class ExpressPostalAddressServiceImpl extends BaseServiceImpl<ExpressPost
         ExpressPostalAddress expressPostalAddress = new ExpressPostalAddress();
         expressPostalAddress.setAddress_id(id);
         expressPostalAddressMapper.delete(expressPostalAddress);
+    }
+
+    @Override
+    public void update(ExpressPostalAddress v) {
+        expressPostalAddressMapper.updateById(v);
     }
 
     /**
@@ -59,6 +60,8 @@ public class ExpressPostalAddressServiceImpl extends BaseServiceImpl<ExpressPost
     public void addExpressAddress(ExpressPostalAddress param) {
         int count = expressPostalAddressMapper.selectCreateCount(param.getUser_id());
         if(count + 1 > 10) throw new NormalException("添加已达到上限");
+        if(param.getSort() == null) param.setSort(0);
+        param.setAdd_date(new Date());
         expressPostalAddressMapper.insert(param);
     }
 }

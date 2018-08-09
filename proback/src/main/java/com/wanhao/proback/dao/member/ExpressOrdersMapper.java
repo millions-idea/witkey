@@ -127,7 +127,7 @@ public interface ExpressOrdersMapper extends MyMapper<ExpressOrdersView> {
             "LEFT JOIN tb_express_postal_address t2 ON t1.send_address_id = t2.address_id " +
             "LEFT JOIN tb_express_goods t3 ON t1.goods_id = t3.goods_id " +
             "WHERE " +
-            "t1.user_id = #{userId}")
+            "t1.user_id = #{userId} ORDER BY t1.add_date DESC")
     /**
      * 根据用户id查询商家代发快递记录 韦德 2018年8月9日10:24:09
      * @param userId
