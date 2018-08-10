@@ -30,13 +30,7 @@ public class KBExpressHttpServiceImplTest {
     public void setUp() {
         String username = "52lingqian";
         String password = "52lingqian";
-        String uuid = UUID.randomUUID().toString();
-        String nPassword = MD5Util.encrypt16(password);
-        String sign = username + nPassword + uuid;
-        System.out.println("明文：" + username + password + uuid);
-        System.out.println("密码加密：" + username + nPassword + uuid);
-        sign = MD5Util.encrypt32(username.concat(nPassword).concat(uuid));
-        System.out.println("最终加密：" + sign);
+        String sign = MD5Util.encrypt32(username.concat(MD5Util.encrypt16(password)).concat(UUID.randomUUID().toString()));
 
         kongBaoExpressHttpParam = new KongBaoExpressHttpParam();
 

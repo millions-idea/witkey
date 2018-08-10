@@ -109,15 +109,13 @@ $(function () {
                 });
                 break;
             case 2:
-                // 加载订单数据表
-                initOrdersDataTable("/express-orders/get", function (form, table, layer, vipTable, tableIns) {
+                // 加载市场进货渠道数据表
+                initMarketDataTable(route + "/getLimit", function (form, table, layer, vipTable, tableIns) {
                     // 动态注册事件
-                    var $tableDelete = $("#orders-data-table-delete"),
-                        $tableAdd = $("#orders-data-table-add"),
-                        $tableSend = $("#orders-data-table-send");
+                    var $tableDelete = $("#market-data-table-delete"),
+                        $tableAdd = $("#market-data-table-add");
                     $tableDelete.unbind("click");
                     $tableAdd.unbind("click");
-                    $tableSend.unbind("click");
                     $tableDelete.bind('click',function () {
                         layer.confirm('您确定要删除这些数据？', {
                             title: "敏感操作提示",
@@ -125,26 +123,26 @@ $(function () {
                             shade: 0.3,
                             shadeClose: true
                         },function () {
-                            var data = table.checkStatus('orders-data-table').data;
-                            var idArr = new Array();
+                            var data = table.checkStatus('market-data-table').data;
+                            var expIdArr = new Array();
                             data.forEach(function (value) {
-                                idArr.push(value.order_id);
+                                expIdArr.push(value.expp_id);
                             });
                             var param = {
-                                id: idArr.join(",")
+                                expp_id: expIdArr.join(",")
                             };
-                            service.deleteOrders(param, function (data) {
+                            service.deleteBy(param, function (data) {
                                 if(!isNaN(data.error) || data.code == 1){
                                     layer.msg("删除失败");
-                                    return
+                                    return;
                                 }
-                                layer.msg("删除成功");
-                                ordersTableIndex.reload();
+                                layer.closeAll();
+                                marketTableIndex.reload();
                             })
                         })
                     })
                     $tableAdd.bind('click',function () {
-                        service.getAddGoodsView(function (data) {
+                        service.getAddView(function (data) {
                             layer.open({
                                 type: 1,
                                 skin: 'layui-layer-rim',
@@ -155,49 +153,20 @@ $(function () {
                             });
                         })
                     })
-                    $tableSend.bind('click',function () {
-                        layer.confirm('您确定要对这些数据进行发货操作？', {
-                            title: "敏感操作提示",
-                            btn: ['确定','取消'],
-                            shade: 0.3,
-                            shadeClose: true
-                        },function () {
-                            var data = table.checkStatus('orders-data-table').data;
-
-                            var modelList = new Array();
-
-                            data.forEach(function (value) {
-                                modelList.push({
-                                    userId: value.user_id,
-                                    goodsId: value.goods_id,
-                                    orderId: value.order_id
-                                });
-                            });
-
-                            service.editOrderStatuses(modelList, function (data) {
-                                if(!isNaN(data.error) || data.code == 1){
-                                    layer.msg("批量发货失败");
-                                    return
-                                }
-                                layer.msg("批量发货成功");
-                                ordersTableIndex.reload();
-                            })
-                        })
-                    })
                 },function (table, res, curr, count) {
                     // 监听工具条
-                    table.on('tool(orders-data-table)', function(obj){
+                    table.on('tool(market-data-table)', function(obj){
                         var data = obj.data; //获得当前行数据
                         var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
                         var tr = obj.tr; //获得当前行 tr 的DOM对象
 
                         if(layEvent === 'detail'){ //查看
-                            service.ordersView(data,function (html) {
+                            service.view(data,function (html) {
                                 layer.open({
                                     type: 1,
                                     skin: 'layui-layer-rim',
                                     title: '预览',
-                                    area: ['750px', 'auto'],
+                                    area: ['420px', 'auto'],
                                     shadeClose:true,
                                     content: html
                                 });
@@ -205,10 +174,10 @@ $(function () {
                         } else if(layEvent === 'del'){ //删除
                             layer.confirm('确定要删除此项吗？', function(index){
                                 var param = {
-                                    id: obj.data.order_id.toString()
+                                    id: obj.data.expp_id.toString()
                                 };
-                                service.deleteOrders(param, function (data) {
-                                    if(!isNaN(data.error) || data.code == 1){
+                                service.deleteBy(param, function (data) {
+                                    if(data.code == 1){
                                         layer.msg("删除失败");
                                         return
                                     }
@@ -218,12 +187,12 @@ $(function () {
                                 })
                             });
                         } else if(layEvent === 'edit'){ //编辑
-                            service.getOrdersEditView(data, function (html) {
+                            service.getEditView(data, function (html) {
                                 layer.open({
                                     type: 1,
                                     skin: 'layui-layer-rim',
                                     title: '编辑',
-                                    area: ['750px', 'auto'],
+                                    area: ['420px', 'auto'],
                                     shadeClose:true,
                                     content: html
                                 });
@@ -842,13 +811,14 @@ function getOrdersTableColumns() {
  * 加载默认表格
  */
 function loadDefaultTable() {
-    // 加载市场进货渠道数据表
-    initMarketDataTable(route + "/getLimit", function (form, table, layer, vipTable, tableIns) {
+    initOrdersDataTable("/express-orders/get", function (form, table, layer, vipTable, tableIns) {
         // 动态注册事件
-        var $tableDelete = $("#market-data-table-delete"),
-            $tableAdd = $("#market-data-table-add");
+        var $tableDelete = $("#orders-data-table-delete"),
+            $tableAdd = $("#orders-data-table-add"),
+            $tableSend = $("#orders-data-table-send");
         $tableDelete.unbind("click");
         $tableAdd.unbind("click");
+        $tableSend.unbind("click");
         $tableDelete.bind('click',function () {
             layer.confirm('您确定要删除这些数据？', {
                 title: "敏感操作提示",
@@ -856,26 +826,26 @@ function loadDefaultTable() {
                 shade: 0.3,
                 shadeClose: true
             },function () {
-                var data = table.checkStatus('market-data-table').data;
-                var expIdArr = new Array();
+                var data = table.checkStatus('orders-data-table').data;
+                var idArr = new Array();
                 data.forEach(function (value) {
-                    expIdArr.push(value.expp_id);
+                    idArr.push(value.order_id);
                 });
                 var param = {
-                    expp_id: expIdArr.join(",")
+                    id: idArr.join(",")
                 };
-                service.deleteBy(param, function (data) {
+                service.deleteOrders(param, function (data) {
                     if(!isNaN(data.error) || data.code == 1){
                         layer.msg("删除失败");
-                        return;
+                        return
                     }
-                    layer.closeAll();
-                    marketTableIndex.reload();
+                    layer.msg("删除成功");
+                    ordersTableIndex.reload();
                 })
             })
         })
         $tableAdd.bind('click',function () {
-            service.getAddView(function (data) {
+            service.getAddGoodsView(function (data) {
                 layer.open({
                     type: 1,
                     skin: 'layui-layer-rim',
@@ -886,20 +856,49 @@ function loadDefaultTable() {
                 });
             })
         })
+        $tableSend.bind('click',function () {
+            layer.confirm('您确定要对这些数据进行发货操作？', {
+                title: "敏感操作提示",
+                btn: ['确定','取消'],
+                shade: 0.3,
+                shadeClose: true
+            },function () {
+                var data = table.checkStatus('orders-data-table').data;
+
+                var modelList = new Array();
+
+                data.forEach(function (value) {
+                    modelList.push({
+                        userId: value.user_id,
+                        goodsId: value.goods_id,
+                        orderId: value.order_id
+                    });
+                });
+
+                service.editOrderStatuses(modelList, function (data) {
+                    if(!isNaN(data.error) || data.code == 1){
+                        layer.msg("批量发货失败");
+                        return
+                    }
+                    layer.msg("批量发货成功");
+                    ordersTableIndex.reload();
+                })
+            })
+        })
     },function (table, res, curr, count) {
         // 监听工具条
-        table.on('tool(market-data-table)', function(obj){
+        table.on('tool(orders-data-table)', function(obj){
             var data = obj.data; //获得当前行数据
             var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
             var tr = obj.tr; //获得当前行 tr 的DOM对象
 
             if(layEvent === 'detail'){ //查看
-                service.view(data,function (html) {
+                service.ordersView(data,function (html) {
                     layer.open({
                         type: 1,
                         skin: 'layui-layer-rim',
                         title: '预览',
-                        area: ['420px', 'auto'],
+                        area: ['750px', 'auto'],
                         shadeClose:true,
                         content: html
                     });
@@ -907,10 +906,10 @@ function loadDefaultTable() {
             } else if(layEvent === 'del'){ //删除
                 layer.confirm('确定要删除此项吗？', function(index){
                     var param = {
-                        id: obj.data.expp_id.toString()
+                        id: obj.data.order_id.toString()
                     };
-                    service.deleteBy(param, function (data) {
-                        if(data.code == 1){
+                    service.deleteOrders(param, function (data) {
+                        if(!isNaN(data.error) || data.code == 1){
                             layer.msg("删除失败");
                             return
                         }
@@ -920,12 +919,12 @@ function loadDefaultTable() {
                     })
                 });
             } else if(layEvent === 'edit'){ //编辑
-                service.getEditView(data, function (html) {
+                service.getOrdersEditView(data, function (html) {
                     layer.open({
                         type: 1,
                         skin: 'layui-layer-rim',
                         title: '编辑',
-                        area: ['420px', 'auto'],
+                        area: ['750px', 'auto'],
                         shadeClose:true,
                         content: html
                     });

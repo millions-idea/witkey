@@ -33,32 +33,32 @@
        <!--选项卡-->
        <div class="layui-tab layui-tab-card layui-col-md12" style="min-height: 770px">
            <ul id="tab-channel" class="layui-tab-title" lay-filter="tab-goods">
-               <li id="active-express-market" class="layui-this">进货渠道</li>
+               <li id="active-express-orders" class="layui-this">快递订单</li>
                <li id="active-express-goods">商品管理</li>
-               <li>快递订单</li>
+               <li id="active-express-market">进货渠道</li>
            </ul>
            <div class="layui-tab-content" style="height: 100px;padding: 20px">
-               <!--进货渠道 begin-->
-               <div class="layui-tab-item layui-show">
+               <!--快递订单 begin-->
+               <div class="layui-tab-item  layui-show">
                    <!-- 工具集 -->
                    <div class="my-btn-box">
                     <span class="fl">
-                        <a id="market-data-table-delete" class="layui-btn layui-btn-danger radius btn-delect">批量删除</a>
-                        <a id="market-data-table-add" class="layui-btn btn-add btn-default" >添加</a>
-                        <a class="layui-btn btn-add btn-default" id="btn-refresh-market-data-table"><i class="layui-icon layui-icon-refresh"></i></a>
+                        <a id="orders-data-table-delete" class="layui-btn layui-btn-danger radius btn-delect">批量删除</a>
+                        <a id="orders-data-table-send" class="layui-btn  layui-btn-normal radius">批量发货</a>
+                        <a class="layui-btn btn-add btn-default" id="btn-refresh-orders-data-table"><i class="layui-icon layui-icon-refresh"></i></a>
                     </span>
                        <span class="fr">
                         <span class="layui-form-label">搜索条件：</span>
                         <div class="layui-input-inline">
-                            <input id="market-data-table-condition" type="text" autocomplete="off" placeholder="请输入搜索条件" class="layui-input">
+                            <input id="orders-data-table-condition" type="text" autocomplete="off" placeholder="请输入搜索条件" class="layui-input">
                         </div>
-                        <button id="market-data-table-query" class="layui-btn mgl-20">查询</button>
+                        <button id="orders-data-table-query" class="layui-btn mgl-20">查询</button>
                     </span>
                    </div>
                    <!-- 表格 -->
-                   <div id="market-data-table" class="my-data-table" lay-filter="market-data-table"></div>
+                   <div id="orders-data-table" class="my-data-table" lay-filter="orders-data-table"></div>
                </div>
-               <!--进货渠道 end-->
+               <!--快递订单 end-->
 
                <!--销售分类 begin-->
                <div class="layui-tab-item">
@@ -82,27 +82,27 @@
                </div>
                <!--销售分类 end-->
 
-               <!--快递订单 begin-->
+               <!--进货渠道 begin-->
                <div class="layui-tab-item">
                    <!-- 工具集 -->
                    <div class="my-btn-box">
                     <span class="fl">
-                        <a id="orders-data-table-delete" class="layui-btn layui-btn-danger radius btn-delect">批量删除</a>
-                        <a id="orders-data-table-send" class="layui-btn  layui-btn-normal radius">批量发货</a>
-                        <a class="layui-btn btn-add btn-default" id="btn-refresh-orders-data-table"><i class="layui-icon layui-icon-refresh"></i></a>
+                        <a id="market-data-table-delete" class="layui-btn layui-btn-danger radius btn-delect">批量删除</a>
+                        <a id="market-data-table-add" class="layui-btn btn-add btn-default" >添加</a>
+                        <a class="layui-btn btn-add btn-default" id="btn-refresh-market-data-table"><i class="layui-icon layui-icon-refresh"></i></a>
                     </span>
                        <span class="fr">
                         <span class="layui-form-label">搜索条件：</span>
                         <div class="layui-input-inline">
-                            <input id="orders-data-table-condition" type="text" autocomplete="off" placeholder="请输入搜索条件" class="layui-input">
+                            <input id="market-data-table-condition" type="text" autocomplete="off" placeholder="请输入搜索条件" class="layui-input">
                         </div>
-                        <button id="orders-data-table-query" class="layui-btn mgl-20">查询</button>
+                        <button id="market-data-table-query" class="layui-btn mgl-20">查询</button>
                     </span>
                    </div>
                    <!-- 表格 -->
-                   <div id="orders-data-table" class="my-data-table" lay-filter="orders-data-table"></div>
+                   <div id="market-data-table" class="my-data-table" lay-filter="market-data-table"></div>
                </div>
-               <!--快递订单 end-->
+               <!--进货渠道 end-->
            </div>
        </div>
    </div>
