@@ -1,0 +1,187 @@
+<th:block xmlns:th="http://www.thymeleaf.org" th:fragment="layout-top">
+    <script type="text/javascript" src="../../../dist/js/gjy_serviceurl.js"></script>
+    <script>
+        $(document).ready(function () {
+            var userresult_json = eval("("+sessionStorage.getItem("member")+")");
+
+            var stateindex_top_username = userresult_json.username
+                +"<b></b>";
+            $("#index_top_username").html(stateindex_top_username);
+
+            var stateindex_user_member_result = "<p>"+userresult_json.username+"</p>"
+                +"<p>"+userresult_json.vipmodel+"</p>";
+            $("#user_member_result").html(stateindex_user_member_result);
+
+
+            //只执行一次初始化设置
+            var initSetting = function () {
+
+                //读取全局配置
+                $.ajax({
+                    url: get_setting_url,
+                    type: "post",
+                    dataType: 'json',
+                    success: function (result) {
+                        var setting = jQuery.parseJSON(result.setting);
+                        //直接存字符串
+                        localStorage.setItem("setting",result.setting);
+
+                        //标题
+                        $("#title_content").html(setting.web_name);
+                        //logo
+                        $("#web_logo").attr("src",setting.web_logo);
+                        //taskMoney  任务金币名称
+                        $("#taskMoney").html(setting.virtual_name);
+                    }
+                });
+
+
+                initSetting= function(){};
+            };
+
+            initSetting();
+            initSetting();
+
+        })
+    </script>
+
+    <div id="top_yc"></div>
+    <div class="ui-header ibj-header clean">
+        <div class="ui-header-top" id="j-header-top">
+            <div class="grid zbj-grid">
+                <div class="fl ui-header-greet">
+                    <div class="header_top_left trends">
+                        <ul class="line">
+                            <li class="gg">
+                                <a href="/announce/index.php?itemid=9">试客做单特别注意</a>
+                            </li>
+                            <li class="gg">
+                                <a href="/announce/index.php?itemid=10">开启QQ临时会话，双方及时沟通</a>
+                            </li>
+                            <li class="gg">
+                                <a href="/announce/index.php?itemid=1">重要通告 注册后必看</a>
+                            </li>
+                            <li class="gg">
+                                <a href="/announce/index.php?itemid=2">销量联盟商家支付佣金表</a>
+                            </li>
+                            <li class="gg">
+                                <a href="/announce/index.php?itemid=3">销量联盟商家注册流程</a>
+                            </li>
+                            <li class="gg">
+                                <a href="/announce/index.php?itemid=4">销量联盟试客注册流程</a>
+                            </li>
+                            <li class="gg">
+                                <a href="/announce/index.php?itemid=5">销量联盟考试题库</a>
+                            </li>
+                            <li class="gg">
+                                <a href="/announce/index.php?itemid=6">试客申请试用注意事项</a>
+                            </li>
+                            <li class="gg">
+                                <a href="/announce/index.php?itemid=7">手机单付款教程</a>
+                            </li>
+                            <li class="gg">
+                                <a href="/announce/index.php?itemid=8">买号出售说明</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="fr ui-header-nav">
+                    <div class="ui-dropdown">
+                        <span style="height: 35px;line-height: 35px;padding: 0 10px;">
+                            <a href="/app.php" target="_blank">下载APP</a>
+                        </span>
+                    </div>
+                    <div class="message">
+                        <a href="/member/message.php">
+                            站内信<span class="mui-badge mui-badge-warning ypwarning">1</span>
+                        </a>
+                    </div>
+                    <div class="ui-dropdown">
+                        <span style="height: 35px;line-height: 35px;padding: 0 10px;">
+                            <a href="/announce/index.php?itemid=10">开启QQ临时会话</a>
+                        </span>
+                    </div>
+                    <div class="ui-dropdown">
+                        <span style="height: 35px;line-height: 35px;padding: 0 10px;">
+                            <a href="/announce/index.php?typeid=3">新手帮助</a>
+                        </span>
+                    </div>
+                    <div class="ui-dropdown">
+                    <span href="#none" class="ui-dropdown-hd">
+                        <a class="login-after username" id="index_top_username" href="index.html" style="display: inline;">
+                            <b></b>
+                        </a>
+                    </span>
+                        <div class="ui-dropdown-menu nouserinfo">
+                            <ul class="list-unstyled unstyled ui-account">
+                                <li class="item-account">
+                                    <a tool-map="top" tool-text="详细" class="fr zbj-tooltip" href="/member/record.php">详细</a>
+                                    <span class="fr">
+                                <a class="blue item-withdraw" href="/member/charge.php?action=pay">充值</a>
+                                <a class="blue item-withdraw" href="/member/cash.php">提现</a>
+                            </span>
+                                    资金：
+                                    <span class="highlight"><span class="my-balance-holder highlight">0.00</span></span>
+                                </li>
+                                <li class="item-account">
+                                    <a tool-map="top" tool-text="详细" class="fr zbj-tooltip" href="/member/credit.php">详细</a>
+                                    <span class="fr">
+                                    <a class="blue item-withdraw" href="/member/credit.php?action=buy">充值</a>
+                                    <a class="blue item-withdraw" href="/member/">兑换</a>
+                                </span>
+                                    联盟币：
+                                    <span class="highlight"><span class="my-balance-holder highlight">0.00</span></span>
+                                </li>
+                                <li class="item-account">
+                                    会员组：
+                                    <span class="highlight">
+                                        <span class="my-balance-holder highlight" style="margin-right:10px">试客会员</span>
+                                    </span>
+                                    <a href="/member/grade.php">升级</a>
+                                </li>
+                                <li class="item-ft">
+                                    <a class="fr item-logout" href="../welcome/login.html" title="退出登录">
+                                        退出
+                                    </a>
+
+                                    <a class="item-myfav" href="../usercenter/userdata.html">账号设置</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="ui-dropdown" id="j-need-invite">
+                        <a href="#" class="ui-dropdown-hd">我是试客<b></b></a>
+                        <ul class="unstyled fr ui-dropdown-menu ui-menu-fix">
+                            <li><a onclick="renwu_cat('请选择要申请的试用类别','/yptask/?catid=4|淘宝试用,/yptask/?catid=5|阿里巴巴试用,/yptask/?catid=40|京东试用,/yptask/?catid=6|拼多多试用,/yptask/?catid=7|蘑菇街试用,/yptask/?catid=8|美丽说试用,/yptask/?catid=41|淘宝访问,/yptask/?catid=51|阿里巴巴访问,/yptask/?catid=401|京东访问');">免费试用</a></li>
+                            <li><a href="/member/yptaskview.php?pro=2" class="highlight" title="已申请的试用">试用中心</a></li>
+                            <li><a href="/member/taobaohao.php">绑定买号</a></li>
+                            <li><a href="/member/yptaskview.php?tousu=1">我的投诉</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--logo开始-->
+    <div id="header" class="clean">
+        <div class="header_main">
+            <div id="ypmsgbox"></div>
+            <div class="header_left">
+                <a href="/"><img id="web_logo" width="220" height="63" src="../../../dist/img/logo.png" alt="销量联盟"></a>
+            </div>
+            <div class="header_right">
+                <div class="avatar"><img src="../../../img/defaultx48.jpg"></div>
+                <div class="username" id="user_member_result">
+                    <p></p>
+                    <p></p>
+                </div>
+                <div class="logout">
+                    <a href="../welcome/login.html">退出</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script id="yplayer" type="text/template7">
+        <div class="yplayer"><p><span style="font-size:18px;color:red;"><strong>申请试用六大注意事项<br /></strong></span></p><p><strong><span style="font-size:14px;">一、严禁通过旺旺联系商家或旺旺聊天中带有平台、销量等忌讳字眼 ；</span></strong></p><p><strong><span style="font-size:14px;">二：禁止在任务过程中，辱骂任务一方，出言不逊；</span></strong></p><p><strong><span style="font-size:14px;">三、禁止使用花呗、淘金币、天猫积分、返利网、淘宝客、信用卡支付；</span></strong></p><p><strong><span style="font-size:14px;">四、必须物流信息签收后才能在淘宝确认收货！（无法获取物流信息的联系商家）；</span></strong></p><p><strong><span style="font-size:14px;">五、禁止以任何理由给对方差评及非五星好评等行为；</span></strong></p><p><strong><span style="font-size:14px;">六、严禁好评乱写评语，广告评语或恶意乱写评语。</span></strong></p><p><span style="font-size:18px;color:red;"><strong>发布试用三大注意事项</strong></span></p><p><strong><span style="font-size:14px;">一、禁止商家发布不实任务，骗取流量！</span></strong></p><p><strong><span style="font-size:14px;">二、禁止发布一个任务却以各种理由让试客拍淘宝多个商品/链接；</span></strong></p><p><strong><span style="font-size:14px;">三、禁止商家不勾选对应要求却在留言中要求试客完成，如"货比三家"。</span></strong></p><p align="center"><span style="font-size:14px;"><span style="color:red;">说明：以上信息 完成任务 &gt; 10 将不再显示</span></span></p><p align="center"><span style="font-size:14px;"><span style="color:red;"><span style="color:#e53333;">管理后台可设置窗口大小和任务完成多少不显示。此内容管理员可以编辑或删除。</span></span><br /></span></p></div>
+    </script>
+</th:block>
