@@ -10,6 +10,8 @@ CREATE TABLE `tb_express_platforms` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='快递平台渠道表';
 
 
+
+
 INSERT INTO `lianmeng`.`tb_express_platforms` (`expp_id`, `name`, `url`, `isEnable`, `isDelete`) VALUES ('1', '空包1000网', 'http://www.kongbao10000.com', '1', '0');
 INSERT INTO `lianmeng`.`tb_express_platforms` (`expp_id`, `name`, `url`, `isEnable`, `isDelete`) VALUES ('2', '刷宝网', 'http://www.shuabaokb.com', '0', '0');
 
@@ -21,13 +23,15 @@ CREATE TABLE `tb_express_goods` (
   `goods_id` int(11) NOT NULL AUTO_INCREMENT,
   `expp_id` int(11) NOT NULL COMMENT '快递空包公司表ID',
   `category_id` int(11) NOT NULL COMMENT '电商公司ID',
+  `express_code` varchar(128) NOT NULL COMMENT '第三方平台快递编号 ',
   `name` varchar(255) NOT NULL COMMENT '商品名称',
   `price` decimal(12,2) NOT NULL COMMENT '单价',
   `rate` int(11) NOT NULL COMMENT '利率',
   `isEnable` int(11) DEFAULT '1' COMMENT '状态',
   `isDelete` int(11) DEFAULT '0' COMMENT '是否删除',
   PRIMARY KEY (`goods_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='快递平台商品表';
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='快递平台商品表';
+
 
 
 
@@ -44,6 +48,7 @@ CREATE TABLE `tb_business_brands` (
 
 
 
+
 INSERT INTO `lianmeng`.`tb_business_brands` (`business_id`, `name`, `isEnable`, `isDelete`) VALUES ('1', '淘宝网', '1', '0');
 INSERT INTO `lianmeng`.`tb_business_brands` (`business_id`, `name`, `isEnable`, `isDelete`) VALUES ('2', '天猫商城', '1', '0');
 INSERT INTO `lianmeng`.`tb_business_brands` (`business_id`, `name`, `isEnable`, `isDelete`) VALUES ('3', '京东商城', '1', '0');
@@ -55,9 +60,10 @@ INSERT INTO `lianmeng`.`tb_business_brands` (`business_id`, `name`, `isEnable`, 
 CREATE TABLE `tb_express_orders` (
   `order_id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL COMMENT '用户ID',
+  `goods_id` int(11) NOT NULL COMMENT '商品id',
   `send_address_id` int(11) NOT NULL COMMENT '发货地址',
   `recv_address` varchar(255) NOT NULL COMMENT '收货地址',
-  `weight` double COMMENT '重量',
+  `weight` double DEFAULT NULL COMMENT '重量',
   `express_id` varchar(62) DEFAULT NULL COMMENT '快递单号',
   `amount` decimal(12,2) NOT NULL COMMENT '订单总金额',
   `status` int(11) NOT NULL DEFAULT '0' COMMENT '订单状态(0=待审核,1=已发货,2=拒绝,3=取消)',
@@ -84,8 +90,11 @@ CREATE TABLE `tb_express_postal_address` (
   `phone` varchar(11) NOT NULL COMMENT '手机号',
   `sort` int(11) DEFAULT '0' COMMENT '显示顺序',
   `remark` varchar(255) DEFAULT NULL COMMENT '备注',
+  `add_date` datetime DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`address_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='快递发货地址表';
+
+
 
 
 #财务钱包表
@@ -94,7 +103,7 @@ CREATE TABLE `tb_wallets` (
   `user_id` int(11) NOT NULL COMMENT '用户ID',
   `balance` decimal(12,2) NOT NULL DEFAULT '0.00' COMMENT '余额',
   `edit_date` datetime DEFAULT NULL COMMENT '最后更新时间',
-  `version` int(11) DEFAULT NULL,
+  `version` int(11) DEFAULT '0',
   PRIMARY KEY (`wallet_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='财务钱包表';
 
@@ -104,7 +113,7 @@ CREATE TABLE `tb_wallets` (
 CREATE TABLE `tb_transactions` (
   `transaction_id` int(11) NOT NULL AUTO_INCREMENT,
   `record_id` varchar(36) NOT NULL COMMENT '流水号(uuid)',
-  `record_no` varchar(128) NULL COMMENT '交易号(用来存支付宝、微信以及银行的，站内交易留空)',
+  `record_no` varchar(128) DEFAULT NULL COMMENT '交易号(用来存支付宝、微信以及银行的，站内交易留空)',
   `from_uid` int(11) NOT NULL COMMENT '发起方账户',
   `to_uid` int(11) NOT NULL COMMENT '对方账户',
   `trade_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '交易日',
@@ -114,9 +123,11 @@ CREATE TABLE `tb_transactions` (
   PRIMARY KEY (`transaction_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='交易流水表';
 
+
+
 #资金变化表
 CREATE TABLE `tb_moneys` (
-  `log_id` int(11) NOT NULL AUTO_INCREMENT, 
+  `log_id` int(11) NOT NULL AUTO_INCREMENT,
   `record_id` varchar(36) NOT NULL COMMENT '流水号',
   `from_uid` int(11) NOT NULL COMMENT '用户id',
   `trade_type` int(11) NOT NULL COMMENT '1=增 2=减',
@@ -128,6 +139,8 @@ CREATE TABLE `tb_moneys` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='资金变化表';
 
 
+
+
 #重要异常日志表
 CREATE TABLE `tb_max_exceptions` (
   `log_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -136,7 +149,10 @@ CREATE TABLE `tb_max_exceptions` (
   `body` text NOT NULL COMMENT '日志主体',
   `add_date` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '上报时间',
   PRIMARY KEY (`log_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='重要异常日志表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='重要异常日志表';
+
+
+
 
 
 #字典表
@@ -186,8 +202,39 @@ CREATE TABLE `tb_setting` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-#预置数据
 INSERT INTO `lianmeng`.`tb_setting` (`id`, `open_tixian`, `tixian_count`, `min_money`, `max_money`, `shouxu`, `min_shouxu`, `max_shouxu`, `web_name`, `web_url`, `web_logo`, `mobile_logo`, `app_logo`, `goods_default_img`, `slide_1_img`, `slide_1_url`, `slide_2_img`, `slide_2_url`, `slide_3_img`, `slide_3_url`, `copy_info`, `vip_member_name`, `money_name`, `money_unit`, `virtual_name`, `virtual_unit`, `yongjin_name`, `message_open`, `alipay_qrcode`, `zhijie_fabu_shiyong`, `jianjie_fabu_shiyong`, `zhijie_shenqing_shiyong`, `jianjie_shenqing_shiyong`, `zhijie_fabu_shiyong_fw`, `jianjie_fabu_shiyong_fw`, `shangjia_wancheng_yiji`, `shike_wancheng_yiji`, `shike_wancheng_erji`, `yiji_jiangli`, `erji_jiangli`, `task_cancel_time`, `system_account`) VALUES ('1', '1', '1', '1', '100', '0.2', '1', '10', '58同城', 'www.baidu.com', 'https://www.baidu.com/img/bd_logo1.png', 'http://192.168.43.181:8081/images/upload/20180722164603774317.png', 'https://www.baidu.com/img/bd_logo1.png', 'https://www.baidu.com/img/bd_logo1.png', 'https://www.baidu.com/img/bd_logo1.png', 'https://www.baidu.com/img/bd_logo1.png', 'https://www.baidu.com/img/bd_logo1.png', 'https://www.baidu.com/img/bd_logo1.png', 'https://www.baidu.com/img/bd_logo1.png', '', '(c)2015-2018 销量联盟 All Rights Reserved', 'VIP', '的', '发', '任务金币', '是', '啊', '1', NULL, '0.3', '0.2', '0.2', '0.2', '0.2', '0.2', '1', '4', '5', '2', '3', NULL, '1');
 
+
+
+
+#商品字典表
+CREATE TABLE `tb_product_map` (
+  `map_id` int(11) NOT NULL AUTO_INCREMENT,
+  `value` varchar(255) NOT NULL,
+  PRIMARY KEY (`map_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='商品字典表';
+
+
+
+INSERT INTO `lianmeng`.`tb_product_map` (`map_id`, `value`) VALUES ('1', '设备要求');
+INSERT INTO `lianmeng`.`tb_product_map` (`map_id`, `value`) VALUES ('2', '货比三家');
+INSERT INTO `lianmeng`.`tb_product_map` (`map_id`, `value`) VALUES ('3', '浏览评价');
+INSERT INTO `lianmeng`.`tb_product_map` (`map_id`, `value`) VALUES ('4', '加购物车');
+INSERT INTO `lianmeng`.`tb_product_map` (`map_id`, `value`) VALUES ('5', '收藏宝贝');
+INSERT INTO `lianmeng`.`tb_product_map` (`map_id`, `value`) VALUES ('6', '预约下单');
+INSERT INTO `lianmeng`.`tb_product_map` (`map_id`, `value`) VALUES ('7', '指定评价');
+INSERT INTO `lianmeng`.`tb_product_map` (`map_id`, `value`) VALUES ('8', '评价内容');
+INSERT INTO `lianmeng`.`tb_product_map` (`map_id`, `value`) VALUES ('9', '晒图');
+INSERT INTO `lianmeng`.`tb_product_map` (`map_id`, `value`) VALUES ('10', '需求确认时间');
+INSERT INTO `lianmeng`.`tb_product_map` (`map_id`, `value`) VALUES ('11', '任务回收时间');
+INSERT INTO `lianmeng`.`tb_product_map` (`map_id`, `value`) VALUES ('12', '留言提醒');
+INSERT INTO `lianmeng`.`tb_product_map` (`map_id`, `value`) VALUES ('13', '接任务限制');
+INSERT INTO `lianmeng`.`tb_product_map` (`map_id`, `value`) VALUES ('14', '禁止地区');
+INSERT INTO `lianmeng`.`tb_product_map` (`map_id`, `value`) VALUES ('15', '是否商保会员');
+INSERT INTO `lianmeng`.`tb_product_map` (`map_id`, `value`) VALUES ('16', '买号信用要求');
+INSERT INTO `lianmeng`.`tb_product_map` (`map_id`, `value`) VALUES ('17', '买号淘气值要求');
+INSERT INTO `lianmeng`.`tb_product_map` (`map_id`, `value`) VALUES ('18', '买号性别要求');
+INSERT INTO `lianmeng`.`tb_product_map` (`map_id`, `value`) VALUES ('19', '买号年龄段要求');
+INSERT INTO `lianmeng`.`tb_product_map` (`map_id`, `value`) VALUES ('20', '买号常购类目');
 
 
