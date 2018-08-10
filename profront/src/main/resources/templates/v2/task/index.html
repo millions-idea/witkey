@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+      layout:decorate="~{v2/layout/layout}">
+
+<th:block layout:fragment="title">
+    <title th:text="'免费试用' + ${title}"></title>
+</th:block>
+
+<head>
+    <link rel="stylesheet" type="text/css" th:href="@{/dist/v2/css/task/index.css}">
+</head>
+
+<body>
+<th:block layout:fragment="body">
+
+    <div id="content">
+        <div id="moveContent">
+            <div>
+                <div class="yptip_dating">
+                </div>
+                <!--category begin-->
+                <div id="category-list">
+                </div>
+                <!--category end-->
+                <div class="cle"></div>
+                <!--product begin-->
+                <div id="taobao-lists">
+                    <div id="taskList">
+                        <!--items begin-->
+                        <div id="product-list">
+                        </div>
+                        <!--items end-->
+                        <div class="cle"></div>
+                        <!--limit begin-->
+                        <div id="product-limit" class="layui-row layui-col-md12 my-limit">
+                        </div>
+                        <!--limit end-->
+                    </div>
+                </div>
+
+                <!--apply window begin-->
+                <div id="apply-html" style="display: none">
+
+                </div>
+                <!--apply window end-->
+
+                <!--product end-->
+                <div class="cle"></div>
+            </div>
+        </div>
+    </div>
+
+
+</th:block>
+<th:block layout:fragment="free_footer">
+    <script type="text/babel" th:src="@{/dist/v2/js/task/classes.js}"></script>
+    <script type="text/babel" th:src="@{/dist/v2/js/task/index.js}"></script>
+</th:block>
+</body>
+
+</html>

@@ -7,16 +7,18 @@
  */
 package com.wanhao.profront.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-@Controller
-@RequestMapping("/products")
-public class ProductController {
+import java.util.List;
 
+@Controller
+@RequestMapping("/task")
+public class ProductController {
     @GetMapping
     public String index(){
-        return "v2/products/index";
+        return "v2/task/index";
     }
 }

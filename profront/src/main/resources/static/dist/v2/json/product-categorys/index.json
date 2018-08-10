@@ -1,0 +1,87 @@
+{
+  "code": 0,
+  "msg": "success",
+  "count": 10,
+  "data": [
+    {
+      "category_id": 1,
+      "name": "潮流女装",
+      "add_date": "2018-08-10 16:58:26",
+      "edit_date": "2018-08-10 16:58:26",
+      "is_enable": 1,
+      "is_delete": 0
+    },
+    {
+      "category_id": 1,
+      "name": "时尚男装",
+      "add_date": "2018-08-10 16:58:26",
+      "edit_date": "2018-08-10 16:58:26",
+      "is_enable": 1,
+      "is_delete": 0
+    },
+    {
+      "category_id": 1,
+      "name": "鞋子箱包",
+      "add_date": "2018-08-10 16:58:26",
+      "edit_date": "2018-08-10 16:58:26",
+      "is_enable": 1,
+      "is_delete": 0
+    },
+    {
+      "category_id": 1,
+      "name": "数码家电",
+      "add_date": "2018-08-10 16:58:26",
+      "edit_date": "2018-08-10 16:58:26",
+      "is_enable": 1,
+      "is_delete": 0
+    },
+    {
+      "category_id": 1,
+      "name": "美食特产",
+      "add_date": "2018-08-10 16:58:26",
+      "edit_date": "2018-08-10 16:58:26",
+      "is_enable": 1,
+      "is_delete": 0
+    },
+    {
+      "category_id": 1,
+      "name": "居家日用",
+      "add_date": "2018-08-10 16:58:26",
+      "edit_date": "2018-08-10 16:58:26",
+      "is_enable": 1,
+      "is_delete": 0
+    },
+    {
+      "category_id": 1,
+      "name": "母婴用品",
+      "add_date": "2018-08-10 16:58:26",
+      "edit_date": "2018-08-10 16:58:26",
+      "is_enable": 1,
+      "is_delete": 0
+    },
+    {
+      "category_id": 1,
+      "name": "护肤彩妆",
+      "add_date": "2018-08-10 16:58:26",
+      "edit_date": "2018-08-10 16:58:26",
+      "is_enable": 1,
+      "is_delete": 0
+    },
+    {
+      "category_id": 1,
+      "name": "珠宝配饰",
+      "add_date": "2018-08-10 16:58:26",
+      "edit_date": "2018-08-10 16:58:26",
+      "is_enable": 1,
+      "is_delete": 0
+    },
+    {
+      "category_id": 1,
+      "name": "家装家纺",
+      "add_date": "2018-08-10 16:58:26",
+      "edit_date": "2018-08-10 16:58:26",
+      "is_enable": 1,
+      "is_delete": 0
+    }
+  ]
+}

@@ -108,6 +108,7 @@ public class AccessSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/express-platform/web/**")
                 .antMatchers("/express-orders/web/**")
                 .antMatchers("/express-address/web/**")
+                .antMatchers("/product-category/web/**")
         ;
     }
 
