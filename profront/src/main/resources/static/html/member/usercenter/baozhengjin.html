@@ -128,9 +128,12 @@
                 success: function (result) {
                     if (result.error == 0) {
                         alert(result.message);
-                        //显示最新信息
-                        var member = jQuery.parseJSON(result.member);
-                        $("#yue").html(member.money);
+                        //显示最新信息 wallets
+                        var member = jQuery.parseJSON(result.express);
+                        var wallets = jQuery.parseJSON(result.wallets);
+
+                        $("#yue").html(wallets.balance);
+
                         $("#baozhengjin").html(member.permis_money);
 
                         if (member.permis_money < 200) {
@@ -173,9 +176,11 @@
                 }
             }
             //余额
-            var money = userresult_json.money;
+            var waStr = sessionStorage.getItem("wallets");
+            var wallets = jQuery.parseJSON(waStr);
+
             if (money != undefined && money != null) {
-                $("#yue").html(money);
+                $("#yue").html(wallets.balance);
             }
 
         }
