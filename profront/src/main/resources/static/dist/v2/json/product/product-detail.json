@@ -1,0 +1,724 @@
+{
+  "product": {
+    "product_id": 1,
+    "product_code": "52f31a72-8763-422a-a4a4-1285c12fd898",
+    "platform_category_id": 1,
+    "product_category_id": 1,
+    "price": 99.0,
+    "return_price": 5.0,
+    "append_return_price": 0.0,
+    "merchant_id": 6,
+    "image_url": "#",
+    "product_url": "#",
+    "product_name": "测试商品",
+    "order_status": 0,
+    "order_remark": "",
+    "search_keyword_id_list": "",
+    "specification": null,
+    "is_insure": 1,
+    "insure_price": 0.0,
+    "templet_id": 0,
+    "templet_name": null,
+    "add_date": "2018-08-11 16:04:41",
+    "edit_date": "2018-08-11 16:04:41",
+    "is_enable": null,
+    "is_delete": 0
+  },
+  "attributes": [
+    {
+      "attr_id": 1,
+      "product_code": "52f31a72-8763-422a-a4a4-1285c12fd898",
+      "name": "设备要求",
+      "alias": "电脑",
+      "value": "0",
+      "type": 0,
+      "desc": "用电脑还是手机下单",
+      "append_return_price": null,
+      "remark": "",
+      "add_date": "2018-08-10 15:05:30",
+      "edit_date": "2018-08-10 15:05:30",
+      "options": [
+        {
+          "option_id": 1,
+          "attr_id": 1,
+          "value": "需要",
+          "default_value": "不需要",
+          "style": 0
+        },
+        {
+          "option_id": 32,
+          "attr_id": 1,
+          "value": "不需要",
+          "default_value": "",
+          "style": 0
+        }
+      ]
+    },
+    {
+      "attr_id": 2,
+      "product_code": "52f31a72-8763-422a-a4a4-1285c12fd898",
+      "name": "货比三家",
+      "alias": "货比3家",
+      "value": "0",
+      "type": 0,
+      "desc": "需要接收方打开多个其他商品比较，分别停留1-3分钟，并截图给商家",
+      "append_return_price": null,
+      "remark": "",
+      "add_date": "2018-08-10 15:07:20",
+      "edit_date": "2018-08-10 15:07:20",
+      "options": [
+        {
+          "option_id": 2,
+          "attr_id": 2,
+          "value": "货比1家",
+          "default_value": "不需要",
+          "style": 0
+        },
+        {
+          "option_id": 33,
+          "attr_id": 2,
+          "value": "货比2家",
+          "default_value": "不需要",
+          "style": 0
+        },
+        {
+          "option_id": 63,
+          "attr_id": 2,
+          "value": "货比3家",
+          "default_value": "不需要",
+          "style": 0
+        },
+        {
+          "option_id": 64,
+          "attr_id": 2,
+          "value": "不需要",
+          "default_value": "",
+          "style": 0
+        }
+      ]
+    },
+    {
+      "attr_id": 3,
+      "product_code": "52f31a72-8763-422a-a4a4-1285c12fd898",
+      "name": "浏览评价",
+      "alias": "浏览评价",
+      "value": "0",
+      "type": 0,
+      "desc": "浏览宝贝评价",
+      "append_return_price": null,
+      "remark": "",
+      "add_date": "2018-08-10 15:07:20",
+      "edit_date": "2018-08-10 15:07:20",
+      "options": [
+        {
+          "option_id": 3,
+          "attr_id": 3,
+          "value": "需要",
+          "default_value": "不需要",
+          "style": 0
+        },
+        {
+          "option_id": 34,
+          "attr_id": 3,
+          "value": "不需要",
+          "default_value": "",
+          "style": 0
+        }
+      ]
+    },
+    {
+      "attr_id": 4,
+      "product_code": "52f31a72-8763-422a-a4a4-1285c12fd898",
+      "name": "加购物车",
+      "alias": "",
+      "value": "0",
+      "type": 0,
+      "desc": null,
+      "append_return_price": null,
+      "remark": "",
+      "add_date": "2018-08-10 15:07:21",
+      "edit_date": "2018-08-10 15:07:21",
+      "options": [
+        {
+          "option_id": 4,
+          "attr_id": 4,
+          "value": "需要",
+          "default_value": "不需要",
+          "style": 0
+        },
+        {
+          "option_id": 35,
+          "attr_id": 4,
+          "value": "不需要",
+          "default_value": "",
+          "style": 0
+        }
+      ]
+    },
+    {
+      "attr_id": 5,
+      "product_code": "52f31a72-8763-422a-a4a4-1285c12fd898",
+      "name": "收藏宝贝",
+      "alias": "",
+      "value": "0",
+      "type": 0,
+      "desc": null,
+      "append_return_price": null,
+      "remark": "",
+      "add_date": "2018-08-10 15:07:21",
+      "edit_date": "2018-08-10 15:07:21",
+      "options": [
+        {
+          "option_id": 5,
+          "attr_id": 5,
+          "value": "需要",
+          "default_value": "不需要",
+          "style": 0
+        },
+        {
+          "option_id": 36,
+          "attr_id": 5,
+          "value": "不需要",
+          "default_value": "",
+          "style": 0
+        }
+      ]
+    },
+    {
+      "attr_id": 6,
+      "product_code": "52f31a72-8763-422a-a4a4-1285c12fd898",
+      "name": "预约下单",
+      "alias": "",
+      "value": "0",
+      "type": 0,
+      "desc": null,
+      "append_return_price": null,
+      "remark": "",
+      "add_date": "2018-08-10 15:07:21",
+      "edit_date": "2018-08-10 15:07:21",
+      "options": [
+        {
+          "option_id": 6,
+          "attr_id": 6,
+          "value": "1天后下单",
+          "default_value": "浏览后下单",
+          "style": 0
+        },
+        {
+          "option_id": 37,
+          "attr_id": 6,
+          "value": "2天后下单",
+          "default_value": "浏览后下单",
+          "style": 0
+        },
+        {
+          "option_id": 65,
+          "attr_id": 6,
+          "value": "3天后下单",
+          "default_value": "浏览后下单",
+          "style": 0
+        },
+        {
+          "option_id": 66,
+          "attr_id": 6,
+          "value": "浏览后下单",
+          "default_value": "",
+          "style": 0
+        }
+      ]
+    },
+    {
+      "attr_id": 7,
+      "product_code": "52f31a72-8763-422a-a4a4-1285c12fd898",
+      "name": "指定评价",
+      "alias": "",
+      "value": "0",
+      "type": 0,
+      "desc": null,
+      "append_return_price": null,
+      "remark": "",
+      "add_date": "2018-08-10 15:07:21",
+      "edit_date": "2018-08-10 15:07:21",
+      "options": [
+        {
+          "option_id": 7,
+          "attr_id": 7,
+          "value": "需要",
+          "default_value": "不需要",
+          "style": 0
+        },
+        {
+          "option_id": 38,
+          "attr_id": 7,
+          "value": "不需要",
+          "default_value": "",
+          "style": 0
+        }
+      ]
+    },
+    {
+      "attr_id": 8,
+      "product_code": "52f31a72-8763-422a-a4a4-1285c12fd898",
+      "name": "评价内容",
+      "alias": "",
+      "value": "评价内容",
+      "type": 0,
+      "desc": null,
+      "append_return_price": null,
+      "remark": "",
+      "add_date": "2018-08-10 15:07:21",
+      "edit_date": "2018-08-10 15:07:21",
+      "options": [
+        {
+          "option_id": 8,
+          "attr_id": 8,
+          "value": "需要",
+          "default_value": "不需要",
+          "style": 0
+        },
+        {
+          "option_id": 39,
+          "attr_id": 8,
+          "value": "不需要",
+          "default_value": "",
+          "style": 0
+        }
+      ]
+    },
+    {
+      "attr_id": 9,
+      "product_code": "52f31a72-8763-422a-a4a4-1285c12fd898",
+      "name": "晒图",
+      "alias": "",
+      "value": "0",
+      "type": 0,
+      "desc": null,
+      "append_return_price": null,
+      "remark": "",
+      "add_date": "2018-08-10 15:07:21",
+      "edit_date": "2018-08-10 15:07:21",
+      "options": [
+        {
+          "option_id": 9,
+          "attr_id": 9,
+          "value": "需要",
+          "default_value": "不需要",
+          "style": 0
+        },
+        {
+          "option_id": 40,
+          "attr_id": 9,
+          "value": "不需要",
+          "default_value": "",
+          "style": 0
+        }
+      ]
+    },
+    {
+      "attr_id": 10,
+      "product_code": "52f31a72-8763-422a-a4a4-1285c12fd898",
+      "name": "需求确认时间",
+      "alias": "",
+      "value": "0",
+      "type": 0,
+      "desc": null,
+      "append_return_price": null,
+      "remark": "",
+      "add_date": "2018-08-10 15:07:21",
+      "edit_date": "2018-08-10 15:07:21",
+      "options": [
+        {
+          "option_id": 10,
+          "attr_id": 10,
+          "value": "需要",
+          "default_value": "不需要",
+          "style": 0
+        },
+        {
+          "option_id": 41,
+          "attr_id": 10,
+          "value": "不需要",
+          "default_value": "",
+          "style": 0
+        }
+      ]
+    },
+    {
+      "attr_id": 11,
+      "product_code": "52f31a72-8763-422a-a4a4-1285c12fd898",
+      "name": "任务回收时间",
+      "alias": "",
+      "value": "0",
+      "type": 0,
+      "desc": null,
+      "append_return_price": null,
+      "remark": "",
+      "add_date": "2018-08-10 15:07:21",
+      "edit_date": "2018-08-10 15:07:21",
+      "options": [
+        {
+          "option_id": 11,
+          "attr_id": 11,
+          "value": "需要",
+          "default_value": "不需要",
+          "style": 0
+        },
+        {
+          "option_id": 42,
+          "attr_id": 11,
+          "value": "不需要",
+          "default_value": "",
+          "style": 0
+        }
+      ]
+    },
+    {
+      "attr_id": 12,
+      "product_code": "52f31a72-8763-422a-a4a4-1285c12fd898",
+      "name": "留言提醒",
+      "alias": "",
+      "value": "留言内容",
+      "type": 0,
+      "desc": null,
+      "append_return_price": null,
+      "remark": "",
+      "add_date": "2018-08-10 15:07:21",
+      "edit_date": "2018-08-10 15:07:21",
+      "options": [
+        {
+          "option_id": 12,
+          "attr_id": 12,
+          "value": "需要",
+          "default_value": "不需要",
+          "style": 0
+        },
+        {
+          "option_id": 43,
+          "attr_id": 12,
+          "value": "不需要",
+          "default_value": "",
+          "style": 0
+        }
+      ]
+    },
+    {
+      "attr_id": 13,
+      "product_code": "52f31a72-8763-422a-a4a4-1285c12fd898",
+      "name": "接任务限制",
+      "alias": "",
+      "value": "0",
+      "type": 1,
+      "desc": null,
+      "append_return_price": null,
+      "remark": "",
+      "add_date": "2018-08-10 15:07:21",
+      "edit_date": "2018-08-10 15:07:21",
+      "options": [
+        {
+          "option_id": 13,
+          "attr_id": 13,
+          "value": "需要",
+          "default_value": "不需要",
+          "style": 0
+        },
+        {
+          "option_id": 44,
+          "attr_id": 13,
+          "value": "不需要",
+          "default_value": "",
+          "style": 0
+        }
+      ]
+    },
+    {
+      "attr_id": 14,
+      "product_code": "52f31a72-8763-422a-a4a4-1285c12fd898",
+      "name": "禁止地区",
+      "alias": "",
+      "value": "11",
+      "type": 1,
+      "desc": null,
+      "append_return_price": null,
+      "remark": "",
+      "add_date": "2018-08-10 15:07:21",
+      "edit_date": "2018-08-10 15:07:21",
+      "options": [
+        {
+          "option_id": 14,
+          "attr_id": 14,
+          "value": "需要",
+          "default_value": "不需要",
+          "style": 0
+        },
+        {
+          "option_id": 45,
+          "attr_id": 14,
+          "value": "不需要",
+          "default_value": "",
+          "style": 0
+        }
+      ]
+    },
+    {
+      "attr_id": 15,
+      "product_code": "52f31a72-8763-422a-a4a4-1285c12fd898",
+      "name": "是否商保会员",
+      "alias": "",
+      "value": "0",
+      "type": 1,
+      "desc": null,
+      "append_return_price": null,
+      "remark": "",
+      "add_date": "2018-08-10 15:07:21",
+      "edit_date": "2018-08-10 15:07:21",
+      "options": [
+        {
+          "option_id": 15,
+          "attr_id": 15,
+          "value": "需要",
+          "default_value": "不需要",
+          "style": 0
+        },
+        {
+          "option_id": 46,
+          "attr_id": 15,
+          "value": "不需要",
+          "default_value": "",
+          "style": 0
+        }
+      ]
+    },
+    {
+      "attr_id": 16,
+      "product_code": "52f31a72-8763-422a-a4a4-1285c12fd898",
+      "name": "买号信用要求",
+      "alias": "",
+      "value": "0",
+      "type": 1,
+      "desc": null,
+      "append_return_price": null,
+      "remark": "",
+      "add_date": "2018-08-10 15:07:21",
+      "edit_date": "2018-08-10 15:07:21",
+      "options": [
+        {
+          "option_id": 16,
+          "attr_id": 16,
+          "value": "需要",
+          "default_value": "不需要",
+          "style": 0
+        },
+        {
+          "option_id": 47,
+          "attr_id": 16,
+          "value": "不需要",
+          "default_value": "",
+          "style": 0
+        }
+      ]
+    },
+    {
+      "attr_id": 17,
+      "product_code": "52f31a72-8763-422a-a4a4-1285c12fd898",
+      "name": "买号淘气值要求",
+      "alias": "",
+      "value": "0",
+      "type": 1,
+      "desc": null,
+      "append_return_price": null,
+      "remark": "",
+      "add_date": "2018-08-10 15:07:21",
+      "edit_date": "2018-08-10 15:07:21",
+      "options": [
+        {
+          "option_id": 17,
+          "attr_id": 17,
+          "value": "需要",
+          "default_value": "不需要",
+          "style": 0
+        },
+        {
+          "option_id": 48,
+          "attr_id": 17,
+          "value": "不需要",
+          "default_value": "",
+          "style": 0
+        }
+      ]
+    },
+    {
+      "attr_id": 18,
+      "product_code": "52f31a72-8763-422a-a4a4-1285c12fd898",
+      "name": "买号性别要求",
+      "alias": "",
+      "value": "0",
+      "type": 1,
+      "desc": null,
+      "append_return_price": null,
+      "remark": "",
+      "add_date": "2018-08-10 15:07:21",
+      "edit_date": "2018-08-10 15:07:21",
+      "options": [
+        {
+          "option_id": 18,
+          "attr_id": 18,
+          "value": "需要",
+          "default_value": "不需要",
+          "style": 0
+        },
+        {
+          "option_id": 49,
+          "attr_id": 18,
+          "value": "不需要",
+          "default_value": "",
+          "style": 0
+        }
+      ]
+    },
+    {
+      "attr_id": 19,
+      "product_code": "52f31a72-8763-422a-a4a4-1285c12fd898",
+      "name": "买号年龄段要求",
+      "alias": "",
+      "value": "0",
+      "type": 1,
+      "desc": null,
+      "append_return_price": null,
+      "remark": "",
+      "add_date": "2018-08-10 15:07:21",
+      "edit_date": "2018-08-10 15:07:21",
+      "options": [
+        {
+          "option_id": 19,
+          "attr_id": 19,
+          "value": "需要",
+          "default_value": "不需要",
+          "style": 0
+        },
+        {
+          "option_id": 50,
+          "attr_id": 19,
+          "value": "不需要",
+          "default_value": "",
+          "style": 0
+        }
+      ]
+    },
+    {
+      "attr_id": 20,
+      "product_code": "52f31a72-8763-422a-a4a4-1285c12fd898",
+      "name": "买号常购类目",
+      "alias": "",
+      "value": "0",
+      "type": 1,
+      "desc": null,
+      "append_return_price": null,
+      "remark": "",
+      "add_date": "2018-08-10 15:07:21",
+      "edit_date": "2018-08-10 15:07:21",
+      "options": [
+        {
+          "option_id": 20,
+          "attr_id": 20,
+          "value": "需要",
+          "default_value": "不需要",
+          "style": 0
+        },
+        {
+          "option_id": 51,
+          "attr_id": 20,
+          "value": "不需要",
+          "default_value": "",
+          "style": 0
+        }
+      ]
+    },
+    {
+      "attr_id": 21,
+      "product_code": "52f31a72-8763-422a-a4a4-1285c12fd898",
+      "name": "返款方式",
+      "alias": "平台返款",
+      "value": "0",
+      "type": 0,
+      "desc": "任务金额的返还方式",
+      "append_return_price": null,
+      "remark": "",
+      "add_date": "2018-08-11 10:36:20",
+      "edit_date": "2018-08-11 10:36:23",
+      "options": [
+        {
+          "option_id": 21,
+          "attr_id": 21,
+          "value": "需要",
+          "default_value": "不需要",
+          "style": 0
+        },
+        {
+          "option_id": 52,
+          "attr_id": 21,
+          "value": "不需要",
+          "default_value": "",
+          "style": 0
+        }
+      ]
+    },
+    {
+      "attr_id": 22,
+      "product_code": "52f31a72-8763-422a-a4a4-1285c12fd898",
+      "name": "付款方式",
+      "alias": "",
+      "value": "0",
+      "type": 0,
+      "desc": "拍下付款还是远程付款、商家代付",
+      "append_return_price": null,
+      "remark": "",
+      "add_date": "2018-08-11 10:37:56",
+      "edit_date": "2018-08-11 10:38:00",
+      "options": [
+        {
+          "option_id": 22,
+          "attr_id": 22,
+          "value": "需要",
+          "default_value": "不需要",
+          "style": 0
+        },
+        {
+          "option_id": 53,
+          "attr_id": 22,
+          "value": "不需要",
+          "default_value": "",
+          "style": 0
+        }
+      ]
+    },
+    {
+      "attr_id": 23,
+      "product_code": "52f31a72-8763-422a-a4a4-1285c12fd898",
+      "name": "拍前聊天",
+      "alias": "拍前聊",
+      "value": "0",
+      "type": 0,
+      "desc": "要求试客拍下宝贝之前先和商家聊几句",
+      "append_return_price": null,
+      "remark": "",
+      "add_date": "2018-08-11 10:39:13",
+      "edit_date": "2018-08-11 10:39:15",
+      "options": [
+        {
+          "option_id": 23,
+          "attr_id": 23,
+          "value": "需要",
+          "default_value": "不需要",
+          "style": 0
+        },
+        {
+          "option_id": 54,
+          "attr_id": 23,
+          "value": "不需要",
+          "default_value": "",
+          "style": 0
+        }
+      ]
+    }
+  ]
+}
