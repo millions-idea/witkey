@@ -12,7 +12,9 @@ $(function () {
                         xhr.setRequestHeader("mobile", user.mobile);
                         xhr.setRequestHeader("token", user.mobile);
                     },
-                    success: callback
+                    success: function (data) {
+                        callback(data);
+                    }
                 });
             },
             post: function(url,param,callback){
@@ -25,7 +27,9 @@ $(function () {
                         xhr.setRequestHeader("mobile", user.mobile);
                         xhr.setRequestHeader("token", user.mobile);
                     },
-                    success: callback
+                    success: function (data) {
+                        callback(data);
+                    }
                 });
             }
         }

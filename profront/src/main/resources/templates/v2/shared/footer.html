@@ -1,0 +1,93 @@
+<th:block xmlns:th="http://www.thymeleaf.org" th:fragment="footer">
+    <div class="main-im">
+        <div id="open_im" class="open-im" style="display: none;"></div>
+        <div class="im_main" id="im_main">
+            <div id="close_im" class="close-im"><a class="you" title="点击关闭" style="cursor: pointer"></a></div>
+            <a onclick="multi_qq()" class="im-qq qq-a">
+                <div class="qq-container"></div>
+                <div class="qq-hover-c"><img class="img-qq" src="http://001.topaaa.com/skin/ypmili/css/img/qq.png"></div>
+                <span>QQ在线咨询</span>
+            </a>
+            <script id="yptip_qq" type="text/template7">
+                <p style="width:100%;background-color:#0098ff;font-size:16px;text-align:center;color:#fff;height:34px;line-height:34px;">
+                    客服团队</p><p style="line-height:40px;">客服潇潇：<a target="_blank"
+                                                                 href="http://wpa.qq.com/msgrd?v=3&uin=261369834&site=qq&menu=yes"><img
+                        border="0" src="http://wpa.qq.com/pa?p=2:261369834:51" alt="点击这里给我发消息" title="点击这里给我发消息"/></a> <span
+                        style="line-height:1.5;margin-left:10px;">客服靓靓：</span><a target="_blank"
+                                                                                 href="http://wpa.qq.com/msgrd?v=3&uin=261369834&site=qq&menu=yes"
+                                                                                 style="line-height:1.5;"><img border="0"
+                                                                                                               src="http://wpa.qq.com/pa?p=2:261369834:51"
+                                                                                                               alt="点击这里给我发消息"
+                                                                                                               title="点击这里给我发消息"/></a>
+                </p><p style="line-height:30px;">客服恋恋：<a target="_blank"
+                                                         href="http://wpa.qq.com/msgrd?v=3&uin=261369834&site=qq&menu=yes"><img
+                        border="0" src="http://wpa.qq.com/pa?p=2:261369834:51" alt="点击这里给我发消息" title="点击这里给我发消息"/></a> <span
+                        style="line-height:1.5;margin-left:10px;">客服萌萌：</span><a target="_blank"
+                                                                                 href="http://wpa.qq.com/msgrd?v=3&uin=261369834&site=qq&menu=yes"
+                                                                                 style="line-height:1.5;"><img border="0"
+                                                                                                               src="http://wpa.qq.com/pa?p=2:261369834:51"
+                                                                                                               alt="点击这里给我发消息"
+                                                                                                               title="点击这里给我发消息"/></a>
+                </p><p><br/></p><p
+                        style="width:100%;background-color:#0098ff;font-size:16px;text-align:center;color:#fff;height:34px;line-height:34px;">
+                    合作渠道</p><p style="line-height:40px;">业务合作：<a target="_blank"
+                                                                 href="http://wpa.qq.com/msgrd?v=3&uin=261369834&site=qq&menu=yes"><img
+                        border="0" src="http://wpa.qq.com/pa?p=2:261369834:51" alt="点击这里给我发消息" title="点击这里给我发消息"/></a> <span
+                        style="line-height:1.5;margin-left:10px;">代理加盟：</span><a target="_blank"
+                                                                                 href="http://wpa.qq.com/msgrd?v=3&uin=261369834&site=qq&menu=yes"
+                                                                                 style="line-height:1.5;"><img border="0"
+                                                                                                               src="http://wpa.qq.com/pa?p=2:261369834:51"
+                                                                                                               alt="点击这里给我发消息"
+                                                                                                               title="点击这里给我发消息"/></a>
+                </p>        </script>
+            <script>
+                function multi_qq() {
+                    $('.layim-friend618').click();
+                }
+            </script>
+            <a href="/app.php" target="_blank" class="qq-a" style="height: 130px">
+                <div class="qq-container" style="height: 130px"></div>
+                <div style="width: 95px;height: 95px"><img class="img-qq"
+                                                           src="/api/qrcode.php?url=http%3A%2F%2F001.topaaa.com%2Fapp.php"
+                                                           style="width: 95px;height: 95px;max-width: 95px;top: 5px;left: 5px">
+                </div>
+                <span>下载APP</span>
+            </a>
+            <div class="im-tel">
+                <div><a href="/announce/index.php?typeid=2" target="_blank">如何发布试用</a></div>
+                <div><a href="/announce/index.php?typeid=3" target="_blank">如何申请试用</a></div>
+                <div><a href="/about/index.php?itemid=6" target="_blank">销量联盟网规</a></div>
+                <div><a href="/announce/index.php?typeid=1" target="_blank" class="jsbz">网站公告</a></div>
+            </div>
+            <div class="im-footer" style="position:relative">
+                <div class="go-top"><a class="you" title="返回顶部" style="cursor: pointer"></a></div>
+                <div style="clear:both"></div>
+            </div>
+        </div>
+        <script>
+            $(function () {
+                $(".go-top").click(function () {
+                    $('html,body').animate({scrollTop: 0}, 800);
+                });
+                $("#close_im").click(function () {
+                    $("#im_main").fadeOut(500, function () {
+                        $("#open_im").fadeIn(500);
+                    });
+                });
+                $("#open_im").click(function () {
+                    $("#open_im").fadeOut(500, function () {
+                        $("#im_main").fadeIn(500);
+                    });
+                });
+            });
+        </script>
+    </div>
+    <script type="text/javascript" th:src="@{/dist/v2/frame/layui/layui.all.js}"></script>
+    <script type="text/javascript" th:src="@{/dist/v2/index.js}"></script>
+    <script type="text/javascript" th:src="@{/dist/v2/js/common/jquery.ajax.custom.js}"></script>
+    <script type="text/javascript" th:src="@{/dist/v2/frame/react/react.development.js}"></script>
+    <script type="text/javascript" th:src="@{/dist/v2/frame/react/react-dom.development.js}"></script>
+    <script type="text/javascript" th:src="@{/dist/v2/frame/react/babel.min.js}"></script>
+    <script type="text/javascript" th:src="@{/dist/js/jq-tip.js}"></script>
+    <script type="text/javascript" th:src="@{/dist/v2/js/navigation/index.js}"></script>
+</th:block>

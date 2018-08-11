@@ -1,0 +1,17 @@
+{
+  "code": 0,
+  "msg": "success",
+  "count": 2,
+  "data": [
+    {
+      "account_id": 1,
+      "username": "admin",
+      "level": 4
+    },
+    {
+      "account_id": 1,
+      "username": "root",
+      "level": 6
+    }
+  ]
+}

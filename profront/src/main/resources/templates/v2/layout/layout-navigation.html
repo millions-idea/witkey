@@ -1,0 +1,73 @@
+<th:block xmlns:th="http://www.thymeleaf.org" th:fragment="layout-navigation">
+    <div class="hyzx">
+        <div class="hyzx_dh">
+            <div class="hyzx_nav">
+                <div class="menu persoanal_0">
+                    <div class="personal"><a href="../../index.html">首 页</a></div>
+                    <div class="personal nav">
+                        <a id="yptask">免费试用</a>
+                        <ul class="sub" name="task-list">
+                        </ul>
+                    </div>
+                    <div class="personal nav">
+                        <a id="record" href="../auth/auth-money-recharge.html">资金管理</a>
+                        <ul class="sub">
+                            <li><a href="../auth/auth-money-recharge.html">资金充值</a></li>
+                            <li><a href="../auth/auth-money-apply.html">资金提现</a></li>
+                            <li><a href="../auth/auth-money-record.html">资金流水</a></li>
+                        </ul>
+                    </div>
+                    <div class="personal nav">
+                        <a id="taobaohao" href="../bind/bind-result.html">买号管理</a>
+                        <ul class="sub">
+                            <li>
+                                <a href="../bind/bind-result.html">买号管理</a>
+                            </li>
+                            <li>
+                                <a href="../bind/bind-buy-taobao.html">绑定买号</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="personal"><a id="fuzhu" href="../popularize/flow.html">流量套餐</a></div>
+                    <div class="personal"><a id="kuaidi" href="../html/member/popularize/express.html">代发快递</a></div>
+                    <div class="personal"><a id="inviter" href="../popularize/popularize.html">推广奖励</a></div>
+                    <div class="personal nav">
+                        <a id="agent" href="../join/substation.html">加盟分站</a>
+                        <ul class="sub">
+                            <li>
+                                <a href="../join/substation.html">加盟分站</a>
+                            </li>
+                            <li>
+                                <a href="../join/policy.html">加盟政策</a>
+                            </li>
+                            <li>
+                                <a href="../join/join_us.html">加入我们</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="personal nav">
+                        <a id="yptask_my">试用中心</a>
+                        <ul class="sub">
+                            <li><a href="javascript:void(0)" id="publish-try-task">发布免费试用</a></li>
+                            <li><a href="/member/my.php?mid=23&amp;pro=0">已发试用管理</a></li>
+                            <li><a href="/member/my.php?mid=23&amp;action=yptasktmp">试用模板管理</a></li>
+                        </ul>
+                    </div>
+                    <div class="personal nav">
+                        <a>会员中心</a>
+                        <ul class="sub">
+                            <li><a href="../index/index.html">会员中心</a></li>
+                            <li><a href="../usercenter/userdata.html">修改资料</a></li>
+                            <li><a href="../usercenter/blacklist.html">黑名单</a></li>
+                            <li><a id="vip_update" href="../usercenter/buyer_upgrade.html">会员升级</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="try-center-window" style="display: none;">
+        <div class="renwu_cat" id="try-center-items">
+        </div>
+    </div>
+</th:block>

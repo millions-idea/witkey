@@ -141,7 +141,7 @@ body {
 }
 
 .rwdt_bg {
-    background: url(img/rwdt_bg.jpg) no-repeat center top fixed;
+    background: url(/dist/img/rwdt_bg.jpg) no-repeat center top fixed;
 }
 
 .ui-header {
@@ -209,7 +209,7 @@ body {
     float: left;
     height: 35px;
     overflow: hidden;
-    background: url(img/laba.png) no-repeat 0 11px;
+    background: url(/dist/img/laba.png) no-repeat 0 11px;
 }
 
 .header_top_left ul {
@@ -251,7 +251,7 @@ body {
     line-height: 35px;
     float: left;
     padding-left: 20px;
-    background: url(img/laba.png) no-repeat 0 11px;
+    background: url(/dist/img/laba.png) no-repeat 0 11px;
     color: #fff;
 }
 
@@ -295,7 +295,7 @@ body {
     overflow: hidden;
     text-align: center;
     color: #999;
-    background: url(img/sjx.png) no-repeat center;
+    background: url(/dist/img/sjx.png) no-repeat center;
     display: block;
 }
 
@@ -310,7 +310,7 @@ body {
 }
 
 .ui-header-nav .ui-dropdown:hover a b {
-    background: url(img/xjx.png) no-repeat center;
+    background: url(/dist/img/xjx.png) no-repeat center;
 }
 
 .ui-header-nav .ui-dropdown:hover {
@@ -343,7 +343,7 @@ body {
     overflow: hidden;
     line-height: 99;
     margin-top: 9px;
-    background: url(img/user_money_detail.png) no-repeat -17px 0;
+    background: url(/dist/img/user_money_detail.png) no-repeat -17px 0;
 }
 
 .ui-account li.item-ft {
@@ -531,7 +531,7 @@ body {
     min-width: 1030px;
     width: 100%;
     height: 489px;
-    background: url(img/chose.png) no-repeat center top;
+    background: url(/dist/img/chose.png) no-repeat center top;
 }
 
 #why_choose .why_main {
@@ -560,11 +560,11 @@ body {
 }
 
 .lock_c {
-    background: url(img/lock.png) no-repeat;
+    background: url(/dist/img/lock.png) no-repeat;
 }
 
 .lock_c2 {
-    background: url(img/lock2.png) no-repeat;
+    background: url(/dist/img/lock2.png) no-repeat;
 }
 
 #lock_d {
@@ -575,11 +575,11 @@ body {
 }
 
 .lock_d {
-    background: url(img/kekao.png) no-repeat center;
+    background: url(/dist/img/kekao.png) no-repeat center;
 }
 
 .lock_d2 {
-    background: url(img/kekao2.png) no-repeat center;
+    background: url(/dist/img/kekao2.png) no-repeat center;
 }
 
 #lock_e {
@@ -589,11 +589,11 @@ body {
 }
 
 .lock_e {
-    background: url(img/two_hands.png) no-repeat;
+    background: url(/dist/img/two_hands.png) no-repeat;
 }
 
 .lock_e2 {
-    background: url(img/two_hands2.png) no-repeat;
+    background: url(/dist/img/two_hands2.png) no-repeat;
 }
 
 #z1 {
@@ -928,7 +928,7 @@ body {
 }
 
 .bmruk .login-12 a.login12 {
-    background: #57a0ff url(img/assa.png) 11px 7px no-repeat;
+    background: #57a0ff url(/dist/img/assa.png) 11px 7px no-repeat;
     width: 70px;
     height: 30px;
     float: left;
@@ -944,7 +944,7 @@ body {
 }
 
 .bmruk .login-12 a.resginer12 {
-    background: #57a0ff url(img/assa.png) -79px 7px no-repeat;
+    background: #57a0ff url(/dist/img/assa.png) -79px 7px no-repeat;
     width: 70px;
     height: 30px;
     float: right;
@@ -961,7 +961,7 @@ body {
 
 .bmruk .login-12 a.member12 {
     display: block;
-    background: #57a0ff url(img/assa.png) -79px 7px no-repeat;
+    background: #57a0ff url(/dist/img/assa.png) -79px 7px no-repeat;
     width: 70px;
     height: 30px;
     line-height: 30px;
@@ -981,7 +981,7 @@ body {
     display: block;
     width: 32px;
     height: 40px;
-    background: url(img/slider-arrow.png) -110px 5px no-repeat;
+    background: url(/dist/img/slider-arrow.png) -110px 5px no-repeat;
     filter: alpha(opacity=50);
     opacity: 0.5;
 }
@@ -1031,27 +1031,27 @@ body {
 }
 
 .index_tasklist_cat .pcont.cat_4 {
-    background: url(img/sylc_4.png);
+    background: url(/dist/img/sylc_4.png);
 }
 
 .index_tasklist_cat .pcont.cat_5 {
-    background: url(img/sylc_5.png);
+    background: url(/dist/img/sylc_5.png);
 }
 
 .index_tasklist_cat .pcont.cat_6 {
-    background: url(img/sylc_6.png);
+    background: url(/dist/img/sylc_6.png);
 }
 
 .index_tasklist_cat .pcont.cat_7 {
-    background: url(img/sylc_7.png);
+    background: url(/dist/img/sylc_7.png);
 }
 
 .index_tasklist_cat .pcont.cat_8 {
-    background: url(img/sylc_8.png);
+    background: url(/dist/img/sylc_8.png);
 }
 
 .index_tasklist_cat .pcont.cat_40 {
-    background: url(img/sylc_40.png);
+    background: url(/dist/img/sylc_40.png);
 }
 
 /*发布试用申请试用步骤*/
@@ -1064,7 +1064,7 @@ body {
     width: 1034px;
     height: 1074px;
     margin: 0 auto;
-    background: url(img/planedi.png) no-repeat center;
+    background: url(/dist/img/planedi.png) no-repeat center;
     background-color: #f3f3f3;
 }
 
@@ -1315,7 +1315,7 @@ body {
 }
 
 #tr2_div1 {
-    background: url(img/table_1.jpg) no-repeat;
+    background: url(/dist/img/table_1.jpg) no-repeat;
     width: 500px;
     height: 417px;
     float: left;
@@ -1323,7 +1323,7 @@ body {
 }
 
 #tr2_div2 {
-    background: url(img/table_1.jpg) no-repeat;
+    background: url(/dist/img/table_1.jpg) no-repeat;
     width: 500px;
     height: 417px;
     float: right;
@@ -1502,7 +1502,7 @@ body {
     width: 477px;
     height: 100%;
     float: left;
-    background: url(img/takeup.jpg) no-repeat center;
+    background: url(/dist/img/takeup.jpg) no-repeat center;
     zoom: 1;
 }
 
@@ -1518,7 +1518,7 @@ body {
     width: 477px;
     height: 100%;
     float: right;
-    background: url(img/answer.jpg) no-repeat center;
+    background: url(/dist/img/answer.jpg) no-repeat center;
 }
 
 #question .question_table ul {
@@ -1566,7 +1566,7 @@ body {
 /*底部*/
 /*footer*/
 #footer {
-    background: url(img/footerlbg.png) repeat-x;;
+    background: url(/dist/img/footerlbg.png) repeat-x;;
     width: 100%;
     min-width: 1030px;
     padding-top: 5px;
@@ -1941,7 +1941,7 @@ img {
     height: 47px;
     background: #f5f5f5;
     border-bottom-right-radius: 10px;
-    background: url(img/totop-icon.png) no-repeat center center;
+    background: url(/dist/img/totop-icon.png) no-repeat center center;
     margin: 0 auto
 }
 
@@ -1964,7 +1964,7 @@ img {
     display: block;
     width: 24px;
     height: 24px;
-    background: url(img/close_im.png) no-repeat left top;
+    background: url(/dist/img/close_im.png) no-repeat left top;
 }
 
 .main-im .close-im a:hover {
@@ -1976,7 +1976,7 @@ img {
     margin-left: 68px;
     width: 40px;
     height: 133px;
-    background: url(img/open_im.png) no-repeat left top;
+    background: url(/dist/img/open_im.png) no-repeat left top;
 }
 
 .main-im .im_main .im-tels {
@@ -1994,7 +1994,7 @@ img {
 }
 
 .ui_boxyClose {
-    background: transparent url("img/boxy_btn.png") no-repeat scroll 0px 0px;
+    background: transparent url("/dist/img/boxy_btn.png") no-repeat scroll 0px 0px;
     cursor: pointer;
     height: 28px;
     position: absolute;
@@ -2007,7 +2007,7 @@ img {
 /*消息提醒*/
 .notice_box {
     display: none;
-    background: #FFF url("img/amg_body.png") repeat-x;
+    background: #FFF url("/dist/img/amg_body.png") repeat-x;
     border: 1px solid #CCC;
     border-radius: 10px;
     box-shadow: 0 0 8px #000;
@@ -2039,7 +2039,7 @@ img {
 
 /*小导航*/
 .rwdt_bg {
-    background: url(img/rwdt_bg.jpg) no-repeat center top fixed;
+    background: url(/dist/img/rwdt_bg.jpg) no-repeat center top fixed;
 }
 
 .rwdt_dh {
@@ -2078,7 +2078,7 @@ img {
     height: 46px;
     left: 0;
     bottom: 0;
-    background: url(img/tmail.jpg) no-repeat;
+    background: url(/dist/img/tmail.jpg) no-repeat;
 }
 
 .divon {
@@ -2299,7 +2299,7 @@ img {
     padding: 0 20px 0 10px;
     -webkit-border-radius: 2px;
     border-radius: 2px;
-    background: url('img/dl.png') no-repeat right 6px center #f98300;
+    background: url('/dist/img/dl.png') no-repeat right 6px center #f98300;
     color: #fff;
     font-size: 12px;
     line-height: 26px;
@@ -2308,10 +2308,10 @@ img {
     font-family: sans-serif;
 }
 .daochu_bank a.btn{
-    background: url('img/dl.png') no-repeat right 6px center #f98300;
+    background: url('/dist/img/dl.png') no-repeat right 6px center #f98300;
 }
 .daochu_bank .btn:hover {
-    background: url('img/dl.png') no-repeat right 6px center #f98300;
+    background: url('/dist/img/dl.png') no-repeat right 6px center #f98300;
     opacity: 0.8;
     transition: all 0.3s;
 }
@@ -2357,7 +2357,7 @@ img {
 }
 
 #taskid {
-    background: url(img/search.png) no-repeat;
+    background: url(/dist/img/search.png) no-repeat;
     display: block;
     width: 37px;
     height: 35px;
@@ -2400,7 +2400,7 @@ img {
 }
 
 #c33 {
-    background: url(img/c3_03.jpg) no-repeat;
+    background: url(/dist/img/c3_03.jpg) no-repeat;
     display: block;
     width: 172px;
     height: 43px;
@@ -2408,7 +2408,7 @@ img {
 }
 
 #c34 {
-    background: url(img/c3_05.jpg) no-repeat;
+    background: url(/dist/img/c3_05.jpg) no-repeat;
     display: block;
     width: 172px;
     height: 43px;
@@ -2847,7 +2847,7 @@ img {
 }
 
 .c49 {
-    background: url(img/c4_03.png) no-repeat;
+    background: url(/dist/img/c4_03.png) no-repeat;
     display: block;
     width: 172px;
     height: 43px;
@@ -3028,7 +3028,7 @@ a.accurl span {
 
 .xin1, .xin2, .xin3, .xin4, .xin5, .xin6, .xin7, .xin8, .xin9, .xin10, .xin11 {
     display: inline-block;
-    background: transparent url("/img/rank_bg.gif") repeat-x scroll 0% 0%;
+    background: transparent url("/dist/img/rank_bg.gif") repeat-x scroll 0% 0%;
     vertical-align: middle;
     width: 17px;
     height: 17px;
@@ -3089,7 +3089,7 @@ a.accurl span {
 
 .rank1, .rank2, .rank3, .rank4 {
     display: inline-block;
-    background: url(img/rank2014.gif) repeat-x;
+    background: url(/dist/img/rank2014.gif) repeat-x;
     vertical-align: middle;
     width: 17px;
     height: 17px;
@@ -3431,11 +3431,11 @@ a.sb0 {
 }
 
 .sc41 .isfankuan {
-    background: url(img/fankuan.png);
+    background: url(/dist/img/fankuan.png);
 }
 
 .sc41 .pdd_weichengtuan {
-    background: url(img/pdd_weichengtuan.png);
+    background: url(/dist/img/pdd_weichengtuan.png);
 }
 
 .sc42 {
@@ -4034,7 +4034,7 @@ a.sb0 {
     width: 16px;
     height: 16px;
     margin: 2px 6px 0 6px;
-    background: url(/dist/index/img/tbox.png) no-repeat;
+    background: url(/dist/index//dist/img/tbox.png) no-repeat;
 }
 
 .per311 ul li em.suess {
@@ -4109,7 +4109,7 @@ a.sb0 {
     position: relative;
     width: 374px;
     height: 191px;
-    background: url(/dist/index/img/per11.jpg) no-repeat center;
+    background: url(/dist/index//dist/img/per11.jpg) no-repeat center;
     color: #fff;
 }
 
@@ -4166,7 +4166,7 @@ a.sb0 {
     float: right;
     width: 374px;
     height: 191px;
-    background: url(/dist/index/img/per13.jpg) no-repeat center;
+    background: url(/dist/index//dist/img/per13.jpg) no-repeat center;
     color: #fff;
     margin-left: 40px;
 }
@@ -4214,23 +4214,23 @@ a.sb0 {
 }
 
 .per431 {
-    background: url(/dist/index/img/pers_03.jpg) no-repeat center;
+    background: url(/dist/index//dist/img/pers_03.jpg) no-repeat center;
 }
 
 .per432 {
-    background: url(/dist/index/img/pers_04.jpg) no-repeat center;
+    background: url(/dist/index//dist/img/pers_04.jpg) no-repeat center;
 }
 
 .per433 {
-    background: url(/dist/index/img/pers_05.jpg) no-repeat center;
+    background: url(/dist/index//dist/img/pers_05.jpg) no-repeat center;
 }
 
 .per434 {
-    background: url(/dist/index/img/pers_06.jpg) no-repeat center;
+    background: url(/dist/index//dist/img/pers_06.jpg) no-repeat center;
 }
 
 .per435 {
-    background: url(/dist/index/img/pers_07.jpg) no-repeat center;
+    background: url(/dist/index//dist/img/pers_07.jpg) no-repeat center;
 }
 
 .per44 {
@@ -4758,7 +4758,7 @@ a.sb0 {
 
 /*会员升级*/
 .grade_banner {
-    background: url(../index/img/grade.jpg) no-repeat center;
+    background: url(../index//dist/img/grade.jpg) no-repeat center;
     height: 369px;
 }
 
@@ -4853,7 +4853,7 @@ a.sb0 {
     display: block;
     width: 26px;
     height: 26px;
-    background: transparent url("/img/close.gif") no-repeat scroll center center;
+    background: transparent url("//dist/img/close.gif") no-repeat scroll center center;
 }
 
 span.jt {
@@ -4981,7 +4981,7 @@ span.jt {
     display: block;
     width: 100%;
     height: 100%;
-    background: url(/dist/index/img/shili_weixin.png);
+    background: url(/dist/index//dist/img/shili_weixin.png);
     opacity: 0.75;
     z-index: 999;
 }
@@ -5167,13 +5167,13 @@ span.jt {
 }
 
 .topimg2 {
-    background: url(/dist/index/img/top2.gif) no-repeat;
+    background: url(/dist/index//dist/img/top2.gif) no-repeat;
     width: 321px;
     height: 19px;
 }
 
 .midddleimg2 {
-    background: url(/dist/index/img/middle2.gif) repeat-y;
+    background: url(/dist/index//dist/img/middle2.gif) repeat-y;
     width: 316px;
     font-size: 12px;
     white-space: normal;
@@ -5188,7 +5188,7 @@ span.jt {
 }
 
 .bottomimg2 {
-    background: url(/dist/index/img/bottom2.gif) no-repeat;
+    background: url(/dist/index//dist/img/bottom2.gif) no-repeat;
     width: 316px;
     height: 6px;
 }
@@ -5231,13 +5231,13 @@ span.jt {
 }
 
 .topimg {
-    background: url(/dist/index/img/top1.gif) no-repeat;
+    background: url(/dist/index//dist/img/top1.gif) no-repeat;
     width: 320px;
     height: 19px;
 }
 
 .midddleimg {
-    background: url(/dist/index/img/middle1.gif) repeat-y;
+    background: url(/dist/index//dist/img/middle1.gif) repeat-y;
     width: 316px;
     margin-left: 4px;
     font-size: 12px;
@@ -5253,7 +5253,7 @@ span.jt {
 }
 
 .bottomimg {
-    background: url(/dist/index/img/bottom1.gif) no-repeat;
+    background: url(/dist/index//dist/img/bottom1.gif) no-repeat;
     width: 316px;
     height: 6px;
     margin-left: 4px;
@@ -5281,7 +5281,7 @@ span.jt {
 .login_frame_bg {
     width: 299px;
     height: 340px;
-    background: url(/dist/index/img/login_frame_background.png) no-repeat center;
+    background: url(/dist/index//dist/img/login_frame_background.png) no-repeat center;
     position: absolute;
     top: 101px;
     right: 218px;
@@ -5308,7 +5308,7 @@ span.jt {
     min-width: 245px;
     width: 245px;
     height: 43px;
-    background: url(/dist/index/img/login_person.png) no-repeat;
+    background: url(/dist/index//dist/img/login_person.png) no-repeat;
     background-position: 14px 50%;
     border-radius: 5px;
     margin-bottom: 31px;
@@ -5333,7 +5333,7 @@ span.jt {
 #myForm .login_ps {
     width: 245px;
     height: 43px;
-    background: url(/dist/index/img/login_lock.jpg) no-repeat;
+    background: url(/dist/index//dist/img/login_lock.jpg) no-repeat;
     background-position: 14px 50%;
     border-radius: 5px;
     margin-bottom: 31px;
@@ -5422,7 +5422,7 @@ span.jt {
     font-size: 12px;
     color: #ff0;
     animation: a-opacity .3s linear infinite;
-    /*background: url(img/new3.gif);*/
+    /*background: url(/dist/img/new3.gif);*/
 }
 
 @keyframes a-opacity {
@@ -5440,7 +5440,7 @@ span.jt {
     height: 986px;
     min-width: 1024px;
     background-color: #fc9b10;
-    background: url(../../dist/img/extension.jpg) no-repeat center top;
+    background: url(../../dist//dist/img/extension.jpg) no-repeat center top;
     color: #626262;
 }
 
