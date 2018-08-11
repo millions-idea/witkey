@@ -587,7 +587,7 @@ public class MemberController {
     /**
      * 密码管理
      */
-    @ISLogin
+    //@ISLogin
     @RequestMapping(value = "passwordManager")
     public void passwordManager(HttpServletRequest request, HttpServletResponse response,
                                 String new_pass,String old_pass,
