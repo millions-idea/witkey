@@ -45,7 +45,7 @@ $(function () {
             layer.msg("加载类目失败");
             return;
         }
-        ReactDOM.render(<Category list={data.data} />, document.getElementById("category-list"), function () {
+        ReactDOM.render(<CategoryNavigationView list={data.data} />, document.getElementById("category-list"), function () {
             // 动态切换排序焦点
             var req = GetRequest(),
                 $orderByButtons = $("a[name='orderBy']")
@@ -75,7 +75,7 @@ $(function () {
             layer.msg("加载商品失败");
             return;
         }
-        ReactDOM.render(<Product list={data.data} />, document.getElementById("product-list"), function () {
+        ReactDOM.render(<ProductDataListView list={data.data} />, document.getElementById("product-list"), function () {
             bindProductEvents();
 
             var $applyButton = $("a[name='apply']"),
@@ -101,7 +101,7 @@ $(function () {
             layer.msg("加载买号列表失败");
             return;
         }
-        ReactDOM.render(<BuyAccount list={data.data} />, document.getElementById("apply-html"))
+        ReactDOM.render(<BuyAccountDataTableView list={data.data} />, document.getElementById("apply-html"))
 
     })
 })

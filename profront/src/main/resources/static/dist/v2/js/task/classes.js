@@ -1,7 +1,7 @@
 /**
  * 类目 韦德 2018年8月10日21:04:47
  */
-class Category extends React.Component {
+class CategoryNavigationView extends React.Component {
     constructor(props) {
         super(props)
     }
@@ -53,7 +53,7 @@ class Category extends React.Component {
 /***
  * 商品 韦德 2018年8月10日21:04:43
  */
-class Product extends React.Component {
+class ProductDataListView extends React.Component {
     constructor(props) {
         super(props)
     }
@@ -123,7 +123,7 @@ class Product extends React.Component {
 /**
  * 买号 韦德 2018年8月11日00:09:03
  */
-class BuyAccount extends React.Component {
+class BuyAccountDataTableView extends React.Component {
     constructor(props) {
         super(props)
     }
@@ -161,5 +161,121 @@ class BuyAccount extends React.Component {
                 </div>
             </div>
         );
+    }
+}
+
+/**
+ * 试用分类 韦德 2018年8月11日14:48:02
+ */
+class TryTypeSelectView extends React.Component{
+    constructor(props){
+        super(props);
+    }
+
+    render(){
+        return (
+            <div id="try-list-items">
+                <select id="catid_1" defaultValue={this.props.currentType}>
+                    {
+                        this.props.list.map((item,index) => {
+                            return <option key={item.id} value={item.id}>
+                                {item.type_name}
+                            </option>
+                        })
+                    }
+                </select>
+                <span id="dcatid" className="f_red"></span>
+            </div>
+        )
+    }
+}
+
+/**
+ * 卖家账号 韦德 2018年8月11日15:15:42
+ */
+class SellAccountSelectView extends React.Component {
+    constructor(props){
+        super(props);
+    }
+
+    render(){
+        return (
+            <div id="sell-account-items">
+                <select name="post_fields[tname]" id="tname" >
+                    {
+                        this.props.list.map((item,index) => {
+                            return <option key={index} defaultValue={item.account_id}>{item.name}</option>
+                        })
+                    }
+                </select> <span id="dtname" className="f_red"></span>
+                <span className="note">就是您想提升信誉的掌柜，申请试用的朋友用来确认您的身份，<a
+                    href="/member/taobaohao.php?isshangjia=1"
+                    target="_blank">【点击管理掌柜】</a></span>
+            </div>
+        )
+    }
+}
+
+/**
+ * 商品分类 韦德 2018年8月11日15:35:45
+ */
+class CategorySelectListView extends React.Component{
+    constructor(props){
+        super(props);
+    }
+
+    render(){
+        return (
+            <div id="category-selector-items">
+                <select name="post_fields[goods_cat]" id="goods_cat" defaultValue='1'>
+                    <option value="">请选择</option>
+                    {
+                        this.props.list.map((item,index)=>{
+                            return <option key={index} value={item.category_id}>{item.name}</option>
+                        })
+                    }
+                </select>
+                <span className="f_red" id="dgoods_cat"></span><span className="note"></span>
+            </div>
+        )
+    }
+}
+
+/**
+ * 试用页商品属性 韦德 2018年8月11日16:49:04
+ */
+class TryAttributesView extends React.Component{
+    constructor(props){
+        super(props)
+    }
+
+    render(){
+        return (
+            <div id="attribute-list-items">
+                {
+                    this.props.list.map((attr,attrIndex) => {
+                        return  <tr id={"attr_" + attr.attr_id} key={attrIndex}>
+                                <td className="tl">
+                                    <span className="title" oldtitle={attr.desc}>{attr.name}</span>
+                                </td>
+                                <td className="tr">
+                                    <span>
+                                        <span name="options" className="my-attr-item">
+                                            {
+                                                attr.options.map((option,optionIndex) => {
+                                                    return <div id={"option_" + option.option_id} key={optionIndex} >
+                                                        <input type="radio" name="post_fields[iscomment]" value={option.option_id} id={option.option_id} data-autohide="comment" />
+                                                        <label>{option.value}</label>
+                                                    </div>
+                                                })
+                                            }
+                                        </span>
+                                    </span>
+                                </td>
+                        </tr>
+                    })
+                }
+            </div>
+        )
     }
 }
