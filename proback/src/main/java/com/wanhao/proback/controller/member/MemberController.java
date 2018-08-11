@@ -43,7 +43,7 @@ public class MemberController {
 
 //////////////////////////////分割线 会员管理部分///////////////////////////////////
 
-    @GetMapping
+    @GetMapping("/list")
     public String index(){
         return "v2/member/index";
     }

@@ -32,7 +32,7 @@
                     </div>
                         <form class="layui-form layui-form-pane" action="/member/setForbidden" method="post" >
 
-                            <div class="layui-form-item layui-form-text">
+                            <div class="layui-form-item layui-form-text layui-col-md8">
                                 <label class="layui-form-label">禁用名(用,隔开)</label>
                                 <div class="layui-input-block">
                                     <textarea name="desc"
@@ -44,7 +44,10 @@
                                 </div>
                             </div>
 
-                            <button lay-submit lay-filter="my-form" id="my-data-table-query" type="submit" class="layui-btn mgl-20">修改</button>
+                            <div  class="layui-form-item layui-form-text layui-col-md8" style="text-align: right">
+                                <button lay-submit lay-filter="my-form" id="my-data-table-query" type="submit" class="layui-btn mgl-20">修改</button>
+                            </div>
+
 
                         </form>
                 </div>

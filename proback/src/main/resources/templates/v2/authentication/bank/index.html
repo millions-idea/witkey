@@ -28,48 +28,44 @@
                 <!--主体 begin-->
                 <div class="layui-tab-item layui-show">
                     <!-- 工具集 -->
-                    <div class="my-btn-box" style="display: flex;">
-                    <span style="flex: 4;">
+                    <div class="my-btn-box layui-form" style="display: flex;">
                         <a id="my-data-table-delete"
                            class="layui-btn layui-btn-danger radius btn-delect">批量通过
                         </a>
+                        <div class="layui-input-inline" style="margin: 0 4px; width: 142px;">
+                            <input id="reject-reason" class="layui-input" type="text" placeholder="请输入拒绝原因" name="content">
+                        </div>
 
-                         <input id="reject-reason" type="text" placeholder="请输入拒绝原因"
-                                name="content">
                         <a id="my-data-table-reject"
                            class="layui-btn layui-btn-danger radius btn-delect">批量拒绝
                         </a>
                         <!--<a id="my-data-table-add" class="layui-btn btn-add btn-default">添加</a>-->
                         <a class="layui-btn btn-add btn-default" id="btn-refresh-my-data-table"><i
                                 class="layui-icon layui-icon-refresh"></i></a>
-                    </span>
-                        <span style="flex: 5;">
-                            <label class="layui-form-label">查询条件</label>
-                            <div class="layui-input-inline">
-                              <select name="cond" id="cond">
+                            <label class="layui-form-label" style="padding: 9px 2px;">查询条件</label>
+                            <div class="layui-input-inline" style="width: 100px;">
+                                <select name="cond" id="cond">
                                 <option value="0" selected=selected>按条件</option>
                                 <option value="1">会员id</option>
                                 <option value="2">银行卡号</option>
                                 <option value="3">卡类型</option>
                                 <option value="4">姓名</option>
-                              </select>
+                                </select>
                             </div>
-                        <div class="layui-input-inline">
-                            <input id="my-data-table-condition" type="text" autocomplete="off"
-                                   placeholder="请输入搜索条件" class="layui-input" name="content">
-                        </div>
+                            <div class="layui-input-inline" style="width: 120px;padding: 0 4px;">
+                                <input id="my-data-table-condition" type="text" autocomplete="off"
+                                       placeholder="请输入搜索条件" class="layui-input" name="content">
+                            </div>
 
-                            <div class="layui-input-inline">
-                              <select name="auth" id="is_auth">
-                                <option value="4" selected=selected>是否已认证</option>
+                            <div class="layui-input-inline" style="width: 100px;padding: 0 4px;">
+                                <select name="auth" id="is_auth">
+                                <option value="4" selected=selected>是否认证</option>
                                 <option value="1">已认证</option>
                                 <option value="0">未认证</option>
                                 <option value="2">已拒绝</option>
-                              </select>
+                                </select>
                             </div>
-
                         <button id="my-data-table-query" class="layui-btn mgl-20">查询</button>
-                    </span>
                     </div>
                     <!-- 表格 -->
                     <div id="my-data-table" class="my-data-table"

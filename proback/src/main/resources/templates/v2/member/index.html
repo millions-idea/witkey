@@ -29,41 +29,45 @@
                 <div class="layui-tab-item layui-show">
                     <!-- 工具集 -->
                     <div class="my-btn-box" style="display: flex;">
-                    <span style="flex: 1;">
+                    <span style="flex: 1.5;">
                         <a id="my-data-table-delete" class="layui-btn layui-btn-danger radius btn-delect">批量删除</a>
                         <a id="my-data-table-add" class="layui-btn btn-add btn-default">添加</a>
                         <a class="layui-btn btn-add btn-default" id="btn-refresh-my-data-table"><i
                                 class="layui-icon layui-icon-refresh"></i></a>
                     </span>
-                        <span style="flex: 2;">
-                            <label class="layui-form-label">查询条件</label>
-                            <div class="layui-input-inline">
-                              <select name="cond" id="cond">
-                                <option value="0" selected=selected>按条件</option>
-                                <option value="1">代理商</option>
-                                <option value="2">会员名</option>
-                                <option value="4">真实姓名</option>
-                                <option value="5">手机号码</option>
-                                <option value="7">QQ</option>
-                                <option value="12">支付宝</option>
-                                <option value="13">推荐人id</option>
-                                <option value="14">身份证号</option>
-                              </select>
+                    <span style="flex: 2;">
+                        <div class="layui-form">
+                            <div class="layui-inline">
+                                <label class="layui-form-label">查询条件</label>
                             </div>
-                        <div class="layui-input-inline">
-                            <input id="my-data-table-condition"  type="text" autocomplete="off"
-                                   placeholder="请输入搜索条件" class="layui-input" name="content">
-                        </div>
+                            <div class="layui-inline" style="width: 100px;">
+                                <select name="cond" id="cond" lay-verify="required" >
+                                        <option value="0" selected=selected>按条件</option>
+                                        <option value="1">代理商</option>
+                                        <option value="2">会员名</option>
+                                        <option value="4">真实姓名</option>
+                                        <option value="5">手机号码</option>
+                                        <option value="7">QQ</option>
+                                        <option value="12">支付宝</option>
+                                        <option value="13">推荐人id</option>
+                                        <option value="14">身份证号</option>
+                                 </select>
+                            </div>
 
-                        <div class="layui-input-inline">
-                          <select name="gender" id="gender">
-                            <option value="0" selected=selected>性别</option>
-                            <option value="男士">男士</option>
-                            <option value="女士">女士</option>
-                          </select>
-                        </div>
+                            <div class="layui-input-inline">
+                                 <input id="my-data-table-condition"  type="text" autocomplete="off"
+                                   placeholder="请输入搜索条件" class="layui-input" name="content" >
+                             </div>
 
-                        <button id="my-data-table-query" class="layui-btn mgl-20">查询</button>
+                             <div class="layui-inline" style="width: 80px;">
+                                <select name="gender" id="gender" lay-verify="required">
+                                <option value="0"  selected=selected>性别</option>
+                                <option value="男士">男士</option>
+                                <option value="女士">女士</option>
+                            </select>
+                            </div>
+                              <button id="my-data-table-query" class="layui-btn mgl-20">查询</button>
+                        </div>
                     </span>
                     </div>
                     <!-- 表格 -->

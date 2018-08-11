@@ -21,13 +21,13 @@
     <div class="layui-row">
         <!--选项卡-->
         <div class="layui-tab layui-tab-card layui-col-md12" style="min-height: 770px">
-            <div class="layui-tab-content" style="height: 900px;padding: 10px;overflow: scroll;">
+            <div class="layui-tab-content" style="height: 900px;padding: 10px;overflow: scroll;margin: 0 0 0 8px;">
                 <!--主体 begin-->
                 <div class="layui-tab-item layui-show">
                         <form class="layui-form layui-form-pane" style="height: 1300px;"
                               action="store/updatestore" method="post" >
 
-                            <div class="layui-form-item layui-form-text">
+                            <div class="layui-form-item layui-form-text layui-col-xs4">
                                 <label class="layui-form-label">设置24小时内提现次数</label>
                                 <div  class="layui-input-block">
                                     <select name="tixian_count" id="tixian_count" lay-verify="required">
@@ -42,7 +42,7 @@
                                 </div>
                             </div>
 
-                            <div class="layui-form-item layui-form-text">
+                            <div class="layui-form-item layui-form-text layui-col-xs4">
                                 <label class="layui-form-label">单次提现最小金额</label>
                                 <div class="layui-input-block">
                                     <input type="text" name="storeName"
@@ -51,36 +51,38 @@
                                            autocomplete="off" class="layui-input">
                                 </div>
                             </div>
-                            <div class="layui-form-item layui-form-text">
+                            <div class="layui-form-item layui-form-text layui-col-xs4">
                                 <label class="layui-form-label">单次提现最大金额</label>
                                 <div class="layui-input-block">
                                     <input type="text" id="max_money" name="storeName" lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
                                 </div>
                             </div>
 
-                            <div class="layui-form-item layui-form-text">
+                            <div class="layui-form-item layui-form-text layui-col-xs4">
                                 <label class="layui-form-label">提现手续费(百分比)</label>
-                                <div class="layui-input-inline">
+                                <div class="layui-input-block">
                                     <input type="text" name="storeName" id="shouxu" lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
                                 </div>
                             </div>
-                            <div class="layui-form-item layui-form-text">
+                            <div class="layui-form-item layui-form-text layui-col-xs4">
                                 <label class="layui-form-label">费率最小值</label>
-                                <div class="layui-input-inline">
+                                <div class="layui-input-block">
                                     <input type="text" name="storeName" id="min_shouxu" lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
                                 </div>
                             </div>
-                            <div class="layui-form-item layui-form-text">
+                            <div class="layui-form-item layui-form-text layui-col-xs4">
                                 <label class="layui-form-label">费率最大值</label>
-                                <div class="layui-input-inline">
+                                <div class="layui-input-block">
                                     <input type="text" name="storeName" id="max_shouxu" lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
                                 </div>
                             </div>
 
-                            <button lay-submit lay-filter="my-form"
-                                    id="my-data-table-query"
-                                    type="submit" class="layui-btn mgl-20">修改
-                            </button>
+                            <div class="layui-row">
+                                <button lay-submit lay-filter="my-form"
+                                        id="my-data-table-query"
+                                        type="submit" class="layui-col-xs4 layui-btn mgl-20">修改
+                                </button>
+                            </div>
 
                         </form>
                 </div>
