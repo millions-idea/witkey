@@ -174,8 +174,8 @@ class TryTypeSelectView extends React.Component{
 
     render(){
         return (
-            <div id="try-list-items">
-                <select id="catid_1" defaultValue={this.props.currentType}>
+            <React.Fragment>
+                <select id="catid_1" key={'current-type-' + this.props.currentType} defaultValue={this.props.currentType}>
                     {
                         this.props.list.map((item,index) => {
                             return <option key={item.id} value={item.id}>
@@ -185,7 +185,7 @@ class TryTypeSelectView extends React.Component{
                     }
                 </select>
                 <span id="dcatid" className="f_red"></span>
-            </div>
+            </React.Fragment>
         )
     }
 }
@@ -249,33 +249,146 @@ class TryAttributesView extends React.Component{
         super(props)
     }
 
+    /**
+     * 动态渲染样式
+     * @param style
+     * @param attr
+     * @param option
+     * @param index
+     */
+    switchStyle = (style, attr, option, index) => {
+        let component;
+        switch(style){
+            case 0:
+                component = this.radioButton(attr, option, index);
+                break;
+            case 2:
+                component = this.textareaEditor(attr, option, index);
+                break;
+            case 3:
+                component = this.imageUpload(attr, option, index);
+                break;
+        }
+        return component;
+    }
+
+
+    /**
+     * 单选框样式
+     * @param option
+     * @param attr
+     * @param index
+     * @returns {*}
+     */
+    radioButton = (attr, option, index) => {
+        return (
+            <React.Fragment>
+                <input type="radio" name={"attr_" + option.attr_id} value={option.option_id} id={option.option_id} defaultChecked={option.default_value.length <= 0} data-autohide="comment" />
+                <label>{option.value}</label>
+                {
+                    this.appendPriceLabel(attr, option)
+                }
+            </React.Fragment>
+        )
+    };
+
+
+    /**
+     * 加价标签
+     * @param attr
+     * @param option
+     * @returns {*}
+     */
+    appendPriceLabel = (attr, option) => {
+        let component;
+
+        if(attr.append_return_price != null && option.default_value.length <= 0){
+            component = (
+                <span className="note">选中增加 <b>{attr.append_return_price}</b> 元奖励</span>
+            )
+        }else{
+            component = (
+                ""
+            )
+        }
+
+        return component;
+    }
+
+
+    /**
+     * 编辑框样式
+     * @param option
+     * @param attr
+     * @param index
+     * @returns {*}
+     */
+    textareaEditor = (attr, option, index) => {
+        return (
+            <React.Fragment>
+                <textarea className="my-textarea" name="post_fields[msg]" rows="2" cols="80" maxLength="200"></textarea>
+            </React.Fragment>
+        )
+    };
+
+
+    /**
+     * 上传图像组件
+     * @param attr
+     * @param option
+     * @param index
+     * @returns {*}
+     */
+    imageUpload = (attr, option, index) => {
+        return (
+            <React.Fragment>
+                <div className="img_upload">
+                    <div className="img_upload_item">
+                        <input shaitu="1" type="hidden" value="" name="post_fields[shaitu]" id="thumb_shaitu_1"></input>
+                        <span className="my-image-upload-span">
+                            <img src="http://001.topaaa.com/skin/ypmili/image/waitpic.png" id="showthumb_shaitu_1" alt=""  height="100" width="100" data-hasqtip="15" oldtitle="预览图片" title="" />
+                        </span>
+                        <span>
+                            <img src="/member/image/img_upload.gif"  height="12" width="12" data-hasqtip="16" oldtitle="上传" title="" />
+                                &nbsp;&nbsp;
+                                <img src="/member/image/img_select.gif"  height="12" width="12" data-hasqtip="17" oldtitle="预览" title="" />
+                                    &nbsp;&nbsp;
+                                    <img src="/member/image/img_delete.gif" height="12" width="12" data-hasqtip="18" oldtitle="删除" title="" />
+                        </span>
+                    </div>
+                </div>
+                <div className="my-image-upload-button">
+                    <span className="ele_add">增加</span>
+                    <span className="ele_del">删除</span>
+                </div>
+                <span className="f_red" id="dshaitu"></span>
+                <span className="note"></span>
+            </React.Fragment>
+        )
+    };
+
     render(){
         return (
-            <div id="attribute-list-items">
+            <React.Fragment>
                 {
                     this.props.list.map((attr,attrIndex) => {
-                        return  <tr id={"attr_" + attr.attr_id} key={attrIndex}>
+                        return <tr key={attr.attr_id} id={"attr_" + attr.attr_id} >
                                 <td className="tl">
                                     <span className="title" oldtitle={attr.desc}>{attr.name}</span>
                                 </td>
                                 <td className="tr">
-                                    <span>
-                                        <span name="options" className="my-attr-item">
-                                            {
-                                                attr.options.map((option,optionIndex) => {
-                                                    return <div id={"option_" + option.option_id} key={optionIndex} >
-                                                        <input type="radio" name="post_fields[iscomment]" value={option.option_id} id={option.option_id} data-autohide="comment" />
-                                                        <label>{option.value}</label>
-                                                    </div>
-                                                })
-                                            }
-                                        </span>
+                                    <span className="my-td-span">
+                                    {
+                                        attr.options.map((option,optionIndex) => {
+                                            return this.switchStyle(option.style, attr, option,optionIndex);
+                                        })
+                                    }
                                     </span>
                                 </td>
-                        </tr>
+                            </tr>
                     })
                 }
-            </div>
+            </React.Fragment>
         )
     }
 }

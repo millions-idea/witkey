@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorate="~{v2/layout/home-layout}">
+
+<th:block layout:fragment="title">
+    <title th:text="'立即成为' + ${brand} + '平台会员'"></title>
+</th:block>
+
+<head>
+    <link rel="stylesheet" type="text/css" th:href="@{/dist/v2/css/home/login.css}">
+</head>
+
+<body>
+<th:block layout:fragment="body">
+
+    <div class='wrapper' style="opacity: 1;">
+        <table width="100%" style="height: 100%" align="center" background="/img/7.jpg">
+            <tbody>
+            <tr>
+                <td align="center" valign="middle">
+                    <div id="dlogin">
+                        <div class="head">
+                            <a href="/"><span class="logo"
+                                              style="background:url(/img/logo.png) no-repeat"></span></a>
+                            <span class="slogan"></span>
+                        </div>
+                        <div class="loginc">
+                            <!--<form method="post" th:action="@{/member/login}" onsubmit="return Dcheck();">-->
+                            <input name="forward" type="hidden" value="http://001.topaaa.com/">
+                            <div id="userentry">
+                                <ul id="login_list">
+                                    <li class="shuru">
+                                        <input type="text" maxlength="26" value="test" name="username"
+                                               class="r_bk" placeholder="用户名"
+                                               id="lusername"
+                                               style="margin-left: 0px;">
+                                        <p class="zq" id="miaoname"></p>
+                                    </li>
+                                    <li class="shuru">
+                                        <input type="password" value="123" maxlength="16" name="password"
+                                               placeholder="密码"
+                                               class="r_bk" id="lpassword">
+                                        <p id="miaopwd" class="zq"></p>
+                                    </li>
+
+                                    <!--<li class="shuru">-->
+                                    <!--自动登录:-->
+                                    <!--<input type="checkbox" name="remember-me"/>-->
+                                    <!--<p  class="zq"></p>-->
+                                    <!--</li>-->
+
+
+                                    <li class="shuru">
+                                        <span style="color: red;" th:text="${error}" th:if="${error}"></span>
+                                    </li>
+
+                                    <li><a th:href="@{/member/forget}" class="fr">忘记密码？</a></li>
+                                </ul>
+                            </div>
+                            <div class="login_btn">
+                                <input type="button" name="login_btn" value="" id="login_btn" onclick="loginbtn_click()">
+                            </div>
+                            <script>
+                                function loginbtn_click() {
+                                    var params ={};
+                                    /*params.username = $("#lusername").val();
+                                    params.password = $("#lpassword").val();*/
+                                    params.username = "test";
+                                    params.password = "123";
+                                    $.ajax({
+                                        url:request_url+"intf_member/login",
+                                        type:"post",
+                                        data:params,
+                                        dataType:'json',
+                                        success:function(result){
+                                            if(result.error == 0){
+                                                sessionStorage.setItem("token",result.token);
+                                                sessionStorage.setItem("member",result.express);
+
+                                                localStorage.setItem("member",result.express);
+
+                                                var userresult_json = eval("("+sessionStorage.getItem("member")+")");
+
+                                                if(userresult_json.is_seller == 1){
+                                                    window.location.href = "../index/index-seller.html";
+                                                }else{
+                                                    window.location.href = "../index/index.html";
+                                                }
+                                            }else{
+                                                alert(result.message);
+                                            }
+                                        }
+                                    });
+                                }
+                            </script>
+                            <div id="logincontr">
+                                <h3><a href="/register" class='tab'
+                                       style='display:inline-block;padding-top:8px;'><span>还没有账号？点我&nbsp;</span>注册&nbsp;&gt;&gt;
+                                </a>
+                                </h3>
+                                <div class="others">
+                                    <style>
+                                        .w-user em {
+                                            display: inline-block;
+                                            margin-top: 10px;
+                                            width: 140px;
+                                            padding: 5px 0;
+                                            color: #fff;
+                                            font-size: 14px;
+                                            border-radius: 3px;
+                                            background: #57A0FF;
+                                            font-style: normal;
+                                            cursor: pointer;
+                                        }
+                                        .w-user em:hover {
+                                            background: #197CFF;
+                                        }
+                                    </style>
+                                    <ul class="w-user">
+                                        <li>
+                                            <em onclick="login_shangjia()">登录测试商家</em>
+                                        </li>
+                                        <li style="float: right">
+                                            <em onclick="login_shuashou()">登录测试试客</em>
+                                        </li>
+                                    </ul>
+                                    <script>
+                                        $(function () {
+                                            $('.w-user em').animate({opacity: '0.5'},800).animate({opacity: '1'},800);
+                                            setInterval(function () {
+                                                $('.w-user em').animate({opacity: '0.5'},800).animate({opacity: '1'},800)
+                                            }, 1600);
+                                        });
+                                        var i;
+                                        function login_shangjia() {
+                                            i = 0;
+                                            sond();
+                                            typing('lusername', 'yp1234567')
+                                        }
+                                        function login_shuashou() {
+                                            i = 0;
+                                            sond();
+                                            typing('lusername', 'yp12345678')
+                                        }
+                                        function typing(id, str) {
+                                            if (i <= str.length) {
+                                                $('#' + id).val(str.slice(0, i++) + '_');
+                                                setTimeout(function () {
+                                                    typing(id, str);
+                                                }, 80);//递归调用
+                                            }
+                                            else {
+                                                $('#' + id).val(str);//结束打字,移除 _ 光标
+                                                if (id === 'lusername') {
+                                                    i = 0;
+                                                    typing('lpassword', '18181818660')
+                                                }
+                                                if (id === 'lpassword') {
+                                                    $('#login_btn').click();
+                                                }
+                                            }
+                                        }
+                                        function sond() {
+                                            var audio = document.createElement("audio");
+                                            audio.src = '/file/wav/7949.mp3';
+                                            audio.play();
+                                        }
+                                    </script>
+                                    <ul class="w-user">
+                                    </ul>
+                                    <div style="clear: both"></div>
+                                </div>
+                            </div>
+                            <!--</form>-->
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+</th:block>
+
+<th:block layout:fragment="free_footer">
+    <script>
+        $(function () {
+            sessionStorage.clear();
+            $("[title]").qtip({style: {classes: 'qtip-bootstrap'}});
+        });
+
+        function Dcheck() {
+            if (Dd('lusername').value == '') {
+                confirm('请填写会员名');
+                Dd('lusername').focus();
+                return false;
+            }
+            if (Dd('lpassword').value == '') {
+                confirm('请填写密码');
+                Dd('lpassword').focus();
+                return false;
+            }
+            //rsa加密密码
+            var strPubKey = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCSOALmVvE5bVFfvZASgLz1J4lvUH0SddzerZeQw6UiTZAfC+wDYizMn40IeGkX7Ypvs0FG9757iG3kmW0lad2wWWJRs4Ch8BDOr8EwYFG3glfGMlDJdkvXkq3KRHKXZ+sSo+zD9iiYW5Zbl9sGSmVgl2gMRmH0MX7/q4tIoyCfNwIDAQAB";
+            var encrypt = new JSEncrypt();
+
+            encrypt.setPublicKey(strPubKey);
+            //加密完成
+            var encrypted = encrypt.encrypt(Dd('lpassword').value);
+            Dd('lpassword').value = encrypted;
+
+            return true;
+        }
+
+    </script>
+</th:block>
+
+</body>
+</html>

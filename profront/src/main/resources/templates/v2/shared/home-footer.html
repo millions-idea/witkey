@@ -1,0 +1,14 @@
+<th:block xmlns:th="http://www.thymeleaf.org" th:fragment="footer">
+    <script type="text/javascript" th:src="@{/dist/v2/frame/layui/layui.all.js}"></script>
+    <script type="text/javascript" th:src="@{/dist/v2/index.js}"></script>
+    <script type="text/javascript" th:src="@{/dist/v2/js/common/jquery.ajax.custom.js}"></script>
+    <script type="text/javascript" th:src="@{/dist/v2/frame/react/react.development.js}"></script>
+    <script type="text/javascript" th:src="@{/dist/v2/frame/react/react-dom.development.js}"></script>
+    <script type="text/javascript" th:src="@{/dist/v2/frame/react/babel.min.js}"></script>
+    <script type="text/javascript" th:src="@{/dist/js/jq-tip.js}"></script>
+    <script>
+        $(function () {
+            $(".wrapper").css("opacity", 0).delay(400).animate({opacity: 1}, 400);
+        });
+    </script>
+</th:block>

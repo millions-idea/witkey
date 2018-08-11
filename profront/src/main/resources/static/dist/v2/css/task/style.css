@@ -1,0 +1,244 @@
+.rwdt_bg {
+    background: #ddd;
+}
+
+
+.yptip {
+    border: 1px solid #ddd;
+
+}
+
+#ypcon {
+    border: none;
+    border-radius: 0;
+    box-shadow: 0 0 10px #888;
+}
+
+#ypcon .menu table {
+    margin: 0 auto;
+    border-top: 1px solid #99C1F5;
+    border-left: 1px solid #99C1F5;
+    border-bottom: 1px solid #99C1F5;
+}
+
+#ypcon .menu table td {
+    border-right: 1px solid #99C1F5;
+}
+
+#ypcon .tb {
+    margin: 4px auto;
+    border-top: 1px solid #e6e6e6;
+    border-left: 1px solid #e6e6e6;
+}
+
+#ypcon .tb td, #ypcon .tb th {
+    border-bottom: 1px solid #e6e6e6;
+    border-right: 1px solid #e6e6e6;
+}
+
+#ypcon input[type="text"], #ypcon input[type="password"], #ypcon select, #ypcon textarea {
+    border-radius: 0;
+    border: solid 1px #ddd;
+    box-shadow: 0 0 2px rgba(0, 0, 0, .25);
+}
+
+/*鍙戝竷璇曠敤*/
+#body_main .div{
+    border: none;
+    box-shadow: 0 0 6px rgba(0, 0, 0, .25);
+}
+.left_xf {
+    border: none;
+    box-shadow: 0 0 6px rgba(0, 0, 0, .25);
+}
+
+.plrw_input {
+    border: none;
+    box-shadow: 0 0 3px rgba(0, 0, 0, .25);
+}
+#menu_div{
+    border-bottom: 2px solid #57a0ff;
+}
+#menu_div a.on {
+    border-top: solid 2px #57a0ff;
+    border-left: solid 2px #57a0ff;
+    border-right: solid 2px #57a0ff;
+}
+
+#menu_div a {
+    border-bottom: 1px solid #57a0ff;
+}
+
+#menu_div > span {
+    border-bottom: 1px solid #57a0ff;
+}
+
+
+.fields_item td.tr > span:first-child, .fields_item td.tr input[type=text]:first-child, .fields_item td.tr select, .input_line {
+    border: solid 1px #ddd;
+    border-radius: 0;
+    box-shadow: 0 0 3px rgba(0, 0, 0, .25);
+}
+
+.fields_item td.tr textarea:first-child {
+    border: none;
+    border-radius: 0;
+    box-shadow: 0 0 3px rgba(0, 0, 0, .25);
+}
+#tongji{
+    border: none;
+    box-shadow: 0 0 6px rgba(0, 0, 0, .25);
+}
+/*
+浼氬憳涓績*/
+.personal2 {
+    border: none;
+    border-radius: 0;
+    box-shadow: 0 0 10px #888;
+}
+
+.per4 {
+    border: 2px solid #99c1f5;
+    border-radius: 0;
+    padding-bottom: 20px;
+}
+
+/*鍒嗛〉*/
+#page a, #page strong, #page span {
+    border: none;
+    border-radius: 0;
+    box-shadow: 0 0 6px rgba(0, 0, 0, .25);
+}
+
+#page .pages_inp {
+    border: none;
+    border-radius: 0;
+    box-shadow: 0 0 6px rgba(0, 0, 0, .25);
+}
+
+#page .pages_btn {
+    border: none;
+    border-radius: 0;
+    box-shadow: 0 0 6px rgba(0, 0, 0, .25);
+}
+
+/*
+璇曠敤澶у巺*/
+
+.rwdt_xx {
+    border-bottom: none;
+    box-shadow: 0 2px 2px rgba(0, 0, 0, .25);
+}
+
+.c3 {
+    border: none;
+    border-radius: 0;
+    box-shadow: 0 0 6px rgba(0, 0, 0, .25);
+}
+
+.c31 {
+    border: 1px solid #d5d5d5;
+    border-radius: 0;
+}
+
+.c4 {
+    border: none;
+    border-radius: 0;
+    box-shadow: 0 0 6px rgba(0, 0, 0, .25);
+}
+
+.c42 {
+    border: none;
+    padding: 0 25px;
+    height: 30px;
+    line-height: 30px;
+    background: #fbfbfb;
+    box-shadow: 0 2px 2px rgba(0, 0, 0, .25);
+}
+
+/*
+璇曠敤涓績*/
+.b2 {
+    box-shadow: 0 2px 2px rgba(0, 0, 0, .25);
+}
+
+.h50 .kwd, .h50 select {
+    border: #99C1F5 1px solid;
+}
+
+.w1024 {
+    border: none;
+    border-radius: 0;
+    box-shadow: 0 0 6px rgba(0, 0, 0, .25);
+}
+
+#taskList .yfrw_list {
+    border: none;
+    border-radius: 0;
+    box-shadow: 0 0 6px rgba(0, 0, 0, .25);
+}
+
+.sc42 {
+    background: #fbfbfb;
+    border: none;
+    box-shadow: 0 2px 2px rgba(0, 0, 0, .25);
+}
+
+.yptask_line {
+    border-top: solid 1px #dcdcdc;
+
+}
+
+.mark .txt {
+    border: #99C1F5 1px solid;
+}
+
+#taskList .sum {
+    border: none;
+    border-radius: 0;
+    box-shadow: 0 0 6px rgba(0, 0, 0, .25);
+}
+
+.piliang {
+    border: none;
+    border-radius: 0;
+    box-shadow: 0 0 6px rgba(0, 0, 0, .25);
+}
+
+/*
+浠ｇ悊鍒嗙珯*/
+.ypagent .agent_side {
+    border: none;
+    border-radius: 0;
+    box-shadow: 0 0 6px rgba(0, 0, 0, .25);
+}
+
+.ypagent .side .side_head {
+    border: none;
+    background: #eaedf4;
+    border-bottom: 1px solid #d5d9e2;
+}
+
+.ypagent .side .side_body ul li {
+    border: none;
+}
+
+#ypcon.ypagent .side .side_body li a:hover {
+    color: #197CFF;
+}
+
+.ypagent .side .side_body .on {
+    background: #f1f5fb;
+    border-left: 3px solid #0082f6;
+}
+
+#ypcon.ypagent .side .side_body .on a {
+    color: #666;
+}
+
+/*鍗曢〉*/
+.arcticle_h {
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: 0 0 6px rgba(0, 0, 0, .25) !important;
+}
