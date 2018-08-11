@@ -42,7 +42,7 @@ class Category extends React.Component {
                         </form>
                     </li>
                     <li className="fr"><a id="active-view">切换视图</a></li>
-                    <li className="fr"><a id="autorefresh" data-hasqtip="366" oldtitle="点击自动刷新" title=""
+                    <li className="fr"><a id="autorefresh" className="tips" data-hasqtip="366" oldtitle="点击自动刷新" title=""
                                       aria-describedby="qtip-366">自动刷新</a></li>
                 </ul>
             </div>
@@ -67,8 +67,8 @@ class Product extends React.Component {
                                 <div className="c41">
                                     <div className="c42">
                                         <span className="addtime">发布时间：{item.add_date}</span>
-                                        <img src="./任务_销量联盟_files/cat_4.png" align="absmiddle" width="16" height="16" data-hasqtip="367" oldtitle={item.platform_name}></img>
-                                        试用编号：{item.product_id}
+                                        <img src={'/dist/img/' + item.platform_icon} align="absmiddle" width="16" height="16" data-hasqtip="367" oldtitle={item.platform_name}></img>
+                                        &nbsp;&nbsp;试用编号：{item.product_id}
                                     </div>
 
                                     <div className="c43">

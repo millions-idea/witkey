@@ -1,3 +1,4 @@
+//"../dist/v2/json/product-categorys/index.json"
 var service = {
     /**
      * 获取商品类目
@@ -5,7 +6,7 @@ var service = {
      * @param callback
      */
     getCategoryList: function (param, callback) {
-        $.request.get("../dist/v2/json/product-categorys/index.json", param, function (data) {
+        $.request.get(request_url + "product-category/web/get", param, function (data) {
             callback(data);
         })
     },
@@ -32,7 +33,8 @@ var service = {
 }
 
 $(function () {
-    set_nav("yptask_my", "on");
+    // 绑定焦点导航元素
+    set_nav("yptask", "on");
 
     // 初始化UI框架
     initLayui();
@@ -60,6 +62,8 @@ $(function () {
                 $orderByButtons.removeClass("act");
                 $orderByButtons.eq(2).addClass("act");
             }
+
+            bindCategoryEvents();
         })
 
     })
@@ -72,7 +76,7 @@ $(function () {
             return;
         }
         ReactDOM.render(<Product list={data.data} />, document.getElementById("product-list"), function () {
-            bindCategoryEvents();
+            bindProductEvents();
 
             var $applyButton = $("a[name='apply']"),
                 $selectApplyButton = $("button[name='apply-icon']");
@@ -82,7 +86,6 @@ $(function () {
                 layer.open({
                     type: 1,
                     title: "请从下面选择一个买号",
-                    skin: 'layui-layer-rim', //加上边框
                     area: ["auto", "auto"], //宽高
                     shadeClose: true,
                     content: $("#apply-html").html()
@@ -103,7 +106,9 @@ $(function () {
     })
 })
 
-
+/**
+ * 初始化layui的组件包
+ */
 function initLayui() {
     layui.use(['laypage', 'layer'], function(){
         var laypage = layui.laypage
@@ -133,7 +138,9 @@ function initLayui() {
     });
 }
 
-
+/**
+ * 页面加载分类完成时绑定的事件
+ */
 function bindCategoryEvents() {
     // 绑定切换视图
     var switch_grid = get_cookie('switch_grid');
@@ -177,10 +184,18 @@ function bindCategoryEvents() {
         }
     })
 
+    // 绑定小弹窗事件
+    bindTipEvent();
+}
 
+/**
+ * 绑定小弹窗事件
+ */
+function bindTipEvent() {
     // 使用要求小弹窗
     var tipsIndex;
     $("*[oldtitle]").hover(function () {
+        if(!$(this).hasClass("tips")  &&  $(this)[0].tagName == "A") return;
         $(this).attr("oldtitle")
         tipsIndex = layer.tips($(this).attr("oldtitle"), $(this), {
             tips: [3, '#000']
@@ -188,4 +203,12 @@ function bindCategoryEvents() {
     },function () {
         layer.close(tipsIndex);
     })
+}
+
+/**
+ * 页面加载商品列表完成时绑定的事件
+ */
+function bindProductEvents() {
+    // 绑定小弹窗事件
+    bindTipEvent();
 }

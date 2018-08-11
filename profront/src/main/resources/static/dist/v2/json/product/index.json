@@ -10,6 +10,7 @@
       "product_category_id": 1,
       "price": 99,
       "return_price": 7.8,
+      "append_return_price": 999,
       "merchant_id": 4,
       "image_url": "https://gd3.alicdn.com/imgextra/i1/394075036/TB2aL7RjBUSMeJjy1zjXXc0dXXa_!!394075036.jpg_400x400.jpg",
       "product_url": "https://item.taobao.com/item.htm?spm=a230r.7195193.1997079397.8.NxHjMh&id=547836688461&abbucket=6",
@@ -27,6 +28,7 @@
       "is_delete": 0,
       "product_name": "时尚字母拼接蕾丝港风长袖",
       "platform_name": "淘宝试用",
+      "platform_icon": "cat_4.png",
       "merchant_name": "mars****max",
       "attributes": [
         {

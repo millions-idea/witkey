@@ -21,4 +21,9 @@ public class ProductController {
     public String index(){
         return "v2/task/index";
     }
+
+    @GetMapping("/publish")
+    public String publish(){
+        return "v2/task/publish";
+    }
 }
