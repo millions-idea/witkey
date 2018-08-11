@@ -251,6 +251,7 @@ public class MemberController {
             }
 
         } catch (Exception e) {
+            e.printStackTrace();
             jsonObject.addProperty(Constants.ERROR, 1);
             jsonObject.addProperty(Constants.MESSAGE, "密码错误!");
         }
@@ -586,7 +587,7 @@ public class MemberController {
     /**
      * 密码管理
      */
-    @ISLogin
+    //@ISLogin
     @RequestMapping(value = "passwordManager")
     public void passwordManager(HttpServletRequest request, HttpServletResponse response,
                                 String new_pass,String old_pass,
@@ -766,7 +767,7 @@ public class MemberController {
     /**
      * 增加保证金
      */
-    @ISLogin
+    //@ISLogin
     @PostMapping(value = "addPermissMoney")
     public void addPermissMoney(HttpServletRequest request, HttpServletResponse response,
                                 Integer memid,Double add_val){
@@ -806,6 +807,10 @@ public class MemberController {
                 Member newMem = memberService.getMember(dbMember);
 
                 jsonObject.addProperty("express",GsonUtils.toJson(newMem));
+
+                Wallets oneByUid = walletsService.selectOneByUid(newMem.getId());
+                //返回钱包最新余额
+                jsonObject.addProperty("wallets",GsonUtils.toJson(oneByUid));
 
                 ResponseUtils.retnSuccessMsg(response,jsonObject,"保证金缴纳成功");
             }else {
