@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<html lang="en" >
 
 <head>
     <meta charset="UTF-8">
@@ -42,7 +42,7 @@
                 $("#gender_man").attr("checked","");
                 $("#gender_woman").attr("checked","");
             }
-            $("#address").html(userresult_json.sheng+userresult_json.shi+userresult_json.xian);
+            $("#address").html(userresult_json.sheng+userresult_json.shi);
             $("#phonenumber").html(userresult_json.mobile);
             $("#qqnumber").html(userresult_json.qq);
             $("#zhifubaonumber").html(userresult_json.alipay);

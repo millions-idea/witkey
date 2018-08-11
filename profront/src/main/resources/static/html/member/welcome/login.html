@@ -92,7 +92,7 @@
                                             sessionStorage.setItem("token",result.token);
                                             sessionStorage.setItem("member",result.express);
 
-                                            localStorage.setItem("member",result.express);
+                                            sessionStorage.setItem("wallets",result.wallets);
 
                                             var userresult_json = eval("("+sessionStorage.getItem("member")+")");
 

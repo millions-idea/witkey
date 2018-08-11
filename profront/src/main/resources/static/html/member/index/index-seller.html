@@ -23,13 +23,22 @@
     <script type="text/javascript" src="../../../dist/js/template7.min.js"></script>
     <script type="text/javascript" src="../../../dist/js/cm.js"></script>
     <script type="text/javascript" src="../../../dist/js/ypfunction.js"></script>
+    <script type="text/javascript" src="../../../dist/js/gjy_serviceurl.js"></script>
 
     <link rel="stylesheet" href="http://001.topaaa.com/file/script/layim/css/layui.css">
     <script src="http://001.topaaa.com/file/script/layim/layui.js"></script>
     <script src="http://001.topaaa.com/file/script/layim/func.js"></script>
+
     <script>
         $(document).ready(function () {
             var userresult_json = eval("("+sessionStorage.getItem("member")+")");
+
+            //金额
+            var wallets = eval("("+sessionStorage.getItem("wallets")+")");
+            if (!isNull(wallets)) {
+                var stateindex_middle_money = wallets.balance+"<span class='per415'>元</span>";
+                $("#index_middle_money").html(stateindex_middle_money);
+            }
 
             var stateindex_top_username = userresult_json.username
                 +"<b></b>";
@@ -42,8 +51,6 @@
             var stateindex_middle_user_result = userresult_json.username+"("+userresult_json.vipmodel+")";
             $("#index_middle_userresult").html(stateindex_middle_user_result);
 
-            var stateindex_middle_money = userresult_json.money+"<span class='per415'>元</span>";
-            $("#index_middle_money").html(stateindex_middle_money);
 
             if(userresult_json.is_real_name == 1){
                 $("#realnameimg").attr("class","suess");
@@ -233,8 +240,8 @@
         </div>
     </div>
 
-    <input id="member_id" type="hidden" th:value="${session.member.id}" />
-    <input id="member_username" type="hidden" th:value="${session.member.username}" />
+    <input id="member_id" type="hidden" />
+    <input id="member_username" type="hidden" />
 
 </div>
 <link rel="stylesheet" href="http://001.topaaa.com/file/script/layim/css/layui.css">

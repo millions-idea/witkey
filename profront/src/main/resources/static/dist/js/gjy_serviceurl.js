@@ -1,4 +1,4 @@
-var request_url = "http://192.168.1.103:8081/";
+var request_url = "http://192.168.169.151:8081/";
 
 var img_prefix_url = "http://192.168.1.103:8081/images/upload/";
 
@@ -64,4 +64,12 @@ function putStorage(key,value){
 }
 function pullStorage(key){
     localStorage.getItem(key);
+}
+
+/**
+ * 是否为空
+ * @param param
+ */
+function isNull(param){
+    return param==undefined || param==null || param=='';
 }
