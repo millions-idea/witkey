@@ -47,7 +47,7 @@
         {
           "text": "会员列表",
           "icon": "&#xe621;",
-          "href": "/member"
+          "href": "/member/list"
         },{
           "text": "会员实名认证",
           "icon": "&#xe621;",
